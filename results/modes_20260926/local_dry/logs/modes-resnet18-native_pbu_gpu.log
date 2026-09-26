@@ -1,0 +1,23 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 14:53:15 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+[Stage 0:>                                                          (0 + 0) / 2]
+
+[Stage 0:>                                                          (0 + 1) / 2]
+
+[Stage 0:>                                                          (0 + 2) / 2]
+
+[Stage 0:=============================>                             (1 + 1) / 2]
+
+[Stage 2:>                                                          (0 + 1) / 4]
+[MODEL_LOAD] app=modes-resnet18-native_pbu_gpu host=ad59867d3a7f pid=1313 device=cuda secs=5.613
+
+[Stage 2:==============>                                            (1 + 1) / 4]
+
+[Stage 2:=============================>                             (2 + 1) / 4]
+
+[Stage 2:============================================>              (3 + 1) / 4]
+
+                                                                                
+RESULT_JSON {"app": "modes-resnet18-native_pbu_gpu", "app_id": "local-1790434397663", "mode": "native_pbu_gpu", "model": "resnet18", "partitions": 4, "batch_size": 64, "samples": 5, "setup_s": 8.92, "start_epoch": 1790434398.6957927, "wall_s": 61.913, "processed": 5, "throughput": 0.1, "end_epoch": 1790434460.6110036}

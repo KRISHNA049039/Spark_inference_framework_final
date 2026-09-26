@@ -1,0 +1,126 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/09/26 17:16:08 WARN Shell: Did not find winutils.exe: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\testing\utils.py:127: FutureWarning: PySpark does not yet fully support pandas >= 3.0.0. Some features may not work correctly. It is recommended to use pandas < 3.0.0 for now.
+  require_minimum_pandas_version()
+26/09/26 17:16:09 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 1) / 4][Executor] host=LAPTOP-OU17PKM2, pid=12056, device=cuda, cuda=True, models_loaded=10, model_load_time=5.78s
+[W926 17:16:45.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4330618880 bytes (free: 3323251918, total: 4294705152).
+[W926 17:16:46.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4330618880 bytes (free: 3325349070, total: 4294705152).
+[W926 17:16:46.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4024434688 bytes (free: 3285503182, total: 4294705152).
+[W926 17:16:46.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4024434688 bytes (free: 3325349070, total: 4294705152).
+[Stage 0:>                                                          (0 + 2) / 4][Stage 0:==============>                                            (1 + 1) / 4][Executor] host=LAPTOP-OU17PKM2, pid=28088, device=cuda, cuda=True, models_loaded=10, model_load_time=6.38s
+[W926 17:17:05.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4330618880 bytes (free: 3323251918, total: 4294705152).
+[W926 17:17:05.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4330618880 bytes (free: 3325349070, total: 4294705152).
+[W926 17:17:05.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4024434688 bytes (free: 3285503182, total: 4294705152).
+[W926 17:17:06.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4024434688 bytes (free: 3325349070, total: 4294705152).
+[Stage 0:=============================>                             (2 + 1) / 4][Executor] host=LAPTOP-OU17PKM2, pid=23816, device=cuda, cuda=True, models_loaded=10, model_load_time=6.39s
+[W926 17:17:26.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4330618880 bytes (free: 3323251918, total: 4294705152).
+[W926 17:17:26.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4330618880 bytes (free: 3325349070, total: 4294705152).
+[W926 17:17:27.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4024434688 bytes (free: 3285503182, total: 4294705152).
+[W926 17:17:27.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4024434688 bytes (free: 3325349070, total: 4294705152).
+[Stage 0:============================================>              (3 + 1) / 4][Executor] host=LAPTOP-OU17PKM2, pid=19056, device=cuda, cuda=True, models_loaded=10, model_load_time=4.64s
+[W926 17:17:45.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4330618880 bytes (free: 3323251918, total: 4294705152).
+[W926 17:17:45.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4330618880 bytes (free: 3325349070, total: 4294705152).
+[W926 17:17:45.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4024434688 bytes (free: 3285503182, total: 4294705152).
+[W926 17:17:45.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 4024434688 bytes (free: 3325349070, total: 4294705152).
+[Stage 0:===========================================================(4 + 0) / 4]                                                                                
+================================================================================
+  SPARK CLUSTER BENCHMARK
+================================================================================
+
+  CONFIGURATION:
+  ─────────────────────────────────────────────────────────────
+  Device Mode     : GPU_ONLY
+  Partitions      : 4
+  Signal Samples  : 3,000 (per model, 128-dim IQ vectors)
+  Image Samples   : 100 (3x224x224 RGB tensors)
+  Detection Imgs  : 30 (3x640x640 RGB tensors)
+  ─────────────────────────────────────────────────────────────
+
+  WHAT THIS MEASURES:
+  ─────────────────────────────────────────────────────────────
+  INPUT:    Synthetic sensor data fed into 10 ML models simultaneously
+  PROCESS:  Spark distributes data chunks to executors across the cluster
+            Each executor loads models → runs batch inference → returns count
+  OUTPUT:   Throughput (samples/sec) = how fast the cluster processes data
+  ─────────────────────────────────────────────────────────────
+
+  [1/4] Loading model registry...
+         Loaded 10 models
+  [2/4] Generating synthetic data...
+         15,360 samples, 483.2 MB
+         Per-partition: ~121 MB
+  [3/4] Connecting to Spark cluster...
+         Master: local[2]
+  [4/4] Running distributed inference (gpu_only mode)...
+
+────────────────────────────────────────────────────────────────────────────────
+  RESULTS — GPU_ONLY MODE
+────────────────────────────────────────────────────────────────────────────────
+
+  THROUGHPUT:
+    Total Samples Processed : 15,360
+    Elapsed Time            : 79.89 seconds
+    ► Throughput            : 192 samples/second
+
+  EXPLANATION:
+    "Throughput" = total samples processed by ALL models across ALL executors
+    divided by wall-clock time. Higher = better cluster utilization.
+
+  PARTITION / TASK DETAIL:
+  ────────────────────────────────────────────────────────────────────────────
+  Part  Executor                            Device Samples  ModelLoad  Inference  Total   
+  ────────────────────────────────────────────────────────────────────────────
+  0     LAPTOP-OU17PKM2                     cuda   3839     5.78       2.10       2.10    
+  1     LAPTOP-OU17PKM2                     cuda   3839     6.38       2.32       2.32    
+  2     LAPTOP-OU17PKM2                     cuda   3839     6.39       2.51       2.51    
+  3     LAPTOP-OU17PKM2                     cuda   3843     4.64       1.76       1.76    
+  ────────────────────────────────────────────────────────────────────────────
+
+  EXECUTOR SUMMARY:
+  ────────────────────────────────────────────────────────────────────────────
+  Executor                            Device Tasks  Samples    ModelLoad  InferTime  Throughput
+  ────────────────────────────────────────────────────────────────────────────
+  LAPTOP-OU17PKM2                     cuda   1      3,839      5.78       2.10       1,825/sec
+  LAPTOP-OU17PKM2                     cuda   1      3,839      6.38       2.32       1,651/sec
+  LAPTOP-OU17PKM2                     cuda   1      3,839      6.39       2.51       1,528/sec
+  LAPTOP-OU17PKM2                     cuda   1      3,843      4.64       1.76       2,185/sec
+  ────────────────────────────────────────────────────────────────────────────
+
+  PER-MODEL SAMPLES PROCESSED:
+  ────────────────────────────────────────
+    anomaly_detector          : 3,000
+    efficientnet_b0           : 100
+    ew_classifier             : 3,000
+    mobilenetv3               : 100
+    resnet18                  : 100
+    rf_fingerprinter          : 3,000
+    signal_denoiser           : 3,000
+    threat_prioritizer        : 3,000
+    yolov8_nano               : 30
+    yolov8_small              : 30
+  ────────────────────────────────────────
+    TOTAL                     : 15,360
+
+  SPARK EXECUTOR METRICS (from REST API):
+  ────────────────────────────────────────────────────────────────────────────
+  ID    Host                                Cores  Tasks  Duration   GC Time  Memory
+  ────────────────────────────────────────────────────────────────────────────
+  ────────────────────────────────────────────────────────────────────────────
+
+  KEY METRICS EXPLAINED:
+  ─────────────────────────────────────────────────────────────
+  ModelLoad  : Time to deserialize 10 model weights onto device (once per executor)
+  Inference  : Time to run forward passes on all data batches
+  Throughput : samples_processed / inference_time (per executor)
+  Partitions : Data split into N chunks, 1 task per chunk
+  Tasks      : Spark units of work, distributed across executors
+  ─────────────────────────────────────────────────────────────
+
+  Results saved: D:\pytorch-spark-inference-platform 1\results\cluster_benchmark_gpu_only_3000_20260926_171750.json
+SUCCESS: The process with PID 32448 (child process of PID 31248) has been terminated.
+SUCCESS: The process with PID 31248 (child process of PID 22288) has been terminated.
+SUCCESS: The process with PID 22288 (child process of PID 22696) has been terminated.

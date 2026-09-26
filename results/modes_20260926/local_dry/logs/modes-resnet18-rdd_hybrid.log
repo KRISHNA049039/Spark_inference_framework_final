@@ -1,0 +1,20 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 14:48:59 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+[Stage 0:>                                                          (0 + 1) / 4]
+[Executor] host=ad59867d3a7f, pid=958, device=cuda, cuda=True, models_loaded=1, model_load_time=15.83s
+
+[Stage 0:>                                                          (0 + 2) / 4]
+
+[Stage 0:==============>                                            (1 + 1) / 4]
+[Executor] host=ad59867d3a7f, pid=958, device=cuda, cuda=True, models_loaded=1, model_load_time=2.66s
+
+[Stage 0:=============================>                             (2 + 1) / 4]
+[Executor] host=ad59867d3a7f, pid=958, device=cuda, cuda=True, models_loaded=1, model_load_time=0.32s
+
+[Stage 0:============================================>              (3 + 1) / 4]
+[Executor] host=ad59867d3a7f, pid=958, device=cuda, cuda=True, models_loaded=1, model_load_time=0.31s
+
+                                                                                
+RESULT_JSON {"app": "modes-resnet18-rdd_hybrid", "app_id": "local-1790434144731", "mode": "rdd_hybrid", "model": "resnet18", "partitions": 4, "batch_size": 64, "samples": 5, "setup_s": 8.23, "start_epoch": 1790434146.2100132, "wall_s": 53.605, "processed": 5, "throughput": 0.1, "end_epoch": 1790434199.8164, "partition_details": [{"partition_idx": 0, "executor_id": "ad59867d3a7f_958", "hostname": "ad59867d3a7f", "device": "cuda", "cuda_available": true, "model_load_time_sec": 15.8272, "inference_time_sec": 6.4211, "total_task_time_sec": 6.4211, "samples_processed": 1, "per_model_processed": {"resnet18": 1}, "batch_size": 64}, {"partition_idx": 1, "executor_id": "ad59867d3a7f_958", "hostname": "ad59867d3a7f", "device": "cuda", "cuda_available": true, "model_load_time_sec": 2.6627, "inference_time_sec": 0.0528, "total_task_time_sec": 0.0528, "samples_processed": 1, "per_model_processed": {"resnet18": 1}, "batch_size": 64}, {"partition_idx": 2, "executor_id": "ad59867d3a7f_958", "hostname": "ad59867d3a7f", "device": "cuda", "cuda_available": true, "model_load_time_sec": 0.3183, "inference_time_sec": 0.0078, "total_task_time_sec": 0.0078, "samples_processed": 1, "per_model_processed": {"resnet18": 1}, "batch_size": 64}, {"partition_idx": 3, "executor_id": "ad59867d3a7f_958", "hostname": "ad59867d3a7f", "device": "cuda", "cuda_available": true, "model_load_time_sec": 0.3135, "inference_time_sec": 0.2313, "total_task_time_sec": 0.2313, "samples_processed": 2, "per_model_processed": {"resnet18": 2}, "batch_size": 64}]}

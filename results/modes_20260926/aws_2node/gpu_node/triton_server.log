@@ -1,0 +1,87 @@
+
+=============================
+== Triton Inference Server ==
+=============================
+
+NVIDIA Release 25.01 (build 136230209)
+Triton Server Version 2.54.0
+
+Copyright (c) 2018-2024, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+I0926 16:02:19.660935 1 pinned_memory_manager.cc:277] "Pinned memory pool is created at '0x799008000000' with size 268435456"
+I0926 16:02:19.662483 1 cuda_memory_manager.cc:107] "CUDA memory pool is created on device 0 with size 67108864"
+I0926 16:02:19.667575 1 model_lifecycle.cc:473] "loading: ew_classifier:1"
+I0926 16:02:19.667624 1 model_lifecycle.cc:473] "loading: resnet18:1"
+I0926 16:02:24.238667 1 libtorch.cc:2501] "TRITONBACKEND_Initialize: pytorch"
+I0926 16:02:24.238698 1 libtorch.cc:2511] "Triton TRITONBACKEND API version: 1.19"
+I0926 16:02:24.238704 1 libtorch.cc:2517] "'pytorch' TRITONBACKEND API version: 1.19"
+I0926 16:02:24.241367 1 libtorch.cc:2550] "TRITONBACKEND_ModelInitialize: resnet18 (version 1)"
+I0926 16:02:24.241615 1 libtorch.cc:2550] "TRITONBACKEND_ModelInitialize: ew_classifier (version 1)"
+W0926 16:02:24.242073 1 libtorch.cc:329] "skipping model configuration auto-complete for 'resnet18': not supported for pytorch backend"
+W0926 16:02:24.242100 1 libtorch.cc:329] "skipping model configuration auto-complete for 'ew_classifier': not supported for pytorch backend"
+I0926 16:02:24.242636 1 libtorch.cc:358] "Optimized execution is enabled for model instance 'ew_classifier'"
+I0926 16:02:24.242652 1 libtorch.cc:377] "Cache Cleaning is disabled for model instance 'ew_classifier'"
+I0926 16:02:24.242658 1 libtorch.cc:394] "Inference Mode is enabled for model instance 'ew_classifier'"
+I0926 16:02:24.242637 1 libtorch.cc:358] "Optimized execution is enabled for model instance 'resnet18'"
+I0926 16:02:24.242663 1 libtorch.cc:413] "cuDNN is enabled for model instance 'ew_classifier'"
+I0926 16:02:24.242675 1 libtorch.cc:377] "Cache Cleaning is disabled for model instance 'resnet18'"
+I0926 16:02:24.242695 1 libtorch.cc:394] "Inference Mode is enabled for model instance 'resnet18'"
+I0926 16:02:24.242708 1 libtorch.cc:413] "cuDNN is enabled for model instance 'resnet18'"
+I0926 16:02:24.242816 1 libtorch.cc:2594] "TRITONBACKEND_ModelInstanceInitialize: ew_classifier_0_0 (GPU device 0)"
+I0926 16:02:24.242829 1 libtorch.cc:2594] "TRITONBACKEND_ModelInstanceInitialize: resnet18_0_0 (GPU device 0)"
+I0926 16:02:24.298970 1 libtorch.cc:2594] "TRITONBACKEND_ModelInstanceInitialize: ew_classifier_0_1 (GPU device 0)"
+I0926 16:02:24.311965 1 model_lifecycle.cc:849] "successfully loaded 'ew_classifier'"
+I0926 16:02:24.541673 1 libtorch.cc:2594] "TRITONBACKEND_ModelInstanceInitialize: resnet18_0_1 (GPU device 0)"
+I0926 16:02:24.683152 1 model_lifecycle.cc:849] "successfully loaded 'resnet18'"
+I0926 16:02:24.683221 1 server.cc:604] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I0926 16:02:24.683278 1 server.cc:631] 
++---------+---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend | Path                                                    | Config                                                                                                                                                        |
++---------+---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| pytorch | /opt/tritonserver/backends/pytorch/libtriton_pytorch.so | {"cmdline":{"auto-complete-config":"true","backend-directory":"/opt/tritonserver/backends","min-compute-capability":"6.000000","default-max-batch-size":"4"}} |
++---------+---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I0926 16:02:24.683336 1 server.cc:674] 
++---------------+---------+--------+
+| Model         | Version | Status |
++---------------+---------+--------+
+| ew_classifier | 1       | READY  |
+| resnet18      | 1       | READY  |
++---------------+---------+--------+
+
+I0926 16:02:25.122485 1 metrics.cc:890] "Collecting metrics for GPU 0: Tesla T4"
+I0926 16:02:25.130226 1 metrics.cc:783] "Collecting CPU metrics"
+I0926 16:02:25.130372 1 tritonserver.cc:2598] 
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                                           |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                                          |
+| server_version                   | 2.54.0                                                                                                                                                                                                          |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data parameters statistics trace logging |
+| model_repository_path[0]         | /models                                                                                                                                                                                                         |
+| model_control_mode               | MODE_NONE                                                                                                                                                                                                       |
+| strict_model_config              | 0                                                                                                                                                                                                               |
+| model_config_name                |                                                                                                                                                                                                                 |
+| rate_limit                       | OFF                                                                                                                                                                                                             |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                                                       |
+| cuda_memory_pool_byte_size{0}    | 67108864                                                                                                                                                                                                        |
+| min_supported_compute_capability | 6.0                                                                                                                                                                                                             |
+| strict_readiness                 | 1                                                                                                                                                                                                               |
+| exit_timeout                     | 30                                                                                                                                                                                                              |
+| cache_enabled                    | 0                                                                                                                                                                                                               |
++----------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I0926 16:02:25.131942 1 grpc_server.cc:2558] "Started GRPCInferenceService at 0.0.0.0:8001"
+I0926 16:02:25.132172 1 http_server.cc:4725] "Started HTTPService at 0.0.0.0:8000"
+I0926 16:02:25.173186 1 http_server.cc:358] "Started Metrics Service at 0.0.0.0:8002"

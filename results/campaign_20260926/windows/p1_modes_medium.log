@@ -1,0 +1,117 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/09/26 16:37:48 WARN Shell: Did not find winutils.exe: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\testing\utils.py:127: FutureWarning: PySpark does not yet fully support pandas >= 3.0.0. Some features may not work correctly. It is recommended to use pandas < 3.0.0 for now.
+  require_minimum_pandas_version()
+26/09/26 16:37:51 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Traceback (most recent call last):
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\serialization.py", line 1003, in save
+    _save(
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\serialization.py", line 1312, in _save
+    zip_file.write_record(name, storage, num_bytes)
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pytorch-spark-inference-platform 1\benchmark\run_benchmark.py", line 88, in run_mode_distributed
+    result = run_distributed_gpu_inference(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\pytorch-spark-inference-platform 1\inference\distributed_gpu.py", line 269, in run_distributed_gpu_inference
+    model_bytes_map[name] = _serialize_model(model)
+                            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\pytorch-spark-inference-platform 1\inference\distributed_gpu.py", line 91, in _serialize_model
+    torch.save(model.state_dict(), buf)
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\serialization.py", line 1002, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\serialization.py", line 854, in __exit__
+    self.file_like.write_end_of_file()
+RuntimeError: [enforce fail at inline_container.cc:672] . unexpected pos 16309184 vs 16309080
+
+======================================================================
+  MULTI-MODEL DISTRIBUTED INFERENCE BENCHMARK
+======================================================================
+
+  System: Windows-11-10.0.26200-SP0
+  Python: 3.12.10 | PyTorch: 2.14.0+cu126
+  GPU: NVIDIA GeForce GTX 1650 | CUDA: True
+  Signals: 5000 | Images: 50 | Detections: 10
+
+  [SETUP] Loading model registry...
+
+============================================================
+  MODEL REGISTRY — 10 models
+============================================================
+Name                      Category        Memory (MB)  Input Shape
+------------------------- --------------- ------------ --------------------
+ew_classifier             signal          50           (128,)
+signal_denoiser           signal          100          (128,)
+threat_prioritizer        signal          350          (128,)
+rf_fingerprinter          signal          120          (128,)
+anomaly_detector          signal          100          (128,)
+resnet18                  image_classification 300          (3, 224, 224)
+mobilenetv3               image_classification 150          (3, 224, 224)
+efficientnet_b0           image_classification 200          (3, 224, 224)
+yolov8_nano               object_detection 200          (3, 640, 640)
+yolov8_small              object_detection 400          (3, 640, 640)
+
+  Total estimated GPU memory: 1970 MB (1.9 GB)
+
+  [SETUP] Instantiating models...
+    Loaded 10 models
+
+  [SETUP] Generating synthetic data...
+    Total data: 201.4 MB
+
+  [MODE 2] Single GPU — CUDA Streams...
+    Throughput: 19,609 total samples/sec
+    Time: 1.28s
+
+  [MODE 3] Hybrid CPU+GPU — Memory-Aware Split...
+
+============================================================
+  GPU MEMORY MANAGER — 1 GPU(s) detected
+============================================================
+
+  GPU 0: 4096 MB total, 1626 MB free, 60.3% used
+    └─ yolov8_small: 400 MB
+    └─ yolov8_nano: 200 MB
+    └─ resnet18: 300 MB
+    └─ efficientnet_b0: 200 MB
+    └─ mobilenetv3: 150 MB
+    └─ threat_prioritizer: 350 MB
+    └─ ew_classifier: 50 MB
+    └─ rf_fingerprinter: 120 MB
+    └─ signal_denoiser: 100 MB
+    └─ anomaly_detector: 100 MB
+
+  Summary: 10 on GPU (1970 MB), 0 on CPU (0 MB)
+    Throughput: 6,765 total samples/sec
+    GPU models: ['ew_classifier', 'signal_denoiser', 'threat_prioritizer', 'rf_fingerprinter', 'anomaly_detector', 'resnet18', 'mobilenetv3', 'efficientnet_b0', 'yolov8_nano', 'yolov8_small']
+    CPU models: []
+    Time: 3.72s
+
+  [MODE 1] Distributed GPU — Spark RDD...
+    Spark master: local[2]
+    [ERROR] Spark mode failed: [enforce fail at inline_container.cc:672] . unexpected pos 16309184 vs 16309080
+
+======================================================================
+  SAVING RESULTS
+======================================================================
+  Report: D:\pytorch-spark-inference-platform 1\results\report_windows_p1_modes_medium_all_sig5000_img50_det10_p4_20260926_163802.md
+  Raw data: D:\pytorch-spark-inference-platform 1\results\results_windows_p1_modes_medium_all_sig5000_img50_det10_p4_20260926_163802.json
+
+  Files saved:
+    D:\pytorch-spark-inference-platform 1\results\report_windows_p1_modes_medium_all_sig5000_img50_det10_p4_20260926_163802.md
+    D:\pytorch-spark-inference-platform 1\results\results_windows_p1_modes_medium_all_sig5000_img50_det10_p4_20260926_163802.json
+    D:\pytorch-spark-inference-platform 1\results\metrics_report_latest.md (latest)
+    D:\pytorch-spark-inference-platform 1\results\raw_results_latest.json (latest)
+
+  Total time: 51.1s
+
+SUCCESS: The process with PID 25860 (child process of PID 12724) has been terminated.
+SUCCESS: The process with PID 12724 (child process of PID 19560) has been terminated.
+SUCCESS: The process with PID 19560 (child process of PID 24304) has been terminated.

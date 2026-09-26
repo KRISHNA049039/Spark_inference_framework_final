@@ -1,0 +1,4251 @@
+{
+ "root": "D:\\pytorch-spark-inference-platform 1",
+ "files": [
+  {
+   "path": "Dockerfile.worker",
+   "lines": 127,
+   "category": "deployment",
+   "ext": ".worker",
+   "doc": "Spark Worker with PyTorch + CUDA \u2014 for cluster mode with GPU support"
+  },
+  {
+   "path": "requirements.txt",
+   "lines": 23,
+   "category": "other",
+   "ext": ".txt",
+   "doc": "torchvision intentionally NOT pinned here \u2014 deploy/Dockerfile installs"
+  },
+  {
+   "path": "submit_job.py",
+   "lines": 110,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "BYOM submit CLI \u2014 run any registered (built-in or plugin) model as a distributed Spark inference job across CPU/GPU workers.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "_write_results",
+     "line": 26,
+     "end": 44,
+     "sig": "(model_name: str, summary: dict, results_dir: str = 'results') -> str",
+     "doc": "Writes the run summary to results/<model>_<timestamp>.json (creating the directory if needed) and, if ARTIFACTS_BUCKET is set (present on the AWS cluster nodes' bootstrap env, absent locally), also uploads it to s3://$ARTIFACTS_BUCKET/results/ so deploy/aws-cdk/pull_results.ps1 can sync it back to a local machine.",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 47,
+     "end": 106,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--model"
+     ],
+     "line": 49,
+     "required": "True",
+     "help": "Registered model name (built-in or plugin)"
+    },
+    {
+     "opts": [
+      "--input"
+     ],
+     "line": 50,
+     "default": "None",
+     "help": ".npy file, shape (N, *input_shape), dtype float32"
+    },
+    {
+     "opts": [
+      "--samples"
+     ],
+     "line": 51,
+     "type": "int",
+     "default": "None",
+     "help": "If --input is omitted, generate this many random samples instead"
+    },
+    {
+     "opts": [
+      "--mode"
+     ],
+     "line": 53,
+     "default": "'hybrid'",
+     "choices": "['cpu_only', 'gpu_only', 'hybrid']"
+    },
+    {
+     "opts": [
+      "--partitions"
+     ],
+     "line": 54,
+     "type": "int",
+     "default": "4"
+    },
+    {
+     "opts": [
+      "--batch-size"
+     ],
+     "line": 55,
+     "type": "int",
+     "default": "256"
+    },
+    {
+     "opts": [
+      "--master"
+     ],
+     "line": 56,
+     "default": "None",
+     "help": "Spark master URL override (default: env or local[4])"
+    },
+    {
+     "opts": [
+      "--engine"
+     ],
+     "line": 57,
+     "default": "'rdd'",
+     "choices": "['rdd', 'udf']",
+     "help": "rdd (default, unchanged): cluster_engine.py's mapPartitions path. udf: Pandas-UDF path (docs/CONCURRENCY_AND_UDF_ENHANCEMENTS.md \u00a71) \u2014 opt-in, only affects this run, no other behavior changes."
+    }
+   ],
+   "env": [
+    {
+     "name": "ARTIFACTS_BUCKET",
+     "line": 39
+    }
+   ],
+   "imports": [
+    "models",
+    "models.plugin_loader",
+    "inference.cluster_engine"
+   ]
+  },
+  {
+   "path": "submit_pipeline_job.py",
+   "lines": 202,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Pipeline submit CLI \u2014 run a \"pipeline\" style plugin (multi-model, file/text input and output, e.g. the NER+translation pipeline) as a distributed Spark job. Sibling to submit_job.py, which is for single-tensor-model plugins.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "_load_manifest",
+     "line": 25,
+     "end": 27,
+     "sig": "(path: str = MANIFEST_PATH) -> dict",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_host_resolvable",
+     "line": 30,
+     "end": 61,
+     "sig": "(spark_url: str, timeout: float = 1.0) -> bool",
+     "doc": "Best-effort check that a spark://host:port URL's host actually resolves. Lets us default to a pipeline's own dedicated cluster (manifest \"master_url\") only when we're really running inside that cluster's Docker network, and fall back to local[4] everywhere else (bare local dev, a shell on the host, the shared cluster's containers) without the job just failing to connect.",
+     "nested": []
+    },
+    {
+     "name": "_resolve_master_url",
+     "line": 64,
+     "end": 79,
+     "sig": "(cli_master: str | None, manifest_entry: dict) -> str | None",
+     "doc": "Precedence: explicit --master > SPARK_MASTER_URL/SPARK_MASTER env var (create_cluster_session's own fallback \u2014 respected here so it still wins, matching how the shared cluster's docs already pass it via `docker exec ... bash -c \"SPARK_MASTER_URL=... python ...\"`) > this pipeline's own dedicated cluster (manifest \"master_url\"), but only if that host actually resolves > local[4].",
+     "nested": []
+    },
+    {
+     "name": "_collect_files",
+     "line": 82,
+     "end": 90,
+     "sig": "(input_path: str)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 93,
+     "end": 198,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--pipeline"
+     ],
+     "line": 95,
+     "required": "True",
+     "help": "Registered pipeline name (models/pipelines/manifest.json)"
+    },
+    {
+     "opts": [
+      "--input"
+     ],
+     "line": 96,
+     "required": "True",
+     "help": "File, directory, or glob of input documents"
+    },
+    {
+     "opts": [
+      "--partitions"
+     ],
+     "line": 97,
+     "type": "int",
+     "default": "2"
+    },
+    {
+     "opts": [
+      "--mode"
+     ],
+     "line": 98,
+     "default": "'hybrid'",
+     "choices": "['cpu_only', 'gpu_only', 'hybrid']",
+     "help": "Informational only today - pipeline plugins pick their own device internally"
+    },
+    {
+     "opts": [
+      "--master"
+     ],
+     "line": 100,
+     "default": "None",
+     "help": "Spark master URL override (default: this pipeline's manifest master_url if set, else env var, else local[4])"
+    },
+    {
+     "opts": [
+      "--driver-memory"
+     ],
+     "line": 103,
+     "default": "'6g'",
+     "help": "Spark driver JVM heap (default 6g, sized for a real cluster node \u2014 lower this on a small/shared instance, e.g. a single g4dn.xlarge running master+worker+kitchen together, where the default can starve the JVM gateway during SparkContext init)"
+    },
+    {
+     "opts": [
+      "--executor-memory"
+     ],
+     "line": 108,
+     "default": "'4g'",
+     "help": "Spark executor JVM heap (default 4g, see --driver-memory)"
+    },
+    {
+     "opts": [
+      "--execution-mode"
+     ],
+     "line": 110,
+     "default": "'auto'",
+     "choices": "['auto', 'service', 'cluster']",
+     "help": "How to run this pipeline. 'service': force the HTTP waiter/kitchen path (docs/MODEL_CONTAINER_ISOLATION.md Option B) \u2014 needs the pipeline's manifest service_url actually reachable; errors out if not. 'cluster': force in-process execution (Option A) on whatever Spark cluster --master points at \u2014 every executor on that cluster needs this pipeline's own deps installed (torch/transformers/etc., see models/pipelines/<name>/requirements.txt), not just the driver. 'auto' (default): unchanged existing behavior \u2014 use the service if its host resolves from wherever this process runs, else in-process. Explicit modes exist because 'auto' silently depends on network topology (which container you happen to run this from), not on which Spark cluster --master actually points at \u2014 pick 'cluster' explicitly to run a pipeline on a bigger/different cluster than its manifest's own dedicated one, regardless of whether the kitchen server also happens to be reachable from there."
+    }
+   ],
+   "env": [
+    {
+     "name": "SPARK_MASTER_URL",
+     "line": 74
+    },
+    {
+     "name": "SPARK_MASTER",
+     "line": 74
+    }
+   ],
+   "imports": [
+    "inference.cluster_engine",
+    "inference.text_pipeline_engine"
+   ]
+  },
+  {
+   "path": "benchmark/__init__.py",
+   "lines": 1,
+   "category": "benchmark",
+   "ext": ".py",
+   "doc": "",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "benchmark/analyze_modes_stats.py",
+   "lines": 367,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "analyze_modes_stats.py - Turn the output of spark_modes_stats.py (event logs, executor stdout/stderr, Triton metrics, GPU/CPU monitors) into statistics at every level Spark has: application, job, stage, executor/worker, task.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "load_results",
+     "line": 24,
+     "end": 31,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "parse_eventlog",
+     "line": 35,
+     "end": 95,
+     "sig": "(path)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "executor_logs",
+     "line": 103,
+     "end": 120,
+     "sig": "(app_id)",
+     "doc": "Scan worker work dirs (both nodes) for this application's executor logs.",
+     "nested": []
+    },
+    {
+     "name": "driver_log_loads",
+     "line": 123,
+     "end": 135,
+     "sig": "(app)",
+     "doc": "local[N] runs: executor output lands in the driver log.",
+     "nested": []
+    },
+    {
+     "name": "prom",
+     "line": 139,
+     "end": 150,
+     "sig": "(path)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "triton_delta",
+     "line": 153,
+     "end": 168,
+     "sig": "(rec)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "load_dmon",
+     "line": 171,
+     "end": 194,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "window_stats",
+     "line": 197,
+     "end": 201,
+     "sig": "(rows, t0, t1, key)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "stage_kind",
+     "line": 204,
+     "end": 209,
+     "sig": "(s)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "gantt",
+     "line": 213,
+     "end": 277,
+     "sig": "(app, out_png, title)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 281,
+     "end": 363,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "benchmark/build_concepts_docx.js",
+   "lines": 585,
+   "category": "tooling",
+   "ext": ".js",
+   "doc": "build_concepts_docx.js - Concepts handbook (Word) companion to"
+  },
+  {
+   "path": "benchmark/build_lowlevel_pdf.py",
+   "lines": 1035,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "build_lowlevel_pdf.py - Build docs/LOWLEVEL_EXECUTION_GUIDE_20260926.pdf from the campaign outputs: results/campaign_<stamp>/{windows,wsl2_docker,aws_g4dn}/...",
+   "classes": [],
+   "functions": [
+    {
+     "name": "P",
+     "line": 82,
+     "end": 83,
+     "sig": "(t, st = 'p')",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "esc",
+     "line": 86,
+     "end": 87,
+     "sig": "(t)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "code",
+     "line": 90,
+     "end": 103,
+     "sig": "(text, max_lines = 80, width = 118)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "table",
+     "line": 106,
+     "end": 128,
+     "sig": "(rows, widths, header = True, mono_cols = (), zebra = True, font_size = None)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "load_json",
+     "line": 132,
+     "end": 136,
+     "sig": "(p)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "g",
+     "line": 144,
+     "end": 151,
+     "sig": "(leg, *path, default = None)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "logs_for",
+     "line": 154,
+     "end": 161,
+     "sig": "(leg)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "read",
+     "line": 167,
+     "end": 171,
+     "sig": "(p, default = '')",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "first_leg_with",
+     "line": 174,
+     "end": 178,
+     "sig": "(*path)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "annotate",
+     "line": 250,
+     "end": 256,
+     "sig": "(lines, doc, key = lambda l: l)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "sass_mnemonic",
+     "line": 259,
+     "end": 261,
+     "sig": "(line)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "bar_chart",
+     "line": 265,
+     "end": 300,
+     "sig": "(categories, series, names, title, ylab, width = 170, height = 62, fmt = '%.1f', colorlist = None)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "stack_diagram",
+     "line": 303,
+     "end": 328,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "occupancy",
+     "line": 332,
+     "end": 340,
+     "sig": "(regs, threads, smem, regs_sm = 65536, max_warps = 32, max_blocks = 16, smem_sm = 65536)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "demangle",
+     "line": 343,
+     "end": 361,
+     "sig": "(name)",
+     "doc": "Readable form of an Itanium-mangled CUDA kernel name (Windows CUPTI reports them mangled): _ZN2at6native29vectorized_elementwise_kernelILi4E... -> at::native::vectorized_elementwise_kernel<4, ...>.",
+     "nested": []
+    },
+    {
+     "name": "fmt_dims",
+     "line": 364,
+     "end": 368,
+     "sig": "(v)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "f2",
+     "line": 371,
+     "end": 377,
+     "sig": "(v, spec = '.1f', unit = '')",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "dims",
+     "line": 380,
+     "end": 384,
+     "sig": "(v)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "val",
+     "line": 929,
+     "end": 933,
+     "sig": "(leg, t, key = 'Spark distributed')",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "on_page",
+     "line": 1019,
+     "end": 1027,
+     "sig": "(canv, doc)",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "benchmark/build_modes_docx.js",
+   "lines": 155,
+   "category": "tooling",
+   "ext": ".js",
+   "doc": "build_modes_docx.js - \"Spark distributed inference: execution modes, worker-level"
+  },
+  {
+   "path": "benchmark/capture_spark_stats.py",
+   "lines": 148,
+   "category": "benchmark",
+   "ext": ".py",
+   "doc": "Capture Spark UI statistics and save to JSON.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "fetch_json",
+     "line": 25,
+     "end": 32,
+     "sig": "(url)",
+     "doc": "Fetch JSON from Spark REST API.",
+     "nested": []
+    },
+    {
+     "name": "capture_all",
+     "line": 35,
+     "end": 144,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "benchmark/cluster_benchmark.py",
+   "lines": 345,
+   "category": "benchmark",
+   "ext": ".py",
+   "doc": "Cluster Benchmark CLI \u2014 Run distributed inference tests from command line.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "print_header",
+     "line": 49,
+     "end": 70,
+     "sig": "(device_mode, partitions, signal_samples, image_samples, detection_samples)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "print_results",
+     "line": 73,
+     "end": 167,
+     "sig": "(result)",
+     "doc": "Print detailed results with explanations.",
+     "nested": []
+    },
+    {
+     "name": "run_single_test",
+     "line": 170,
+     "end": 224,
+     "sig": "(args)",
+     "doc": "Run a single benchmark with given parameters.",
+     "nested": []
+    },
+    {
+     "name": "run_incremental",
+     "line": 227,
+     "end": 298,
+     "sig": "(args)",
+     "doc": "Run incremental tests across all 3 modes with increasing load.",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 301,
+     "end": 341,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--device-mode"
+     ],
+     "line": 320,
+     "choices": "['gpu_only', 'cpu_only', 'hybrid']",
+     "default": "'hybrid'",
+     "help": "Cluster device mode: gpu_only, cpu_only, or hybrid"
+    },
+    {
+     "opts": [
+      "--partitions"
+     ],
+     "line": 323,
+     "type": "int",
+     "default": "2",
+     "help": "Number of data partitions (= number of tasks)"
+    },
+    {
+     "opts": [
+      "--signal-samples"
+     ],
+     "line": 325,
+     "type": "int",
+     "default": "5000",
+     "help": "Signal samples per model (128-dim IQ vectors)"
+    },
+    {
+     "opts": [
+      "--image-samples"
+     ],
+     "line": 327,
+     "type": "int",
+     "default": "200",
+     "help": "Image classification samples (3x224x224)"
+    },
+    {
+     "opts": [
+      "--detection-samples"
+     ],
+     "line": 329,
+     "type": "int",
+     "default": "50",
+     "help": "Object detection samples (3x640x640)"
+    },
+    {
+     "opts": [
+      "--batch-size"
+     ],
+     "line": 331,
+     "type": "int",
+     "default": "256",
+     "help": "Batch size for inference"
+    },
+    {
+     "opts": [
+      "--incremental"
+     ],
+     "line": 333,
+     "action": "'store_true'",
+     "help": "Run all 3 modes with increasing load (ignores other params)"
+    }
+   ],
+   "env": [],
+   "imports": [
+    "models",
+    "data.image_generator",
+    "inference.cluster_engine"
+   ]
+  },
+  {
+   "path": "benchmark/incremental_load_test.py",
+   "lines": 173,
+   "category": "benchmark",
+   "ext": ".py",
+   "doc": "Incremental Load Test \u2014 Scales data size and observes Spark distribution.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "run_incremental_test",
+     "line": 29,
+     "end": 169,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": [
+    "models",
+    "data.image_generator",
+    "inference.distributed_gpu"
+   ]
+  },
+  {
+   "path": "benchmark/lowlevel_trace.py",
+   "lines": 628,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "lowlevel_trace.py - Show what this platform does at the hardware / wire level.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "banner",
+     "line": 52,
+     "end": 55,
+     "sig": "(title)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "hexdump",
+     "line": 58,
+     "end": 66,
+     "sig": "(b, width = 16, limit = 128)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "sh",
+     "line": 69,
+     "end": 75,
+     "sig": "(cmd, env = None, timeout = 300)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "cuda_time",
+     "line": 78,
+     "end": 88,
+     "sig": "(fn, iters = 20, warmup = 3)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "section_cpu",
+     "line": 92,
+     "end": 144,
+     "sig": "(out)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "fbits",
+     "line": 148,
+     "end": 151,
+     "sig": "(x)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "section_bits",
+     "line": 154,
+     "end": 186,
+     "sig": "(out)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "nvsmi",
+     "line": 190,
+     "end": 192,
+     "sig": "(q)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "section_gpu",
+     "line": 195,
+     "end": 243,
+     "sig": "(out)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "section_bus",
+     "line": 247,
+     "end": 309,
+     "sig": "(out)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "section_kernels",
+     "line": 313,
+     "end": 387,
+     "sig": "(out)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "section_sass",
+     "line": 391,
+     "end": 470,
+     "sig": "(out)",
+     "doc": "",
+     "nested": [
+      {
+       "name": "bias_relu",
+       "line": 405
+      }
+     ]
+    },
+    {
+     "name": "section_spark",
+     "line": 474,
+     "end": 597,
+     "sig": "(out)",
+     "doc": "",
+     "nested": [
+      {
+       "name": "probe",
+       "line": 507
+      },
+      {
+       "name": "times2",
+       "line": 563
+      }
+     ]
+    },
+    {
+     "name": "main",
+     "line": 604,
+     "end": 624,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--out"
+     ],
+     "line": 606,
+     "default": "'results/lowlevel'"
+    },
+    {
+     "opts": [
+      "--sections"
+     ],
+     "line": 607,
+     "default": "','.join(SECTIONS)"
+    }
+   ],
+   "env": [
+    {
+     "name": "SPARK_MASTER_URL",
+     "line": 479
+    }
+   ],
+   "imports": []
+  },
+  {
+   "path": "benchmark/modes_charts.py",
+   "lines": 78,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "modes_charts.py - bar charts for the execution-modes document, from modes_summary.json (benchmark/analyze_modes_stats.py).",
+   "classes": [],
+   "functions": [
+    {
+     "name": "fam",
+     "line": 19,
+     "end": 20,
+     "sig": "(mode)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "hbar",
+     "line": 23,
+     "end": 49,
+     "sig": "(rows, title, unit, path, fmt = '{:,.0f}', note = '')",
+     "doc": "rows: [(label, value, color)]",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 52,
+     "end": 74,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "benchmark/modes_doc_text.js",
+   "lines": 325,
+   "category": "tooling",
+   "ext": ".js",
+   "doc": "modes_doc_text.js - narrative of the execution-modes / Triton document."
+  },
+  {
+   "path": "benchmark/modes_doc_text_interim.js",
+   "lines": 228,
+   "category": "tooling",
+   "ext": ".js",
+   "doc": "modes_doc_text_interim.js - document text built from the data available"
+  },
+  {
+   "path": "benchmark/modes_from_campaign.py",
+   "lines": 83,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "modes_from_campaign.py - re-shape the single-node AWS campaign run (results/campaign_20260926/aws_g4dn: master + GPU-worker containers on one g4dn.xlarge) into the layout analyze_modes_stats.py expects, so its Spark event logs and executor logs get the same worker / task statistics as the 2-node modes run.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "main",
+     "line": 41,
+     "end": 79,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "benchmark/quick_compare.py",
+   "lines": 226,
+   "category": "benchmark",
+   "ext": ".py",
+   "doc": "Quick 3-Mode Comparison \u2014 Minimal load, captures stats fast.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "get_system_info",
+     "line": 34,
+     "end": 43,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "capture_spark_ui",
+     "line": 46,
+     "end": 71,
+     "sig": "()",
+     "doc": "Capture whatever is available from Spark UI.",
+     "nested": []
+    },
+    {
+     "name": "run_distributed_mode",
+     "line": 74,
+     "end": 87,
+     "sig": "(spark, data, models, model_classes, device_mode)",
+     "doc": "Run distributed inference with specified device mode.",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 90,
+     "end": 222,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [
+    {
+     "name": "FORCE_DEVICE",
+     "line": 149
+    },
+    {
+     "name": "FORCE_DEVICE",
+     "line": 151
+    }
+   ],
+   "imports": []
+  },
+  {
+   "path": "benchmark/run_all_cpu_tests.ps1",
+   "lines": 151,
+   "category": "benchmark",
+   "ext": ".ps1",
+   "doc": "run_all_cpu_tests.ps1 - Complete CPU Test Matrix"
+  },
+  {
+   "path": "benchmark/run_benchmark.py",
+   "lines": 412,
+   "category": "benchmark",
+   "ext": ".py",
+   "doc": "Unified Benchmark Runner \u2014 All Models \u00d7 All Modes \u00d7 Metrics",
+   "classes": [],
+   "functions": [
+    {
+     "name": "get_system_info",
+     "line": 37,
+     "end": 53,
+     "sig": "() -> dict",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "run_mode_single_gpu",
+     "line": 56,
+     "end": 62,
+     "sig": "(models, data, batch_size = 256) -> dict",
+     "doc": "Run Mode 2: Single GPU with all models in parallel.",
+     "nested": []
+    },
+    {
+     "name": "run_mode_hybrid",
+     "line": 65,
+     "end": 76,
+     "sig": "(models, registry, data, batch_size = 256) -> dict",
+     "doc": "Run Mode 3: Hybrid CPU+GPU.",
+     "nested": []
+    },
+    {
+     "name": "run_mode_distributed",
+     "line": 79,
+     "end": 210,
+     "sig": "(models, model_classes, data, num_partitions = 4, batch_size = 256) -> dict",
+     "doc": "Run Mode 1: Distributed GPU via Spark.",
+     "nested": []
+    },
+    {
+     "name": "generate_report",
+     "line": 213,
+     "end": 285,
+     "sig": "(results: dict, sys_info: dict) -> str",
+     "doc": "Generate markdown metrics report.",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 288,
+     "end": 408,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--mode"
+     ],
+     "line": 290,
+     "choices": "['all', 'single_gpu', 'hybrid', 'distributed']",
+     "default": "'all'",
+     "help": "Which inference mode to benchmark"
+    },
+    {
+     "opts": [
+      "--signal-samples"
+     ],
+     "line": 292,
+     "type": "int",
+     "default": "5000",
+     "help": "Number of signal samples per model"
+    },
+    {
+     "opts": [
+      "--image-samples"
+     ],
+     "line": 294,
+     "type": "int",
+     "default": "200",
+     "help": "Number of image samples (224x224)"
+    },
+    {
+     "opts": [
+      "--detection-samples"
+     ],
+     "line": 296,
+     "type": "int",
+     "default": "50",
+     "help": "Number of detection images (640x640)"
+    },
+    {
+     "opts": [
+      "--batch-size"
+     ],
+     "line": 298,
+     "type": "int",
+     "default": "256",
+     "help": "Batch size for inference"
+    },
+    {
+     "opts": [
+      "--partitions"
+     ],
+     "line": 300,
+     "type": "int",
+     "default": "2",
+     "help": "Spark partitions for distributed mode"
+    }
+   ],
+   "env": [
+    {
+     "name": "RUN_NAME",
+     "line": 374
+    }
+   ],
+   "imports": [
+    "models",
+    "data.image_generator",
+    "inference.single_gpu",
+    "inference.hybrid_cpu_gpu"
+   ]
+  },
+  {
+   "path": "benchmark/run_campaign.sh",
+   "lines": 95,
+   "category": "tooling",
+   "ext": ".sh",
+   "doc": "!/usr/bin/env bash"
+  },
+  {
+   "path": "benchmark/spark_modes_stats.py",
+   "lines": 263,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "spark_modes_stats.py - Run every inference execution mode of the platform on a real multi-worker Spark cluster, one Spark application per mode, and record what's needed for worker / executor / job / stage / task level statistics.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "triton_metrics",
+     "line": 57,
+     "end": 61,
+     "sig": "(host)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "build_input_df",
+     "line": 64,
+     "end": 71,
+     "sig": "(spark, arr, partitions)",
+     "doc": "Same construction as cluster_engine_udf.py: flat float arrays with an explicit schema, then repartition (so every UDF mode ingests identically).",
+     "nested": []
+    },
+    {
+     "name": "native_pbu",
+     "line": 74,
+     "end": 103,
+     "sig": "(spark, model_name, model, arr, partitions, bs, device, app)",
+     "doc": "Spark's built-in predict_batch_udf with a local PyTorch model.",
+     "nested": [
+      {
+       "name": "make_predict_fn",
+       "line": 83
+      },
+      {
+       "name": "predict",
+       "line": 94
+      }
+     ]
+    },
+    {
+     "name": "triton_pbu",
+     "line": 106,
+     "end": 132,
+     "sig": "(spark, model_name, arr, partitions, bs, triton_host, app)",
+     "doc": "Built-in predict_batch_udf whose predict fn is a Triton gRPC client.",
+     "nested": [
+      {
+       "name": "make_predict_fn",
+       "line": 113
+      },
+      {
+       "name": "predict",
+       "line": 121
+      }
+     ]
+    },
+    {
+     "name": "run_one",
+     "line": 136,
+     "end": 205,
+     "sig": "(args)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 209,
+     "end": 259,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--master"
+     ],
+     "line": 211,
+     "required": "True"
+    },
+    {
+     "opts": [
+      "--triton"
+     ],
+     "line": 212,
+     "default": "''",
+     "help": "Triton host (gRPC 8001, metrics 8002)"
+    },
+    {
+     "opts": [
+      "--out"
+     ],
+     "line": 213,
+     "default": "'results/modes_20260926/aws_2node'"
+    },
+    {
+     "opts": [
+      "--partitions"
+     ],
+     "line": 214,
+     "type": "int",
+     "default": "8"
+    },
+    {
+     "opts": [
+      "--models"
+     ],
+     "line": 215,
+     "default": "'ew_classifier,resnet18'"
+    },
+    {
+     "opts": [
+      "--modes"
+     ],
+     "line": 216,
+     "default": "','.join(PER_MODEL_MODES + PLATFORM_MODES)"
+    },
+    {
+     "opts": [
+      "--run-one"
+     ],
+     "line": 217,
+     "action": "'store_true'",
+     "help": "argparse.SUPPRESS"
+    },
+    {
+     "opts": [
+      "--mode"
+     ],
+     "line": 218,
+     "help": "argparse.SUPPRESS"
+    },
+    {
+     "opts": [
+      "--model"
+     ],
+     "line": 219,
+     "help": "argparse.SUPPRESS"
+    },
+    {
+     "opts": [
+      "--timeout"
+     ],
+     "line": 220,
+     "type": "int",
+     "default": "1200"
+    },
+    {
+     "opts": [
+      "--scale"
+     ],
+     "line": 221,
+     "type": "float",
+     "default": "1.0",
+     "help": "multiply sample counts (dry runs)"
+    }
+   ],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "benchmark/spark_vs_single_gpu.py",
+   "lines": 489,
+   "category": "benchmark",
+   "ext": ".py",
+   "doc": "SPARK vs SINGLE GPU \u2014 Scalability Proof Benchmark ==================================================",
+   "classes": [],
+   "functions": [
+    {
+     "name": "run_single_gpu_sequential",
+     "line": 45,
+     "end": 108,
+     "sig": "(models, data, batch_size = 256)",
+     "doc": "Baseline: Run all 10 models sequentially on a single GPU. This is how most teams do inference without Spark. Loads/unloads models one at a time to avoid OOM.",
+     "nested": []
+    },
+    {
+     "name": "run_single_gpu_parallel_streams",
+     "line": 111,
+     "end": 174,
+     "sig": "(models, data, batch_size = 256)",
+     "doc": "Optimized single GPU: use CUDA streams to overlap model inference. Still single GPU, but models run concurrently via streams.",
+     "nested": []
+    },
+    {
+     "name": "run_spark_config",
+     "line": 181,
+     "end": 250,
+     "sig": "(models, model_classes, data, config, label)",
+     "doc": "Run Spark distributed inference with specific configuration.",
+     "nested": []
+    },
+    {
+     "name": "run_scaling_comparison",
+     "line": 257,
+     "end": 320,
+     "sig": "(models, model_classes, batch_size = 256)",
+     "doc": "Run both single-GPU and Spark at increasing data volumes. Find where Spark overtakes single GPU.",
+     "nested": []
+    },
+    {
+     "name": "print_io_table",
+     "line": 327,
+     "end": 344,
+     "sig": "(result)",
+     "doc": "Print input/output table for each model.",
+     "nested": []
+    },
+    {
+     "name": "print_comparison_table",
+     "line": 347,
+     "end": 365,
+     "sig": "(all_results)",
+     "doc": "Print final comparison table.",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 368,
+     "end": 485,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--local"
+     ],
+     "line": 370,
+     "action": "'store_true'",
+     "help": "Run only single-GPU tests (no Spark)"
+    },
+    {
+     "opts": [
+      "--signals"
+     ],
+     "line": 371,
+     "type": "int",
+     "default": "5000",
+     "help": "Signal samples"
+    },
+    {
+     "opts": [
+      "--images"
+     ],
+     "line": 372,
+     "type": "int",
+     "default": "200",
+     "help": "Image samples"
+    },
+    {
+     "opts": [
+      "--detections"
+     ],
+     "line": 373,
+     "type": "int",
+     "default": "50",
+     "help": "Detection samples"
+    },
+    {
+     "opts": [
+      "--batch-size"
+     ],
+     "line": 374,
+     "type": "int",
+     "default": "256",
+     "help": "Batch size"
+    },
+    {
+     "opts": [
+      "--scaling-test"
+     ],
+     "line": 375,
+     "action": "'store_true'",
+     "help": "Run full scaling comparison"
+    }
+   ],
+   "env": [],
+   "imports": [
+    "models",
+    "data.image_generator"
+   ]
+  },
+  {
+   "path": "benchmark/summarize_campaign.py",
+   "lines": 93,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "summarize_campaign.py - Parse every run log of a campaign (all legs) into one table: status (OK / FAIL + root cause, independent of exit code - many scripts catch Spark errors and still exit 0), throughput, elapsed time, device.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "parse",
+     "line": 28,
+     "end": 60,
+     "sig": "(path)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 63,
+     "end": 89,
+     "sig": "(root)",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "benchmark/triton_export.py",
+   "lines": 96,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "triton_export.py - Build a Triton Inference Server model repository from the platform's own models (TorchScript, PyTorch/libtorch backend), and verify a running server returns the same numbers as eager PyTorch.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "export",
+     "line": 42,
+     "end": 63,
+     "sig": "(out)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "verify",
+     "line": 66,
+     "end": 85,
+     "sig": "(url)",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--out"
+     ],
+     "line": 90
+    },
+    {
+     "opts": [
+      "--verify"
+     ],
+     "line": 91
+    }
+   ],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "data/__init__.py",
+   "lines": 1,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "data/image_generator.py",
+   "lines": 96,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Synthetic Image Data Generator.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "generate_classification_images",
+     "line": 16,
+     "end": 42,
+     "sig": "(num_samples: int, seed: int = 42) -> Tuple[np.ndarray, np.ndarray]",
+     "doc": "Generate synthetic 224\u00d7224 RGB images for classification benchmarking.",
+     "nested": []
+    },
+    {
+     "name": "generate_detection_images",
+     "line": 45,
+     "end": 58,
+     "sig": "(num_samples: int, seed: int = 42) -> np.ndarray",
+     "doc": "Generate synthetic 640\u00d7640 RGB images for YOLO object detection.",
+     "nested": []
+    },
+    {
+     "name": "generate_mixed_data",
+     "line": 61,
+     "end": 96,
+     "sig": "(num_signal_samples: int, num_image_samples: int, num_detection_samples: int, seed: int = 42) -> dict",
+     "doc": "Generate all data needed for benchmarking all 10 models.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "data/signal_generator.py",
+   "lines": 88,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Synthetic EW Signal Data Generator.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "generate_ew_signals",
+     "line": 14,
+     "end": 36,
+     "sig": "(num_samples: int, seed: int = 42) -> tuple",
+     "doc": "Generate synthetic EW signal dataset.",
+     "nested": []
+    },
+    {
+     "name": "_generate_signal",
+     "line": 39,
+     "end": 88,
+     "sig": "(class_idx: int) -> np.ndarray",
+     "doc": "Generate a 128-dim IQ feature vector for a signal class.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "deploy/Dockerfile",
+   "lines": 124,
+   "category": "deployment",
+   "ext": "dockerfile",
+   "doc": "syntax=docker/dockerfile:1"
+  },
+  {
+   "path": "deploy/Dockerfile.ner_translate",
+   "lines": 68,
+   "category": "deployment",
+   "ext": ".ner_translate",
+   "doc": "syntax=docker/dockerfile:1"
+  },
+  {
+   "path": "deploy/Dockerfile.ner_translate_server",
+   "lines": 65,
+   "category": "deployment",
+   "ext": ".ner_translate_server",
+   "doc": "syntax=docker/dockerfile:1"
+  },
+  {
+   "path": "deploy/__init__.py",
+   "lines": 1,
+   "category": "deployment",
+   "ext": ".py",
+   "doc": "",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "deploy/apply_wheels_hotfix.sh",
+   "lines": 41,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "!/usr/bin/env bash"
+  },
+  {
+   "path": "deploy/deploy_to_cluster.ps1",
+   "lines": 107,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "deploy_to_cluster.ps1 \u2014 One-command deploy to AWS Spark cluster"
+  },
+  {
+   "path": "deploy/docker-compose.cluster.linux.yml",
+   "lines": 83,
+   "category": "deployment",
+   "ext": ".yml",
+   "doc": "Spark Inference Cluster \u2014 Linux (EC2 / bare-metal)"
+  },
+  {
+   "path": "deploy/docker-compose.cluster.yml",
+   "lines": 103,
+   "category": "deployment",
+   "ext": ".yml",
+   "doc": "Spark Inference Cluster \u2014 Windows Docker Desktop"
+  },
+  {
+   "path": "deploy/docker-compose.laptop.yml",
+   "lines": 66,
+   "category": "deployment",
+   "ext": ".yml",
+   "doc": "Spark Inference Cluster \u2014 small laptop (8 GB RAM, 4 GB Docker/WSL2 VM, 1 GPU)"
+  },
+  {
+   "path": "deploy/docker-compose.ner_translate.yml",
+   "lines": 90,
+   "category": "deployment",
+   "ext": ".yml",
+   "doc": "ner_translate pipeline \u2014 its own dedicated Spark cluster, isolated from the"
+  },
+  {
+   "path": "deploy/docker-compose.ner_translate_server.yml",
+   "lines": 138,
+   "category": "deployment",
+   "ext": ".yml",
+   "doc": "ner_translate \u2014 waiter/kitchen split (docs/MODEL_CONTAINER_ISOLATION.md"
+  },
+  {
+   "path": "deploy/docker-compose.yml",
+   "lines": 21,
+   "category": "deployment",
+   "ext": ".yml",
+   "doc": "Development mode \u2014 source code mounted, edit and re-run without rebuild"
+  },
+  {
+   "path": "deploy/run_aws_campaign.ps1",
+   "lines": 88,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "run_aws_campaign.ps1 - AWS leg of the Windows / WSL2 / AWS test campaign."
+  },
+  {
+   "path": "deploy/run_aws_modes.ps1",
+   "lines": 121,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "run_aws_modes.ps1 - Measure every Spark inference execution mode on a real"
+  },
+  {
+   "path": "deploy/run_benchmarks_cloud.ps1",
+   "lines": 659,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "run_benchmarks_cloud.ps1 \u2014 Spin up cost-effective EC2 spot instances,"
+  },
+  {
+   "path": "deploy/run_gpu_benchmarks.ps1",
+   "lines": 332,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "run_gpu_benchmarks.ps1 \u2014 Run Phases 6-10 (GPU + hybrid) with fixed config"
+  },
+  {
+   "path": "deploy/run_gpu_cdk.ps1",
+   "lines": 103,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "run_gpu_cdk.ps1 \u2014 Upload code, trigger benchmarks, stream logs, download results"
+  },
+  {
+   "path": "deploy/run_lan_cluster_benchmarks.ps1",
+   "lines": 130,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "run_lan_cluster_benchmarks.ps1 \u2014 Run the full benchmark matrix against the"
+  },
+  {
+   "path": "deploy/run_ner_translate_gpu_test.ps1",
+   "lines": 113,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "run_ner_translate_gpu_test.ps1 \u2014 Upload code, build+verify ner_translate on"
+  },
+  {
+   "path": "deploy/spot_benchmark_cfn.yaml",
+   "lines": 273,
+   "category": "deployment",
+   "ext": ".yaml",
+   "doc": ""
+  },
+  {
+   "path": "deploy/start_cluster.ps1",
+   "lines": 212,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "start_cluster.ps1 \u2014 One-click Spark cluster startup across Windows lab machines"
+  },
+  {
+   "path": "deploy/stop_cluster.ps1",
+   "lines": 158,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "stop_cluster.ps1 \u2014 One-click Spark cluster shutdown across Windows lab machines"
+  },
+  {
+   "path": "deploy/aws-cdk/app.py",
+   "lines": 48,
+   "category": "deployment",
+   "ext": ".py",
+   "doc": "CDK App entrypoint \u2014 Spark inference cluster on EC2.",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [
+    {
+     "name": "CDK_DEFAULT_ACCOUNT",
+     "line": 26
+    }
+   ],
+   "imports": []
+  },
+  {
+   "path": "deploy/aws-cdk/cdk.context.json",
+   "lines": 11,
+   "category": "deployment",
+   "ext": ".json",
+   "doc": ""
+  },
+  {
+   "path": "deploy/aws-cdk/cdk.json",
+   "lines": 23,
+   "category": "deployment",
+   "ext": ".json",
+   "doc": ""
+  },
+  {
+   "path": "deploy/aws-cdk/pull_results.ps1",
+   "lines": 23,
+   "category": "deployment",
+   "ext": ".ps1",
+   "doc": "pull_results.ps1 \u2014 Sync BYOM/benchmark results from S3 to a local directory"
+  },
+  {
+   "path": "deploy/aws-cdk/requirements.txt",
+   "lines": 2,
+   "category": "deployment",
+   "ext": ".txt",
+   "doc": ""
+  },
+  {
+   "path": "deploy/aws-cdk/spark_cluster/__init__.py",
+   "lines": 1,
+   "category": "deployment",
+   "ext": ".py",
+   "doc": "",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "deploy/aws-cdk/spark_cluster/gpu_benchmark_stack.py",
+   "lines": 114,
+   "category": "deployment",
+   "ext": ".py",
+   "doc": "GPU Benchmark Stack \u2014 Single g4dn.xlarge instance with: - AWS Deep Learning AMI (NVIDIA drivers pre-installed) - Docker + nvidia-container-toolkit ready - SSM access for manual docker commands - S3 bucket for code upload / results download - Auto-shutdown after 4 hours (safety net)",
+   "classes": [
+    {
+     "name": "GpuBenchmarkStack",
+     "line": 23,
+     "bases": [
+      "Stack"
+     ],
+     "doc": "",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 24,
+       "sig": "(self, scope: Construct, construct_id: str, **kwargs)",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "deploy/aws-cdk/spark_cluster/modes_cluster_stack.py",
+   "lines": 76,
+   "category": "deployment",
+   "ext": ".py",
+   "doc": "Spark Modes Cluster Stack - two-node heterogeneous Spark cluster used by deploy/run_aws_modes.ps1 to measure every inference execution mode (RDD cpu/gpu/hybrid, GPU-aware scheduling, pandas UDF, Spark's native predict_batch_udf, and Triton-backed predict_batch_udf) across workers.",
+   "classes": [
+    {
+     "name": "SparkModesClusterStack",
+     "line": 23,
+     "bases": [
+      "Stack"
+     ],
+     "doc": "",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 24,
+       "sig": "(self, scope: Construct, construct_id: str, **kwargs)",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "deploy/aws-cdk/spark_cluster/spark_cluster_stack.py",
+   "lines": 396,
+   "category": "deployment",
+   "ext": ".py",
+   "doc": "SparkClusterStack - 2 EC2 instances: 1. Master (CPU, t3.large) - Spark master + driver + CPU worker 2. GPU Worker (g4dn.xlarge) - Spark worker with GPU",
+   "classes": [
+    {
+     "name": "SparkClusterStack",
+     "line": 28,
+     "bases": [
+      "Stack"
+     ],
+     "doc": "",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 29,
+       "sig": "(self, scope: Construct, construct_id: str, **kwargs) -> None",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [
+    {
+     "name": "_non_empty_condition",
+     "line": 290,
+     "end": 293,
+     "sig": "(scope: Construct, cid: str, param: CfnParameter)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_if_non_empty",
+     "line": 296,
+     "end": 299,
+     "sig": "(scope: Construct, cid: str, param: CfnParameter)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_common_bootstrap",
+     "line": 302,
+     "end": 336,
+     "sig": "(artifacts_bucket_name: str, region: str, auto_shutdown_hours: str)",
+     "doc": "Commands run on every node.",
+     "nested": []
+    },
+    {
+     "name": "_master_bootstrap",
+     "line": 339,
+     "end": 353,
+     "sig": "()",
+     "doc": "Start Spark master + a local CPU worker on the master node.",
+     "nested": []
+    },
+    {
+     "name": "_gpu_worker_bootstrap",
+     "line": 356,
+     "end": 378,
+     "sig": "(master_private_ip: str)",
+     "doc": "Install NVIDIA driver + start Spark GPU worker pointing to master.",
+     "nested": []
+    },
+    {
+     "name": "_cwagent_config",
+     "line": 381,
+     "end": 396,
+     "sig": "() -> str",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "deploy/aws-cdk/spark_cluster/windows_spark_cluster_stack.py",
+   "lines": 553,
+   "category": "deployment",
+   "ext": ".py",
+   "doc": "WindowsSparkClusterStack - 2 EC2 instances (Windows Server 2022, no Docker): 1. Master (CPU) - Spark master + driver + CPU worker, native JVM process 2. GPU Worker (g4dn.xlarge) - Spark worker with GPU, native JVM process",
+   "classes": [
+    {
+     "name": "WindowsSparkClusterStack",
+     "line": 48,
+     "bases": [
+      "Stack"
+     ],
+     "doc": "",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 49,
+       "sig": "(self, scope: Construct, construct_id: str, **kwargs) -> None",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [
+    {
+     "name": "_non_empty_condition",
+     "line": 340,
+     "end": 343,
+     "sig": "(scope: Construct, cid: str, param: CfnParameter)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_if_non_empty",
+     "line": 346,
+     "end": 348,
+     "sig": "(scope: Construct, cid: str, param: CfnParameter)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_script_writer_commands",
+     "line": 351,
+     "end": 365,
+     "sig": "(script_body: str, script_path: str = 'C:\\\\spark\\\\bootstrap.ps1')",
+     "doc": "UserData commands that write `script_body` to disk as a single-quoted (literal, non-interpolating) here-string, register it as an \"At startup\" Scheduled Task, and run it once immediately so setup doesn't wait for a reboot. Re-running it after a reboot (e.g. post NVIDIA-driver-install) is what makes the GPU worker's bootstrap self-healing \u2014 the script's own idempotency checks (Test-Path / Get-Command) skip already-done steps.",
+     "nested": []
+    },
+    {
+     "name": "_common_script",
+     "line": 368,
+     "end": 460,
+     "sig": "(artifacts_bucket_name: str, region: str, auto_shutdown_hours: str, is_gpu: bool) -> str",
+     "doc": "Idempotent PowerShell: Java, Python, Spark, project code, CloudWatch Agent, auto-shutdown. Safe to re-run (e.g. after a reboot) \u2014 every step checks whether it's already done first.",
+     "nested": []
+    },
+    {
+     "name": "_master_tail_script",
+     "line": 463,
+     "end": 484,
+     "sig": "() -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_gpu_worker_tail_script",
+     "line": 487,
+     "end": 515,
+     "sig": "(master_private_ip: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_cwagent_config_windows",
+     "line": 518,
+     "end": 553,
+     "sig": "() -> str",
+     "doc": "Written inline (Set-Content) into the common script, not returned as JSON directly \u2014 metric names are renamed to match the Linux stack's CWAgent metric names (cpu_usage_active/mem_used_percent/disk_used_percent) so the same dashboard widget queries work against either cluster.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "deploy/scripts/aws_campaign.sh",
+   "lines": 70,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "aws_campaign.sh - Run the same campaign + low-level trace as the local"
+  },
+  {
+   "path": "deploy/scripts/build_and_test_ner_translate_gpu.sh",
+   "lines": 199,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "build_and_test_ner_translate_gpu.sh \u2014 Build + verify ner_translate on a real"
+  },
+  {
+   "path": "deploy/scripts/build_and_test_ner_translate_server.sh",
+   "lines": 155,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "build_and_test_ner_translate_server.sh \u2014 build + verify the waiter/kitchen"
+  },
+  {
+   "path": "deploy/scripts/build_ner_translate_debs.sh",
+   "lines": 81,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "!/usr/bin/env bash"
+  },
+  {
+   "path": "deploy/scripts/build_ner_translate_wheelhouse.sh",
+   "lines": 130,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "!/usr/bin/env bash"
+  },
+  {
+   "path": "deploy/scripts/gpu_benchmarks.sh",
+   "lines": 50,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "GPU Benchmark Phases 6-10 \u2014 Static script (avoids PowerShell escaping)"
+  },
+  {
+   "path": "deploy/scripts/gpu_discovery.sh",
+   "lines": 25,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "!/usr/bin/env bash"
+  },
+  {
+   "path": "deploy/scripts/lan_cluster_benchmarks.sh",
+   "lines": 57,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "lan_cluster_benchmarks.sh \u2014 Full benchmark matrix for the local Windows LAN"
+  },
+  {
+   "path": "deploy/scripts/modes_node.sh",
+   "lines": 114,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "modes_node.sh - per-node steps for SparkModesClusterStack, executed over SSM"
+  },
+  {
+   "path": "deploy/scripts/run_spark_vs_single.sh",
+   "lines": 57,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "run_spark_vs_single.sh \u2014 Spark vs Single GPU proof benchmark"
+  },
+  {
+   "path": "deploy/scripts/setup_and_run_gpu.sh",
+   "lines": 199,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "setup_and_run_gpu.sh \u2014 Full automated GPU benchmark on EC2"
+  },
+  {
+   "path": "deploy/scripts/setup_gpu_worker.sh",
+   "lines": 27,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": ""
+  },
+  {
+   "path": "deploy/scripts/setup_master.sh",
+   "lines": 34,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": ""
+  },
+  {
+   "path": "deploy/scripts/setup_ner_translate_server.sh",
+   "lines": 97,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "!/usr/bin/env bash"
+  },
+  {
+   "path": "deploy/scripts/start_mps.sh",
+   "lines": 42,
+   "category": "deployment",
+   "ext": ".sh",
+   "doc": "!/usr/bin/env bash"
+  },
+  {
+   "path": "docs/diagrams/build_diagrams.py",
+   "lines": 619,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "build_diagrams.py - all architecture / flow diagrams for the Spark inference modes + Triton architecture document.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "d_current",
+     "line": 19,
+     "end": 59,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "lanes",
+     "line": 71,
+     "end": 77,
+     "sig": "(g, labels = LANES)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "step",
+     "line": 80,
+     "end": 81,
+     "sig": "(g, cid, lane_y, col, label, style, w = 210, h = 70, x0 = 12, colw = 228, font = 11)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_rdd",
+     "line": 85,
+     "end": 112,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_udf",
+     "line": 116,
+     "end": 143,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_native",
+     "line": 147,
+     "end": 172,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_gpu_aware",
+     "line": 176,
+     "end": 199,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_triton_mode",
+     "line": 203,
+     "end": 238,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_recommended",
+     "line": 242,
+     "end": 276,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_alt_sidecar",
+     "line": 280,
+     "end": 294,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_alt_inprocess",
+     "line": 298,
+     "end": 310,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_alt_ray",
+     "line": 314,
+     "end": 330,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_alt_k8s",
+     "line": 334,
+     "end": 352,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_alt_queue",
+     "line": 356,
+     "end": 370,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_aws",
+     "line": 374,
+     "end": 400,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_airgapped",
+     "line": 404,
+     "end": 429,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_sequence",
+     "line": 433,
+     "end": 456,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "sequence",
+     "line": 460,
+     "end": 473,
+     "sig": "(g, cols, msgs, colw = 210, top = 60, step = 40)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_module_map",
+     "line": 477,
+     "end": 523,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_seq_submit",
+     "line": 527,
+     "end": 542,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_seq_pipeline",
+     "line": 546,
+     "end": 560,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_plugin_flow",
+     "line": 564,
+     "end": 584,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "d_observability",
+     "line": 588,
+     "end": 605,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "docs/diagrams/diagram_engine.py",
+   "lines": 286,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "diagram_engine.py - one definition -> editable draw.io page + matching PNG.",
+   "classes": [
+    {
+     "name": "Diagram",
+     "line": 40,
+     "bases": [],
+     "doc": "",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 41,
+       "sig": "(self, key, title, subtitle = '')",
+       "doc": ""
+      },
+      {
+       "name": "container",
+       "line": 47,
+       "sig": "(self, cid, x, y, w, h, label, style = 'white')",
+       "doc": ""
+      },
+      {
+       "name": "box",
+       "line": 51,
+       "sig": "(self, cid, x, y, w, h, label, style = 'spark', shape = 'rect', font = 12)",
+       "doc": ""
+      },
+      {
+       "name": "text",
+       "line": 55,
+       "sig": "(self, cid, x, y, w, h, label, font = 12, color = '#1b1f24', align = 'left')",
+       "doc": ""
+      },
+      {
+       "name": "edge",
+       "line": 60,
+       "sig": "(self, src, dst, label = '', dashed = False, color = '#333333', exit = None, entry = None, points = (), both = False, width = 1.5, label_seg = None)",
+       "doc": ""
+      },
+      {
+       "name": "_cell",
+       "line": 66,
+       "sig": "(self, cid)",
+       "doc": ""
+      },
+      {
+       "name": "_anchors",
+       "line": 69,
+       "sig": "(self, e)",
+       "doc": ""
+      },
+      {
+       "name": "bounds",
+       "line": 94,
+       "sig": "(self)",
+       "doc": ""
+      },
+      {
+       "name": "_html",
+       "line": 100,
+       "sig": "(self, label)",
+       "doc": ""
+      },
+      {
+       "name": "to_drawio_page",
+       "line": 109,
+       "sig": "(self, page_id)",
+       "doc": ""
+      },
+      {
+       "name": "render_png",
+       "line": 153,
+       "sig": "(self, path, scale = 2)",
+       "doc": ""
+      },
+      {
+       "name": "_wrap",
+       "line": 224,
+       "sig": "(self, d, text, font, width)",
+       "doc": ""
+      },
+      {
+       "name": "_text_block",
+       "line": 239,
+       "sig": "(self, d, c, S, scale, align = 'center', color = '#1b1f24', valign = 'middle')",
+       "doc": ""
+      },
+      {
+       "name": "_arrow",
+       "line": 254,
+       "sig": "(self, d, a, b, color, scale)",
+       "doc": ""
+      },
+      {
+       "name": "_dash_line",
+       "line": 261,
+       "sig": "(self, d, a, b, color, w, scale)",
+       "doc": ""
+      },
+      {
+       "name": "_dash_rect",
+       "line": 269,
+       "sig": "(self, d, p0, p1, color, scale)",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [
+    {
+     "name": "_font",
+     "line": 33,
+     "end": 37,
+     "sig": "(bold, size)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "write_drawio",
+     "line": 282,
+     "end": 286,
+     "sig": "(diagrams, path)",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "docs/tdd/build_tdd_docx.js",
+   "lines": 655,
+   "category": "tooling",
+   "ext": ".js",
+   "doc": "build_tdd_docx.js - Technical Design Document (Word, A4 landscape) for the"
+  },
+  {
+   "path": "docs/tdd/extract_api.py",
+   "lines": 140,
+   "category": "tooling",
+   "ext": ".py",
+   "doc": "extract_api.py - read the repository's source and produce docs/tdd/api.json: every module's docstring, classes, functions (signature, docstring, line), argparse options, environment variables, and a file inventory. The TDD builder (build_tdd_docx.js) uses it for the API reference, the CLI and config reference, and for exact file:line references in the request traces.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "category",
+     "line": 22,
+     "end": 33,
+     "sig": "(rel)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "sig",
+     "line": 36,
+     "end": 56,
+     "sig": "(fn)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "doc1",
+     "line": 59,
+     "end": 62,
+     "sig": "(node)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "py_info",
+     "line": 65,
+     "end": 102,
+     "sig": "(path, rel)",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 105,
+     "end": 136,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "inference/__init__.py",
+   "lines": 8,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Inference package \u2014 3 execution modes for multi-model parallel inference.",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "inference/cluster_engine.py",
+   "lines": 352,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Cluster Inference Engine \u2014 Optimized Spark distributed inference.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "create_cluster_session",
+     "line": 50,
+     "end": 119,
+     "sig": "(app_name = 'ClusterBenchmark', master_url = None, executor_memory = '4g', driver_memory = '6g', executor_cores = 4, max_message_size = 512, gpu_aware_scheduling = False)",
+     "doc": "Create SparkSession optimized for cluster inference.",
+     "nested": []
+    },
+    {
+     "name": "_serialize_model",
+     "line": 122,
+     "end": 126,
+     "sig": "(model: torch.nn.Module) -> bytes",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_get_class_map",
+     "line": 129,
+     "end": 151,
+     "sig": "()",
+     "doc": "Import and return model class map (called inside executor).",
+     "nested": []
+    },
+    {
+     "name": "run_cluster_inference",
+     "line": 154,
+     "end": 329,
+     "sig": "(spark, data: Dict[str, np.ndarray], models: Dict[str, torch.nn.Module], num_partitions: int = 4, batch_size: int = 256, device_mode: str = 'hybrid') -> Dict",
+     "doc": "Run distributed inference with mapPartitions optimization.",
+     "nested": [
+      {
+       "name": "process_partition",
+       "line": 203
+      }
+     ]
+    },
+    {
+     "name": "_capture_spark_ui_stats",
+     "line": 332,
+     "end": 352,
+     "sig": "() -> Dict",
+     "doc": "Capture stats from Spark REST API (port 4040) before session closes.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [
+    {
+     "name": "SPARK_MASTER_URL",
+     "line": 70
+    },
+    {
+     "name": "SPARK_MASTER",
+     "line": 70
+    }
+   ],
+   "imports": []
+  },
+  {
+   "path": "inference/cluster_engine_udf.py",
+   "lines": 131,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Cluster Inference Engine \u2014 Pandas UDF variant (docs/CONCURRENCY_AND_UDF_ ENHANCEMENTS.md \u00a71). Sibling to cluster_engine.py, NOT a replacement \u2014 opt-in via submit_job.py's --engine udf flag. Everything on the RDD path (cluster_engine.py's run_cluster_inference, and all of models/pipelines/ via text_pipeline_engine.py) keeps working completely unchanged; this file is only reachable when explicitly requested.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "run_cluster_inference_udf",
+     "line": 28,
+     "end": 131,
+     "sig": "(spark, data: Dict, models: Dict, num_partitions: int = 4, batch_size: int = 256, device_mode: str = 'hybrid') -> Dict",
+     "doc": "Pandas-UDF equivalent of cluster_engine.run_cluster_inference() \u2014 same call signature and same top-level return keys (submit_job.py's summary construction works unchanged regardless of which engine ran), so this is a genuine drop-in alternative, not a parallel API to learn.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": [
+    "inference.cluster_engine",
+    "inference.predict_batch_udf"
+   ]
+  },
+  {
+   "path": "inference/cuda_streams_engine.py",
+   "lines": 228,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "CUDA Streams Multi-Model Inference Engine.",
+   "classes": [
+    {
+     "name": "CUDAStreamsEngine",
+     "line": 21,
+     "bases": [],
+     "doc": "Multi-model parallel inference using CUDA streams.",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 31,
+       "sig": "(self, models: Dict[str, torch.nn.Module], device_map: Dict[str, str], batch_size: int = 256)",
+       "doc": "Args: models: {model_name: model_instance} (already on correct device) device_map: {model_name: \"cuda:0\" or \"cpu\"} batch_size: Default batch size for inference"
+      },
+      {
+       "name": "infer_single",
+       "line": 62,
+       "sig": "(self, model_name: str, input_tensor: torch.Tensor) -> torch.Tensor",
+       "doc": "Run inference on a single model."
+      },
+      {
+       "name": "infer_all_parallel",
+       "line": 79,
+       "sig": "(self, inputs: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]",
+       "doc": "Run ALL models in parallel on their respective inputs."
+      },
+      {
+       "name": "infer_all_batched",
+       "line": 130,
+       "sig": "(self, data_batches: Dict[str, List[torch.Tensor]]) -> Dict[str, List[torch.Tensor]]",
+       "doc": "Process multiple batches through all models."
+      },
+      {
+       "name": "benchmark_single_model",
+       "line": 163,
+       "sig": "(self, model_name: str, input_tensor: torch.Tensor, num_iterations: int = 100) -> Dict[str, float]",
+       "doc": "Benchmark a single model's throughput and latency."
+      },
+      {
+       "name": "benchmark_all_parallel",
+       "line": 200,
+       "sig": "(self, inputs: Dict[str, torch.Tensor], num_iterations: int = 50) -> Dict[str, any]",
+       "doc": "Benchmark all models running in parallel."
+      },
+      {
+       "name": "shutdown",
+       "line": 226,
+       "sig": "(self)",
+       "doc": "Cleanup resources."
+      }
+     ]
+    }
+   ],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "inference/distributed_gpu.py",
+   "lines": 452,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Mode 1: Distributed GPU Inference (Spark + Multi-GPU Cluster)",
+   "classes": [],
+   "functions": [
+    {
+     "name": "create_spark_session",
+     "line": 33,
+     "end": 85,
+     "sig": "(app_name = 'MultiModel_Distributed_GPU', num_cores = '4', master_url = None)",
+     "doc": "Create SparkSession configured for distributed GPU inference.",
+     "nested": []
+    },
+    {
+     "name": "_serialize_model",
+     "line": 88,
+     "end": 92,
+     "sig": "(model: torch.nn.Module) -> bytes",
+     "doc": "Serialize a model's state dict to bytes.",
+     "nested": []
+    },
+    {
+     "name": "_deserialize_model",
+     "line": 95,
+     "end": 102,
+     "sig": "(model_class, model_bytes: bytes, device: str = 'cpu') -> torch.nn.Module",
+     "doc": "Deserialize model from bytes onto specified device.",
+     "nested": []
+    },
+    {
+     "name": "run_models_on_streams",
+     "line": 105,
+     "end": 201,
+     "sig": "(loaded_models: Dict[str, torch.nn.Module], data_chunk: Dict[str, np.ndarray], batch_size: int, device: str)",
+     "doc": "Dispatch each model's batches on its own CUDA stream, so independent models' kernels can genuinely overlap on the GPU instead of the default stream serializing them \u2014 the concurrency docs/CONCURRENCY_AND_UDF_ ENHANCEMENTS.md \u00a73 calls out as claimed-but-missing until now.",
+     "nested": []
+    },
+    {
+     "name": "_run_one_model_cpu_timed",
+     "line": 204,
+     "end": 233,
+     "sig": "(model, chunk, batch_size, device)",
+     "doc": "Sequential fallback for CPU (or no CUDA) \u2014 same shape/behavior the original sequential loop in run_distributed_gpu_inference() had.",
+     "nested": []
+    },
+    {
+     "name": "run_distributed_gpu_inference",
+     "line": 236,
+     "end": 452,
+     "sig": "(spark, data: Dict[str, np.ndarray], models: Dict[str, torch.nn.Module], model_classes: Dict[str, type], num_partitions: int = 4, batch_size: int = 256) -> Dict[str, any]",
+     "doc": "Run all models across Spark partitions using distributed GPU/CPU.",
+     "nested": [
+      {
+       "name": "infer_on_partition",
+       "line": 301
+      }
+     ]
+    }
+   ],
+   "cli": [],
+   "env": [
+    {
+     "name": "SPARK_MASTER_URL",
+     "line": 47
+    },
+    {
+     "name": "SPARK_MASTER",
+     "line": 47
+    }
+   ],
+   "imports": []
+  },
+  {
+   "path": "inference/gpu_memory_manager.py",
+   "lines": 212,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "GPU Memory Manager \u2014 Budget-aware model placement across GPU and CPU.",
+   "classes": [
+    {
+     "name": "ModelPlacement",
+     "line": 19,
+     "bases": [],
+     "doc": "Records where a model is placed and its memory footprint.",
+     "methods": []
+    },
+    {
+     "name": "GPUBudget",
+     "line": 28,
+     "bases": [],
+     "doc": "Tracks memory budget for a single GPU device.",
+     "methods": [
+      {
+       "name": "available_mb",
+       "line": 37,
+       "sig": "(self) -> float",
+       "doc": ""
+      },
+      {
+       "name": "utilization_pct",
+       "line": 41,
+       "sig": "(self) -> float",
+       "doc": ""
+      }
+     ]
+    },
+    {
+     "name": "GPUMemoryManager",
+     "line": 46,
+     "bases": [],
+     "doc": "Manages GPU memory allocation across multiple models.",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 57,
+       "sig": "(self, reserve_mb: float = 500.0, strategy: str = 'priority')",
+       "doc": "Args: reserve_mb: MB to reserve per GPU for CUDA context + buffers strategy: \"priority\", \"largest_first\", \"greedy\", \"balanced\""
+      },
+      {
+       "name": "_init_gpu_budgets",
+       "line": 69,
+       "sig": "(self)",
+       "doc": "Detect available GPUs and initialize budgets."
+      },
+      {
+       "name": "num_gpus",
+       "line": 83,
+       "sig": "(self) -> int",
+       "doc": ""
+      },
+      {
+       "name": "total_gpu_memory_mb",
+       "line": 87,
+       "sig": "(self) -> float",
+       "doc": ""
+      },
+      {
+       "name": "plan_placement",
+       "line": 90,
+       "sig": "(self, models_with_sizes: Dict[str, float], priorities: Optional[Dict[str, int]] = None) -> Dict[str, str]",
+       "doc": "Plan model placement across available devices."
+      },
+      {
+       "name": "get_device",
+       "line": 152,
+       "sig": "(self, model_name: str) -> str",
+       "doc": "Get the assigned device for a model."
+      },
+      {
+       "name": "get_gpu_models",
+       "line": 158,
+       "sig": "(self) -> List[str]",
+       "doc": "Return names of models placed on GPU."
+      },
+      {
+       "name": "get_cpu_models",
+       "line": 162,
+       "sig": "(self) -> List[str]",
+       "doc": "Return names of models placed on CPU."
+      },
+      {
+       "name": "report",
+       "line": 166,
+       "sig": "(self) -> str",
+       "doc": "Generate human-readable placement report."
+      },
+      {
+       "name": "get_current_gpu_usage",
+       "line": 198,
+       "sig": "() -> Dict[int, Dict[str, float]]",
+       "doc": "Get real-time GPU memory usage (requires CUDA)."
+      }
+     ]
+    }
+   ],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "inference/hybrid_cpu_gpu.py",
+   "lines": 209,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Mode 3: Hybrid CPU + GPU Inference (Memory-Aware Split)",
+   "classes": [],
+   "functions": [
+    {
+     "name": "run_hybrid_inference",
+     "line": 55,
+     "end": 209,
+     "sig": "(models: Dict[str, torch.nn.Module], model_sizes_mb: Dict[str, float], data: Dict[str, np.ndarray], batch_size: int = 256, gpu_memory_limit_mb: Optional[float] = None, priorities: Optional[Dict[str, int]] = None, strategy: str = 'priority') -> Dict[str, any]",
+     "doc": "Run models on a mix of GPU and CPU based on memory budget.",
+     "nested": [
+      {
+       "name": "_run",
+       "line": 170
+      }
+     ]
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": [
+    "inference.cuda_streams_engine",
+    "inference.gpu_memory_manager"
+   ]
+  },
+  {
+   "path": "inference/predict_batch_udf.py",
+   "lines": 145,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "predict_batch_udf \u2014 the batch-prediction Pandas UDF for the tensor-plugin execution path (models/plugins/), wired into a real Spark job by cluster_engine_udf.py. See docs/CONCURRENCY_AND_UDF_ENHANCEMENTS.md \u00a72 for the design rationale (why this exists alongside cluster_engine.py's mapPartitions path, not instead of it).",
+   "classes": [],
+   "functions": [
+    {
+     "name": "predict_batch_udf",
+     "line": 37,
+     "end": 130,
+     "sig": "(model_bytes: bytes, model_class: 'Type', sample_shape: tuple, device: str = 'cuda', inference_batch_size: int = 256)",
+     "doc": "Scalar-iterator Pandas UDF factory: the model loads ONCE per partition (same optimization cluster_engine.py's mapPartitions docstring already calls out \u2014 \"loads models ONCE, processes all items\" \u2014 this is that same idea expressed as a Pandas UDF instead of a raw mapPartitions closure), then every Arrow batch Spark hands this partition streams through the already-loaded model.",
+     "nested": [
+      {
+       "name": "_predict",
+       "line": 93
+      }
+     ]
+    },
+    {
+     "name": "_row_to_array",
+     "line": 133,
+     "end": 145,
+     "sig": "(row, expected_flat_len, sample_shape)",
+     "doc": "Convert one Arrow/pandas row (a flat list/array of expected_flat_len floats) back to a numpy float32 array of sample_shape. Returns None (never raises) for malformed input \u2014 the caller treats None as skip-and-log.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "inference/single_gpu.py",
+   "lines": 146,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Mode 2: Single GPU Inference (All Models Parallel via CUDA Streams)",
+   "classes": [],
+   "functions": [
+    {
+     "name": "run_single_gpu_inference",
+     "line": 32,
+     "end": 128,
+     "sig": "(models: Dict[str, torch.nn.Module], data: Dict[str, np.ndarray], batch_size: int = 256, device: str = 'cuda') -> Dict[str, any]",
+     "doc": "Run all models in parallel on a single GPU using CUDA streams.",
+     "nested": []
+    },
+    {
+     "name": "run_single_gpu_benchmark",
+     "line": 131,
+     "end": 146,
+     "sig": "(models: Dict[str, torch.nn.Module], data: Dict[str, np.ndarray], batch_sizes: List[int] = [64, 128, 256, 512, 1024]) -> List[Dict]",
+     "doc": "Benchmark single GPU mode across multiple batch sizes. Returns list of result dicts for each batch size.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": [
+    "inference.cuda_streams_engine",
+    "inference.gpu_memory_manager"
+   ]
+  },
+  {
+   "path": "inference/text_pipeline_engine.py",
+   "lines": 186,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Text/file pipeline execution engine \u2014 Spark mapPartitions runner for \"pipeline\" style plugins (multi-model, non-tensor input/output: e.g. the NER+translation pipeline), as opposed to cluster_engine.py's fixed-shape tensor engine.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "run_text_pipeline_job",
+     "line": 21,
+     "end": 95,
+     "sig": "(spark, file_paths: List[str], load_fn, run_fn, num_partitions: int = 4, run_kwargs: Optional[Dict[str, Any]] = None) -> Dict",
+     "doc": "Args: spark: SparkSession (from inference.cluster_engine.create_cluster_session) file_paths: list of input file paths to distribute across partitions load_fn: zero-arg callable, called once per executor (loads models) run_fn: callable(loaded, paths, **run_kwargs) -> {filename: result} num_partitions: number of Spark partitions (= parallel tasks) run_kwargs: extra kwargs forwarded to run_fn on every call",
+     "nested": [
+      {
+       "name": "process_partition",
+       "line": 54
+      }
+     ]
+    },
+    {
+     "name": "run_text_pipeline_job_via_service",
+     "line": 98,
+     "end": 186,
+     "sig": "(spark, file_paths: List[str], service_url: str, num_partitions: int = 4, labels: Optional[List[str]] = None, timeout: float = 600.0) -> Dict",
+     "doc": "Sibling to run_text_pipeline_job() for the \"waiter/kitchen\" split (see docs/MODEL_CONTAINER_ISOLATION.md Option B) \u2014 instead of importing a pipeline module and calling load()/run() inside the Spark executor process (which requires torch/CUDA/the pipeline's own deps to be installed in the SAME Python environment Spark uses), each partition just POSTs its file paths to an already-running model server and gets back the identical {filename: result} shape run_fn() always returned.",
+     "nested": [
+      {
+       "name": "process_partition",
+       "line": 132
+      }
+     ]
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/__init__.py",
+   "lines": 110,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Models package \u2014 10 models for multi-model distributed inference.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "get_default_registry",
+     "line": 17,
+     "end": 110,
+     "sig": "() -> ModelRegistry",
+     "doc": "Create and return the default model registry with all 10 models registered. Models are registered (metadata only) \u2014 not loaded into memory until requested.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": [
+    "models.model_registry",
+    "models.ew_signal_model",
+    "models.yolo_model",
+    "models.image_models",
+    "models.signal_models"
+   ]
+  },
+  {
+   "path": "models/ew_signal_model.py",
+   "lines": 63,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "EW Signal Classifier \u2014 8-class radar/jammer/comms classification. Input: 128-dim IQ feature vector (64 I-channel + 64 Q-channel) Output: 8 class logits",
+   "classes": [
+    {
+     "name": "EWSignalClassifier",
+     "line": 20,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 21,
+       "sig": "(self, input_dim = INPUT_FEATURES, num_classes = NUM_CLASSES)",
+       "doc": ""
+      },
+      {
+       "name": "forward",
+       "line": 33,
+       "sig": "(self, x)",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [
+    {
+     "name": "create_trained_ew_model",
+     "line": 37,
+     "end": 63,
+     "sig": "(seed = 42)",
+     "doc": "Create and quick-train the EW classifier.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/image_models.py",
+   "lines": 84,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Image Classification Models \u2014 ResNet-18, MobileNetV3, EfficientNet-B0.",
+   "classes": [
+    {
+     "name": "ResNet18Classifier",
+     "line": 18,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "ResNet-18 image classifier (11.7M params, ~300MB GPU).",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 21,
+       "sig": "(self, num_classes = 1000, pretrained_path = None)",
+       "doc": ""
+      },
+      {
+       "name": "forward",
+       "line": 37,
+       "sig": "(self, x)",
+       "doc": ""
+      }
+     ]
+    },
+    {
+     "name": "MobileNetV3Classifier",
+     "line": 41,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "MobileNetV3-Small (5.4M params, ~150MB GPU).",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 44,
+       "sig": "(self, num_classes = 1000, pretrained_path = None)",
+       "doc": ""
+      },
+      {
+       "name": "forward",
+       "line": 60,
+       "sig": "(self, x)",
+       "doc": ""
+      }
+     ]
+    },
+    {
+     "name": "EfficientNetB0Classifier",
+     "line": 64,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "EfficientNet-B0 (5.3M params, ~200MB GPU).",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 67,
+       "sig": "(self, num_classes = 1000, pretrained_path = None)",
+       "doc": ""
+      },
+      {
+       "name": "forward",
+       "line": 83,
+       "sig": "(self, x)",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/model_registry.py",
+   "lines": 129,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Model Registry \u2014 Central registry for all inference models.",
+   "classes": [
+    {
+     "name": "ModelInfo",
+     "line": 19,
+     "bases": [],
+     "doc": "Metadata about a registered model.",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 22,
+       "sig": "(self, name, model_class, input_shape, output_desc, category, estimated_memory_mb)",
+       "doc": ""
+      }
+     ]
+    },
+    {
+     "name": "ModelRegistry",
+     "line": 32,
+     "bases": [],
+     "doc": "Central registry for all models in the platform.",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 43,
+       "sig": "(self)",
+       "doc": ""
+      },
+      {
+       "name": "register",
+       "line": 48,
+       "sig": "(self, name: str, model_class, input_shape: tuple, output_desc: str, category: str, estimated_memory_mb: float)",
+       "doc": "Register a model definition (does not load weights yet)."
+      },
+      {
+       "name": "list_models",
+       "line": 60,
+       "sig": "(self) -> Dict[str, ModelInfo]",
+       "doc": "Return all registered model metadata."
+      },
+      {
+       "name": "get_info",
+       "line": 64,
+       "sig": "(self, name: str) -> ModelInfo",
+       "doc": "Get metadata for a specific model."
+      },
+      {
+       "name": "load_model",
+       "line": 68,
+       "sig": "(self, name: str, device: str = 'cpu') -> torch.nn.Module",
+       "doc": "Load and return a model (cached after first load)."
+      },
+      {
+       "name": "load_all",
+       "line": 80,
+       "sig": "(self, device: str = 'cpu') -> Dict[str, torch.nn.Module]",
+       "doc": "Load all registered models."
+      },
+      {
+       "name": "serialize_model",
+       "line": 87,
+       "sig": "(self, name: str) -> bytes",
+       "doc": "Serialize model to bytes for Spark broadcasting."
+      },
+      {
+       "name": "serialize_all",
+       "line": 96,
+       "sig": "(self) -> Dict[str, bytes]",
+       "doc": "Serialize all models."
+      },
+      {
+       "name": "deserialize_model",
+       "line": 100,
+       "sig": "(self, name: str, model_bytes: bytes, device: str = 'cpu') -> torch.nn.Module",
+       "doc": "Deserialize model from bytes (used on Spark workers)."
+      },
+      {
+       "name": "total_memory_estimate_mb",
+       "line": 111,
+       "sig": "(self) -> float",
+       "doc": "Estimate total GPU memory needed for all models."
+      },
+      {
+       "name": "get_models_by_category",
+       "line": 115,
+       "sig": "(self, category: str) -> Dict[str, ModelInfo]",
+       "doc": "Filter models by category."
+      },
+      {
+       "name": "summary",
+       "line": 119,
+       "sig": "(self)",
+       "doc": "Print registry summary."
+      }
+     ]
+    }
+   ],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/plugin_loader.py",
+   "lines": 56,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Plugin loader \u2014 dynamic import + registry glue for user-supplied models.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "_load_manifest",
+     "line": 17,
+     "end": 21,
+     "sig": "(manifest_path: str = DEFAULT_MANIFEST_PATH) -> dict",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "get_plugin_class_map",
+     "line": 24,
+     "end": 30,
+     "sig": "(manifest_path: str = DEFAULT_MANIFEST_PATH) -> dict",
+     "doc": "{name: ModelClass} for every plugin \u2014 merged into cluster_engine's class map.",
+     "nested": []
+    },
+    {
+     "name": "register_plugins",
+     "line": 33,
+     "end": 56,
+     "sig": "(registry, manifest_path: str = DEFAULT_MANIFEST_PATH) -> list",
+     "doc": "Registers every plugin in the manifest into an existing ModelRegistry.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/signal_models.py",
+   "lines": 147,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Additional EW/Signal Processing Models: - Signal Denoiser (Autoencoder) - Threat Prioritizer (Multi-head attention) - RF Fingerprinter (1D-CNN) - Anomaly Detector (Variational Autoencoder)",
+   "classes": [
+    {
+     "name": "SignalDenoiser",
+     "line": 18,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "Autoencoder for signal denoising/preprocessing. Input: 128-dim noisy IQ vector Output: 128-dim denoised IQ vector Params: ~1.2M, ~100MB GPU",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 26,
+       "sig": "(self, input_dim = INPUT_DIM, latent_dim = 32)",
+       "doc": ""
+      },
+      {
+       "name": "forward",
+       "line": 39,
+       "sig": "(self, x)",
+       "doc": ""
+      }
+     ]
+    },
+    {
+     "name": "ThreatPrioritizer",
+     "line": 45,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "Multi-head attention model for threat priority scoring. Input: 128-dim signal features Output: scalar priority score [0, 1] Params: ~8M, ~350MB GPU",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 53,
+       "sig": "(self, input_dim = INPUT_DIM, num_heads = 4, hidden_dim = 512)",
+       "doc": ""
+      },
+      {
+       "name": "forward",
+       "line": 63,
+       "sig": "(self, x)",
+       "doc": ""
+      }
+     ]
+    },
+    {
+     "name": "RFFingerprinter",
+     "line": 73,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "1D-CNN for RF emitter fingerprinting/identification. Input: 128-dim IQ signal Output: 32-dim embedding (for emitter matching) Params: ~2.5M, ~120MB GPU",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 81,
+       "sig": "(self, input_dim = INPUT_DIM, embedding_dim = 32)",
+       "doc": ""
+      },
+      {
+       "name": "forward",
+       "line": 95,
+       "sig": "(self, x)",
+       "doc": ""
+      }
+     ]
+    },
+    {
+     "name": "AnomalyDetector",
+     "line": 104,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "Variational Autoencoder for unknown/anomalous signal detection. Input: 128-dim IQ signal Output: scalar anomaly score (higher = more anomalous) Params: ~1.8M, ~100MB GPU",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 112,
+       "sig": "(self, input_dim = INPUT_DIM, latent_dim = 16)",
+       "doc": ""
+      },
+      {
+       "name": "encode",
+       "line": 127,
+       "sig": "(self, x)",
+       "doc": ""
+      },
+      {
+       "name": "reparameterize",
+       "line": 131,
+       "sig": "(self, mu, logvar)",
+       "doc": ""
+      },
+      {
+       "name": "decode",
+       "line": 138,
+       "sig": "(self, z)",
+       "doc": ""
+      },
+      {
+       "name": "forward",
+       "line": 141,
+       "sig": "(self, x)",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/yolo_model.py",
+   "lines": 96,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "YOLO Object Detection Models \u2014 YOLOv8 Nano and Small.",
+   "classes": [
+    {
+     "name": "YOLOv8Wrapper",
+     "line": 17,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "Wrapper around Ultralytics YOLOv8 for PyTorch-native inference.",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 25,
+       "sig": "(self, variant = 'n', weights_path = None)",
+       "doc": "Args: variant: 'n' (nano, 3.2M params) or 's' (small, 11.2M params) weights_path: Path to .pt weights file"
+      },
+      {
+       "name": "_build_fallback",
+       "line": 56,
+       "sig": "(self, variant)",
+       "doc": "Build a CNN with similar compute profile for benchmarking."
+      },
+      {
+       "name": "forward",
+       "line": 69,
+       "sig": "(self, x)",
+       "doc": "Forward pass. Args: x: Tensor (N, 3, 640, 640) normalized [0,1] Returns: Tensor (N, num_detections) \u2014 flattened detection output"
+      }
+     ]
+    },
+    {
+     "name": "YOLOv8Nano",
+     "line": 87,
+     "bases": [
+      "YOLOv8Wrapper"
+     ],
+     "doc": "YOLOv8-Nano: 3.2M params, ~200MB GPU, fastest.",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 89,
+       "sig": "(self, weights_path = None)",
+       "doc": ""
+      }
+     ]
+    },
+    {
+     "name": "YOLOv8Small",
+     "line": 93,
+     "bases": [
+      "YOLOv8Wrapper"
+     ],
+     "doc": "YOLOv8-Small: 11.2M params, ~400MB GPU, better accuracy.",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 95,
+       "sig": "(self, weights_path = None)",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/pipelines/__init__.py",
+   "lines": 1,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/pipelines/manifest.json",
+   "lines": 10,
+   "category": "framework",
+   "ext": ".json",
+   "doc": ""
+  },
+  {
+   "path": "models/pipelines/ner_translate/__init__.py",
+   "lines": 1,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/pipelines/ner_translate/mt_ner_all_formats.py",
+   "lines": 810,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Routed offline multilingual NER pipeline \u2014 multi-format, batched.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "_lazy_import",
+     "line": 135,
+     "end": 143,
+     "sig": "(name, pip_hint)",
+     "doc": "Import a module on demand, with a clear message if it's missing.",
+     "nested": []
+    },
+    {
+     "name": "_resolve_ocr_lang",
+     "line": 149,
+     "end": 181,
+     "sig": "()",
+     "doc": "Return an OCR language string limited to packs Tesseract actually has.",
+     "nested": []
+    },
+    {
+     "name": "_extract_pdf",
+     "line": 184,
+     "end": 220,
+     "sig": "(path: str) -> str",
+     "doc": "Extract text from a PDF; OCR pages that have no text layer.",
+     "nested": []
+    },
+    {
+     "name": "_extract_image",
+     "line": 223,
+     "end": 229,
+     "sig": "(path: str) -> str",
+     "doc": "OCR an image into text.",
+     "nested": []
+    },
+    {
+     "name": "_extract_docx",
+     "line": 232,
+     "end": 240,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_extract_pptx",
+     "line": 243,
+     "end": 256,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_extract_xlsx",
+     "line": 259,
+     "end": 269,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_extract_xls",
+     "line": 272,
+     "end": 280,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_extract_ods",
+     "line": 283,
+     "end": 291,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_extract_odt",
+     "line": 294,
+     "end": 301,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_extract_rtf",
+     "line": 304,
+     "end": 308,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_extract_epub",
+     "line": 311,
+     "end": 321,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_extract_html",
+     "line": 324,
+     "end": 331,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_extract_json",
+     "line": 334,
+     "end": 365,
+     "sig": "(path: str) -> str",
+     "doc": "Flatten JSON / JSONL into readable text (all string values joined).",
+     "nested": [
+      {
+       "name": "walk",
+       "line": 336
+      }
+     ]
+    },
+    {
+     "name": "_extract_plaintext",
+     "line": 368,
+     "end": 370,
+     "sig": "(path: str) -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "extract_text",
+     "line": 373,
+     "end": 405,
+     "sig": "(path: str) -> str",
+     "doc": "Turn any supported file into plain text via the right extractor.",
+     "nested": []
+    },
+    {
+     "name": "extract_phone_numbers",
+     "line": 421,
+     "end": 433,
+     "sig": "(text: str, doc_offset: int = 0)",
+     "doc": "Regex-extract phone / mobile numbers as a reliable fallback.",
+     "nested": []
+    },
+    {
+     "name": "load_models",
+     "line": 439,
+     "end": 461,
+     "sig": "()",
+     "doc": "Load GLiNER, NLLB, and the py3langid language-ID model for offline use.",
+     "nested": []
+    },
+    {
+     "name": "preprocess",
+     "line": 467,
+     "end": 473,
+     "sig": "(text: str) -> str",
+     "doc": "Normalize and clean raw document text.",
+     "nested": []
+    },
+    {
+     "name": "chunk_text",
+     "line": 476,
+     "end": 496,
+     "sig": "(text: str, max_chars: int = MAX_CHARS)",
+     "doc": "Split text into character-bounded chunks while tracking offsets.",
+     "nested": []
+    },
+    {
+     "name": "detect_language",
+     "line": 502,
+     "end": 511,
+     "sig": "(lid_model, text: str) -> str",
+     "doc": "Detect the dominant language of a text with py3langid.",
+     "nested": []
+    },
+    {
+     "name": "translate_chunks",
+     "line": 517,
+     "end": 539,
+     "sig": "(nllb_model, nllb_tokenizer, chunks, src_code: str, device: str)",
+     "doc": "Translate text chunks into English with NLLB, batched.",
+     "nested": []
+    },
+    {
+     "name": "predict_chunks",
+     "line": 545,
+     "end": 564,
+     "sig": "(gliner_model, chunks, labels, batch_size: int = BATCH_SIZE)",
+     "doc": "Run GLiNER over text chunks, batched for GPU efficiency.",
+     "nested": []
+    },
+    {
+     "name": "postprocess",
+     "line": 567,
+     "end": 582,
+     "sig": "(entities, doc_offset: int = 0)",
+     "doc": "Clean, filter, and reposition raw entities from one chunk.",
+     "nested": []
+    },
+    {
+     "name": "dedupe",
+     "line": 585,
+     "end": 592,
+     "sig": "(entities)",
+     "doc": "Collapse duplicate mentions into unique (text, type) pairs.",
+     "nested": []
+    },
+    {
+     "name": "_build_document_records",
+     "line": 598,
+     "end": 627,
+     "sig": "(paths, lid_model)",
+     "doc": "Extract + preprocess + language-detect + route every document.",
+     "nested": []
+    },
+    {
+     "name": "process_paths_batched",
+     "line": 630,
+     "end": 730,
+     "sig": "(models, paths, labels = DEFAULT_LABELS)",
+     "doc": "Process many files of any supported format in cross-document batches.",
+     "nested": []
+    },
+    {
+     "name": "collect_files",
+     "line": 733,
+     "end": 755,
+     "sig": "(path)",
+     "doc": "Resolve a file, directory, or glob into a sorted list of supported files.",
+     "nested": []
+    },
+    {
+     "name": "print_language_summary",
+     "line": 758,
+     "end": 779,
+     "sig": "(results)",
+     "doc": "Print a per-language summary so the run yields a clear verdict.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [
+    {
+     "name": "HF_HUB_OFFLINE",
+     "line": 52
+    },
+    {
+     "name": "TRANSFORMERS_OFFLINE",
+     "line": 53
+    }
+   ],
+   "imports": []
+  },
+  {
+   "path": "models/pipelines/ner_translate/pipeline.py",
+   "lines": 22,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Thin BYOM \"pipeline\" wrapper around mt_ner_all_formats.py.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "load",
+     "line": 11,
+     "end": 13,
+     "sig": "()",
+     "doc": "Load GLiNER + NLLB + language-id once per executor.",
+     "nested": []
+    },
+    {
+     "name": "run",
+     "line": 16,
+     "end": 22,
+     "sig": "(loaded, paths, labels = None)",
+     "doc": "Run the full extract -> detect -> translate -> NER pipeline over `paths`.",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/pipelines/ner_translate/serve.py",
+   "lines": 57,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "ner_translate model server \u2014 the \"kitchen\" in the waiter/kitchen split (see docs/MODEL_CONTAINER_ISOLATION.md Option B). Wraps this pipeline's existing load()/run(loaded, paths) contract (pipeline.py) behind one HTTP endpoint, so Spark workers never need torch/CUDA/gliner/transformers in their own Python environment \u2014 they just POST a list of file paths (already on the same mounted volume this server reads from) and get back the same {filename: result} shape pipeline.run() always returned.",
+   "classes": [
+    {
+     "name": "PredictRequest",
+     "line": 32,
+     "bases": [
+      "BaseModel"
+     ],
+     "doc": "",
+     "methods": []
+    }
+   ],
+   "functions": [
+    {
+     "name": "_load_once",
+     "line": 38,
+     "end": 42,
+     "sig": "() -> None",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "health",
+     "line": 46,
+     "end": 47,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "predict",
+     "line": 51,
+     "end": 57,
+     "sig": "(req: PredictRequest)",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/plugins/__init__.py",
+   "lines": 1,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/plugins/example_model.py",
+   "lines": 30,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Example BYOM plugin \u2014 a stand-in for a user-supplied model file.",
+   "classes": [
+    {
+     "name": "ExampleMLP",
+     "line": 20,
+     "bases": [
+      "nn.Module"
+     ],
+     "doc": "",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 21,
+       "sig": "(self, input_dim = INPUT_FEATURES, num_classes = NUM_CLASSES)",
+       "doc": ""
+      },
+      {
+       "name": "forward",
+       "line": 29,
+       "sig": "(self, x)",
+       "doc": ""
+      }
+     ]
+    }
+   ],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "models/plugins/manifest.json",
+   "lines": 11,
+   "category": "framework",
+   "ext": ".json",
+   "doc": ""
+  },
+  {
+   "path": "monitoring/__init__.py",
+   "lines": 1,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "",
+   "classes": [],
+   "functions": [],
+   "cli": [],
+   "env": [],
+   "imports": []
+  },
+  {
+   "path": "monitoring/benchmark_metrics_publisher.py",
+   "lines": 151,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Benchmark metrics publisher \u2014 bridges the existing benchmark output (results/raw_results.json, produced by benchmark/run_benchmark.py, see its `generate_report()`/`main()`) into CloudWatch, and optionally archives both report files to S3.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "load_results",
+     "line": 52,
+     "end": 60,
+     "sig": "(path: str = RAW_RESULTS_PATH) -> Optional[dict]",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "publish_results",
+     "line": 63,
+     "end": 91,
+     "sig": "(publisher: CloudWatchPublisher, results: dict) -> None",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "upload_to_s3",
+     "line": 94,
+     "end": 111,
+     "sig": "(bucket: str, prefix: str) -> None",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 114,
+     "end": 147,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--once"
+     ],
+     "line": 116,
+     "action": "'store_true'",
+     "help": "Publish current results once and exit"
+    },
+    {
+     "opts": [
+      "--watch"
+     ],
+     "line": 117,
+     "action": "'store_true'",
+     "help": "Poll for new/updated results indefinitely"
+    },
+    {
+     "opts": [
+      "--interval"
+     ],
+     "line": 118,
+     "type": "int",
+     "default": "30",
+     "help": "Polling interval in seconds for --watch"
+    },
+    {
+     "opts": [
+      "--s3-bucket"
+     ],
+     "line": 119,
+     "default": "os.environ.get('ARTIFACTS_BUCKET', '')",
+     "help": "If set, uploads results/raw_results.json and metrics_report.md to this bucket on every new run (defaults to $ARTIFACTS_BUCKET env var)."
+    },
+    {
+     "opts": [
+      "--s3-prefix"
+     ],
+     "line": 122,
+     "default": "'results'",
+     "help": "Key prefix for S3 uploads"
+    }
+   ],
+   "env": [
+    {
+     "name": "ARTIFACTS_BUCKET",
+     "line": 119
+    }
+   ],
+   "imports": [
+    "monitoring.cloudwatch_publisher"
+   ]
+  },
+  {
+   "path": "monitoring/cloudwatch_publisher.py",
+   "lines": 134,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Shared CloudWatch publishing helper used by all three metrics publishers (spark_metrics_publisher, gpu_metrics_publisher, benchmark_metrics_publisher).",
+   "classes": [
+    {
+     "name": "CloudWatchPublisher",
+     "line": 62,
+     "bases": [],
+     "doc": "Thin wrapper around boto3 CloudWatch put_metric_data with graceful degradation.",
+     "methods": [
+      {
+       "name": "__init__",
+       "line": 65,
+       "sig": "(self, namespace: str, node_role: str, extra_dimensions: Optional[Dict[str, str]] = None)",
+       "doc": ""
+      },
+      {
+       "name": "_dimensions",
+       "line": 80,
+       "sig": "(self, extra: Optional[Dict[str, str]] = None) -> List[dict]",
+       "doc": ""
+      },
+      {
+       "name": "put_metric",
+       "line": 90,
+       "sig": "(self, metric_name: str, value: float, unit: str = 'None', extra_dimensions: Optional[Dict[str, str]] = None) -> None",
+       "doc": "Publish a single metric datapoint. No-op (logged) if CloudWatch is unavailable."
+      },
+      {
+       "name": "put_metrics",
+       "line": 109,
+       "sig": "(self, metrics: List[dict]) -> None",
+       "doc": "Publish a batch of metrics in one API call (CloudWatch allows up to 1000 per call; callers should chunk larger batches)."
+      }
+     ]
+    }
+   ],
+   "functions": [
+    {
+     "name": "_fetch_imdsv2_token",
+     "line": 27,
+     "end": 36,
+     "sig": "(timeout: float = 1.0) -> Optional[str]",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "_fetch_metadata",
+     "line": 39,
+     "end": 48,
+     "sig": "(path: str, timeout: float = 1.0) -> Optional[str]",
+     "doc": "Best-effort EC2 instance metadata fetch (IMDSv2, falls back to no-op off-EC2).",
+     "nested": []
+    },
+    {
+     "name": "get_instance_id",
+     "line": 51,
+     "end": 52,
+     "sig": "() -> str",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "get_region",
+     "line": 55,
+     "end": 59,
+     "sig": "() -> str",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [],
+   "env": [
+    {
+     "name": "HOSTNAME",
+     "line": 52
+    },
+    {
+     "name": "AWS_DEFAULT_REGION",
+     "line": 59
+    },
+    {
+     "name": "AWS_REGION",
+     "line": 59
+    }
+   ],
+   "imports": []
+  },
+  {
+   "path": "monitoring/gpu_metrics_publisher.py",
+   "lines": 128,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "GPU-level metrics publisher \u2014 runs on each Spark GPU worker node.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "query_nvidia_smi",
+     "line": 43,
+     "end": 62,
+     "sig": "()",
+     "doc": "Return a list of per-GPU dicts, or [] if nvidia-smi is unavailable (e.g. CPU-only node).",
+     "nested": []
+    },
+    {
+     "name": "query_torch_memory",
+     "line": 65,
+     "end": 72,
+     "sig": "()",
+     "doc": "Best-effort per-process CUDA memory via torch, if torch/CUDA is importable here.",
+     "nested": []
+    },
+    {
+     "name": "poll_gpu_metrics",
+     "line": 75,
+     "end": 108,
+     "sig": "(publisher: CloudWatchPublisher) -> None",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 111,
+     "end": 124,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--interval"
+     ],
+     "line": 113,
+     "type": "int",
+     "default": "15",
+     "help": "Polling interval in seconds"
+    },
+    {
+     "opts": [
+      "--once"
+     ],
+     "line": 114,
+     "action": "'store_true'",
+     "help": "Poll once and exit (for cron/testing)"
+    }
+   ],
+   "env": [],
+   "imports": [
+    "monitoring.cloudwatch_publisher"
+   ]
+  },
+  {
+   "path": "monitoring/spark_metrics_publisher.py",
+   "lines": 150,
+   "category": "framework",
+   "ext": ".py",
+   "doc": "Spark master/driver + executor level metrics publisher.",
+   "classes": [],
+   "functions": [
+    {
+     "name": "_get_json",
+     "line": 46,
+     "end": 52,
+     "sig": "(url: str, timeout: float = 5.0) -> Optional[dict]",
+     "doc": "",
+     "nested": []
+    },
+    {
+     "name": "poll_master_metrics",
+     "line": 55,
+     "end": 77,
+     "sig": "(publisher: CloudWatchPublisher) -> None",
+     "doc": "Cluster/master-level metrics from the Spark standalone master's JSON endpoint.",
+     "nested": []
+    },
+    {
+     "name": "poll_executor_metrics",
+     "line": 80,
+     "end": 125,
+     "sig": "(publisher: CloudWatchPublisher) -> None",
+     "doc": "Executor-level metrics from the running Spark application's REST API (port 4040). Only available while a benchmark/inference job is actively running a SparkSession (see benchmark/run_benchmark.py -> run_mode_distributed -> create_spark_session()).",
+     "nested": []
+    },
+    {
+     "name": "main",
+     "line": 128,
+     "end": 146,
+     "sig": "()",
+     "doc": "",
+     "nested": []
+    }
+   ],
+   "cli": [
+    {
+     "opts": [
+      "--role"
+     ],
+     "line": 130,
+     "default": "'master'",
+     "choices": "['master']",
+     "help": "Node role (only 'master' polls the Spark REST APIs; worker-level GPU metrics are handled separately by gpu_metrics_publisher.py)"
+    },
+    {
+     "opts": [
+      "--interval"
+     ],
+     "line": 133,
+     "type": "int",
+     "default": "30",
+     "help": "Polling interval in seconds"
+    },
+    {
+     "opts": [
+      "--once"
+     ],
+     "line": 134,
+     "action": "'store_true'",
+     "help": "Poll once and exit (for cron/testing)"
+    }
+   ],
+   "env": [],
+   "imports": [
+    "monitoring.cloudwatch_publisher"
+   ]
+  }
+ ]
+}

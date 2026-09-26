@@ -1,0 +1,22 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 16:04:19 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+[Stage 0:>                                                          (0 + 4) / 8]
+
+[Stage 0:=======>                                                   (1 + 5) / 8]
+
+[Stage 0:==============>                                            (2 + 4) / 8]
+
+[Stage 0:============================================>              (6 + 2) / 8]
+
+[Stage 2:>                                                          (0 + 4) / 8]
+
+[Stage 2:==============>                                            (2 + 4) / 8]
+
+[Stage 2:=============================>                             (4 + 4) / 8]
+
+[Stage 2:============================================>              (6 + 2) / 8]
+
+                                                                                
+RESULT_JSON {"app": "modes-ew_classifier-udf_cpu", "app_id": "app-20260926160420-0003", "mode": "udf_cpu", "model": "ew_classifier", "partitions": 8, "batch_size": 1024, "samples": 100000, "setup_s": 5.87, "start_epoch": 1790438660.6380277, "wall_s": 35.644, "processed": 100000, "throughput": 2805.5, "end_epoch": 1790438696.2819812}

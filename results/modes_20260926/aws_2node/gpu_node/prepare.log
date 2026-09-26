@@ -1,0 +1,9 @@
+=== prepare gpu Sat Sep 26 15:44:05 UTC 2026 ===
+Completed 256.0 KiB/2.9 MiB (5.1 MiB/s) with 1 file(s) remainingCompleted 512.0 KiB/2.9 MiB (10.0 MiB/s) with 1 file(s) remainingCompleted 768.0 KiB/2.9 MiB (14.6 MiB/s) with 1 file(s) remainingCompleted 1.0 MiB/2.9 MiB (19.2 MiB/s) with 1 file(s) remaining  Completed 1.2 MiB/2.9 MiB (23.5 MiB/s) with 1 file(s) remaining  Completed 1.5 MiB/2.9 MiB (27.7 MiB/s) with 1 file(s) remaining  Completed 1.8 MiB/2.9 MiB (31.9 MiB/s) with 1 file(s) remaining  Completed 2.0 MiB/2.9 MiB (35.9 MiB/s) with 1 file(s) remaining  Completed 2.2 MiB/2.9 MiB (39.8 MiB/s) with 1 file(s) remaining  Completed 2.5 MiB/2.9 MiB (43.6 MiB/s) with 1 file(s) remaining  Completed 2.8 MiB/2.9 MiB (47.4 MiB/s) with 1 file(s) remaining  Completed 2.9 MiB/2.9 MiB (49.9 MiB/s) with 1 file(s) remaining  download: s3://sparkmodesclusterstack-modesbucket503035ff-85br6xuhqq98/project.zip to ../../../../opt/modes/project.zip
+GPU 0: Tesla T4 (UUID: GPU-467e7f73-ad60-0f9f-c108-9bb2fcb76046)
+CPU(s):                                  4
+Model name:                              Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz
+               total        used        free      shared  buff/cache   available
+Mem:              15           0          13           0           1          14
+nvcr.io/nvidia/tritonserver:25.01-py3
+PREPARED gpu

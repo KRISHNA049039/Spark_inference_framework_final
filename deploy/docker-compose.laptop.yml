@@ -1,0 +1,66 @@
+# =============================================================================
+# Spark Inference Cluster — small laptop (8 GB RAM, 4 GB Docker/WSL2 VM, 1 GPU)
+# Same image/topology as docker-compose.cluster.yml, but sized to fit:
+#   spark-master      : master + driver (GPU visible, so single_gpu/hybrid
+#                       driver-side modes can run on it)
+#   spark-gpu-worker  : 1 executor, 4 cores (2 tasks x spark.task.cpus=2), GPU
+#   spark-cpu-worker  : CPU only, 0 by default (--scale spark-cpu-worker=N for Phase 5)
+#
+#   docker compose -f deploy/docker-compose.laptop.yml up -d
+#   docker compose -f deploy/docker-compose.laptop.yml up -d --scale spark-cpu-worker=2
+#   docker exec spark-master bash -c "LEG=wsl2_docker bash benchmark/run_campaign.sh"
+# =============================================================================
+x-app: &app
+  image: multi-model-inference:latest
+  volumes:
+    - ../results:/app/results
+    - ../benchmark:/app/benchmark
+    - ../inference:/app/inference
+    - ../models:/app/models
+    - ../data:/app/data
+    - ../deploy:/app/deploy
+    - ../submit_job.py:/app/submit_job.py
+  shm_size: '1g'
+
+x-gpu: &gpu
+  resources:
+    reservations:
+      devices:
+        - driver: nvidia
+          count: all
+          capabilities: [gpu]
+
+services:
+  spark-master:
+    <<: *app
+    container_name: spark-master
+    hostname: spark-master
+    environment:
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    command: >
+      bash -c "$$SPARK_HOME/sbin/start-master.sh -h spark-master && tail -f $$SPARK_HOME/logs/*master*"
+    ports: ["7077:7077", "8080:8080", "4040:4040"]
+    deploy: *gpu
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 5s
+      retries: 20
+
+  spark-gpu-worker:
+    <<: *app
+    hostname: spark-gpu-worker
+    command: >
+      bash -c "$$SPARK_HOME/sbin/start-worker.sh spark://spark-master:7077 -c 4 -m 4g && tail -f $$SPARK_HOME/logs/*worker*"
+    deploy: *gpu
+    depends_on:
+      spark-master: {condition: service_healthy}
+
+  spark-cpu-worker:
+    <<: *app
+    environment:
+      - CUDA_VISIBLE_DEVICES=
+    deploy: {replicas: 0}
+    command: >
+      bash -c "$$SPARK_HOME/sbin/start-worker.sh spark://spark-master:7077 -c 4 -m 4g && tail -f $$SPARK_HOME/logs/*worker*"
+    depends_on:
+      spark-master: {condition: service_healthy}

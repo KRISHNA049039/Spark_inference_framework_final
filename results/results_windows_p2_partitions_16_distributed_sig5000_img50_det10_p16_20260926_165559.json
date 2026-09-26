@@ -1,0 +1,2620 @@
+{
+  "system_info": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.10",
+    "torch": "2.14.0+cu126",
+    "cpu_cores": 8,
+    "cuda": true,
+    "gpu_name": "NVIDIA GeForce GTX 1650",
+    "gpu_memory_gb": "4.3",
+    "gpu_count": 1,
+    "timestamp": "2026-09-26T16:52:28.614494"
+  },
+  "config": {
+    "signal_samples": 5000,
+    "image_samples": 50,
+    "detection_samples": 10,
+    "batch_size": 64,
+    "partitions": 16
+  },
+  "models": {
+    "ew_classifier": {
+      "category": "signal",
+      "memory_mb": 50
+    },
+    "signal_denoiser": {
+      "category": "signal",
+      "memory_mb": 100
+    },
+    "threat_prioritizer": {
+      "category": "signal",
+      "memory_mb": 350
+    },
+    "rf_fingerprinter": {
+      "category": "signal",
+      "memory_mb": 120
+    },
+    "anomaly_detector": {
+      "category": "signal",
+      "memory_mb": 100
+    },
+    "resnet18": {
+      "category": "image_classification",
+      "memory_mb": 300
+    },
+    "mobilenetv3": {
+      "category": "image_classification",
+      "memory_mb": 150
+    },
+    "efficientnet_b0": {
+      "category": "image_classification",
+      "memory_mb": 200
+    },
+    "yolov8_nano": {
+      "category": "object_detection",
+      "memory_mb": 200
+    },
+    "yolov8_small": {
+      "category": "object_detection",
+      "memory_mb": 400
+    }
+  },
+  "distributed_gpu": {
+    "mode": "distributed_gpu",
+    "elapsed_time": 175.0899,
+    "total_samples_processed": 25170,
+    "total_throughput": 143.8,
+    "per_model_processed": {
+      "ew_classifier": 5000,
+      "signal_denoiser": 5000,
+      "threat_prioritizer": 5000,
+      "rf_fingerprinter": 5000,
+      "anomaly_detector": 5000,
+      "resnet18": 50,
+      "mobilenetv3": 50,
+      "efficientnet_b0": 50,
+      "yolov8_nano": 10,
+      "yolov8_small": 10
+    },
+    "num_partitions": 16,
+    "num_models": 10,
+    "partition_details": [
+      {
+        "partition_idx": 0,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:30284",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 30284,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 4.9876,
+          "total_inference_time_sec": 1.4979,
+          "total_task_time_sec": 6.4855
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.3083,
+            "throughput": 1012.0,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0216,
+            "throughput": 14437.8,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2092,
+            "throughput": 1491.2,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.5562,
+            "throughput": 560.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.055,
+            "throughput": 5671.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1494,
+            "throughput": 20.1,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1037,
+            "throughput": 28.9,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0837,
+            "throughput": 35.9,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 1,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:5092",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 5092,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 4.9516,
+          "total_inference_time_sec": 1.4503,
+          "total_task_time_sec": 6.4019
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2997,
+            "throughput": 1041.2,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0207,
+            "throughput": 15080.3,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2544,
+            "throughput": 1226.4,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.5127,
+            "throughput": 608.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0548,
+            "throughput": 5696.4,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1485,
+            "throughput": 20.2,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0865,
+            "throughput": 34.7,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0605,
+            "throughput": 49.6,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0001,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0001,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 2,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:26192",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 26192,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 5.2921,
+          "total_inference_time_sec": 1.4317,
+          "total_task_time_sec": 6.7238
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2732,
+            "throughput": 1142.1,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0195,
+            "throughput": 16033.0,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2856,
+            "throughput": 1092.3,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.5464,
+            "throughput": 571.0,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0502,
+            "throughput": 6214.6,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1275,
+            "throughput": 23.5,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0783,
+            "throughput": 38.3,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.037,
+            "throughput": 81.0,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 3,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:11912",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 11912,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 4.9101,
+          "total_inference_time_sec": 1.2854,
+          "total_task_time_sec": 6.1955
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2863,
+            "throughput": 1089.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0223,
+            "throughput": 13987.3,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2145,
+            "throughput": 1454.6,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.4,
+            "throughput": 780.0,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0395,
+            "throughput": 7907.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1343,
+            "throughput": 22.3,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1114,
+            "throughput": 26.9,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0679,
+            "throughput": 44.2,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0001,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 4,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:24620",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 24620,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.9778,
+          "total_inference_time_sec": 1.2836,
+          "total_task_time_sec": 5.2614
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2367,
+            "throughput": 1318.2,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0235,
+            "throughput": 13257.3,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.203,
+            "throughput": 1536.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.4218,
+            "throughput": 739.7,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0476,
+            "throughput": 6555.8,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1561,
+            "throughput": 19.2,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1153,
+            "throughput": 26.0,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0693,
+            "throughput": 43.3,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 5,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:15236",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 15236,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 4.1619,
+          "total_inference_time_sec": 1.098,
+          "total_task_time_sec": 5.2599
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1315,
+            "throughput": 2373.1,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0095,
+            "throughput": 32904.6,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.19,
+            "throughput": 1642.1,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.4319,
+            "throughput": 722.3,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0501,
+            "throughput": 6224.3,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1466,
+            "throughput": 20.5,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0868,
+            "throughput": 34.5,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0452,
+            "throughput": 66.3,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 6,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:28968",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 28968,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.9716,
+          "total_inference_time_sec": 0.9575,
+          "total_task_time_sec": 4.9291
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1033,
+            "throughput": 3019.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0119,
+            "throughput": 26124.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1092,
+            "throughput": 2856.8,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.3549,
+            "throughput": 879.2,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0503,
+            "throughput": 6204.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1425,
+            "throughput": 21.1,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.094,
+            "throughput": 31.9,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0851,
+            "throughput": 35.3,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0001,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 7,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:20224",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 20224,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.5418,
+          "total_inference_time_sec": 0.8431,
+          "total_task_time_sec": 4.3849
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1091,
+            "throughput": 2860.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0078,
+            "throughput": 40143.6,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1184,
+            "throughput": 2634.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.3217,
+            "throughput": 970.0,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0423,
+            "throughput": 7368.2,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.1154,
+            "throughput": 26.0,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0807,
+            "throughput": 37.2,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0404,
+            "throughput": 74.2,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 8,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:16940",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 16940,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.5657,
+          "total_inference_time_sec": 0.7037,
+          "total_task_time_sec": 4.2694
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1018,
+            "throughput": 3064.0,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0111,
+            "throughput": 28125.6,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1026,
+            "throughput": 3040.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2734,
+            "throughput": 1141.3,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0351,
+            "throughput": 8900.7,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0699,
+            "throughput": 42.9,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0639,
+            "throughput": 47.0,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0404,
+            "throughput": 74.3,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 9,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:10852",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 10852,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.1949,
+          "total_inference_time_sec": 0.5302,
+          "total_task_time_sec": 3.7251
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0855,
+            "throughput": 3650.7,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.008,
+            "throughput": 38802.1,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0883,
+            "throughput": 3531.7,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1717,
+            "throughput": 1816.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.031,
+            "throughput": 10052.4,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0689,
+            "throughput": 43.5,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0471,
+            "throughput": 63.7,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0261,
+            "throughput": 114.9,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 10,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:15932",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 15932,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.432,
+          "total_inference_time_sec": 0.6386,
+          "total_task_time_sec": 4.0705
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1343,
+            "throughput": 2322.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.013,
+            "throughput": 24008.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1059,
+            "throughput": 2945.2,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1948,
+            "throughput": 1601.4,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.026,
+            "throughput": 11987.1,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0665,
+            "throughput": 45.1,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0568,
+            "throughput": 52.8,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.037,
+            "throughput": 81.2,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 11,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:6816",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 6816,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.3186,
+          "total_inference_time_sec": 0.578,
+          "total_task_time_sec": 3.8966
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0917,
+            "throughput": 3401.2,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0117,
+            "throughput": 26671.6,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1063,
+            "throughput": 2936.1,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2194,
+            "throughput": 1422.4,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0267,
+            "throughput": 11675.8,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0554,
+            "throughput": 54.2,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0388,
+            "throughput": 77.4,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0239,
+            "throughput": 125.4,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0001,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 12,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:1660",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 1660,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.0462,
+          "total_inference_time_sec": 0.5108,
+          "total_task_time_sec": 3.557
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1021,
+            "throughput": 3056.4,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0092,
+            "throughput": 33884.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0813,
+            "throughput": 3835.8,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1651,
+            "throughput": 1889.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.023,
+            "throughput": 13564.6,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0502,
+            "throughput": 59.7,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0448,
+            "throughput": 66.9,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0314,
+            "throughput": 95.5,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 13,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:11744",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 11744,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.0387,
+          "total_inference_time_sec": 0.5534,
+          "total_task_time_sec": 3.592
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0885,
+            "throughput": 3525.8,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0093,
+            "throughput": 33586.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0958,
+            "throughput": 3256.0,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.2093,
+            "throughput": 1490.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0281,
+            "throughput": 11090.8,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.055,
+            "throughput": 54.5,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0373,
+            "throughput": 80.4,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0268,
+            "throughput": 112.1,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 14,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:25204",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 25204,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.3491,
+          "total_inference_time_sec": 0.6714,
+          "total_task_time_sec": 4.0204
+        },
+        "models_run": 10,
+        "total_samples_processed": 1569,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1166,
+            "throughput": 2676.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0237,
+            "throughput": 13138.2,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1113,
+            "throughput": 2803.3,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.1637,
+            "throughput": 1906.2,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 312,
+            "inference_time_sec": 0.0212,
+            "throughput": 14748.6,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.087,
+            "throughput": 34.5,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0958,
+            "throughput": 31.3,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 3,
+            "inference_time_sec": 0.0469,
+            "throughput": 64.0,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          },
+          "yolov8_small": {
+            "samples_processed": 0,
+            "inference_time_sec": 0.0,
+            "throughput": 0.0,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": null,
+            "batches": 0
+          }
+        }
+      },
+      {
+        "partition_idx": 15,
+        "executor": {
+          "id": "LAPTOP-OU17PKM2:28840",
+          "hostname": "LAPTOP-OU17PKM2",
+          "pid": 28840,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce GTX 1650",
+          "gpu_memory_mb": 4295.0,
+          "cpu_count": 8
+        },
+        "timing": {
+          "model_load_time_sec": 3.6051,
+          "total_inference_time_sec": 0.9581,
+          "total_task_time_sec": 4.5633
+        },
+        "models_run": 10,
+        "total_samples_processed": 1635,
+        "per_model": {
+          "ew_classifier": {
+            "samples_processed": 320,
+            "inference_time_sec": 0.0927,
+            "throughput": 3451.5,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              8
+            ],
+            "batches": 5
+          },
+          "signal_denoiser": {
+            "samples_processed": 320,
+            "inference_time_sec": 0.0118,
+            "throughput": 27004.8,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              128
+            ],
+            "batches": 5
+          },
+          "threat_prioritizer": {
+            "samples_processed": 320,
+            "inference_time_sec": 0.139,
+            "throughput": 2302.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "rf_fingerprinter": {
+            "samples_processed": 320,
+            "inference_time_sec": 0.3774,
+            "throughput": 847.9,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              32
+            ],
+            "batches": 5
+          },
+          "anomaly_detector": {
+            "samples_processed": 320,
+            "inference_time_sec": 0.0414,
+            "throughput": 7725.7,
+            "input_shape": [
+              128
+            ],
+            "output_shape": [
+              64
+            ],
+            "batches": 5
+          },
+          "resnet18": {
+            "samples_processed": 5,
+            "inference_time_sec": 0.105,
+            "throughput": 47.6,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "mobilenetv3": {
+            "samples_processed": 5,
+            "inference_time_sec": 0.078,
+            "throughput": 64.1,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "efficientnet_b0": {
+            "samples_processed": 5,
+            "inference_time_sec": 0.0451,
+            "throughput": 110.9,
+            "input_shape": [
+              3,
+              224,
+              224
+            ],
+            "output_shape": [
+              1000
+            ],
+            "batches": 1
+          },
+          "yolov8_nano": {
+            "samples_processed": 10,
+            "inference_time_sec": 0.0272,
+            "throughput": 367.3,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": [
+              400
+            ],
+            "batches": 1
+          },
+          "yolov8_small": {
+            "samples_processed": 10,
+            "inference_time_sec": 0.0368,
+            "throughput": 271.8,
+            "input_shape": [
+              3,
+              640,
+              640
+            ],
+            "output_shape": [
+              400
+            ],
+            "batches": 1
+          }
+        }
+      }
+    ],
+    "spark_ui_stats": {
+      "app_id": "local-1790421771220",
+      "app_name": "MultiModel_Distributed_GPU",
+      "jobs": [
+        {
+          "jobId": 0,
+          "name": "collect at D:\\pytorch-spark-inference-platform 1\\inference\\distributed_gpu.py:396",
+          "submissionTime": "2026-09-26T11:23:01.672GMT",
+          "completionTime": "2026-09-26T11:25:56.354GMT",
+          "stageIds": [
+            0
+          ],
+          "jobTags": [],
+          "status": "SUCCEEDED",
+          "numTasks": 16,
+          "numActiveTasks": 0,
+          "numCompletedTasks": 16,
+          "numSkippedTasks": 0,
+          "numFailedTasks": 0,
+          "numKilledTasks": 0,
+          "numCompletedIndices": 16,
+          "numActiveStages": 0,
+          "numCompletedStages": 1,
+          "numSkippedStages": 0,
+          "numFailedStages": 0,
+          "killedTasksSummary": {}
+        }
+      ],
+      "stages": [
+        {
+          "status": "COMPLETE",
+          "stageId": 0,
+          "attemptId": 0,
+          "numTasks": 16,
+          "numActiveTasks": 0,
+          "numCompleteTasks": 16,
+          "numFailedTasks": 0,
+          "numKilledTasks": 0,
+          "numCompletedIndices": 16,
+          "submissionTime": "2026-09-26T11:23:01.732GMT",
+          "firstTaskLaunchedTime": "2026-09-26T11:23:01.906GMT",
+          "completionTime": "2026-09-26T11:25:56.329GMT",
+          "executorDeserializeTime": 377,
+          "executorDeserializeCpuTime": 218750000,
+          "executorRunTime": 345469,
+          "executorCpuTime": 1062500000,
+          "resultSize": 43223,
+          "jvmGcTime": 7,
+          "resultSerializationTime": 13,
+          "memoryBytesSpilled": 0,
+          "diskBytesSpilled": 0,
+          "peakExecutionMemory": 0,
+          "inputBytes": 0,
+          "inputRecords": 0,
+          "outputBytes": 0,
+          "outputRecords": 0,
+          "shuffleRemoteBlocksFetched": 0,
+          "shuffleLocalBlocksFetched": 0,
+          "shuffleFetchWaitTime": 0,
+          "shuffleRemoteBytesRead": 0,
+          "shuffleRemoteBytesReadToDisk": 0,
+          "shuffleLocalBytesRead": 0,
+          "shuffleReadBytes": 0,
+          "shuffleReadRecords": 0,
+          "shuffleCorruptMergedBlockChunks": 0,
+          "shuffleMergedFetchFallbackCount": 0,
+          "shuffleMergedRemoteBlocksFetched": 0,
+          "shuffleMergedLocalBlocksFetched": 0,
+          "shuffleMergedRemoteChunksFetched": 0,
+          "shuffleMergedLocalChunksFetched": 0,
+          "shuffleMergedRemoteBytesRead": 0,
+          "shuffleMergedLocalBytesRead": 0,
+          "shuffleRemoteReqsDuration": 0,
+          "shuffleMergedRemoteReqsDuration": 0,
+          "shuffleWriteBytes": 0,
+          "shuffleWriteTime": 0,
+          "shuffleWriteRecords": 0,
+          "name": "collect at D:\\pytorch-spark-inference-platform 1\\inference\\distributed_gpu.py:396",
+          "details": "org.apache.spark.rdd.RDD.collect(RDD.scala:1072)\norg.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:232)\norg.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)\njava.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\njava.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\njava.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\njava.base/java.lang.reflect.Method.invoke(Method.java:569)\npy4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\npy4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)\npy4j.Gateway.invoke(Gateway.java:282)\npy4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\npy4j.commands.CallCommand.execute(CallCommand.java:79)\npy4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:184)\npy4j.ClientServerConnection.run(ClientServerConnection.java:108)\njava.base/java.lang.Thread.run(Thread.java:840)",
+          "schedulingPool": "default",
+          "rddIds": [
+            1,
+            0
+          ],
+          "accumulatorUpdates": [],
+          "killedTasksSummary": {},
+          "resourceProfileId": 0,
+          "peakExecutorMetrics": {
+            "JVMHeapMemory": 505884928,
+            "JVMOffHeapMemory": 115542200,
+            "OnHeapExecutionMemory": 0,
+            "OffHeapExecutionMemory": 0,
+            "OnHeapStorageMemory": 89295718,
+            "OffHeapStorageMemory": 0,
+            "OnHeapUnifiedMemory": 89295718,
+            "OffHeapUnifiedMemory": 0,
+            "DirectPoolMemory": 700635,
+            "MappedPoolMemory": 0,
+            "ProcessTreeJVMVMemory": 0,
+            "ProcessTreeJVMRSSMemory": 0,
+            "ProcessTreePythonVMemory": 0,
+            "ProcessTreePythonRSSMemory": 0,
+            "ProcessTreeOtherVMemory": 0,
+            "ProcessTreeOtherRSSMemory": 0,
+            "MinorGCCount": 34,
+            "MinorGCTime": 188,
+            "MajorGCCount": 0,
+            "MajorGCTime": 0,
+            "TotalGCTime": 188,
+            "ConcurrentGCCount": 0,
+            "ConcurrentGCTime": 0
+          },
+          "isShufflePushEnabled": false,
+          "shuffleMergersCount": 0
+        }
+      ],
+      "executors": [
+        {
+          "id": "driver",
+          "hostPort": "LAPTOP-OU17PKM2.mshome.net:60729",
+          "isActive": true,
+          "rddBlocks": 0,
+          "memoryUsed": 89284462,
+          "diskUsed": 0,
+          "totalCores": 2,
+          "maxTasks": 2,
+          "activeTasks": 0,
+          "failedTasks": 0,
+          "completedTasks": 16,
+          "totalTasks": 16,
+          "totalDuration": 190621,
+          "totalGCTime": 188,
+          "totalInputBytes": 0,
+          "totalShuffleRead": 0,
+          "totalShuffleWrite": 0,
+          "isBlacklisted": false,
+          "maxMemory": 3676726886,
+          "addTime": "2026-09-26T11:22:51.354GMT",
+          "executorLogs": {},
+          "memoryMetrics": {
+            "usedOnHeapStorageMemory": 89284462,
+            "usedOffHeapStorageMemory": 0,
+            "totalOnHeapStorageMemory": 3676726886,
+            "totalOffHeapStorageMemory": 0
+          },
+          "blacklistedInStages": [],
+          "peakMemoryMetrics": {
+            "JVMHeapMemory": 505884928,
+            "JVMOffHeapMemory": 115542200,
+            "OnHeapExecutionMemory": 0,
+            "OffHeapExecutionMemory": 0,
+            "OnHeapStorageMemory": 89295718,
+            "OffHeapStorageMemory": 0,
+            "OnHeapUnifiedMemory": 89295718,
+            "OffHeapUnifiedMemory": 0,
+            "DirectPoolMemory": 700635,
+            "MappedPoolMemory": 0,
+            "ProcessTreeJVMVMemory": 0,
+            "ProcessTreeJVMRSSMemory": 0,
+            "ProcessTreePythonVMemory": 0,
+            "ProcessTreePythonRSSMemory": 0,
+            "ProcessTreeOtherVMemory": 0,
+            "ProcessTreeOtherRSSMemory": 0,
+            "MinorGCCount": 34,
+            "MinorGCTime": 188,
+            "MajorGCCount": 0,
+            "MajorGCTime": 0,
+            "TotalGCTime": 188,
+            "ConcurrentGCCount": 0,
+            "ConcurrentGCTime": 0
+          },
+          "attributes": {},
+          "resources": {},
+          "resourceProfileId": 0,
+          "isExcluded": false,
+          "excludedInStages": []
+        }
+      ]
+    }
+  },
+  "total_benchmark_time": 207.05
+}

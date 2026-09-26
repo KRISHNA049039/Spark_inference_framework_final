@@ -1,0 +1,45 @@
+=== run cpu Sat Sep 26 16:03:07 UTC 2026 ===
+alive workers: 2
+>>> modes-ew_classifier-rdd_cpu
+    19398.3 samples/s  wall=5.155s
+>>> modes-ew_classifier-rdd_gpu
+    14614.1 samples/s  wall=6.843s
+>>> modes-ew_classifier-rdd_hybrid
+    20299.5 samples/s  wall=4.926s
+>>> modes-ew_classifier-udf_cpu
+    2805.5 samples/s  wall=35.644s
+>>> modes-ew_classifier-udf_gpu
+    5858.7 samples/s  wall=17.069s
+>>> modes-ew_classifier-native_pbu_cpu
+    5310.8 samples/s  wall=18.829s
+>>> modes-ew_classifier-native_pbu_gpu
+    5742.9 samples/s  wall=17.413s
+>>> modes-ew_classifier-triton_pbu
+    5863.6 samples/s  wall=17.054s
+>>> modes-ew_classifier-rdd_gpu_aware
+    16879.4 samples/s  wall=5.924s
+>>> modes-resnet18-rdd_cpu
+    23.7 samples/s  wall=10.787s
+>>> modes-resnet18-rdd_gpu
+    11.9 samples/s  wall=21.431s
+>>> modes-resnet18-rdd_hybrid
+    29.0 samples/s  wall=8.822s
+>>> modes-resnet18-udf_cpu
+    6.9 samples/s  wall=37.113s
+>>> modes-resnet18-udf_gpu
+    7.4 samples/s  wall=34.49s
+>>> modes-resnet18-native_pbu_cpu
+    7.3 samples/s  wall=35.268s
+>>> modes-resnet18-native_pbu_gpu
+    7.5 samples/s  wall=34.02s
+>>> modes-resnet18-triton_pbu
+    8.5 samples/s  wall=30.005s
+>>> modes-resnet18-rdd_gpu_aware
+    27.9 samples/s  wall=9.162s
+>>> modes-platform10-platform10_cpu
+    821.5 samples/s  wall=18.697s
+>>> modes-platform10-platform10_gpu
+    787.1 samples/s  wall=19.516s
+>>> modes-platform10-platform10_hybrid
+    1132.5 samples/s  wall=13.563s
+RUN DONE

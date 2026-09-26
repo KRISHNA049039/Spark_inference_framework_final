@@ -1,0 +1,222 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 11:52:53 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 0) / 4][Stage 0:>                                                          (0 + 2) / 4][Stage 0:==============>                                            (1 + 2) / 4][Stage 0:=============================>                             (2 + 2) / 4][Stage 0:============================================>              (3 + 1) / 4]                                                                                26/09/26 11:53:08 ERROR TransportResponseHandler: Still have 1 requests outstanding when connection from /10.0.0.240:45518 is closed
+java.util.concurrent.RejectedExecutionException: Task scala.concurrent.impl.CallbackRunnable@6b2451b0 rejected from java.util.concurrent.ThreadPoolExecutor@7380be39[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2065)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:833)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1365)
+	at scala.concurrent.impl.ExecutionContextImpl$$anon$4.execute(ExecutionContextImpl.scala:138)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:72)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:288)
+	at scala.concurrent.Promise.complete(Promise.scala:53)
+	at scala.concurrent.Promise.complete$(Promise.scala:52)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:187)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:33)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:64)
+	at org.apache.spark.util.ThreadUtils$$anon$1.execute(ThreadUtils.scala:99)
+	at scala.concurrent.impl.ExecutionContextImpl$$anon$4.execute(ExecutionContextImpl.scala:138)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:72)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:288)
+	at scala.concurrent.Promise.complete(Promise.scala:53)
+	at scala.concurrent.Promise.complete$(Promise.scala:52)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:187)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:33)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:64)
+	at scala.concurrent.BatchingExecutor$Batch.processBatch$1(BatchingExecutor.scala:67)
+	at scala.concurrent.BatchingExecutor$Batch.$anonfun$run$1(BatchingExecutor.scala:82)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:85)
+	at scala.concurrent.BatchingExecutor$Batch.run(BatchingExecutor.scala:59)
+	at scala.concurrent.Future$InternalCallbackExecutor$.unbatchedExecute(Future.scala:875)
+	at scala.concurrent.BatchingExecutor.execute(BatchingExecutor.scala:110)
+	at scala.concurrent.BatchingExecutor.execute$(BatchingExecutor.scala:107)
+	at scala.concurrent.Future$InternalCallbackExecutor$.execute(Future.scala:873)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:72)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:288)
+	at scala.concurrent.Promise.tryFailure(Promise.scala:112)
+	at scala.concurrent.Promise.tryFailure$(Promise.scala:112)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryFailure(Promise.scala:187)
+	at org.apache.spark.rpc.netty.NettyRpcEnv.org$apache$spark$rpc$netty$NettyRpcEnv$$onFailure$1(NettyRpcEnv.scala:214)
+	at org.apache.spark.rpc.netty.NettyRpcEnv.$anonfun$askAbortable$6(NettyRpcEnv.scala:245)
+	at org.apache.spark.rpc.netty.NettyRpcEnv.$anonfun$askAbortable$6$adapted(NettyRpcEnv.scala:245)
+	at org.apache.spark.rpc.netty.RpcOutboxMessage.onFailure(Outbox.scala:86)
+	at org.apache.spark.network.client.TransportResponseHandler.failOutstandingRequests(TransportResponseHandler.java:118)
+	at org.apache.spark.network.client.TransportResponseHandler.channelInactive(TransportResponseHandler.java:147)
+	at org.apache.spark.network.server.TransportChannelHandler.channelInactive(TransportChannelHandler.java:117)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:305)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:81)
+	at io.netty.handler.timeout.IdleStateHandler.channelInactive(IdleStateHandler.java:277)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:81)
+	at org.apache.spark.network.util.TransportFrameDecoder.channelInactive(TransportFrameDecoder.java:225)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:305)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelInactive(DefaultChannelPipeline.java:1405)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:301)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelInactive(DefaultChannelPipeline.java:901)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$7.run(AbstractChannel.java:813)
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasksFrom(SingleThreadEventExecutor.java:426)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:375)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.confirmShutdown(SingleThreadEventExecutor.java:763)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:596)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+======================================================================
+  MULTI-MODEL DISTRIBUTED INFERENCE BENCHMARK
+======================================================================
+
+  System: Linux-6.8.0-1060-aws-x86_64-with-glibc2.35
+  Python: 3.11.16 | PyTorch: 2.6.0+cu126
+  GPU: Tesla T4 | CUDA: True
+  Signals: 5000 | Images: 50 | Detections: 10
+
+  [SETUP] Loading model registry...
+
+============================================================
+  MODEL REGISTRY — 10 models
+============================================================
+Name                      Category        Memory (MB)  Input Shape
+------------------------- --------------- ------------ --------------------
+ew_classifier             signal          50           (128,)
+signal_denoiser           signal          100          (128,)
+threat_prioritizer        signal          350          (128,)
+rf_fingerprinter          signal          120          (128,)
+anomaly_detector          signal          100          (128,)
+resnet18                  image_classification 300          (3, 224, 224)
+mobilenetv3               image_classification 150          (3, 224, 224)
+efficientnet_b0           image_classification 200          (3, 224, 224)
+yolov8_nano               object_detection 200          (3, 640, 640)
+yolov8_small              object_detection 400          (3, 640, 640)
+
+  Total estimated GPU memory: 1970 MB (1.9 GB)
+
+  [SETUP] Instantiating models...
+    Loaded 10 models
+
+  [SETUP] Generating synthetic data...
+    Total data: 201.4 MB
+
+  [MODE 2] Single GPU — CUDA Streams...
+    Throughput: 58,608 total samples/sec
+    Time: 0.43s
+
+  [MODE 3] Hybrid CPU+GPU — Memory-Aware Split...
+
+============================================================
+  GPU MEMORY MANAGER — 1 GPU(s) detected
+============================================================
+
+  GPU 0: 14913 MB total, 12443 MB free, 16.6% used
+    └─ yolov8_small: 400 MB
+    └─ yolov8_nano: 200 MB
+    └─ resnet18: 300 MB
+    └─ efficientnet_b0: 200 MB
+    └─ mobilenetv3: 150 MB
+    └─ threat_prioritizer: 350 MB
+    └─ ew_classifier: 50 MB
+    └─ rf_fingerprinter: 120 MB
+    └─ signal_denoiser: 100 MB
+    └─ anomaly_detector: 100 MB
+
+  Summary: 10 on GPU (1970 MB), 0 on CPU (0 MB)
+    Throughput: 59,092 total samples/sec
+    GPU models: ['ew_classifier', 'signal_denoiser', 'threat_prioritizer', 'rf_fingerprinter', 'anomaly_detector', 'resnet18', 'mobilenetv3', 'efficientnet_b0', 'yolov8_nano', 'yolov8_small']
+    CPU models: []
+    Time: 0.43s
+
+  [MODE 1] Distributed GPU — Spark RDD...
+    Spark master: spark://10.0.0.240:7077
+
+──────────────────────────────────────────────────────────────────────
+  DISTRIBUTED INFERENCE RESULTS
+──────────────────────────────────────────────────────────────────────
+  Total Throughput : 2,672 samples/sec
+  Total Samples    : 25,170
+  Elapsed Time     : 9.42s
+  Partitions       : 4
+  Models           : 10
+
+  JOB COMPOSITION:
+  ─────────────────────────────────────────────────────────
+  Job: Distributed inference of 10 ML models
+  Stages: 1 (parallelize → map → collect)
+  Tasks: 4 (one per partition)
+  Each task: Load 10 models → run inference on data chunk → return results
+
+  EXECUTOR / WORKER DETAIL:
+  ──────────────────────────────────────────────────────────────────────
+  Part  Hostname             Device GPU                  ModelLoad  Inference  Samples
+  ──────────────────────────────────────────────────────────────────────
+  0     ip-10-0-0-240        cuda   Tesla T4             2.13       0.56       6290
+  1     ip-10-0-0-240        cuda   Tesla T4             2.13       0.53       6290
+  2     ip-10-0-0-240        cuda   Tesla T4             0.67       0.09       6290
+  3     ip-10-0-0-240        cuda   Tesla T4             0.65       0.16       6300
+  ──────────────────────────────────────────────────────────────────────
+
+  WORKER SUMMARY (1 unique workers):
+  ──────────────────────────────────────────────────────────────────────
+  Worker               Device CPUs  Tasks  Samples    GPU
+  ──────────────────────────────────────────────────────────────────────
+  ip-10-0-0-240        cuda   4     4      25,170     Tesla T4
+  ──────────────────────────────────────────────────────────────────────
+
+  MODEL INPUT/OUTPUT & THROUGHPUT:
+  ──────────────────────────────────────────────────────────────────────
+  Model                  Input Shape     Output Shape    Samples  Throughput
+  ──────────────────────────────────────────────────────────────────────
+  ew_classifier          [128]           [8]             5,000    31,949/s
+  signal_denoiser        [128]           [128]           5,000    158,730/s
+  threat_prioritizer     [128]           [64]            5,000    29,762/s
+  rf_fingerprinter       [128]           [32]            5,000    11,539/s
+  anomaly_detector       [128]           [64]            5,000    80,645/s
+  resnet18               [3, 224, 224]   [1000]          50       489/s
+  mobilenetv3            [3, 224, 224]   [1000]          50       262/s
+  efficientnet_b0        [3, 224, 224]   [1000]          50       365/s
+  yolov8_nano            [3, 640, 640]   [400]           10       345/s
+  yolov8_small           [3, 640, 640]   [400]           10       339/s
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK EXECUTOR METRICS (from REST API):
+  ──────────────────────────────────────────────────────────────────────
+  ID       Host                      Cores  Tasks  Duration
+  ──────────────────────────────────────────────────────────────────────
+  0        10.0.0.240                4      4      17.1s
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK JOBS:
+  ──────────────────────────────────────────────────────────────────────
+  Job 0: SUCCEEDED | Stages: 1/0 | Tasks: 4/4
+  ──────────────────────────────────────────────────────────────────────
+
+======================================================================
+  SAVING RESULTS
+======================================================================
+  Report: /app/results/report_aws_g4dn_p1_modes_medium_all_sig5000_img50_det10_p4_20260926_115308.md
+  Raw data: /app/results/results_aws_g4dn_p1_modes_medium_all_sig5000_img50_det10_p4_20260926_115308.json
+
+  Files saved:
+    /app/results/report_aws_g4dn_p1_modes_medium_all_sig5000_img50_det10_p4_20260926_115308.md
+    /app/results/results_aws_g4dn_p1_modes_medium_all_sig5000_img50_det10_p4_20260926_115308.json
+    /app/results/metrics_report_latest.md (latest)
+    /app/results/raw_results_latest.json (latest)
+
+  Total time: 19.4s
+

@@ -1,0 +1,14 @@
+{
+  "mode": "distributed_gpu_only",
+  "device_mode": "gpu_only",
+  "elapsed_time": 30.8913,
+  "total_samples_processed": 20000,
+  "total_throughput": 647.4,
+  "per_model_processed": {
+    "example_mlp": 20000
+  },
+  "num_partitions": 4,
+  "num_models": 1,
+  "batch_size": 256,
+  "timestamp": "2026-09-26T17:27:22.482973"
+}

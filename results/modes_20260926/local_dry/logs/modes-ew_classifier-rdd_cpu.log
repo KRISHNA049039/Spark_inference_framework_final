@@ -1,0 +1,16 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 14:43:04 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+[Stage 0:>                                                          (0 + 1) / 4]
+[Executor] host=ad59867d3a7f, pid=126, device=cpu, cuda=True, models_loaded=1, model_load_time=0.26s
+
+[Stage 0:==============>                                            (1 + 1) / 4]
+[Executor] host=ad59867d3a7f, pid=126, device=cpu, cuda=True, models_loaded=1, model_load_time=0.01s
+[Executor] host=ad59867d3a7f, pid=126, device=cpu, cuda=True, models_loaded=1, model_load_time=0.01s
+
+[Stage 0:=============================>                             (2 + 1) / 4]
+[Executor] host=ad59867d3a7f, pid=126, device=cpu, cuda=True, models_loaded=1, model_load_time=0.01s
+
+                                                                                
+RESULT_JSON {"app": "modes-ew_classifier-rdd_cpu", "app_id": "local-1790433786397", "mode": "rdd_cpu", "model": "ew_classifier", "partitions": 4, "batch_size": 1024, "samples": 2000, "setup_s": 0.36, "start_epoch": 1790433787.7111585, "wall_s": 16.648, "processed": 2000, "throughput": 120.1, "end_epoch": 1790433804.3596013, "partition_details": [{"partition_idx": 0, "executor_id": "ad59867d3a7f_126", "hostname": "ad59867d3a7f", "device": "cpu", "cuda_available": true, "model_load_time_sec": 0.2596, "inference_time_sec": 0.5941, "total_task_time_sec": 0.5941, "samples_processed": 500, "per_model_processed": {"ew_classifier": 500}, "batch_size": 1024}, {"partition_idx": 1, "executor_id": "ad59867d3a7f_126", "hostname": "ad59867d3a7f", "device": "cpu", "cuda_available": true, "model_load_time_sec": 0.012, "inference_time_sec": 0.0145, "total_task_time_sec": 0.0145, "samples_processed": 500, "per_model_processed": {"ew_classifier": 500}, "batch_size": 1024}, {"partition_idx": 2, "executor_id": "ad59867d3a7f_126", "hostname": "ad59867d3a7f", "device": "cpu", "cuda_available": true, "model_load_time_sec": 0.009, "inference_time_sec": 0.0035, "total_task_time_sec": 0.0035, "samples_processed": 500, "per_model_processed": {"ew_classifier": 500}, "batch_size": 1024}, {"partition_idx": 3, "executor_id": "ad59867d3a7f_126", "hostname": "ad59867d3a7f", "device": "cpu", "cuda_available": true, "model_load_time_sec": 0.0096, "inference_time_sec": 0.0118, "total_task_time_sec": 0.0118, "samples_processed": 500, "per_model_processed": {"ew_classifier": 500}, "batch_size": 1024}]}

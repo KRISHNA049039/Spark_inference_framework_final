@@ -1,0 +1,122 @@
+{
+  "mode": "distributed_hybrid",
+  "device_mode": "hybrid",
+  "elapsed_time": 117.2473,
+  "total_samples_processed": 15360,
+  "total_throughput": 131.0,
+  "per_model_processed": {
+    "ew_classifier": 3000,
+    "signal_denoiser": 3000,
+    "threat_prioritizer": 3000,
+    "rf_fingerprinter": 3000,
+    "anomaly_detector": 3000,
+    "resnet18": 100,
+    "mobilenetv3": 100,
+    "efficientnet_b0": 100,
+    "yolov8_nano": 30,
+    "yolov8_small": 30
+  },
+  "num_partitions": 4,
+  "num_models": 10,
+  "batch_size": 256,
+  "partition_details": [
+    {
+      "partition_idx": 0,
+      "executor_id": "adf6827a7a84_3775",
+      "hostname": "adf6827a7a84",
+      "device": "cuda",
+      "cuda_available": true,
+      "model_load_time_sec": 45.9612,
+      "inference_time_sec": 9.3109,
+      "total_task_time_sec": 9.3109,
+      "samples_processed": 3839,
+      "per_model_processed": {
+        "ew_classifier": 750,
+        "signal_denoiser": 750,
+        "threat_prioritizer": 750,
+        "rf_fingerprinter": 750,
+        "anomaly_detector": 750,
+        "resnet18": 25,
+        "mobilenetv3": 25,
+        "efficientnet_b0": 25,
+        "yolov8_nano": 7,
+        "yolov8_small": 7
+      },
+      "batch_size": 256
+    },
+    {
+      "partition_idx": 1,
+      "executor_id": "adf6827a7a84_3775",
+      "hostname": "adf6827a7a84",
+      "device": "cuda",
+      "cuda_available": true,
+      "model_load_time_sec": 3.6575,
+      "inference_time_sec": 0.6546,
+      "total_task_time_sec": 0.6546,
+      "samples_processed": 3839,
+      "per_model_processed": {
+        "ew_classifier": 750,
+        "signal_denoiser": 750,
+        "threat_prioritizer": 750,
+        "rf_fingerprinter": 750,
+        "anomaly_detector": 750,
+        "resnet18": 25,
+        "mobilenetv3": 25,
+        "efficientnet_b0": 25,
+        "yolov8_nano": 7,
+        "yolov8_small": 7
+      },
+      "batch_size": 256
+    },
+    {
+      "partition_idx": 2,
+      "executor_id": "adf6827a7a84_3775",
+      "hostname": "adf6827a7a84",
+      "device": "cuda",
+      "cuda_available": true,
+      "model_load_time_sec": 2.8695,
+      "inference_time_sec": 0.657,
+      "total_task_time_sec": 0.657,
+      "samples_processed": 3839,
+      "per_model_processed": {
+        "ew_classifier": 750,
+        "signal_denoiser": 750,
+        "threat_prioritizer": 750,
+        "rf_fingerprinter": 750,
+        "anomaly_detector": 750,
+        "resnet18": 25,
+        "mobilenetv3": 25,
+        "efficientnet_b0": 25,
+        "yolov8_nano": 7,
+        "yolov8_small": 7
+      },
+      "batch_size": 256
+    },
+    {
+      "partition_idx": 3,
+      "executor_id": "adf6827a7a84_3775",
+      "hostname": "adf6827a7a84",
+      "device": "cuda",
+      "cuda_available": true,
+      "model_load_time_sec": 5.0921,
+      "inference_time_sec": 1.2818,
+      "total_task_time_sec": 1.2818,
+      "samples_processed": 3843,
+      "per_model_processed": {
+        "ew_classifier": 750,
+        "signal_denoiser": 750,
+        "threat_prioritizer": 750,
+        "rf_fingerprinter": 750,
+        "anomaly_detector": 750,
+        "resnet18": 25,
+        "mobilenetv3": 25,
+        "efficientnet_b0": 25,
+        "yolov8_nano": 9,
+        "yolov8_small": 9
+      },
+      "batch_size": 256
+    }
+  ],
+  "spark_ui_stats": {},
+  "timestamp": "2026-09-26T13:30:18.831586"
+}

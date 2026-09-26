@@ -1,0 +1,109 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/09/26 17:30:54 WARN Shell: Did not find winutils.exe: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\testing\utils.py:127: FutureWarning: PySpark does not yet fully support pandas >= 3.0.0. Some features may not work correctly. It is recommended to use pandas < 3.0.0 for now.
+  require_minimum_pandas_version()
+26/09/26 17:31:05 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+OpenJDK 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000694000000, 67108864, 0) failed; error='The paging file is too small for this operation to complete' (DOS error/errno=1455)
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 67108864 bytes. Error detail: G1 virtual space
+# An error report file with more information is saved as:
+# D:\pytorch-spark-inference-platform 1\hs_err_pid17856.log
+ERROR:root:Exception while sending command.
+Traceback (most recent call last):
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\clientserver.py", line 535, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\clientserver.py", line 566, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+
+================================================================================
+  SPARK vs SINGLE GPU — SCALABILITY PROOF BENCHMARK
+================================================================================
+  CUDA: True
+  GPU: NVIDIA GeForce GTX 1650
+  VRAM: 4.3 GB
+  CPU cores: 8
+
+  Loading 10 models...
+  Loaded 10 models
+  Generating data: 3000 signals, 50 images, 20 detections
+  Total data: 294.6 MB
+
+================================================================================
+  PHASE 1: SINGLE GPU BASELINES (No Spark)
+================================================================================
+
+  [SINGLE-GPU SEQUENTIAL] Device: cuda
+
+  ───────────────────────────────────────────────────────────────────────────
+  MODEL INPUT/OUTPUT DETAILS
+  ───────────────────────────────────────────────────────────────────────────
+  Model                  Input Shape        Output Shape       Throughput   Device
+  ───────────────────────────────────────────────────────────────────────────
+  ew_classifier          [128, 128]         [128, 8]              6,858/s   cuda
+  signal_denoiser        [128, 128]         [128, 128]           67,161/s   cuda
+  threat_prioritizer     [128, 128]         [128]                 8,027/s   cuda
+  rf_fingerprinter       [128, 128]         [128, 32]             1,552/s   cuda
+  anomaly_detector       [128, 128]         [128]                42,962/s   cuda
+  resnet18               [50, 3, 224, 224]  [50, 1000]              310/s   cuda
+  mobilenetv3            [50, 3, 224, 224]  [50, 1000]              355/s   cuda
+  efficientnet_b0        [50, 3, 224, 224]  [50, 1000]              261/s   cuda
+  yolov8_nano            [20, 3, 640, 640]  [20, 400]               379/s   cuda
+  yolov8_small           [20, 3, 640, 640]  [20, 400]               248/s   cuda
+  ───────────────────────────────────────────────────────────────────────────
+
+  [SINGLE-GPU PARALLEL STREAMS] Device: cuda
+
+================================================================================
+  PHASE 2: SPARK CLUSTER CONFIGURATIONS
+================================================================================
+
+  [SPARK: 2-partitions]
+    Config: partitions=2, batch_size=256
+    Master: local[2]
+    FAILED: An error occurred while calling o38.broadcast
+
+  [SPARK: 4-partitions]
+    Config: partitions=4, batch_size=256
+    FAILED: [WinError 10061] No connection could be made because the target machine actively refused it
+
+  [SPARK: 8-partitions]
+    Config: partitions=8, batch_size=256
+    FAILED: [WinError 10061] No connection could be made because the target machine actively refused it
+
+  [SPARK: 4p-batch64]
+    Config: partitions=4, batch_size=64
+    FAILED: [WinError 10061] No connection could be made because the target machine actively refused it
+
+  [SPARK: 4p-batch512]
+    Config: partitions=4, batch_size=512
+    FAILED: [WinError 10061] No connection could be made because the target machine actively refused it
+
+================================================================================
+  FINAL COMPARISON: SINGLE GPU vs SPARK CLUSTER
+================================================================================
+
+  Config                              Throughput      Time       Speedup    Verdict
+  ─────────────────────────────────── ─────────────── ────────── ────────── ────────────
+  single_gpu_sequential                    4,142/s     3.67s    1.00×   ★ BEST
+  single_gpu_parallel_streams              3,797/s     4.00s    0.92×   
+  ────────────────────────────────────────────────────────────────────────────────
+
+  Results saved: D:\pytorch-spark-inference-platform 1\results\spark_vs_single_gpu_20260926_173155.json
+ERROR: The process "25128" not found.

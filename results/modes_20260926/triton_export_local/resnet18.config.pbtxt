@@ -1,0 +1,10 @@
+name: "resnet18"
+platform: "pytorch_libtorch"
+max_batch_size: 256
+input [ { name: "INPUT__0" data_type: TYPE_FP32 dims: [ 3, 224, 224 ] } ]
+output [ { name: "OUTPUT__0" data_type: TYPE_FP32 dims: [ 1000 ] } ]
+dynamic_batching {
+  preferred_batch_size: [ 64, 128, 256 ]
+  max_queue_delay_microseconds: 2000
+}
+instance_group [ { count: 2 kind: KIND_GPU } ]

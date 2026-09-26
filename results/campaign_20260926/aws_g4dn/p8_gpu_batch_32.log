@@ -1,0 +1,170 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 12:00:04 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 0) / 2][Stage 0:>                                                          (0 + 1) / 2][Stage 0:>                                                          (0 + 2) / 2]                                                                                26/09/26 12:00:20 ERROR TransportResponseHandler: Still have 1 requests outstanding when connection from /10.0.0.240:34802 is closed
+java.util.concurrent.RejectedExecutionException: Task scala.concurrent.impl.CallbackRunnable@2de4ee98 rejected from java.util.concurrent.ThreadPoolExecutor@7bdde7cd[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2065)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:833)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1365)
+	at scala.concurrent.impl.ExecutionContextImpl$$anon$4.execute(ExecutionContextImpl.scala:138)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:72)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:288)
+	at scala.concurrent.Promise.complete(Promise.scala:53)
+	at scala.concurrent.Promise.complete$(Promise.scala:52)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:187)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:33)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:64)
+	at org.apache.spark.util.ThreadUtils$$anon$1.execute(ThreadUtils.scala:99)
+	at scala.concurrent.impl.ExecutionContextImpl$$anon$4.execute(ExecutionContextImpl.scala:138)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:72)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:288)
+	at scala.concurrent.Promise.complete(Promise.scala:53)
+	at scala.concurrent.Promise.complete$(Promise.scala:52)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:187)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:33)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:64)
+	at scala.concurrent.BatchingExecutor$Batch.processBatch$1(BatchingExecutor.scala:67)
+	at scala.concurrent.BatchingExecutor$Batch.$anonfun$run$1(BatchingExecutor.scala:82)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:85)
+	at scala.concurrent.BatchingExecutor$Batch.run(BatchingExecutor.scala:59)
+	at scala.concurrent.Future$InternalCallbackExecutor$.unbatchedExecute(Future.scala:875)
+	at scala.concurrent.BatchingExecutor.execute(BatchingExecutor.scala:110)
+	at scala.concurrent.BatchingExecutor.execute$(BatchingExecutor.scala:107)
+	at scala.concurrent.Future$InternalCallbackExecutor$.execute(Future.scala:873)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:72)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:288)
+	at scala.concurrent.Promise.tryFailure(Promise.scala:112)
+	at scala.concurrent.Promise.tryFailure$(Promise.scala:112)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryFailure(Promise.scala:187)
+	at org.apache.spark.rpc.netty.NettyRpcEnv.org$apache$spark$rpc$netty$NettyRpcEnv$$onFailure$1(NettyRpcEnv.scala:214)
+	at org.apache.spark.rpc.netty.NettyRpcEnv.$anonfun$askAbortable$6(NettyRpcEnv.scala:245)
+	at org.apache.spark.rpc.netty.NettyRpcEnv.$anonfun$askAbortable$6$adapted(NettyRpcEnv.scala:245)
+	at org.apache.spark.rpc.netty.RpcOutboxMessage.onFailure(Outbox.scala:86)
+	at org.apache.spark.network.client.TransportResponseHandler.failOutstandingRequests(TransportResponseHandler.java:118)
+	at org.apache.spark.network.client.TransportResponseHandler.channelInactive(TransportResponseHandler.java:147)
+	at org.apache.spark.network.server.TransportChannelHandler.channelInactive(TransportChannelHandler.java:117)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:305)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:81)
+	at io.netty.handler.timeout.IdleStateHandler.channelInactive(IdleStateHandler.java:277)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:81)
+	at org.apache.spark.network.util.TransportFrameDecoder.channelInactive(TransportFrameDecoder.java:225)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:305)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelInactive(DefaultChannelPipeline.java:1405)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:301)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelInactive(DefaultChannelPipeline.java:901)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$7.run(AbstractChannel.java:813)
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:566)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+================================================================================
+  SPARK CLUSTER BENCHMARK
+================================================================================
+
+  CONFIGURATION:
+  ─────────────────────────────────────────────────────────────
+  Device Mode     : GPU_ONLY
+  Partitions      : 2
+  Signal Samples  : 3,000 (per model, 128-dim IQ vectors)
+  Image Samples   : 50 (3x224x224 RGB tensors)
+  Detection Imgs  : 20 (3x640x640 RGB tensors)
+  ─────────────────────────────────────────────────────────────
+
+  WHAT THIS MEASURES:
+  ─────────────────────────────────────────────────────────────
+  INPUT:    Synthetic sensor data fed into 10 ML models simultaneously
+  PROCESS:  Spark distributes data chunks to executors across the cluster
+            Each executor loads models → runs batch inference → returns count
+  OUTPUT:   Throughput (samples/sec) = how fast the cluster processes data
+  ─────────────────────────────────────────────────────────────
+
+  [1/4] Loading model registry...
+         Loaded 10 models
+  [2/4] Generating synthetic data...
+         15,190 samples, 294.6 MB
+         Per-partition: ~147 MB
+  [3/4] Connecting to Spark cluster...
+         Master: spark://10.0.0.240:7077
+  [4/4] Running distributed inference (gpu_only mode)...
+
+────────────────────────────────────────────────────────────────────────────────
+  RESULTS — GPU_ONLY MODE
+────────────────────────────────────────────────────────────────────────────────
+
+  THROUGHPUT:
+    Total Samples Processed : 15,190
+    Elapsed Time            : 9.44 seconds
+    ► Throughput            : 1,608 samples/second
+
+  EXPLANATION:
+    "Throughput" = total samples processed by ALL models across ALL executors
+    divided by wall-clock time. Higher = better cluster utilization.
+
+  PARTITION / TASK DETAIL:
+  ────────────────────────────────────────────────────────────────────────────
+  Part  Executor                            Device Samples  ModelLoad  Inference  Total   
+  ────────────────────────────────────────────────────────────────────────────
+  0     ip-10-0-0-240                       cuda   7595     2.17       0.68       0.68    
+  1     ip-10-0-0-240                       cuda   7595     2.17       0.69       0.69    
+  ────────────────────────────────────────────────────────────────────────────
+
+  EXECUTOR SUMMARY:
+  ────────────────────────────────────────────────────────────────────────────
+  Executor                            Device Tasks  Samples    ModelLoad  InferTime  Throughput
+  ────────────────────────────────────────────────────────────────────────────
+  ip-10-0-0-240                       cuda   1      7,595      2.17       0.68       11,192/sec
+  ip-10-0-0-240                       cuda   1      7,595      2.17       0.69       11,073/sec
+  ────────────────────────────────────────────────────────────────────────────
+
+  PER-MODEL SAMPLES PROCESSED:
+  ────────────────────────────────────────
+    anomaly_detector          : 3,000
+    efficientnet_b0           : 50
+    ew_classifier             : 3,000
+    mobilenetv3               : 50
+    resnet18                  : 50
+    rf_fingerprinter          : 3,000
+    signal_denoiser           : 3,000
+    threat_prioritizer        : 3,000
+    yolov8_nano               : 20
+    yolov8_small              : 20
+  ────────────────────────────────────────
+    TOTAL                     : 15,190
+
+  SPARK EXECUTOR METRICS (from REST API):
+  ────────────────────────────────────────────────────────────────────────────
+  ID    Host                                Cores  Tasks  Duration   GC Time  Memory
+  ────────────────────────────────────────────────────────────────────────────
+  0     10.0.0.240                          4      2      17.4      s 98      ms 89MB
+  ────────────────────────────────────────────────────────────────────────────
+
+  KEY METRICS EXPLAINED:
+  ─────────────────────────────────────────────────────────────
+  ModelLoad  : Time to deserialize 10 model weights onto device (once per executor)
+  Inference  : Time to run forward passes on all data batches
+  Throughput : samples_processed / inference_time (per executor)
+  Partitions : Data split into N chunks, 1 task per chunk
+  Tasks      : Spark units of work, distributed across executors
+  ─────────────────────────────────────────────────────────────
+
+  Results saved: /app/results/cluster_benchmark_gpu_only_3000_20260926_120020.json

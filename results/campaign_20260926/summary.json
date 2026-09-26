@@ -1,0 +1,991 @@
+{
+ "aws_g4dn": [
+  {
+   "test": "eng_rdd_cpu_only",
+   "throughput": {
+    "Spark job": 4191.9
+   },
+   "elapsed_s": 4.7711,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "eng_rdd_gpu_only",
+   "throughput": {
+    "Spark job": 3964.2
+   },
+   "elapsed_s": 5.0452,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "eng_udf_cpu_only",
+   "throughput": {
+    "Spark job": 1844.2
+   },
+   "elapsed_s": 10.8447,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "eng_udf_gpu_only",
+   "throughput": {
+    "Spark job": 1774.3
+   },
+   "elapsed_s": 11.272,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p1_dist_large",
+   "throughput": {
+    "Spark distributed": 4366.0
+   },
+   "elapsed_s": 11.53,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p1_modes_medium",
+   "throughput": {
+    "Single GPU": 58608.0,
+    "Hybrid CPU+GPU": 59092.0,
+    "Spark distributed": 2672.0
+   },
+   "elapsed_s": 9.42,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p1_modes_small",
+   "throughput": {
+    "Single GPU": 37162.0,
+    "Hybrid CPU+GPU": 38178.0,
+    "Spark distributed": 561.0
+   },
+   "elapsed_s": 9.04,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_16",
+   "throughput": {
+    "Spark distributed": 1699.0
+   },
+   "elapsed_s": 14.81,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_2",
+   "throughput": {
+    "Spark distributed": 2454.0
+   },
+   "elapsed_s": 10.26,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_4",
+   "throughput": {
+    "Spark distributed": 2667.0
+   },
+   "elapsed_s": 9.44,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_8",
+   "throughput": {
+    "Spark distributed": 2320.0
+   },
+   "elapsed_s": 10.85,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p3_medium",
+   "throughput": {
+    "Spark distributed": 2677.0
+   },
+   "elapsed_s": 9.4,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p3_tiny",
+   "throughput": {
+    "Spark distributed": 292.0
+   },
+   "elapsed_s": 8.71,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p3_xlarge",
+   "throughput": {
+    "Spark distributed": 4494.0
+   },
+   "elapsed_s": 11.19,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_16",
+   "throughput": {
+    "Spark distributed": 2569.0
+   },
+   "elapsed_s": 9.8,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_256",
+   "throughput": {
+    "Spark distributed": 2666.0
+   },
+   "elapsed_s": 9.44,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_512",
+   "throughput": {
+    "Spark distributed": 2645.0
+   },
+   "elapsed_s": 9.52,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_64",
+   "throughput": {
+    "Spark distributed": 2722.0
+   },
+   "elapsed_s": 9.25,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_cpu_only_medium",
+   "throughput": {
+    "Spark distributed": 904.0
+   },
+   "elapsed_s": 16.98,
+   "devices": [
+    "cpu"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_cpu_only_small",
+   "throughput": {
+    "Spark distributed": 416.0
+   },
+   "elapsed_s": 12.48,
+   "devices": [
+    "cpu"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_gpu_only_medium",
+   "throughput": {
+    "Spark distributed": 1444.0
+   },
+   "elapsed_s": 10.63,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_gpu_only_small",
+   "throughput": {
+    "Spark distributed": 560.0
+   },
+   "elapsed_s": 9.26,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_hybrid_medium",
+   "throughput": {
+    "Spark distributed": 1449.0
+   },
+   "elapsed_s": 10.6,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_hybrid_small",
+   "throughput": {
+    "Spark distributed": 569.0
+   },
+   "elapsed_s": 9.13,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p8_gpu_batch_128",
+   "throughput": {
+    "Spark distributed": 1639.0
+   },
+   "elapsed_s": 9.27,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p8_gpu_batch_32",
+   "throughput": {
+    "Spark distributed": 1608.0
+   },
+   "elapsed_s": 9.44,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p8_gpu_batch_512",
+   "throughput": {
+    "Spark distributed": 1619.0
+   },
+   "elapsed_s": 9.38,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "svs_single_gpu",
+   "throughput": {
+    "single_gpu_sequential": 16239.0,
+    "single_gpu_parallel_streams": 58842.0
+   },
+   "elapsed_s": null,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  }
+ ],
+ "windows": [
+  {
+   "test": "eng_rdd_cpu_only",
+   "throughput": {
+    "Spark job": 951.9
+   },
+   "elapsed_s": 21.011,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "eng_rdd_gpu_only",
+   "throughput": {
+    "Spark job": 647.4
+   },
+   "elapsed_s": 30.8913,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "eng_udf_cpu_only",
+   "throughput": {
+    "Spark job": 464.7
+   },
+   "elapsed_s": 43.0383,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "eng_udf_gpu_only",
+   "throughput": {
+    "Spark job": 405.3
+   },
+   "elapsed_s": 49.3491,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p1_dist_large",
+   "throughput": {
+    "Spark distributed": 266.0
+   },
+   "elapsed_s": 189.42,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p1_modes_medium",
+   "throughput": {
+    "Single GPU": 19609.0,
+    "Hybrid CPU+GPU": 6765.0
+   },
+   "elapsed_s": null,
+   "devices": [],
+   "status": "PARTIAL",
+   "reason": "torch.load of truncated model bytes"
+  },
+  {
+   "test": "p1_modes_small",
+   "throughput": {
+    "Single GPU": 9681.0,
+    "Hybrid CPU+GPU": 13745.0
+   },
+   "elapsed_s": null,
+   "devices": [],
+   "status": "PARTIAL",
+   "reason": "host RAM during CUDA JIT"
+  },
+  {
+   "test": "p2_partitions_16",
+   "throughput": {
+    "Spark distributed": 144.0
+   },
+   "elapsed_s": 175.09,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_2",
+   "throughput": {
+    "Spark distributed": 529.0
+   },
+   "elapsed_s": 47.61,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_4",
+   "throughput": {
+    "Spark distributed": 307.0
+   },
+   "elapsed_s": 81.93,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_8",
+   "throughput": {
+    "Spark distributed": 204.0
+   },
+   "elapsed_s": 123.64,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p3_medium",
+   "throughput": {
+    "Spark distributed": 328.0
+   },
+   "elapsed_s": 76.84,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p3_tiny",
+   "throughput": {
+    "Spark distributed": 36.0
+   },
+   "elapsed_s": 70.2,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p3_xlarge",
+   "throughput": {
+    "Spark distributed": 396.0
+   },
+   "elapsed_s": 126.88,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_16",
+   "throughput": {
+    "Spark distributed": 388.0
+   },
+   "elapsed_s": 64.96,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_256",
+   "throughput": {
+    "Spark distributed": 318.0
+   },
+   "elapsed_s": 79.23,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_512",
+   "throughput": {
+    "Spark distributed": 399.0
+   },
+   "elapsed_s": 63.15,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_64",
+   "throughput": {
+    "Spark distributed": 421.0
+   },
+   "elapsed_s": 59.78,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_cpu_only_medium",
+   "throughput": {
+    "Spark distributed": 154.0
+   },
+   "elapsed_s": 99.73,
+   "devices": [
+    "cpu"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_cpu_only_small",
+   "throughput": {
+    "Spark distributed": 111.0
+   },
+   "elapsed_s": 46.69,
+   "devices": [
+    "cpu"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_gpu_only_medium",
+   "throughput": {
+    "Spark distributed": 192.0
+   },
+   "elapsed_s": 79.89,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_gpu_only_small",
+   "throughput": {
+    "Spark distributed": 127.0
+   },
+   "elapsed_s": 41.01,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_hybrid_medium",
+   "throughput": {
+    "Spark distributed": 181.0
+   },
+   "elapsed_s": 84.87,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_hybrid_small",
+   "throughput": {
+    "Spark distributed": 130.0
+   },
+   "elapsed_s": 39.91,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p8_gpu_batch_128",
+   "throughput": {},
+   "elapsed_s": null,
+   "devices": [],
+   "status": "FAIL",
+   "reason": "host commit limit (JVM mmap failed)"
+  },
+  {
+   "test": "p8_gpu_batch_32",
+   "throughput": {
+    "Spark distributed": 333.0
+   },
+   "elapsed_s": 45.6,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p8_gpu_batch_512",
+   "throughput": {
+    "Spark distributed": 325.0
+   },
+   "elapsed_s": 46.72,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "svs_single_gpu",
+   "throughput": {
+    "single_gpu_sequential": 4142.0,
+    "single_gpu_parallel_streams": 3797.0
+   },
+   "elapsed_s": null,
+   "devices": [],
+   "status": "PARTIAL",
+   "reason": "host commit limit (JVM mmap failed)"
+  }
+ ],
+ "wsl2_docker": [
+  {
+   "test": "eng_rdd_cpu_only",
+   "throughput": {
+    "Spark job": 2577.7
+   },
+   "elapsed_s": 7.7588,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "eng_rdd_gpu_only",
+   "throughput": {
+    "Spark job": 2376.3
+   },
+   "elapsed_s": 8.4166,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "eng_udf_cpu_only",
+   "throughput": {
+    "Spark job": 448.1
+   },
+   "elapsed_s": 44.6309,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "eng_udf_gpu_only",
+   "throughput": {
+    "Spark job": 973.5
+   },
+   "elapsed_s": 20.5439,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p1_dist_large",
+   "throughput": {
+    "Spark distributed": 410.0
+   },
+   "elapsed_s": 122.79,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p1_modes_medium",
+   "throughput": {
+    "Single GPU": 8278.0,
+    "Hybrid CPU+GPU": 542.0,
+    "Spark distributed": 75.0
+   },
+   "elapsed_s": 335.01,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p1_modes_small",
+   "throughput": {
+    "Single GPU": 2680.0,
+    "Hybrid CPU+GPU": 8605.0,
+    "Spark distributed": 80.0
+   },
+   "elapsed_s": 63.22,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_16",
+   "throughput": {
+    "Spark distributed": 429.0
+   },
+   "elapsed_s": 58.64,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_2",
+   "throughput": {
+    "Spark distributed": 342.0
+   },
+   "elapsed_s": 73.59,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_4",
+   "throughput": {
+    "Spark distributed": 538.0
+   },
+   "elapsed_s": 46.75,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p2_partitions_8",
+   "throughput": {
+    "Spark distributed": 356.0
+   },
+   "elapsed_s": 70.76,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p3_medium",
+   "throughput": {
+    "Spark distributed": 436.0
+   },
+   "elapsed_s": 57.8,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p3_tiny",
+   "throughput": {
+    "Spark distributed": 34.0
+   },
+   "elapsed_s": 75.53,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p3_xlarge",
+   "throughput": {
+    "Spark distributed": 574.0
+   },
+   "elapsed_s": 87.59,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_16",
+   "throughput": {
+    "Spark distributed": 464.0
+   },
+   "elapsed_s": 54.3,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_256",
+   "throughput": {
+    "Spark distributed": 514.0
+   },
+   "elapsed_s": 49.01,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_512",
+   "throughput": {
+    "Spark distributed": 375.0
+   },
+   "elapsed_s": 67.16,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p4_batch_64",
+   "throughput": {
+    "Spark distributed": 325.0
+   },
+   "elapsed_s": 77.42,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_cpu_only_medium",
+   "throughput": {
+    "Spark distributed": 130.0
+   },
+   "elapsed_s": 118.0,
+   "devices": [
+    "cpu"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_cpu_only_small",
+   "throughput": {
+    "Spark distributed": 54.0
+   },
+   "elapsed_s": 96.75,
+   "devices": [
+    "cpu"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_gpu_only_medium",
+   "throughput": {
+    "Spark distributed": 126.0
+   },
+   "elapsed_s": 121.78,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_gpu_only_small",
+   "throughput": {
+    "Spark distributed": 61.0
+   },
+   "elapsed_s": 85.14,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_hybrid_medium",
+   "throughput": {
+    "Spark distributed": 131.0
+   },
+   "elapsed_s": 117.25,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p7_hybrid_small",
+   "throughput": {
+    "Spark distributed": 45.0
+   },
+   "elapsed_s": 114.54,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p8_gpu_batch_128",
+   "throughput": {
+    "Spark distributed": 137.0
+   },
+   "elapsed_s": 110.67,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p8_gpu_batch_32",
+   "throughput": {
+    "Spark distributed": 173.0
+   },
+   "elapsed_s": 88.02,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "p8_gpu_batch_512",
+   "throughput": {
+    "Spark distributed": 237.0
+   },
+   "elapsed_s": 64.14,
+   "devices": [
+    "cuda"
+   ],
+   "status": "OK",
+   "reason": ""
+  },
+  {
+   "test": "svs_single_gpu",
+   "throughput": {
+    "single_gpu_sequential": 1404.0,
+    "single_gpu_parallel_streams": 20618.0
+   },
+   "elapsed_s": null,
+   "devices": [],
+   "status": "OK",
+   "reason": ""
+  }
+ ]
+}

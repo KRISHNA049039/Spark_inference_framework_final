@@ -1,0 +1,136 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/09/26 16:52:46 WARN Shell: Did not find winutils.exe: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\testing\utils.py:127: FutureWarning: PySpark does not yet fully support pandas >= 3.0.0. Some features may not work correctly. It is recommended to use pandas < 3.0.0 for now.
+  require_minimum_pandas_version()
+26/09/26 16:52:48 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                         (0 + 1) / 16][Stage 0:===>                                                      (1 + 1) / 16][Stage 0:=======>                                                  (2 + 1) / 16][Stage 0:==========>                                               (3 + 1) / 16][Stage 0:==========>                                               (3 + 2) / 16][Stage 0:==============>                                           (4 + 1) / 16][Stage 0:==================>                                       (5 + 1) / 16][Stage 0:=====================>                                    (6 + 1) / 16][Stage 0:=========================>                                (7 + 1) / 16][Stage 0:=============================>                            (8 + 1) / 16][Stage 0:================================>                         (9 + 1) / 16][Stage 0:===================================>                     (10 + 1) / 16][Stage 0:=======================================>                 (11 + 1) / 16][Stage 0:==========================================>              (12 + 1) / 16][Stage 0:==============================================>          (13 + 1) / 16][Stage 0:=================================================>       (14 + 1) / 16][Stage 0:=====================================================>   (15 + 1) / 16]                                                                                
+======================================================================
+  MULTI-MODEL DISTRIBUTED INFERENCE BENCHMARK
+======================================================================
+
+  System: Windows-11-10.0.26200-SP0
+  Python: 3.12.10 | PyTorch: 2.14.0+cu126
+  GPU: NVIDIA GeForce GTX 1650 | CUDA: True
+  Signals: 5000 | Images: 50 | Detections: 10
+
+  [SETUP] Loading model registry...
+
+============================================================
+  MODEL REGISTRY — 10 models
+============================================================
+Name                      Category        Memory (MB)  Input Shape
+------------------------- --------------- ------------ --------------------
+ew_classifier             signal          50           (128,)
+signal_denoiser           signal          100          (128,)
+threat_prioritizer        signal          350          (128,)
+rf_fingerprinter          signal          120          (128,)
+anomaly_detector          signal          100          (128,)
+resnet18                  image_classification 300          (3, 224, 224)
+mobilenetv3               image_classification 150          (3, 224, 224)
+efficientnet_b0           image_classification 200          (3, 224, 224)
+yolov8_nano               object_detection 200          (3, 640, 640)
+yolov8_small              object_detection 400          (3, 640, 640)
+
+  Total estimated GPU memory: 1970 MB (1.9 GB)
+
+  [SETUP] Instantiating models...
+    Loaded 10 models
+
+  [SETUP] Generating synthetic data...
+    Total data: 201.4 MB
+
+  [MODE 1] Distributed GPU — Spark RDD...
+    Spark master: local[2]
+
+──────────────────────────────────────────────────────────────────────
+  DISTRIBUTED INFERENCE RESULTS
+──────────────────────────────────────────────────────────────────────
+  Total Throughput : 144 samples/sec
+  Total Samples    : 25,170
+  Elapsed Time     : 175.09s
+  Partitions       : 16
+  Models           : 10
+
+  JOB COMPOSITION:
+  ─────────────────────────────────────────────────────────
+  Job: Distributed inference of 10 ML models
+  Stages: 1 (parallelize → map → collect)
+  Tasks: 16 (one per partition)
+  Each task: Load 10 models → run inference on data chunk → return results
+
+  EXECUTOR / WORKER DETAIL:
+  ──────────────────────────────────────────────────────────────────────
+  Part  Hostname             Device GPU                  ModelLoad  Inference  Samples
+  ──────────────────────────────────────────────────────────────────────
+  0     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   4.99       1.50       1569
+  1     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   4.95       1.45       1569
+  2     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   5.29       1.43       1569
+  3     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   4.91       1.29       1569
+  4     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.98       1.28       1569
+  5     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   4.16       1.10       1569
+  6     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.97       0.96       1569
+  7     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.54       0.84       1569
+  8     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.57       0.70       1569
+  9     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.19       0.53       1569
+  10    LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.43       0.64       1569
+  11    LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.32       0.58       1569
+  12    LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.05       0.51       1569
+  13    LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.04       0.55       1569
+  14    LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.35       0.67       1569
+  15    LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   3.61       0.96       1635
+  ──────────────────────────────────────────────────────────────────────
+
+  WORKER SUMMARY (1 unique workers):
+  ──────────────────────────────────────────────────────────────────────
+  Worker               Device CPUs  Tasks  Samples    GPU
+  ──────────────────────────────────────────────────────────────────────
+  LAPTOP-OU17PKM2      cuda   8     16     25,170     NVIDIA GeForce GTX 1650
+  ──────────────────────────────────────────────────────────────────────
+
+  MODEL INPUT/OUTPUT & THROUGHPUT:
+  ──────────────────────────────────────────────────────────────────────
+  Model                  Input Shape     Output Shape    Samples  Throughput
+  ──────────────────────────────────────────────────────────────────────
+  ew_classifier          [128]           [8]             5,000    1,952/s
+  signal_denoiser        [128]           [128]           5,000    21,313/s
+  threat_prioritizer     [128]           [64]            5,000    2,071/s
+  rf_fingerprinter       [128]           [32]            5,000    940/s
+  anomaly_detector       [128]           [64]            5,000    8,035/s
+  resnet18               [3, 224, 224]   [1000]          50       30/s
+  mobilenetv3            [3, 224, 224]   [1000]          50       41/s
+  efficientnet_b0        [3, 224, 224]   [1000]          50       65/s
+  yolov8_nano            [3, 640, 640]   None            10       364/s
+  yolov8_small           [3, 640, 640]   None            10       270/s
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK EXECUTOR METRICS (from REST API):
+  ──────────────────────────────────────────────────────────────────────
+  ID       Host                      Cores  Tasks  Duration
+  ──────────────────────────────────────────────────────────────────────
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK JOBS:
+  ──────────────────────────────────────────────────────────────────────
+  Job 0: SUCCEEDED | Stages: 1/0 | Tasks: 16/16
+  ──────────────────────────────────────────────────────────────────────
+
+======================================================================
+  SAVING RESULTS
+======================================================================
+  Report: D:\pytorch-spark-inference-platform 1\results\report_windows_p2_partitions_16_distributed_sig5000_img50_det10_p16_20260926_165559.md
+  Raw data: D:\pytorch-spark-inference-platform 1\results\results_windows_p2_partitions_16_distributed_sig5000_img50_det10_p16_20260926_165559.json
+
+  Files saved:
+    D:\pytorch-spark-inference-platform 1\results\report_windows_p2_partitions_16_distributed_sig5000_img50_det10_p16_20260926_165559.md
+    D:\pytorch-spark-inference-platform 1\results\results_windows_p2_partitions_16_distributed_sig5000_img50_det10_p16_20260926_165559.json
+    D:\pytorch-spark-inference-platform 1\results\metrics_report_latest.md (latest)
+    D:\pytorch-spark-inference-platform 1\results\raw_results_latest.json (latest)
+
+  Total time: 207.0s
+
+SUCCESS: The process with PID 28896 (child process of PID 12708) has been terminated.
+SUCCESS: The process with PID 12708 (child process of PID 31108) has been terminated.
+SUCCESS: The process with PID 31108 (child process of PID 16032) has been terminated.

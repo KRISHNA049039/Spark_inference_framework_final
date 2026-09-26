@@ -1,0 +1,9 @@
+=== prepare cpu Sat Sep 26 15:44:06 UTC 2026 ===
+Completed 256.0 KiB/2.9 MiB (5.0 MiB/s) with 1 file(s) remainingCompleted 512.0 KiB/2.9 MiB (9.6 MiB/s) with 1 file(s) remainingCompleted 768.0 KiB/2.9 MiB (14.2 MiB/s) with 1 file(s) remainingCompleted 1.0 MiB/2.9 MiB (18.6 MiB/s) with 1 file(s) remaining  Completed 1.2 MiB/2.9 MiB (22.8 MiB/s) with 1 file(s) remaining  Completed 1.5 MiB/2.9 MiB (26.9 MiB/s) with 1 file(s) remaining  Completed 1.8 MiB/2.9 MiB (30.9 MiB/s) with 1 file(s) remaining  Completed 2.0 MiB/2.9 MiB (34.9 MiB/s) with 1 file(s) remaining  Completed 2.2 MiB/2.9 MiB (38.7 MiB/s) with 1 file(s) remaining  Completed 2.5 MiB/2.9 MiB (42.5 MiB/s) with 1 file(s) remaining  Completed 2.8 MiB/2.9 MiB (46.2 MiB/s) with 1 file(s) remaining  Completed 2.9 MiB/2.9 MiB (48.7 MiB/s) with 1 file(s) remaining  download: s3://sparkmodesclusterstack-modesbucket503035ff-85br6xuhqq98/project.zip to ../../../../opt/modes/project.zip
+NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.
+
+CPU(s):                                  8
+Model name:                              Intel(R) Xeon(R) Platinum 8175M CPU @ 2.50GHz
+               total        used        free      shared  buff/cache   available
+Mem:              30           0          29           0           1          29
+PREPARED cpu

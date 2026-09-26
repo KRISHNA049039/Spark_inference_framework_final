@@ -1,0 +1,14 @@
+{
+  "mode": "distributed_cpu_only",
+  "device_mode": "cpu_only",
+  "elapsed_time": 2.9143,
+  "total_samples_processed": 5000,
+  "total_throughput": 1715.7,
+  "per_model_processed": {
+    "example_mlp": 5000
+  },
+  "num_partitions": 4,
+  "num_models": 1,
+  "batch_size": 256,
+  "timestamp": "2026-09-25T09:40:23.887626"
+}

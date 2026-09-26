@@ -1,0 +1,140 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/09/26 17:08:21 WARN Shell: Did not find winutils.exe: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\testing\utils.py:127: FutureWarning: PySpark does not yet fully support pandas >= 3.0.0. Some features may not work correctly. It is recommended to use pandas < 3.0.0 for now.
+  require_minimum_pandas_version()
+26/09/26 17:08:22 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 1) / 4][W926 17:09:22.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8659140608 bytes (free: 3235171534, total: 4294705152).
+[W926 17:09:22.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8659140608 bytes (free: 3245657294, total: 4294705152).
+[W926 17:09:22.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 3823108096 bytes (free: 3161771214, total: 4294705152).
+[W926 17:09:22.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 3823108096 bytes (free: 3251948750, total: 4294705152).
+[Stage 0:>                                                          (0 + 2) / 4][Stage 0:==============>                                            (1 + 1) / 4][W926 17:09:37.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8659140608 bytes (free: 3235171534, total: 4294705152).
+[W926 17:09:37.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8659140608 bytes (free: 3245657294, total: 4294705152).
+[W926 17:09:38.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 3823108096 bytes (free: 3161771214, total: 4294705152).
+[W926 17:09:38.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 3823108096 bytes (free: 3251948750, total: 4294705152).
+[Stage 0:=============================>                             (2 + 1) / 4][W926 17:09:50.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8659140608 bytes (free: 3235171534, total: 4294705152).
+[W926 17:09:50.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8659140608 bytes (free: 3245657294, total: 4294705152).
+[W926 17:09:51.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 3823108096 bytes (free: 3161771214, total: 4294705152).
+[W926 17:09:51.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 3823108096 bytes (free: 3251948750, total: 4294705152).
+[Stage 0:============================================>              (3 + 1) / 4][W926 17:10:08.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8659140608 bytes (free: 3235171534, total: 4294705152).
+[W926 17:10:08.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 8659140608 bytes (free: 3245657294, total: 4294705152).
+[W926 17:10:09.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 3823108096 bytes (free: 3161771214, total: 4294705152).
+[W926 17:10:09.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 3823108096 bytes (free: 3251948750, total: 4294705152).
+                                                                                
+======================================================================
+  MULTI-MODEL DISTRIBUTED INFERENCE BENCHMARK
+======================================================================
+
+  System: Windows-11-10.0.26200-SP0
+  Python: 3.12.10 | PyTorch: 2.14.0+cu126
+  GPU: NVIDIA GeForce GTX 1650 | CUDA: True
+  Signals: 5000 | Images: 50 | Detections: 10
+
+  [SETUP] Loading model registry...
+
+============================================================
+  MODEL REGISTRY — 10 models
+============================================================
+Name                      Category        Memory (MB)  Input Shape
+------------------------- --------------- ------------ --------------------
+ew_classifier             signal          50           (128,)
+signal_denoiser           signal          100          (128,)
+threat_prioritizer        signal          350          (128,)
+rf_fingerprinter          signal          120          (128,)
+anomaly_detector          signal          100          (128,)
+resnet18                  image_classification 300          (3, 224, 224)
+mobilenetv3               image_classification 150          (3, 224, 224)
+efficientnet_b0           image_classification 200          (3, 224, 224)
+yolov8_nano               object_detection 200          (3, 640, 640)
+yolov8_small              object_detection 400          (3, 640, 640)
+
+  Total estimated GPU memory: 1970 MB (1.9 GB)
+
+  [SETUP] Instantiating models...
+    Loaded 10 models
+
+  [SETUP] Generating synthetic data...
+    Total data: 201.4 MB
+
+  [MODE 1] Distributed GPU — Spark RDD...
+    Spark master: local[2]
+
+──────────────────────────────────────────────────────────────────────
+  DISTRIBUTED INFERENCE RESULTS
+──────────────────────────────────────────────────────────────────────
+  Total Throughput : 399 samples/sec
+  Total Samples    : 25,170
+  Elapsed Time     : 63.15s
+  Partitions       : 4
+  Models           : 10
+
+  JOB COMPOSITION:
+  ─────────────────────────────────────────────────────────
+  Job: Distributed inference of 10 ML models
+  Stages: 1 (parallelize → map → collect)
+  Tasks: 4 (one per partition)
+  Each task: Load 10 models → run inference on data chunk → return results
+
+  EXECUTOR / WORKER DETAIL:
+  ──────────────────────────────────────────────────────────────────────
+  Part  Hostname             Device GPU                  ModelLoad  Inference  Samples
+  ──────────────────────────────────────────────────────────────────────
+  0     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   5.71       1.79       6290
+  1     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   4.59       1.83       6290
+  2     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   5.02       1.69       6290
+  3     LAPTOP-OU17PKM2      cuda   NVIDIA GeForce GTX   6.31       2.90       6300
+  ──────────────────────────────────────────────────────────────────────
+
+  WORKER SUMMARY (1 unique workers):
+  ──────────────────────────────────────────────────────────────────────
+  Worker               Device CPUs  Tasks  Samples    GPU
+  ──────────────────────────────────────────────────────────────────────
+  LAPTOP-OU17PKM2      cuda   8     4      25,170     NVIDIA GeForce GTX 1650
+  ──────────────────────────────────────────────────────────────────────
+
+  MODEL INPUT/OUTPUT & THROUGHPUT:
+  ──────────────────────────────────────────────────────────────────────
+  Model                  Input Shape     Output Shape    Samples  Throughput
+  ──────────────────────────────────────────────────────────────────────
+  ew_classifier          [128]           [8]             5,000    5,045/s
+  signal_denoiser        [128]           [128]           5,000    61,652/s
+  threat_prioritizer     [128]           [512]           5,000    5,470/s
+  rf_fingerprinter       [128]           [32]            5,000    1,166/s
+  anomaly_detector       [128]           [512]           5,000    26,261/s
+  resnet18               [3, 224, 224]   [1000]          50       81/s
+  mobilenetv3            [3, 224, 224]   [1000]          50       98/s
+  efficientnet_b0        [3, 224, 224]   [1000]          50       108/s
+  yolov8_nano            [3, 640, 640]   [400]           10       119/s
+  yolov8_small           [3, 640, 640]   [400]           10       99/s
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK EXECUTOR METRICS (from REST API):
+  ──────────────────────────────────────────────────────────────────────
+  ID       Host                      Cores  Tasks  Duration
+  ──────────────────────────────────────────────────────────────────────
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK JOBS:
+  ──────────────────────────────────────────────────────────────────────
+  Job 0: SUCCEEDED | Stages: 1/0 | Tasks: 4/4
+  ──────────────────────────────────────────────────────────────────────
+
+======================================================================
+  SAVING RESULTS
+======================================================================
+  Report: D:\pytorch-spark-inference-platform 1\results\report_windows_p4_batch_512_distributed_sig5000_img50_det10_p4_20260926_171014.md
+  Raw data: D:\pytorch-spark-inference-platform 1\results\results_windows_p4_batch_512_distributed_sig5000_img50_det10_p4_20260926_171014.json
+
+  Files saved:
+    D:\pytorch-spark-inference-platform 1\results\report_windows_p4_batch_512_distributed_sig5000_img50_det10_p4_20260926_171014.md
+    D:\pytorch-spark-inference-platform 1\results\results_windows_p4_batch_512_distributed_sig5000_img50_det10_p4_20260926_171014.json
+    D:\pytorch-spark-inference-platform 1\results\metrics_report_latest.md (latest)
+    D:\pytorch-spark-inference-platform 1\results\raw_results_latest.json (latest)
+
+  Total time: 123.7s
+
+SUCCESS: The process with PID 30656 (child process of PID 18580) has been terminated.
+SUCCESS: The process with PID 18580 (child process of PID 3240) has been terminated.
+SUCCESS: The process with PID 3240 (child process of PID 10372) has been terminated.

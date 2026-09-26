@@ -1,0 +1,2978 @@
+{
+ "meta": {
+  "host": "ip-10-0-0-240",
+  "os": "Linux-6.8.0-1060-aws-x86_64-with-glibc2.35",
+  "python": "3.11.16",
+  "torch": "2.6.0+cu126",
+  "cuda": "12.6",
+  "cudnn": 90501,
+  "time": "2026-09-26 12:03:23"
+ },
+ "cpu": {
+  "platform": "Linux-6.8.0-1060-aws-x86_64-with-glibc2.35",
+  "machine": "x86_64",
+  "processor": "x86_64",
+  "logical_cpus": 4,
+  "torch_cpu_capability": "AVX512",
+  "mkldnn_available": true,
+  "torch_threads": 2,
+  "simd_flags": [
+   "sse",
+   "sse2",
+   "ssse3",
+   "fma",
+   "sse4_1",
+   "sse4_2",
+   "avx",
+   "f16c",
+   "avx2",
+   "avx512f",
+   "avx512dq",
+   "avx512cd",
+   "avx512bw",
+   "avx512vl",
+   "avx512_vnni"
+  ],
+  "onednn_verbose": [
+   "onednn_verbose,info,oneDNN v3.5.3 (commit 66f0cb9eb66affd2da3bf5f8d897376f04aae6af)",
+   "onednn_verbose,info,cpu,runtime:OpenMP,nthr:2",
+   "onednn_verbose,info,cpu,isa:Intel AVX-512 with Intel DL Boost",
+   "onednn_verbose,info,gpu,runtime:none",
+   "onednn_verbose,info,graph,backend,0:dnnl_backend",
+   "onednn_verbose,primitive,info,template:operation,engine,primitive,implementation,prop_kind,memory_descriptors,attributes,auxiliary,problem_desc,exec_time",
+   "onednn_verbose,graph,info,template:operation,engine,partition_id,partition_kind,op_names,data_formats,logical_tensors,fpmath_mode,backend,exec_time",
+   "onednn_verbose,primitive,exec,cpu,reorder,jit:uni,undef,src_f32::blocked:abcd::f0 dst_f32::blocked:Acdb16a::f0,attr-scratchpad:user,,64x3x7x7,0.147949",
+   "onednn_verbose,primitive,exec,cpu,convolution,jit:avx512_core,forward_training,src_f32:a:blocked:abcd::f0 wei_f32:a:blocked:Acdb16a::f0 bia_f32:a:blocked:a::f0 dst_f32:a:blocked:aBcd16b::f0,attr-scratchpad:user,alg:convolution_direct,mb8_ic3oc64_ih224oh112kh7sh2dh0ph3_iw224ow112kw7sw2dw0pw3,17.2219",
+   "onednn_verbose,primitive,exec,cpu,reorder,jit:blk,undef,src_f32::blocked:aBcd16b::f0 dst_f32::blocked:abcd::f0,attr-scratchpad:user,,8x64x112x112,9.06885"
+  ]
+ },
+ "bits": {
+  "shape": [
+   4,
+   128
+  ],
+  "dtype": "torch.float32",
+  "stride": [
+   128,
+   1
+  ],
+  "element_size": 4,
+  "nbytes": 2048,
+  "data_ptr": "0x2735cb50",
+  "ptr_mod_64": 16,
+  "values": [
+   {
+    "value": 0.10284511744976044,
+    "hex": "0x3dd2a076",
+    "sign": 0,
+    "exp": 123,
+    "mantissa": 5415030,
+    "fp16": 0.10284423828125,
+    "bf16": 0.10302734375
+   },
+   {
+    "value": 0.15720458328723907,
+    "hex": "0x3e20fa3d",
+    "sign": 0,
+    "exp": 124,
+    "mantissa": 2161213,
+    "fp16": 0.1572265625,
+    "bf16": 0.1572265625
+   },
+   {
+    "value": 0.12035758793354034,
+    "hex": "0x3df67e0a",
+    "sign": 0,
+    "exp": 123,
+    "mantissa": 7765514,
+    "fp16": 0.120361328125,
+    "bf16": 0.1201171875
+   },
+   {
+    "value": 0.10617969930171967,
+    "hex": "0x3dd974be",
+    "sign": 0,
+    "exp": 123,
+    "mantissa": 5862590,
+    "fp16": 0.106201171875,
+    "bf16": 0.10595703125
+   },
+   {
+    "value": 0.10612668842077255,
+    "hex": "0x3dd958f3",
+    "sign": 0,
+    "exp": 123,
+    "mantissa": 5855475,
+    "fp16": 0.10614013671875,
+    "bf16": 0.10595703125
+   },
+   {
+    "value": 0.11295056343078613,
+    "hex": "0x3de752a0",
+    "sign": 0,
+    "exp": 123,
+    "mantissa": 6771360,
+    "fp16": 0.11297607421875,
+    "bf16": 0.11279296875
+   }
+  ],
+  "image_strides": {
+   "nchw": [
+    150528,
+    50176,
+    224,
+    1
+   ],
+   "channels_last": [
+    150528,
+    1,
+    672,
+    3
+   ]
+  }
+ },
+ "gpu": {
+  "props": {
+   "L2_cache_size": 4194304,
+   "gcnArchName": "Tesla T4",
+   "is_integrated": 0,
+   "is_multi_gpu_board": 0,
+   "major": 7,
+   "max_threads_per_multi_processor": 1024,
+   "minor": 5,
+   "multi_processor_count": 40,
+   "name": "Tesla T4",
+   "regs_per_multiprocessor": 65536,
+   "total_memory": 15637086208,
+   "uuid": "e0b1b863-6232-764b-8d71-60ec9bfbe0dd",
+   "warp_size": 32
+  },
+  "nvidia_smi": {
+   "pcie_gen_cur": "3",
+   "pcie_gen_max": "3",
+   "pcie_width_cur": "8",
+   "pcie_width_max": "16",
+   "sm_clock_max_mhz": "1590",
+   "mem_clock_max_mhz": "5001",
+   "sm_clock_now_mhz": "1590",
+   "mem_clock_now_mhz": "5000",
+   "power_limit_w": "70.00",
+   "driver": "595.71.05",
+   "pstate": "P0",
+   "temp_c": "34"
+  },
+  "theoretical": {
+   "compute_capability": "7.5",
+   "fp32_lanes_per_sm": 64,
+   "cuda_cores": 2560,
+   "fp32_tflops_theoretical": 8.1408,
+   "dram_gbps_theoretical": 160.032,
+   "pcie_gbps_theoretical": 7.88,
+   "memory_bus_width_bits": 128
+  }
+ },
+ "bus": {
+  "copies": [
+   {
+    "MB": 0.004,
+    "h2d_pageable": 0.43565013815056597,
+    "h2d_pinned": 0.4992378130600602,
+    "d2h_pageable": 0.34329140883347026,
+    "d2h_pinned": 0.6298076905931496
+   },
+   {
+    "MB": 0.064,
+    "h2d_pageable": 3.0148433523114635,
+    "h2d_pinned": 5.309177471555756,
+    "d2h_pageable": 1.9096020293503138,
+    "d2h_pinned": 5.79476361425464
+   },
+   {
+    "MB": 1,
+    "h2d_pageable": 4.643267202953078,
+    "h2d_pinned": 6.19280718417739,
+    "d2h_pageable": 2.771078282766205,
+    "d2h_pinned": 6.531263207797932
+   },
+   {
+    "MB": 4,
+    "h2d_pageable": 5.029296095937554,
+    "h2d_pinned": 6.245628264227896,
+    "d2h_pageable": 4.200891128824246,
+    "d2h_pinned": 6.583588059617218
+   },
+   {
+    "MB": 16,
+    "h2d_pageable": 5.199433661524704,
+    "h2d_pinned": 6.263850163543439,
+    "d2h_pageable": 4.8853504475457985,
+    "d2h_pinned": 6.6013441369846975
+   },
+   {
+    "MB": 64,
+    "h2d_pageable": 4.8234719101031915,
+    "h2d_pinned": 6.270502617392463,
+    "d2h_pageable": 5.087470496747257,
+    "d2h_pinned": 6.606426613829833
+   },
+   {
+    "MB": 256,
+    "h2d_pageable": 4.789571989189056,
+    "h2d_pinned": 6.271922187779621,
+    "d2h_pageable": 5.139112133824898,
+    "d2h_pinned": 6.608084286747258
+   }
+  ],
+  "d2d_gbps": 230.99567635363684,
+  "launch_enqueue_us": 13.829965500008257,
+  "launch_drain_us": 13.847717499970713,
+  "launch_roundtrip_us": 17.611150000220732,
+  "gemm_tflops": {
+   "torch.float32": 6.948238239567356,
+   "torch.float16": 43.88889419068999
+  }
+ },
+ "kernels": {
+  "ew_classifier": {
+   "kernels": [
+    {
+     "name": "volta_sgemm_32x32_sliced1x4_tn",
+     "dur_us": 10.656,
+     "grid": [
+      8,
+      8,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 86,
+     "smem": 32768,
+     "occupancy": 20,
+     "blocks_per_sm": 1.6,
+     "warps_per_sm": 6.4
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::batch_norm_calc_invstd(at::Tensor const&, at::Tensor const&, double)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::batch_norm_calc_invstd(at::Tensor const&, at::Tensor const&, double)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 1.536,
+     "grid": [
+      1,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 20,
+     "smem": 0,
+     "occupancy": 0,
+     "blocks_per_sm": 0.025,
+     "warps_per_sm": 0.1
+    },
+    {
+     "name": "void at::native::batch_norm_transform_input_channels_last_kernel<float, float, float, 4>(float const*, float const*, float const*, float const*, float const*, float const*, float*, int, int, bool)",
+     "dur_us": 3.648,
+     "grid": [
+      8,
+      1,
+      1
+     ],
+     "block": [
+      32,
+      16,
+      1
+     ],
+     "regs": 36,
+     "smem": 0,
+     "occupancy": 10,
+     "blocks_per_sm": 0.2,
+     "warps_per_sm": 3.2
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 1.6,
+     "grid": [
+      128,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 40,
+     "blocks_per_sm": 3.2,
+     "warps_per_sm": 12.8
+    },
+    {
+     "name": "volta_sgemm_128x64_tn",
+     "dur_us": 27.776,
+     "grid": [
+      4,
+      4,
+      4
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 122,
+     "smem": 12800,
+     "occupancy": 20,
+     "blocks_per_sm": 1.6,
+     "warps_per_sm": 6.4
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::batch_norm_calc_invstd(at::Tensor const&, at::Tensor const&, double)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::batch_norm_calc_invstd(at::Tensor const&, at::Tensor const&, double)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 1.504,
+     "grid": [
+      1,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 20,
+     "smem": 0,
+     "occupancy": 0,
+     "blocks_per_sm": 0.025,
+     "warps_per_sm": 0.1
+    },
+    {
+     "name": "void at::native::batch_norm_transform_input_channels_last_kernel<float, float, float, 4>(float const*, float const*, float const*, float const*, float const*, float const*, float*, int, int, bool)",
+     "dur_us": 3.776,
+     "grid": [
+      16,
+      1,
+      1
+     ],
+     "block": [
+      32,
+      16,
+      1
+     ],
+     "regs": 36,
+     "smem": 0,
+     "occupancy": 20,
+     "blocks_per_sm": 0.4,
+     "warps_per_sm": 6.4
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 1.952,
+     "grid": [
+      256,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 80,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 25.6
+    },
+    {
+     "name": "volta_sgemm_128x64_tn",
+     "dur_us": 18.528,
+     "grid": [
+      2,
+      4,
+      4
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 122,
+     "smem": 12800,
+     "occupancy": 10,
+     "blocks_per_sm": 0.8,
+     "warps_per_sm": 3.2
+    },
+    {
+     "name": "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, false, float, float, float, true, true, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float const*, float const*, float const*, float const*)",
+     "dur_us": 3.84,
+     "grid": [
+      8,
+      16,
+      1
+     ],
+     "block": [
+      32,
+      16,
+      1
+     ],
+     "regs": 44,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 3.2,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::batch_norm_calc_invstd(at::Tensor const&, at::Tensor const&, double)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::batch_norm_calc_invstd(at::Tensor const&, at::Tensor const&, double)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 1.504,
+     "grid": [
+      1,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 20,
+     "smem": 0,
+     "occupancy": 0,
+     "blocks_per_sm": 0.025,
+     "warps_per_sm": 0.1
+    },
+    {
+     "name": "void at::native::batch_norm_transform_input_channels_last_kernel<float, float, float, 4>(float const*, float const*, float const*, float const*, float const*, float const*, float*, int, int, bool)",
+     "dur_us": 3.712,
+     "grid": [
+      8,
+      1,
+      1
+     ],
+     "block": [
+      32,
+      16,
+      1
+     ],
+     "regs": 36,
+     "smem": 0,
+     "occupancy": 10,
+     "blocks_per_sm": 0.2,
+     "warps_per_sm": 3.2
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 1.632,
+     "grid": [
+      128,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 40,
+     "blocks_per_sm": 3.2,
+     "warps_per_sm": 12.8
+    },
+    {
+     "name": "volta_sgemm_32x128_tn",
+     "dur_us": 8.64,
+     "grid": [
+      4,
+      2,
+      4
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 57,
+     "smem": 16384,
+     "occupancy": 20,
+     "blocks_per_sm": 0.8,
+     "warps_per_sm": 6.4
+    },
+    {
+     "name": "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, false, float, float, float, true, true, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float const*, float const*, float const*, float const*)",
+     "dur_us": 2.464,
+     "grid": [
+      4,
+      16,
+      1
+     ],
+     "block": [
+      32,
+      16,
+      1
+     ],
+     "regs": 44,
+     "smem": 0,
+     "occupancy": 80,
+     "blocks_per_sm": 1.6,
+     "warps_per_sm": 25.6
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::batch_norm_calc_invstd(at::Tensor const&, at::Tensor const&, double)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::batch_norm_calc_invstd(at::Tensor const&, at::Tensor const&, double)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 1.504,
+     "grid": [
+      1,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 20,
+     "smem": 0,
+     "occupancy": 0,
+     "blocks_per_sm": 0.025,
+     "warps_per_sm": 0.1
+    },
+    {
+     "name": "void at::native::batch_norm_transform_input_channels_last_kernel<float, float, float, 4>(float const*, float const*, float const*, float const*, float const*, float const*, float*, int, int, bool)",
+     "dur_us": 3.616,
+     "grid": [
+      4,
+      1,
+      1
+     ],
+     "block": [
+      32,
+      16,
+      1
+     ],
+     "regs": 36,
+     "smem": 0,
+     "occupancy": 5,
+     "blocks_per_sm": 0.1,
+     "warps_per_sm": 1.6
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 1.408,
+     "grid": [
+      64,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 20,
+     "blocks_per_sm": 1.6,
+     "warps_per_sm": 6.4
+    },
+    {
+     "name": "volta_sgemm_32x32_sliced1x4_tn",
+     "dur_us": 7.168,
+     "grid": [
+      2,
+      8,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 86,
+     "smem": 32768,
+     "occupancy": 5,
+     "blocks_per_sm": 0.4,
+     "warps_per_sm": 1.6
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 1.344,
+     "grid": [
+      32,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 10,
+     "blocks_per_sm": 0.8,
+     "warps_per_sm": 3.2
+    },
+    {
+     "name": "volta_sgemm_32x32_sliced1x4_tn",
+     "dur_us": 4.896,
+     "grid": [
+      1,
+      8,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 86,
+     "smem": 32768,
+     "occupancy": 3,
+     "blocks_per_sm": 0.2,
+     "warps_per_sm": 0.8
+    }
+   ],
+   "memcpy": [
+    {
+     "name": "Memcpy HtoD (Pageable -> Device)",
+     "dur": 22.527,
+     "External id": 4,
+     "device": 0,
+     "context": 1,
+     "stream": 7,
+     "correlation": 11,
+     "bytes": 131072,
+     "memory bandwidth (GB/s)": 5.818440094109291
+    },
+    {
+     "name": "Memcpy DtoD (Device -> Device)",
+     "dur": 1.664,
+     "External id": 19,
+     "device": 0,
+     "context": 1,
+     "stream": 7,
+     "correlation": 68,
+     "bytes": 1024,
+     "memory bandwidth (GB/s)": 0.6153846153846154
+    },
+    {
+     "name": "Memset (Device)",
+     "dur": 0.352,
+     "External id": 27,
+     "device": 0,
+     "context": 1,
+     "stream": 7,
+     "correlation": 110,
+     "bytes": 64,
+     "memory bandwidth (GB/s)": 0.18181818181818182
+    },
+    {
+     "name": "Memcpy DtoD (Device -> Device)",
+     "dur": 1.344,
+     "External id": 37,
+     "device": 0,
+     "context": 1,
+     "stream": 7,
+     "correlation": 147,
+     "bytes": 2048,
+     "memory bandwidth (GB/s)": 1.5238095238095237
+    },
+    {
+     "name": "Memcpy DtoD (Device -> Device)",
+     "dur": 1.504,
+     "External id": 55,
+     "device": 0,
+     "context": 1,
+     "stream": 7,
+     "correlation": 228,
+     "bytes": 1024,
+     "memory bandwidth (GB/s)": 0.6808510638297872
+    },
+    {
+     "name": "Memcpy DtoD (Device -> Device)",
+     "dur": 1.344,
+     "External id": 73,
+     "device": 0,
+     "context": 1,
+     "stream": 7,
+     "correlation": 308,
+     "bytes": 512,
+     "memory bandwidth (GB/s)": 0.38095238095238093
+    },
+    {
+     "name": "Memcpy DtoH (Device -> Pageable)",
+     "dur": 1.472,
+     "External id": 94,
+     "device": 0,
+     "context": 1,
+     "stream": 7,
+     "correlation": 393,
+     "bytes": 8192,
+     "memory bandwidth (GB/s)": 5.565217391304348
+    }
+   ],
+   "runtime_calls": {
+    "cudaMemcpyAsync": 6,
+    "cudaStreamSynchronize": 2,
+    "cudaOccupancyMaxActiveBlocksPerMultiprocessor": 4,
+    "cudaLaunchKernel": 21,
+    "cudaMemsetAsync": 1,
+    "cudaDeviceSynchronize": 2
+   }
+  },
+  "resnet18": {
+   "kernels": [
+    {
+     "name": "void cask__5x_cudnn::computeOffsetsKernel<false, false>(cask__5x_cudnn::ComputeOffsetsParams)",
+     "dur_us": 1.92,
+     "grid": [
+      50,
+      1,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 31,
+     "blocks_per_sm": 1.25,
+     "warps_per_sm": 10.0
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_128x64_relu_medium_nn_v1",
+     "dur_us": 304.765,
+     "grid": [
+      784,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 128,
+     "smem": 16384,
+     "occupancy": 50,
+     "blocks_per_sm": 19.6,
+     "warps_per_sm": 78.400002
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 229.983,
+     "grid": [
+      64,
+      8,
+      1
+     ],
+     "block": [
+      512,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 216.286,
+     "grid": [
+      12544,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 313.600006,
+     "warps_per_sm": 1254.400024
+    },
+    {
+     "name": "void at::native::(anonymous namespace)::max_pool_forward_nchw<float>(int, float const*, long, long, long, int, int, int, int, int, int, int, int, int, int, float*, long*)",
+     "dur_us": 194.431,
+     "grid": [
+      6272,
+      1,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 25,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 156.800003,
+     "warps_per_sm": 1254.400024
+    },
+    {
+     "name": "void cudnn::winograd::generateWinogradTilesKernel<0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)",
+     "dur_us": 3.136,
+     "grid": [
+      2,
+      16,
+      1
+     ],
+     "block": [
+      32,
+      4,
+      1
+     ],
+     "regs": 56,
+     "smem": 8704,
+     "occupancy": 10,
+     "blocks_per_sm": 0.8,
+     "warps_per_sm": 3.2
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1",
+     "dur_us": 239.581,
+     "grid": [
+      16,
+      7,
+      4
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 126,
+     "smem": 49152,
+     "occupancy": 25,
+     "blocks_per_sm": 11.2,
+     "warps_per_sm": 89.599998
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 57.312,
+     "grid": [
+      64,
+      8,
+      1
+     ],
+     "block": [
+      512,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 52.799,
+     "grid": [
+      3136,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 78.400002,
+     "warps_per_sm": 313.600006
+    },
+    {
+     "name": "void cudnn::winograd::generateWinogradTilesKernel<0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)",
+     "dur_us": 3.712,
+     "grid": [
+      2,
+      16,
+      1
+     ],
+     "block": [
+      32,
+      4,
+      1
+     ],
+     "regs": 56,
+     "smem": 8704,
+     "occupancy": 10,
+     "blocks_per_sm": 0.8,
+     "warps_per_sm": 3.2
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1",
+     "dur_us": 245.407,
+     "grid": [
+      16,
+      7,
+      4
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 126,
+     "smem": 49152,
+     "occupancy": 25,
+     "blocks_per_sm": 11.2,
+     "warps_per_sm": 89.599998
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 57.279,
+     "grid": [
+      64,
+      8,
+      1
+     ],
+     "block": [
+      512,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+     "dur_us": 81.247,
+     "grid": [
+      3136,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 78.400002,
+     "warps_per_sm": 313.600006
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 53.92,
+     "grid": [
+      3136,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 78.400002,
+     "warps_per_sm": 313.600006
+    },
+    {
+     "name": "void cudnn::winograd::generateWinogradTilesKernel<0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)",
+     "dur_us": 3.36,
+     "grid": [
+      2,
+      16,
+      1
+     ],
+     "block": [
+      32,
+      4,
+      1
+     ],
+     "regs": 56,
+     "smem": 8704,
+     "occupancy": 10,
+     "blocks_per_sm": 0.8,
+     "warps_per_sm": 3.2
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1",
+     "dur_us": 245.342,
+     "grid": [
+      16,
+      7,
+      4
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 126,
+     "smem": 49152,
+     "occupancy": 25,
+     "blocks_per_sm": 11.2,
+     "warps_per_sm": 89.599998
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 57.216,
+     "grid": [
+      64,
+      8,
+      1
+     ],
+     "block": [
+      512,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 54.815,
+     "grid": [
+      3136,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 78.400002,
+     "warps_per_sm": 313.600006
+    },
+    {
+     "name": "void cudnn::winograd::generateWinogradTilesKernel<0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)",
+     "dur_us": 3.296,
+     "grid": [
+      2,
+      16,
+      1
+     ],
+     "block": [
+      32,
+      4,
+      1
+     ],
+     "regs": 56,
+     "smem": 8704,
+     "occupancy": 10,
+     "blocks_per_sm": 0.8,
+     "warps_per_sm": 3.2
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1",
+     "dur_us": 243.582,
+     "grid": [
+      16,
+      7,
+      4
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 126,
+     "smem": 49152,
+     "occupancy": 25,
+     "blocks_per_sm": 11.2,
+     "warps_per_sm": 89.599998
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 57.023,
+     "grid": [
+      64,
+      8,
+      1
+     ],
+     "block": [
+      512,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+     "dur_us": 80.959,
+     "grid": [
+      3136,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 78.400002,
+     "warps_per_sm": 313.600006
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 54.912,
+     "grid": [
+      3136,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 78.400002,
+     "warps_per_sm": 313.600006
+    },
+    {
+     "name": "void cask__5x_cudnn::computeOffsetsKernel<false, false>(cask__5x_cudnn::ComputeOffsetsParams)",
+     "dur_us": 2.176,
+     "grid": [
+      4,
+      1,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 3,
+     "blocks_per_sm": 0.1,
+     "warps_per_sm": 0.8
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_128x64_relu_xregs_large_nn_v1",
+     "dur_us": 163.07,
+     "grid": [
+      49,
+      2,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 160,
+     "smem": 16384,
+     "occupancy": 31,
+     "blocks_per_sm": 2.45,
+     "warps_per_sm": 9.8
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 27.68,
+     "grid": [
+      128,
+      8,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 25.6,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 16.544,
+     "grid": [
+      1568,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 39.200001,
+     "warps_per_sm": 156.800003
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+     "dur_us": 99.263,
+     "grid": [
+      4,
+      128,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 108,
+     "smem": 22656,
+     "occupancy": 50,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)",
+     "dur_us": 13.632,
+     "grid": [
+      4,
+      16,
+      1
+     ],
+     "block": [
+      32,
+      8,
+      1
+     ],
+     "regs": 64,
+     "smem": 9216,
+     "occupancy": 40,
+     "blocks_per_sm": 1.6,
+     "warps_per_sm": 12.8
+    },
+    {
+     "name": "volta_sgemm_128x64_nn",
+     "dur_us": 176.031,
+     "grid": [
+      7,
+      2,
+      36
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 122,
+     "smem": 12544,
+     "occupancy": 50,
+     "blocks_per_sm": 12.6,
+     "warps_per_sm": 50.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)",
+     "dur_us": 90.143,
+     "grid": [
+      4,
+      128,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 80,
+     "smem": 16640,
+     "occupancy": 75,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 25.696,
+     "grid": [
+      128,
+      8,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 25.6,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void cask__5x_cudnn::computeOffsetsKernel<false, false>(cask__5x_cudnn::ComputeOffsetsParams)",
+     "dur_us": 2.144,
+     "grid": [
+      4,
+      1,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 3,
+     "blocks_per_sm": 0.1,
+     "warps_per_sm": 0.8
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_128x64_relu_interior_nn_v1",
+     "dur_us": 37.919,
+     "grid": [
+      49,
+      2,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 128,
+     "smem": 16384,
+     "occupancy": 31,
+     "blocks_per_sm": 2.45,
+     "warps_per_sm": 9.8
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 25.152,
+     "grid": [
+      128,
+      8,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 25.6,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+     "dur_us": 40.0,
+     "grid": [
+      1568,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 39.200001,
+     "warps_per_sm": 156.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 13.504,
+     "grid": [
+      1568,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 39.200001,
+     "warps_per_sm": 156.800003
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+     "dur_us": 98.975,
+     "grid": [
+      4,
+      128,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 108,
+     "smem": 22656,
+     "occupancy": 50,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)",
+     "dur_us": 13.312,
+     "grid": [
+      4,
+      16,
+      1
+     ],
+     "block": [
+      32,
+      8,
+      1
+     ],
+     "regs": 64,
+     "smem": 9216,
+     "occupancy": 40,
+     "blocks_per_sm": 1.6,
+     "warps_per_sm": 12.8
+    },
+    {
+     "name": "volta_sgemm_128x64_nn",
+     "dur_us": 175.262,
+     "grid": [
+      7,
+      2,
+      36
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 122,
+     "smem": 12544,
+     "occupancy": 50,
+     "blocks_per_sm": 12.6,
+     "warps_per_sm": 50.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)",
+     "dur_us": 89.44,
+     "grid": [
+      4,
+      128,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 80,
+     "smem": 16640,
+     "occupancy": 75,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 26.111,
+     "grid": [
+      128,
+      8,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 25.6,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 16.384,
+     "grid": [
+      1568,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 39.200001,
+     "warps_per_sm": 156.800003
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+     "dur_us": 99.199,
+     "grid": [
+      4,
+      128,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 108,
+     "smem": 22656,
+     "occupancy": 50,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)",
+     "dur_us": 13.152,
+     "grid": [
+      4,
+      16,
+      1
+     ],
+     "block": [
+      32,
+      8,
+      1
+     ],
+     "regs": 64,
+     "smem": 9216,
+     "occupancy": 40,
+     "blocks_per_sm": 1.6,
+     "warps_per_sm": 12.8
+    },
+    {
+     "name": "volta_sgemm_128x64_nn",
+     "dur_us": 175.423,
+     "grid": [
+      7,
+      2,
+      36
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 122,
+     "smem": 12544,
+     "occupancy": 50,
+     "blocks_per_sm": 12.6,
+     "warps_per_sm": 50.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)",
+     "dur_us": 90.335,
+     "grid": [
+      4,
+      128,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 80,
+     "smem": 16640,
+     "occupancy": 75,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 25.792,
+     "grid": [
+      128,
+      8,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 25.6,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+     "dur_us": 39.872,
+     "grid": [
+      1568,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 39.200001,
+     "warps_per_sm": 156.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 13.792,
+     "grid": [
+      1568,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 39.200001,
+     "warps_per_sm": 156.800003
+    },
+    {
+     "name": "void cask__5x_cudnn::computeOffsetsKernel<false, false>(cask__5x_cudnn::ComputeOffsetsParams)",
+     "dur_us": 2.432,
+     "grid": [
+      1,
+      1,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 1,
+     "blocks_per_sm": 0.025,
+     "warps_per_sm": 0.2
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_128x128_relu_small_nn_v1",
+     "dur_us": 198.942,
+     "grid": [
+      13,
+      2,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 128,
+     "smem": 32768,
+     "occupancy": 16,
+     "blocks_per_sm": 0.65,
+     "warps_per_sm": 5.2
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 8.992,
+     "grid": [
+      256,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 51.200001,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 4.448,
+     "grid": [
+      784,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 19.6,
+     "warps_per_sm": 78.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+     "dur_us": 50.975,
+     "grid": [
+      1,
+      256,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 108,
+     "smem": 22656,
+     "occupancy": 50,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)",
+     "dur_us": 60.063,
+     "grid": [
+      8,
+      32,
+      1
+     ],
+     "block": [
+      32,
+      8,
+      1
+     ],
+     "regs": 64,
+     "smem": 9216,
+     "occupancy": 100,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "volta_sgemm_128x64_nn",
+     "dur_us": 196.094,
+     "grid": [
+      2,
+      4,
+      36
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 122,
+     "smem": 12544,
+     "occupancy": 50,
+     "blocks_per_sm": 7.2,
+     "warps_per_sm": 28.799999
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)",
+     "dur_us": 51.072,
+     "grid": [
+      1,
+      256,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 80,
+     "smem": 16640,
+     "occupancy": 75,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 11.968,
+     "grid": [
+      256,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 51.200001,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cask__5x_cudnn::computeOffsetsKernel<false, false>(cask__5x_cudnn::ComputeOffsetsParams)",
+     "dur_us": 1.856,
+     "grid": [
+      1,
+      1,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 1,
+     "blocks_per_sm": 0.025,
+     "warps_per_sm": 0.2
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_128x128_relu_small_nn_v1",
+     "dur_us": 34.463,
+     "grid": [
+      13,
+      2,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 128,
+     "smem": 32768,
+     "occupancy": 16,
+     "blocks_per_sm": 0.65,
+     "warps_per_sm": 5.2
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 7.008,
+     "grid": [
+      256,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 51.200001,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+     "dur_us": 13.696,
+     "grid": [
+      784,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 19.6,
+     "warps_per_sm": 78.400002
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 3.616,
+     "grid": [
+      784,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 19.6,
+     "warps_per_sm": 78.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+     "dur_us": 50.88,
+     "grid": [
+      1,
+      256,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 108,
+     "smem": 22656,
+     "occupancy": 50,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)",
+     "dur_us": 59.871,
+     "grid": [
+      8,
+      32,
+      1
+     ],
+     "block": [
+      32,
+      8,
+      1
+     ],
+     "regs": 64,
+     "smem": 9216,
+     "occupancy": 100,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "volta_sgemm_128x64_nn",
+     "dur_us": 194.175,
+     "grid": [
+      2,
+      4,
+      36
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 122,
+     "smem": 12544,
+     "occupancy": 50,
+     "blocks_per_sm": 7.2,
+     "warps_per_sm": 28.799999
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)",
+     "dur_us": 51.039,
+     "grid": [
+      1,
+      256,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 80,
+     "smem": 16640,
+     "occupancy": 75,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 11.968,
+     "grid": [
+      256,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 51.200001,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 3.872,
+     "grid": [
+      784,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 19.6,
+     "warps_per_sm": 78.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+     "dur_us": 51.008,
+     "grid": [
+      1,
+      256,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 108,
+     "smem": 22656,
+     "occupancy": 50,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)",
+     "dur_us": 59.519,
+     "grid": [
+      8,
+      32,
+      1
+     ],
+     "block": [
+      32,
+      8,
+      1
+     ],
+     "regs": 64,
+     "smem": 9216,
+     "occupancy": 100,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "volta_sgemm_128x64_nn",
+     "dur_us": 195.647,
+     "grid": [
+      2,
+      4,
+      36
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 122,
+     "smem": 12544,
+     "occupancy": 50,
+     "blocks_per_sm": 7.2,
+     "warps_per_sm": 28.799999
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)",
+     "dur_us": 51.327,
+     "grid": [
+      1,
+      256,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 80,
+     "smem": 16640,
+     "occupancy": 75,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 11.872,
+     "grid": [
+      256,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 51.200001,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+     "dur_us": 9.376,
+     "grid": [
+      784,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 19.6,
+     "warps_per_sm": 78.400002
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 3.488,
+     "grid": [
+      784,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 19.6,
+     "warps_per_sm": 78.400002
+    },
+    {
+     "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+     "dur_us": 4.896,
+     "grid": [
+      7,
+      8,
+      8
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 38,
+     "smem": 4224,
+     "occupancy": 100,
+     "blocks_per_sm": 11.2,
+     "warps_per_sm": 89.599998
+    },
+    {
+     "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+     "dur_us": 43.711,
+     "grid": [
+      1,
+      8,
+      512
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 38,
+     "smem": 4224,
+     "occupancy": 100,
+     "blocks_per_sm": 102.400002,
+     "warps_per_sm": 819.200012
+    },
+    {
+     "name": "void cask__5x_cudnn::computeOffsetsKernel<false, false>(cask__5x_cudnn::ComputeOffsetsParams)",
+     "dur_us": 2.144,
+     "grid": [
+      1,
+      1,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 1,
+     "blocks_per_sm": 0.025,
+     "warps_per_sm": 0.2
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_128x32_sliced1x4_ldg4_relu_exp_medium_nhwc_tn_v1",
+     "dur_us": 224.191,
+     "grid": [
+      4,
+      16,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 128,
+     "smem": 41472,
+     "occupancy": 25,
+     "blocks_per_sm": 1.6,
+     "warps_per_sm": 12.8
+    },
+    {
+     "name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+     "dur_us": 5.056,
+     "grid": [
+      2,
+      16,
+      8
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 61,
+     "smem": 4224,
+     "occupancy": 100,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 51.200001
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 6.688,
+     "grid": [
+      512,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 102.400002,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 2.4,
+     "grid": [
+      392,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 9.8,
+     "warps_per_sm": 39.200001
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+     "dur_us": 22.271,
+     "grid": [
+      1,
+      512,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 108,
+     "smem": 22656,
+     "occupancy": 50,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)",
+     "dur_us": 250.718,
+     "grid": [
+      16,
+      64,
+      1
+     ],
+     "block": [
+      32,
+      8,
+      1
+     ],
+     "regs": 64,
+     "smem": 9216,
+     "occupancy": 100,
+     "blocks_per_sm": 25.6,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "volta_sgemm_64x64_nn",
+     "dur_us": 363.293,
+     "grid": [
+      1,
+      8,
+      36
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 126,
+     "smem": 8448,
+     "occupancy": 44,
+     "blocks_per_sm": 7.2,
+     "warps_per_sm": 14.4
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)",
+     "dur_us": 24.768,
+     "grid": [
+      1,
+      512,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 80,
+     "smem": 16640,
+     "occupancy": 75,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 7.872,
+     "grid": [
+      512,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 102.400002,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void cask__5x_cudnn::computeOffsetsKernel<false, false>(cask__5x_cudnn::ComputeOffsetsParams)",
+     "dur_us": 1.824,
+     "grid": [
+      1,
+      1,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 1,
+     "blocks_per_sm": 0.025,
+     "warps_per_sm": 0.2
+    },
+    {
+     "name": "_5x_cudnn_volta_scudnn_128x64_relu_interior_nn_v1",
+     "dur_us": 36.16,
+     "grid": [
+      4,
+      8,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 128,
+     "smem": 16384,
+     "occupancy": 10,
+     "blocks_per_sm": 0.8,
+     "warps_per_sm": 3.2
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 6.496,
+     "grid": [
+      512,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 102.400002,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+     "dur_us": 4.704,
+     "grid": [
+      392,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 9.8,
+     "warps_per_sm": 39.200001
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 2.432,
+     "grid": [
+      392,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 9.8,
+     "warps_per_sm": 39.200001
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+     "dur_us": 20.799,
+     "grid": [
+      1,
+      512,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 108,
+     "smem": 22656,
+     "occupancy": 50,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)",
+     "dur_us": 249.311,
+     "grid": [
+      16,
+      64,
+      1
+     ],
+     "block": [
+      32,
+      8,
+      1
+     ],
+     "regs": 64,
+     "smem": 9216,
+     "occupancy": 100,
+     "blocks_per_sm": 25.6,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "volta_sgemm_64x64_nn",
+     "dur_us": 334.621,
+     "grid": [
+      1,
+      8,
+      36
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 126,
+     "smem": 8448,
+     "occupancy": 44,
+     "blocks_per_sm": 7.2,
+     "warps_per_sm": 14.4
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)",
+     "dur_us": 24.671,
+     "grid": [
+      1,
+      512,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 80,
+     "smem": 16640,
+     "occupancy": 75,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 7.936,
+     "grid": [
+      512,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 102.400002,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 2.72,
+     "grid": [
+      392,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 9.8,
+     "warps_per_sm": 39.200001
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardData4x4<float, float>(cudnn::winograd_nonfused::WinogradDataParams<float, float>)",
+     "dur_us": 20.768,
+     "grid": [
+      1,
+      512,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 108,
+     "smem": 22656,
+     "occupancy": 50,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardFilter4x4<float, float>(cudnn::winograd_nonfused::WinogradFilterParams<float, float>)",
+     "dur_us": 250.11,
+     "grid": [
+      16,
+      64,
+      1
+     ],
+     "block": [
+      32,
+      8,
+      1
+     ],
+     "regs": 64,
+     "smem": 9216,
+     "occupancy": 100,
+     "blocks_per_sm": 25.6,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "volta_sgemm_64x64_nn",
+     "dur_us": 333.981,
+     "grid": [
+      1,
+      8,
+      36
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 126,
+     "smem": 8448,
+     "occupancy": 44,
+     "blocks_per_sm": 7.2,
+     "warps_per_sm": 14.4
+    },
+    {
+     "name": "void cudnn::winograd_nonfused::winogradForwardOutput4x4<float, float>(cudnn::winograd_nonfused::WinogradOutputParams<float, float>)",
+     "dur_us": 24.864,
+     "grid": [
+      1,
+      512,
+      1
+     ],
+     "block": [
+      256,
+      1,
+      1
+     ],
+     "regs": 80,
+     "smem": 16640,
+     "occupancy": 75,
+     "blocks_per_sm": 12.8,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+     "dur_us": 7.872,
+     "grid": [
+      512,
+      8,
+      1
+     ],
+     "block": [
+      64,
+      1,
+      1
+     ],
+     "regs": 16,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 102.400002,
+     "warps_per_sm": 204.800003
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+     "dur_us": 5.28,
+     "grid": [
+      392,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 9.8,
+     "warps_per_sm": 39.200001
+    },
+    {
+     "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+     "dur_us": 2.464,
+     "grid": [
+      392,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 22,
+     "smem": 0,
+     "occupancy": 100,
+     "blocks_per_sm": 9.8,
+     "warps_per_sm": 39.200001
+    },
+    {
+     "name": "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4>)",
+     "dur_us": 9.248,
+     "grid": [
+      256,
+      1,
+      1
+     ],
+     "block": [
+      32,
+      16,
+      1
+     ],
+     "regs": 26,
+     "smem": 16,
+     "occupancy": 100,
+     "blocks_per_sm": 6.4,
+     "warps_per_sm": 102.400002
+    },
+    {
+     "name": "void gemmSN_TN_kernel<float, 128, 16, 2, 4, 8, 9, false, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float> >(cublasGemmSmallNParams<cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+     "dur_us": 15.392,
+     "grid": [
+      125,
+      1,
+      1
+     ],
+     "block": [
+      128,
+      1,
+      1
+     ],
+     "regs": 72,
+     "smem": 13824,
+     "occupancy": 39,
+     "blocks_per_sm": 3.125,
+     "warps_per_sm": 12.5
+    }
+   ],
+   "memcpy": [
+    {
+     "name": "Memcpy HtoD (Pageable -> Device)",
+     "dur": 943.961,
+     "External id": 516,
+     "device": 0,
+     "context": 1,
+     "stream": 7,
+     "correlation": 8267,
+     "bytes": 4816896,
+     "memory bandwidth (GB/s)": 5.102854884894609
+    },
+    {
+     "name": "Memcpy DtoH (Device -> Pageable)",
+     "dur": 5.728,
+     "External id": 834,
+     "device": 0,
+     "context": 1,
+     "stream": 7,
+     "correlation": 9638,
+     "bytes": 32000,
+     "memory bandwidth (GB/s)": 5.58659217877095
+    }
+   ],
+   "runtime_calls": {
+    "cudaMemcpyAsync": 2,
+    "cudaStreamSynchronize": 2,
+    "cudaLaunchKernel": 109,
+    "cudaPeekAtLastError": 22,
+    "cudaMemsetAsync": 7,
+    "cudaDeviceSynchronize": 2
+   }
+  }
+ },
+ "sass": {
+  "error": "RuntimeError('Failed to find C compiler. Please specify via CC environment variable.')"
+ },
+ "spark": {
+  "pyspark": "3.5.1",
+  "master": "spark://10.0.0.240:7077",
+  "app_id": "app-20260926120337-0032",
+  "driver_python_pid": 4473,
+  "py4j_java_port": 32881,
+  "py4j_callback_port": 0,
+  "jvm_pid": 4493,
+  "jvm_version": "17.0.20.1",
+  "jvm_vm": "OpenJDK 64-Bit Server VM",
+  "jvm_max_heap_mb": 1024,
+  "workers": [
+   {
+    "pid": 3596,
+    "ppid": 3592,
+    "host": "ip-10-0-0-240",
+    "thread": "MainThread",
+    "n": 5000,
+    "compute_us": 544.2799999855197
+   },
+   {
+    "pid": 3606,
+    "ppid": 3592,
+    "host": "ip-10-0-0-240",
+    "thread": "MainThread",
+    "n": 5000,
+    "compute_us": 530.3549999098323
+   },
+   {
+    "pid": 3595,
+    "ppid": 3592,
+    "host": "ip-10-0-0-240",
+    "thread": "MainThread",
+    "n": 5000,
+    "compute_us": 670.265000053405
+   },
+   {
+    "pid": 3603,
+    "ppid": 3592,
+    "host": "ip-10-0-0-240",
+    "thread": "MainThread",
+    "n": 5000,
+    "compute_us": 483.9529999571823
+   }
+  ],
+  "worker_env_keys": [
+   "PYSPARK_DRIVER_PYTHON",
+   "PYSPARK_PYTHON",
+   "PYSPARK_PYTHONPATH_SET",
+   "SPARK_AUTH_SOCKET_TIMEOUT",
+   "SPARK_BEELINE_OPTS",
+   "SPARK_BUFFER_SIZE",
+   "SPARK_CONF_DIR",
+   "SPARK_ENV_LOADED",
+   "SPARK_EXECUTOR_DIRS",
+   "SPARK_EXECUTOR_MEMORY",
+   "SPARK_HOME",
+   "SPARK_IDENT_STRING",
+   "SPARK_JOB_ARTIFACT_UUID",
+   "SPARK_LAUNCH_WITH_SCALA",
+   "SPARK_LOCAL_DIRS",
+   "SPARK_LOG_DIR",
+   "SPARK_LOG_URL_STDERR",
+   "SPARK_LOG_URL_STDOUT",
+   "SPARK_NICENESS",
+   "SPARK_PRINT_LAUNCH_COMMAND",
+   "SPARK_REUSE_WORKER",
+   "SPARK_SCALA_VERSION",
+   "SPARK_USER",
+   "SPARK_VERSION"
+  ],
+  "pickle_frame_bytes": 34478,
+  "pickle_raw_bytes": 32768,
+  "arrow_ipc_bytes": 296,
+  "udf_vs_rdd_s": {
+   "pandas_udf_arrow": 1.9409846600001401,
+   "rdd_pickle": 1.3751740029999837
+  },
+  "stages": [
+   {
+    "stage": 0,
+    "tasks": 4,
+    "run_ms": 3329,
+    "cpu_ms": 115.442808,
+    "deser_ms": 1463,
+    "result_ser_ms": 19,
+    "gc_ms": 40,
+    "in_rec": 0,
+    "out_rec": 0,
+    "name": "collect at /app/benchmark/lowlevel_trace.py:516"
+   },
+   {
+    "stage": 1,
+    "tasks": 4,
+    "run_ms": 1558,
+    "cpu_ms": 438.069009,
+    "deser_ms": 643,
+    "result_ser_ms": 1,
+    "gc_ms": 32,
+    "in_rec": 200000,
+    "out_rec": 0,
+    "name": "collect at /app/benchmark/lowlevel_trace.py:566"
+   },
+   {
+    "stage": 2,
+    "tasks": 4,
+    "run_ms": 0,
+    "cpu_ms": 0.0,
+    "deser_ms": 0,
+    "result_ser_ms": 0,
+    "gc_ms": 0,
+    "in_rec": 0,
+    "out_rec": 0,
+    "name": "collect at /app/benchmark/lowlevel_trace.py:566"
+   },
+   {
+    "stage": 3,
+    "tasks": 1,
+    "run_ms": 126,
+    "cpu_ms": 90.247202,
+    "deser_ms": 48,
+    "result_ser_ms": 1,
+    "gc_ms": 0,
+    "in_rec": 0,
+    "out_rec": 0,
+    "name": "collect at /app/benchmark/lowlevel_trace.py:566"
+   },
+   {
+    "stage": 4,
+    "tasks": 4,
+    "run_ms": 3824,
+    "cpu_ms": 60.611432,
+    "deser_ms": 542,
+    "result_ser_ms": 17,
+    "gc_ms": 354,
+    "in_rec": 200000,
+    "out_rec": 0,
+    "name": "count at /app/benchmark/lowlevel_trace.py:569"
+   }
+  ]
+ }
+}

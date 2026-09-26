@@ -1,0 +1,33 @@
+test	exit	seconds	command
+p3_tiny	0	47	benchmark/run_benchmark.py --mode distributed --signal-samples 500 --image-samples 10 --detection-samples 5 --batch-size 64 --partitions 4
+p1_modes_small	0	137	benchmark/run_benchmark.py --mode all --signal-samples 1000 --image-samples 20 --detection-samples 5 --batch-size 64 --partitions 4
+p1_modes_medium	0	68	benchmark/run_benchmark.py --mode all --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 64 --partitions 4
+p1_dist_large	0	205	benchmark/run_benchmark.py --mode distributed --signal-samples 10000 --image-samples 100 --detection-samples 20 --batch-size 64 --partitions 8
+p1_dist_large	0	240	benchmark/run_benchmark.py --mode distributed --signal-samples 10000 --image-samples 100 --detection-samples 20 --batch-size 64 --partitions 8
+p2_partitions_2	0	101	benchmark/run_benchmark.py --mode distributed --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 64 --partitions 2
+p2_partitions_4	0	120	benchmark/run_benchmark.py --mode distributed --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 64 --partitions 4
+p2_partitions_8	0	188	benchmark/run_benchmark.py --mode distributed --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 64 --partitions 8
+p2_partitions_16	0	219	benchmark/run_benchmark.py --mode distributed --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 64 --partitions 16
+p3_tiny	0	111	benchmark/run_benchmark.py --mode distributed --signal-samples 500 --image-samples 10 --detection-samples 5 --batch-size 64 --partitions 4
+p3_medium	0	125	benchmark/run_benchmark.py --mode distributed --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 64 --partitions 4
+p3_xlarge	0	169	benchmark/run_benchmark.py --mode distributed --signal-samples 10000 --image-samples 80 --detection-samples 15 --batch-size 64 --partitions 8
+p4_batch_16	0	102	benchmark/run_benchmark.py --mode distributed --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 16 --partitions 4
+p4_batch_64	0	95	benchmark/run_benchmark.py --mode distributed --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 64 --partitions 4
+p4_batch_256	0	118	benchmark/run_benchmark.py --mode distributed --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 256 --partitions 4
+p4_batch_512	0	135	benchmark/run_benchmark.py --mode distributed --signal-samples 5000 --image-samples 50 --detection-samples 10 --batch-size 512 --partitions 4
+p7_cpu_only_small	0	85	benchmark/cluster_benchmark.py --device-mode cpu_only --partitions 2 --signal-samples 1000 --image-samples 50 --detection-samples 20
+p7_cpu_only_medium	0	147	benchmark/cluster_benchmark.py --device-mode cpu_only --partitions 4 --signal-samples 3000 --image-samples 100 --detection-samples 30
+p7_gpu_only_small	0	96	benchmark/cluster_benchmark.py --device-mode gpu_only --partitions 2 --signal-samples 1000 --image-samples 50 --detection-samples 20
+p7_gpu_only_medium	0	128	benchmark/cluster_benchmark.py --device-mode gpu_only --partitions 4 --signal-samples 3000 --image-samples 100 --detection-samples 30
+p7_hybrid_small	0	84	benchmark/cluster_benchmark.py --device-mode hybrid --partitions 2 --signal-samples 1000 --image-samples 50 --detection-samples 20
+p7_hybrid_medium	0	134	benchmark/cluster_benchmark.py --device-mode hybrid --partitions 4 --signal-samples 3000 --image-samples 100 --detection-samples 30
+p8_gpu_batch_32	0	84	benchmark/cluster_benchmark.py --device-mode gpu_only --partitions 2 --signal-samples 3000 --image-samples 50 --detection-samples 20 --batch-size 32
+p8_gpu_batch_128	1	63	benchmark/cluster_benchmark.py --device-mode gpu_only --partitions 2 --signal-samples 3000 --image-samples 50 --detection-samples 20 --batch-size 128
+p8_gpu_batch_512	0	95	benchmark/cluster_benchmark.py --device-mode gpu_only --partitions 2 --signal-samples 3000 --image-samples 50 --detection-samples 20 --batch-size 512
+eng_rdd_cpu_only	0	50	submit_job.py --model example_mlp --engine rdd --mode cpu_only --samples 20000 --partitions 4
+eng_rdd_gpu_only	0	61	submit_job.py --model example_mlp --engine rdd --mode gpu_only --samples 20000 --partitions 4
+eng_udf_cpu_only	0	70	submit_job.py --model example_mlp --engine udf --mode cpu_only --samples 20000 --partitions 4
+eng_udf_gpu_only	0	81	submit_job.py --model example_mlp --engine udf --mode gpu_only --samples 20000 --partitions 4
+svs_single_gpu	0	124	benchmark/spark_vs_single_gpu.py --signals 3000 --images 50 --detections 20 --batch-size 128
+p1_modes_small	0	102	benchmark/run_benchmark.py --mode all --signal-samples 1000 --image-samples 20 --detection-samples 5 --batch-size 64 --partitions 4
+p8_gpu_batch_128	1	125	benchmark/cluster_benchmark.py --device-mode gpu_only --partitions 2 --signal-samples 3000 --image-samples 50 --detection-samples 20 --batch-size 128

@@ -1,0 +1,73 @@
+{
+  "url" : "spark://10.0.0.66:7077",
+  "workers" : [ {
+    "id" : "worker-20260926155959-10.0.0.66-35459",
+    "host" : "10.0.0.66",
+    "port" : 35459,
+    "webuiaddress" : "http://10.0.0.66:8081",
+    "cores" : 4,
+    "coresused" : 0,
+    "coresfree" : 4,
+    "memory" : 12288,
+    "memoryused" : 0,
+    "memoryfree" : 12288,
+    "resources" : { },
+    "resourcesused" : { },
+    "resourcesfree" : { },
+    "state" : "ALIVE",
+    "lastheartbeat" : 1790438580276
+  }, {
+    "id" : "worker-20260926160037-10.0.0.178-41351",
+    "host" : "10.0.0.178",
+    "port" : 41351,
+    "webuiaddress" : "http://10.0.0.178:8081",
+    "cores" : 4,
+    "coresused" : 0,
+    "coresfree" : 4,
+    "memory" : 12288,
+    "memoryused" : 0,
+    "memoryfree" : 12288,
+    "resources" : {
+      "gpu" : {
+        "name" : "gpu",
+        "addresses" : [ "0" ]
+      }
+    },
+    "resourcesused" : {
+      "gpu" : {
+        "name" : "gpu",
+        "addresses" : [ ]
+      }
+    },
+    "resourcesfree" : {
+      "gpu" : {
+        "name" : "gpu",
+        "addresses" : [ "0" ]
+      }
+    },
+    "state" : "ALIVE",
+    "lastheartbeat" : 1790438573231
+  } ],
+  "aliveworkers" : 2,
+  "cores" : 8,
+  "coresused" : 0,
+  "memory" : 24576,
+  "memoryused" : 0,
+  "resources" : [ { }, {
+    "gpu" : {
+      "name" : "gpu",
+      "addresses" : [ "0" ]
+    }
+  } ],
+  "resourcesused" : [ { }, {
+    "gpu" : {
+      "name" : "gpu",
+      "addresses" : [ ]
+    }
+  } ],
+  "activeapps" : [ ],
+  "completedapps" : [ ],
+  "activedrivers" : [ ],
+  "completeddrivers" : [ ],
+  "status" : "ALIVE"
+}

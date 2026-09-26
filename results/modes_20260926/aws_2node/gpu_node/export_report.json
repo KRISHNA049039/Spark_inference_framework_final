@@ -1,0 +1,16 @@
+{
+ "resnet18": {
+  "trace_max_abs_diff": 0.0,
+  "output_dims": [
+   1000
+  ],
+  "bytes": 46917881
+ },
+ "ew_classifier": {
+  "trace_max_abs_diff": 0.0,
+  "output_dims": [
+   8
+  ],
+  "bytes": 1405273
+ }
+}

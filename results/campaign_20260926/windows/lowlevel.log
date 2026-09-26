@@ -1,0 +1,314 @@
+USDT:2026-09-26 17:37:23 24956:2236 C:\actions-runner\_work\pytorch\pytorch\third_party\kineto\libkineto\src\SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-09-26 17:37:23 24956:2236 C:\actions-runner\_work\pytorch\pytorch\third_party\kineto\libkineto\src\SyncActivityProfilerHandler.cpp:46] profiler_stop
+{
+  "host": "LAPTOP-OU17PKM2",
+  "os": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "torch": "2.14.0+cu126",
+  "cuda": "12.6",
+  "cudnn": 91002,
+  "time": "2026-09-26 17:36:51"
+}
+
+==============================================================================
+  1. CPU - ISA dispatch, SIMD registers, oneDNN JIT
+==============================================================================
+  platform                : Windows-11-10.0.26200-SP0
+  machine                 : AMD64
+  processor               : Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
+  logical_cpus            : 8
+  torch_cpu_capability    : AVX2
+  mkldnn_available        : True
+  torch_threads           : 4
+
+  What this means:
+    torch_cpu_capability=AVX2 -> ATen's vectorized CPU kernels are compiled several
+    times (DEFAULT/AVX2/AVX512) and the AVX2 copy is picked at runtime via CPUID.
+    AVX2 = 16 x 256-bit YMM registers; one YMM holds 8 x fp32. With FMA3 a single
+    VFMADD231PS does 8 multiply-adds -> 16 FLOP/instruction, 2 ports -> 32 FLOP/cycle/core.
+
+  oneDNN verbose (10 lines) - the 'jit:avx2' / 'brg' field is the x86 code path chosen:
+    onednn_verbose,v1,info,oneDNN v3.12.0 (commit 80afa71049cd69a3df32adcccb623b12cd7baa22)
+    onednn_verbose,v1,info,cpu,runtime:OpenMP,nthr:4
+    onednn_verbose,v1,info,cpu,isa:Intel AVX2
+    onednn_verbose,v1,info,gpu,runtime:none
+    onednn_verbose,v1,info,graph,backend,0:dnnl_backend
+    onednn_verbose,v1,primitive,info,template:operation,engine,primitive,implementation,prop_kind,memory_descriptors,attributes,auxiliary,problem_desc,exec_time
+    onednn_verbose,v1,graph,info,template:operation,engine,partition_id,partition_kind,op_names,data_formats,logical_tensors,fpmath_mode,implementation,backend,exec_time
+    onednn_verbose,v1,primitive,exec,cpu,reorder,jit:uni,undef,src:f32::blocked:abcd::f0 dst:f32::blocked:Acdb8a::f0,attr-scratchpad:user,,64x3x7x7,5.3787
+    onednn_verbose,v1,primitive,exec,cpu,convolution,jit:avx2,forward_training,src:f32:a:blocked:abcd::f0 wei:f32:a:blocked:Acdb8a::f0 bia:f32:a:blocked:a::f0 dst:f32:a:blocked:aBcd8b::f0,attr-scratchpad:user,alg:convolution
+    onednn_verbose,v1,primitive,exec,cpu,reorder,jit:blk,undef,src:f32::blocked:aBcd8b::f0 dst:f32::blocked:abcd::f0,attr-scratchpad:user,,8x64x112x112,23.9946
+
+  (no gcc here - x86 asm listing is produced in the Linux leg)
+
+==============================================================================
+  2. BITS - how one input sample is stored
+==============================================================================
+  EW signal batch: shape=[4, 128] stride=[128, 1] (2048 bytes, data_ptr=0x1d51f933f50, 64B-aligned=False)
+
+  IEEE-754 fp32 = [1 sign][8 exponent, bias 127][23 mantissa]:
+    +0.10284512  0x3dd2a076  0 01111011 10100101010000001110110  = (-1)^0*1.52a076h*2^(123-127)  | fp16 +0.102844  bf16 +0.103027
+    +0.15720458  0x3e20fa3d  0 01111100 01000001111101000111101  = (-1)^0*1.20fa3dh*2^(124-127)  | fp16 +0.157227  bf16 +0.157227
+    +0.12035759  0x3df67e0a  0 01111011 11101100111111000001010  = (-1)^0*1.767e0ah*2^(123-127)  | fp16 +0.120361  bf16 +0.120117
+    +0.10617970  0x3dd974be  0 01111011 10110010111010010111110  = (-1)^0*1.5974beh*2^(123-127)  | fp16 +0.106201  bf16 +0.105957
+    +0.10612669  0x3dd958f3  0 01111011 10110010101100011110011  = (-1)^0*1.5958f3h*2^(123-127)  | fp16 +0.106140  bf16 +0.105957
+    +0.11295056  0x3de752a0  0 01111011 11001110101001010100000  = (-1)^0*1.6752a0h*2^(123-127)  | fp16 +0.112976  bf16 +0.112793
+
+  First 64 bytes of the tensor's storage (little-endian, 4 bytes per fp32):
+    0000  76 a0 d2 3d 3d fa 20 3e 0a 7e f6 3d be 74 d9 3d  v..==. >.~.=.t.=
+    0010  f3 58 d9 3d a0 52 e7 3d 0a 14 e3 3d 73 fd f6 3d  .X.=.R.=...=s..=
+    0020  39 e9 f7 3d 50 09 f3 3d be 9b 0f 3e 0d 89 10 3e  9..=P..=...>...>
+    0030  a3 36 9b 3d 8f aa ff 3d 21 36 e1 3d 83 77 e1 3d  .6.=...=!6.=.w.=
+
+  Image tensor NCHW stride=(150528, 50176, 224, 1)  channels_last stride=(150528, 1, 672, 3)
+    NCHW: all 50176 R pixels, then G, then B.  NHWC: R,G,B of pixel 0, then pixel 1...
+
+==============================================================================
+  3. GPU - streaming multiprocessors, registers, caches, clocks, bus
+==============================================================================
+  L2_cache_size                   : 1048576
+  clock_rate                      : 1560000
+  gcnArchName                     : NVIDIA GeForce GTX 1650
+  is_integrated                   : 0
+  is_multi_gpu_board              : 0
+  major                           : 7
+  max_threads_per_block           : 1024
+  max_threads_per_multi_processor : 1024
+  memory_bus_width                : 128
+  memory_clock_rate               : 4001000
+  minor                           : 5
+  multi_processor_count           : 16
+  name                            : NVIDIA GeForce GTX 1650
+  pci_bus_id                      : 1
+  pci_device_id                   : 0
+  pci_domain_id                   : 0
+  regs_per_multiprocessor         : 65536
+  shared_memory_per_block         : 49152
+  shared_memory_per_block_optin   : 65536
+  shared_memory_per_multiprocessor: 65536
+  total_memory                    : 4294705152
+  uuid                            : 3125ad49-c215-cd77-ba55-cdf4f6361d59
+  warp_size                       : 32
+  pcie_gen_cur                    : 3
+  pcie_gen_max                    : 3
+  pcie_width_cur                  : 16
+  pcie_width_max                  : 16
+  sm_clock_max_mhz                : 2100
+  mem_clock_max_mhz               : 4001
+  sm_clock_now_mhz                : 300
+  mem_clock_now_mhz               : 405
+  power_limit_w                   : [N/A]
+  driver                          : 610.62
+  pstate                          : P8
+  temp_c                          : 52
+
+  Derived:
+    compute capability 7.5  ->  16 SMs x 64 FP32 lanes = 1024 'CUDA cores'
+    Each SM: 4 warp schedulers; a warp = 32 threads executing one instruction (SIMT).
+    Register file per SM = 65536 x 32-bit registers, shared by all resident threads:
+      a kernel using R regs/thread can keep at most floor(65536/(R*32)) warps per SM.
+    FP32 peak = SMs*lanes*2(FMA)*clock = 4.30 TFLOPS at 2100 MHz
+    DRAM peak = mem_clock*2*bus/8     = 128.0 GB/s  (128-bit bus)
+    PCIe Gen3 x16 = 15.76 GB/s per direction (128b/130b encoding)
+
+==============================================================================
+  4. BUS - PCIe copies, DRAM bandwidth, launch latency, SGEMM
+==============================================================================
+        size   H2D pageable   H2D pinned   D2H pageable   D2H pinned   (GB/s)
+     0.004MB           0.07         0.08           0.09         0.11
+     0.064MB           0.77         1.36           0.77         1.37
+     1.000MB           4.91         9.22           2.28        10.66
+     4.000MB           3.65        11.28           3.54         7.51
+    16.000MB           2.54        10.46           2.71         8.58
+    64.000MB           3.44        10.40           2.44         8.12
+   256.000MB           2.77         8.32           2.37         8.54
+
+    pageable: the driver first memcpy's your buffer into its own pinned staging
+      buffer (CPU does this, cache-line by cache-line), then the GPU's copy engine
+      DMAs it across PCIe. pinned (page-locked): the copy engine DMAs straight
+      from your physical pages -> close to PCIe line rate. Tiny copies are
+      latency-bound (~10 us of driver + doorbell + DMA descriptor setup).
+  Device DRAM (D2D copy, read+write): 95.9 GB/s
+  Kernel launch: enqueue 86.4 us/launch (CPU side), 86.4 us/launch incl. GPU drain, 89.7 us round-trip with sync
+  GEMM 2048^3 torch.float32 : 1.86 TFLOPS
+  GEMM 2048^3 torch.float16 : 0.41 TFLOPS
+
+==============================================================================
+  5. KERNELS - every CUDA kernel the models launch (CUPTI via torch.profiler)
+==============================================================================
+
+  --- ew_classifier: input [256, 128] -> 20 kernels, 7 memcpy, 35 CUDA runtime calls. Chrome trace: results/campaign_20260926/windows/lowlevel\trace_ew_classifier.jsonUSDT:2026-09-26 17:37:26 24956:2236 C:\actions-runner\_work\pytorch\pytorch\third_party\kineto\libkineto\src\SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-09-26 17:37:26 24956:2236 C:\actions-runner\_work\pytorch\pytorch\third_party\kineto\libkineto\src\SyncActivityProfilerHandler.cpp:46] profiler_stop
+
+       us           grid        block regs   smem  occ%  kernel
+     80.6      [2, 8, 1]  [256, 1, 1]  134  43008    25  volta_sgemm_128x32_sliced1x4_tn
+      8.2      [1, 1, 1]  [128, 1, 1]   26      0     1  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__7a4c7cb5_16_Normaliz
+     18.8      [8, 1, 1]  [32, 16, 1]   36      0    25  _ZN2at6native47batch_norm_transform_input_channels_last_kernelIfffLi4EEEvPKT_S4_PKT0_S7_PK
+     11.2     [64, 1, 1]  [128, 1, 1]   28      0    50  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+    344.8      [4, 8, 4]  [256, 1, 1]   57  16384   100  volta_sgemm_128x32_tn
+      9.0      [1, 1, 1]  [128, 1, 1]   26      0     1  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__7a4c7cb5_16_Normaliz
+     80.3     [16, 1, 1]  [32, 16, 1]   36      0    50  _ZN2at6native47batch_norm_transform_input_channels_last_kernelIfffLi4EEEvPKT_S4_PKT0_S7_PK
+     31.1    [128, 1, 1]  [128, 1, 1]   28      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+    336.4      [8, 8, 2]  [128, 1, 1]   86  32768    25  volta_sgemm_32x32_sliced1x4_tn
+     62.8     [8, 16, 1]  [32, 16, 1]   44      0   100  _ZN8cublasLt19splitKreduce_kernelILi32ELi16EifffLb0EfffLb1ELb1ELb0EEEvNS_18cublasSplitKPar
+      8.4      [1, 1, 1]  [128, 1, 1]   26      0     1  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__7a4c7cb5_16_Normaliz
+     16.6      [8, 1, 1]  [32, 16, 1]   36      0    25  _ZN2at6native47batch_norm_transform_input_channels_last_kernelIfffLi4EEEvPKT_S4_PKT0_S7_PK
+     11.1     [64, 1, 1]  [128, 1, 1]   28      0    50  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+     89.3      [4, 8, 1]  [128, 1, 1]   86  32768    25  volta_sgemm_32x32_sliced1x4_tn
+      7.6      [1, 1, 1]  [128, 1, 1]   26      0     1  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__7a4c7cb5_16_Normaliz
+     22.6      [4, 1, 1]  [32, 16, 1]   36      0    13  _ZN2at6native47batch_norm_transform_input_channels_last_kernelIfffLi4EEEvPKT_S4_PKT0_S7_PK
+      8.0     [32, 1, 1]  [128, 1, 1]   28      0    25  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+     42.1      [2, 8, 1]  [128, 1, 1]   86  32768    13  volta_sgemm_32x32_sliced1x4_tn
+      6.6     [16, 1, 1]  [128, 1, 1]   28      0    13  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+     24.6      [1, 8, 1]  [128, 1, 1]   86  32768     6  volta_sgemm_32x32_sliced1x4_tn
+     45.6                                                Memcpy HtoD (Pageable -> Device) 131072 bytes @ 2.87 GB/s
+      6.7                                                Memcpy DtoD (Device -> Device) 1024 bytes @ 0.15 GB/s
+      2.5                                                Memset (Device) 128 bytes @ 0.05 GB/s
+      9.5                                                Memcpy DtoD (Device -> Device) 2048 bytes @ 0.22 GB/s
+      6.5                                                Memcpy DtoD (Device -> Device) 1024 bytes @ 0.16 GB/s
+      6.4                                                Memcpy DtoD (Device -> Device) 512 bytes @ 0.08 GB/s
+      5.7                                                Memcpy DtoH (Device -> Pageable) 8192 bytes @ 1.45 GB/s
+  CUDA runtime/driver API calls (CPU side): {'cudaStreamIsCapturing': 2, 'cudaMemcpyAsync': 6, 'cudaStreamSynchronize': 2, 'cudaLaunchKernel': 20, 'cudaMemsetAsync': 1, 'cudaOccupancyMaxActiveBlocksPerMultiprocessor': 2, 'cudaDeviceSynchronize': 2}
+  Dispatch chain inside the first aten::linear (host timeline):
+    +    0.0us  2313.5us  [cpu_op] aten::linear
+    +  400.7us   490.0us  [cpu_op] aten::t
+    +  419.8us   462.3us  [cpu_op] aten::transpose
+    +  863.9us    14.5us  [cpu_op] aten::as_strided
+    +  903.8us  1400.8us  [cpu_op] aten::addmm
+    + 1019.2us  1261.5us  [cuda_runtime] cudaLaunchKernel
+    -> GPU kernels launched by it (matched by CUPTI correlation id): ['volta_sgemm_128x32_sliced1x4_tn']
+
+  --- resnet18: input [8, 3, 224, 224] -> 103 kernels, 2 memcpy, 146 CUDA runtime calls. Chrome trace: results/campaign_20260926/windows/lowlevel\trace_resnet18.json
+       us           grid        block regs   smem  occ%  kernel
+      2.2     [50, 1, 1]  [256, 1, 1]   16      0    78  _ZN14cask__5x_cudnn20computeOffsetsKernelILb0ELb0EEEvNS_20ComputeOffsetsParamsE
+    830.0    [784, 1, 1]  [128, 1, 1]  160  16384    38  _5x_cudnn_volta_scudnn_128x64_relu_xregs_large_nn_v1
+    545.8     [64, 8, 1]  [512, 1, 1]   19      0   100  _ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_
+    531.5   [6272, 1, 1]  [128, 1, 1]   28      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+    474.1   [6272, 1, 1]  [256, 1, 1]   24      0   100  _ZN2at6native52_GLOBAL__N__71d79c19_19_DilatedMaxPool2d_cu_9872839c21max_pool_forward_nchw
+      5.1     [2, 16, 1]   [32, 4, 1]   40   8704    25  _ZN5cudnn8winograd27generateWinogradTilesKernelILi0EffEEvNS0_27GenerateWinogradTilesParams
+    665.6     [16, 7, 4]  [256, 1, 1]  126  49152    25  _5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1
+    135.6     [64, 8, 1]  [512, 1, 1]   19      0   100  _ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_
+    133.7   [1568, 1, 1]  [128, 1, 1]   28      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+      5.2     [2, 16, 1]   [32, 4, 1]   40   8704    25  _ZN5cudnn8winograd27generateWinogradTilesKernelILi0EffEEvNS0_27GenerateWinogradTilesParams
+    666.9     [16, 7, 4]  [256, 1, 1]  126  49152    25  _5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1
+    135.7     [64, 8, 1]  [512, 1, 1]   19      0   100  _ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_
+    199.1   [1568, 1, 1]  [128, 1, 1]   44      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4ENS0_15CUDAFunctor_addIfEESt5arrayIPcLy3EE
+    133.1   [1568, 1, 1]  [128, 1, 1]   28      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+      5.1     [2, 16, 1]   [32, 4, 1]   40   8704    25  _ZN5cudnn8winograd27generateWinogradTilesKernelILi0EffEEvNS0_27GenerateWinogradTilesParams
+    663.2     [16, 7, 4]  [256, 1, 1]  126  49152    25  _5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1
+    135.1     [64, 8, 1]  [512, 1, 1]   19      0   100  _ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_
+    133.4   [1568, 1, 1]  [128, 1, 1]   28      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+      5.1     [2, 16, 1]   [32, 4, 1]   40   8704    25  _ZN5cudnn8winograd27generateWinogradTilesKernelILi0EffEEvNS0_27GenerateWinogradTilesParams
+    666.5     [16, 7, 4]  [256, 1, 1]  126  49152    25  _5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1
+    135.9     [64, 8, 1]  [512, 1, 1]   19      0   100  _ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_
+    198.8   [1568, 1, 1]  [128, 1, 1]   44      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4ENS0_15CUDAFunctor_addIfEESt5arrayIPcLy3EE
+    132.8   [1568, 1, 1]  [128, 1, 1]   28      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+      2.0      [4, 1, 1]  [256, 1, 1]   16      0     6  _ZN14cask__5x_cudnn20computeOffsetsKernelILb0ELb0EEEvNS_20ComputeOffsetsParamsE
+    427.4     [49, 2, 1]  [128, 1, 1]  160  16384    38  _5x_cudnn_volta_scudnn_128x64_relu_xregs_large_nn_v1
+     69.9    [128, 8, 1]  [256, 1, 1]   19      0   100  _ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_
+     66.7    [784, 1, 1]  [128, 1, 1]   28      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCoWARNING: Using incubator modules: jdk.incubator.vector
+26/09/26 17:37:55 WARN Shell: Did not find winutils.exe: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\testing\utils.py:127: FutureWarning: PySpark does not yet fully support pandas >= 3.0.0. Some features may not work correctly. It is recommended to use pandas < 3.0.0 for now.
+  require_minimum_pandas_version()
+26/09/26 17:38:05 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 2) / 4][Stage 0:==============>                                            (1 + 2) / 4][Stage 0:=============================>                             (2 + 2) / 4][Stage 0:============================================>              (3 + 1) / 4]                                                                                C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\sql\pandas\functions.py:777: FutureWarning: PySpark does not yet fully support pandas >= 3.0.0. Some features may not work correctly. It is recommended to use pandas < 3.0.0 for now.
+  require_minimum_pandas_version()
+C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\sql\pandas\typehints.py:60: FutureWarning: PySpark does not yet fully support pandas >= 3.0.0. Some features may not work correctly. It is recommended to use pandas < 3.0.0 for now.
+  require_minimum_pandas_version()
+[Stage 1:>                                                          (0 + 2) / 4]                                                                                [Stage 4:>                                                          (0 + 2) / 4][Stage 4:==============>                                            (1 + 2) / 4][Stage 4:=============================>                             (2 + 2) / 4][Stage 4:============================================>              (3 + 1) / 4]                                                                                
+     19.9     [4, 32, 1]   [32, 4, 1]   40   8704    88  _ZN5cudnn8winograd27generateWinogradTilesKernelILi0EffEEvNS0_27GenerateWinogradTilesParams
+    651.2     [32, 4, 2]  [256, 1, 1]  126  49152    25  _5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1
+     67.9    [128, 8, 1]  [256, 1, 1]   19      0   100  _ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_
+      2.0      [4, 1, 1]  [256, 1, 1]   16      0     6  _ZN14cask__5x_cudnn20computeOffsetsKernelILb0ELb0EEEvNS_20ComputeOffsetsParamsE
+     90.9     [49, 1, 1]  [256, 1, 1]  128  32768    50  _5x_cudnn_volta_scudnn_128x128_relu_medium_nn_v1
+     70.0    [128, 8, 1]  [256, 1, 1]   19      0   100  _ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_
+    100.4    [784, 1, 1]  [128, 1, 1]   44      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4ENS0_15CUDAFunctor_addIfEESt5arrayIPcLy3EE
+     66.3    [784, 1, 1]  [128, 1, 1]   28      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+     19.2     [4, 32, 1]   [32, 4, 1]   40   8704    88  _ZN5cudnn8winograd27generateWinogradTilesKernelILi0EffEEvNS0_27GenerateWinogradTilesParams
+    666.6     [32, 4, 2]  [256, 1, 1]  126  49152    25  _5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1
+     67.7    [128, 8, 1]  [256, 1, 1]   19      0   100  _ZN5cudnn26bn_fw_inf_1C11_kernel_NCHWIffLb1ELi1EEEvT0_S1_17cudnnTensorStructPKT_S2_PS3_S2_
+     66.5    [784, 1, 1]  [128, 1, 1]   28      0   100  _ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_GLOBAL__N__a62a4dcd_16_TensorCo
+     18.8     [4, 32, 1]   [32, 4, 1]   40   8704    88  _ZN5cudnn8winograd27generateWinogradTilesKernelILi0EffEEvNS0_27GenerateWinogradTilesParams
+   1713.6                                                Memcpy HtoD (Pageable -> Device) 4816896 bytes @ 2.81 GB/s
+      5.7                                                Memcpy DtoH (Device -> Pageable) 32000 bytes @ 5.65 GB/s
+  CUDA runtime/driver API calls (CPU side): {'cudaStreamIsCapturing': 2, 'cudaMemcpyAsync': 2, 'cudaStreamSynchronize': 2, 'cudaLaunchKernel': 103, 'cudaPeekAtLastError': 28, 'cudaMemsetAsync': 7, 'cudaDeviceSynchronize': 2}
+  Dispatch chain inside the first aten::conv2d (host timeline):
+    +    0.0us   967.3us  [cpu_op] aten::conv2d
+    +   19.5us   944.3us  [cpu_op] aten::convolution
+    +   38.5us   919.8us  [cpu_op] aten::_convolution
+    +  498.8us   442.0us  [cpu_op] aten::cudnn_convolution
+    +  631.9us   121.7us  [cuda_runtime] cudaLaunchKernel
+    +  755.7us     0.8us  [cuda_runtime] cudaPeekAtLastError
+    +  763.5us     1.6us  [cuda_runtime] cudaMemsetAsync
+    +  766.8us   140.2us  [cuda_runtime] cudaLaunchKernel
+    +  909.5us     0.4us  [cuda_runtime] cudaPeekAtLastError
+    -> GPU kernels launched by it (matched by CUPTI correlation id): ['_ZN14cask__5x_cudnn20computeOffsetsKernelILb0ELb0EEEvNS_20ComputeOffse', '_5x_cudnn_volta_scudnn_128x64_relu_xregs_large_nn_v1']
+
+==============================================================================
+  6. SASS - one kernel from Python down to GPU machine code (Triton)
+==============================================================================
+  Triton not installed on this platform (Windows) - produced in the Linux leg.
+
+==============================================================================
+  7. SPARK - JVM <-> Python wire level
+==============================================================================
+  pyspark               : 4.2.0
+  master                : local[2]
+  app_id                : local-1790424489608
+  driver_python_pid     : 24956
+  py4j_java_port        : 52534
+  py4j_callback_port    : 0
+  jvm_pid               : 4416
+  jvm_version           : 17.0.20.1
+  jvm_vm                : OpenJDK 64-Bit Server VM
+  jvm_max_heap_mb       : 1024
+
+  Driver side: this Python process talks to the JVM over a localhost TCP socket
+  (Py4J). Every sc.xxx call is serialized as a text command ('c\n<objid>\n<method>...'),
+  the JVM executes it via reflection and sends the answer back on the same socket.
+
+  Python worker processes that ran the 4 tasks:
+    pid=25920 ppid=4416 host=LAPTOP-OU17PKM2 rows=5000 compute=2583us
+    pid=32300 ppid=4416 host=LAPTOP-OU17PKM2 rows=5000 compute=2136us
+    pid=28868 ppid=4416 host=LAPTOP-OU17PKM2 rows=5000 compute=3055us
+    pid=12192 ppid=4416 host=LAPTOP-OU17PKM2 rows=5000 compute=2906us
+    -> workers launched per the platform model (Windows has no fork(); JVM spawns python -m pyspark.worker directly)
+
+  One partition of 64 EW-signal rows (64x128 fp32 = 32768 raw bytes) as PySpark ships it:
+    framed stream = 34478 bytes  (overhead 1710 bytes = 5.2%)
+    layout: [int32 big-endian length][pickle protocol-5 payload]... then END_OF_DATA_SECTION (-1)
+    0000  00 00 86 aa 80 05 95 9f 86 00 00 00 00 00 00 5d  ...............]
+    0010  94 28 8c 13 6e 75 6d 70 79 2e 5f 63 6f 72 65 2e  .(..numpy._core.
+    0020  6e 75 6d 65 72 69 63 94 8c 0b 5f 66 72 6f 6d 62  numeric..._fromb
+    0030  75 66 66 65 72 94 93 94 28 96 00 02 00 00 00 00  uffer...(.......
+    0040  00 00 6a 0c b9 be 9b 37 74 be 62 8d ea be 13 41  ..j....7t.b....A
+    0050  20 bf bd 89 c3 be e1 af d3 be 11 1e 54 bf 35 90   ...........T.5.
+
+  Arrow (pandas_udf transport): column x=[1.5, null, -2.25, 3.0] float32
+    validity bitmap = 0d  (bits LSB-first: 1,0,1,1 -> 0b1101 = 0x0d)
+    data buffer     = 0000c03f00000000000010c000004040  (4 x fp32 little-endian, null slot is garbage/zero)
+    IPC stream 296 bytes: 0xFFFFFFFF continuation, int32 metadata length, flatbuffer Schema, then RecordBatch message + 8-byte-aligned body buffers:
+    0000  ff ff ff ff 70 00 00 00 10 00 00 00 00 00 0a 00  ....p...........
+    0010  0c 00 06 00 05 00 08 00 0a 00 00 00 00 01 04 00  ................
+    0020  0c 00 00 00 08 00 08 00 00 00 04 00 08 00 00 00  ................
+    0030  04 00 00 00 01 00 00 00 14 00 00 00 10 00 14 00  ................
+    0040  08 00 06 00 07 00 0c 00 00 00 10 00 10 00 00 00  ................
+    0050  00 00 01 03 10 00 00 00 18 00 00 00 04 00 00 00  ................
+
+  200k rows x2: pandas_udf (Arrow, columnar) 5.85s  vs  RDD map (pickle, row-by-row) 14.24s
+
+  Per-stage metrics from the Spark REST API (all times ms):
+    stage tasks     run     cpu  deser resSer    gc   in/out rec  name
+        0     4   31357     516    320     27    36          0/0  collect at D:\pytorch-spark-inference-platform 1\b
+        1     4     967     703    159     17    14     200000/0  collect at D:\pytorch-spark-inference-platform 1\b
+        2     4       0       0      0      0     0          0/0  collect at D:\pytorch-spark-inference-platform 1\b
+        3     1     196     203     28     13     6          0/0  collect at D:\pytorch-spark-inference-platform 1\b
+        4     4   27207    1047     99      0    14     200000/0  count at D:\pytorch-spark-inference-platform 1\ben
+
+Saved results/campaign_20260926/windows/lowlevel\lowlevel.json
+SUCCESS: The process with PID 4416 (child process of PID 30860) has been terminated.
+SUCCESS: The process with PID 30860 (child process of PID 18224) has been terminated.
+SUCCESS: The process with PID 18224 (child process of PID 24956) has been terminated.

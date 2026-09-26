@@ -1,0 +1,116 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 12:53:25 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 0) / 4][Stage 0:>                                                          (0 + 1) / 4][Stage 0:>                                                          (0 + 2) / 4][Stage 0:==============>                                            (1 + 1) / 4][Stage 0:=============================>                             (2 + 1) / 4][Stage 0:============================================>              (3 + 1) / 4][Stage 0:===========================================================(4 + 0) / 4]                                                                                
+======================================================================
+  MULTI-MODEL DISTRIBUTED INFERENCE BENCHMARK
+======================================================================
+
+  System: Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35
+  Python: 3.11.15 | PyTorch: 2.6.0+cu126
+  GPU: NVIDIA GeForce GTX 1650 | CUDA: True
+  Signals: 5000 | Images: 50 | Detections: 10
+
+  [SETUP] Loading model registry...
+
+============================================================
+  MODEL REGISTRY — 10 models
+============================================================
+Name                      Category        Memory (MB)  Input Shape
+------------------------- --------------- ------------ --------------------
+ew_classifier             signal          50           (128,)
+signal_denoiser           signal          100          (128,)
+threat_prioritizer        signal          350          (128,)
+rf_fingerprinter          signal          120          (128,)
+anomaly_detector          signal          100          (128,)
+resnet18                  image_classification 300          (3, 224, 224)
+mobilenetv3               image_classification 150          (3, 224, 224)
+efficientnet_b0           image_classification 200          (3, 224, 224)
+yolov8_nano               object_detection 200          (3, 640, 640)
+yolov8_small              object_detection 400          (3, 640, 640)
+
+  Total estimated GPU memory: 1970 MB (1.9 GB)
+
+  [SETUP] Instantiating models...
+    Loaded 10 models
+
+  [SETUP] Generating synthetic data...
+    Total data: 201.4 MB
+
+  [MODE 1] Distributed GPU — Spark RDD...
+    Spark master: local[2]
+
+──────────────────────────────────────────────────────────────────────
+  DISTRIBUTED INFERENCE RESULTS
+──────────────────────────────────────────────────────────────────────
+  Total Throughput : 538 samples/sec
+  Total Samples    : 25,170
+  Elapsed Time     : 46.75s
+  Partitions       : 4
+  Models           : 10
+
+  JOB COMPOSITION:
+  ─────────────────────────────────────────────────────────
+  Job: Distributed inference of 10 ML models
+  Stages: 1 (parallelize → map → collect)
+  Tasks: 4 (one per partition)
+  Each task: Load 10 models → run inference on data chunk → return results
+
+  EXECUTOR / WORKER DETAIL:
+  ──────────────────────────────────────────────────────────────────────
+  Part  Hostname             Device GPU                  ModelLoad  Inference  Samples
+  ──────────────────────────────────────────────────────────────────────
+  0     adf6827a7a84         cuda   NVIDIA GeForce GTX   6.95       9.05       6290
+  1     adf6827a7a84         cuda   NVIDIA GeForce GTX   3.97       0.68       6290
+  2     adf6827a7a84         cuda   NVIDIA GeForce GTX   0.81       0.24       6290
+  3     adf6827a7a84         cuda   NVIDIA GeForce GTX   1.72       0.96       6300
+  ──────────────────────────────────────────────────────────────────────
+
+  WORKER SUMMARY (1 unique workers):
+  ──────────────────────────────────────────────────────────────────────
+  Worker               Device CPUs  Tasks  Samples    GPU
+  ──────────────────────────────────────────────────────────────────────
+  adf6827a7a84         cuda   8     4      25,170     NVIDIA GeForce GTX 1650
+  ──────────────────────────────────────────────────────────────────────
+
+  MODEL INPUT/OUTPUT & THROUGHPUT:
+  ──────────────────────────────────────────────────────────────────────
+  Model                  Input Shape     Output Shape    Samples  Throughput
+  ──────────────────────────────────────────────────────────────────────
+  ew_classifier          [128]           [8]             5,000    5,185/s
+  signal_denoiser        [128]           [128]           5,000    8,053/s
+  threat_prioritizer     [128]           [64]            5,000    2,464/s
+  rf_fingerprinter       [128]           [32]            5,000    1,063/s
+  anomaly_detector       [128]           [64]            5,000    6,697/s
+  resnet18               [3, 224, 224]   [1000]          50       36/s
+  mobilenetv3            [3, 224, 224]   [1000]          50       70/s
+  efficientnet_b0        [3, 224, 224]   [1000]          50       75/s
+  yolov8_nano            [3, 640, 640]   [400]           10       83/s
+  yolov8_small           [3, 640, 640]   [400]           10       96/s
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK EXECUTOR METRICS (from REST API):
+  ──────────────────────────────────────────────────────────────────────
+  ID       Host                      Cores  Tasks  Duration
+  ──────────────────────────────────────────────────────────────────────
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK JOBS:
+  ──────────────────────────────────────────────────────────────────────
+  Job 0: SUCCEEDED | Stages: 1/0 | Tasks: 4/4
+  ──────────────────────────────────────────────────────────────────────
+
+======================================================================
+  SAVING RESULTS
+======================================================================
+  Report: /app/results/report_wsl2_docker_p2_partitions_4_distributed_sig5000_img50_det10_p4_20260926_125424.md
+  Raw data: /app/results/results_wsl2_docker_p2_partitions_4_distributed_sig5000_img50_det10_p4_20260926_125424.json
+
+  Files saved:
+    /app/results/report_wsl2_docker_p2_partitions_4_distributed_sig5000_img50_det10_p4_20260926_125424.md
+    /app/results/results_wsl2_docker_p2_partitions_4_distributed_sig5000_img50_det10_p4_20260926_125424.json
+    /app/results/metrics_report_latest.md (latest)
+    /app/results/raw_results_latest.json (latest)
+
+  Total time: 64.4s
+

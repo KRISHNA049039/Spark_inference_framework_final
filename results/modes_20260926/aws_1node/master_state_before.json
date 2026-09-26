@@ -1,0 +1,1 @@
+{"workers": [{"host": "10.0.0.240", "cores": 4, "resources": {"gpu": {"name": "gpu", "addresses": ["0"]}}}]}

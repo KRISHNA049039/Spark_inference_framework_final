@@ -1,0 +1,135 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 11:55:31 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 0) / 4][Stage 0:>                                                          (0 + 2) / 4][Stage 0:>                                                          (0 + 3) / 4][Stage 0:=============================>                             (2 + 2) / 4][Stage 0:============================================>              (3 + 1) / 4]                                                                                26/09/26 11:55:45 ERROR TransportResponseHandler: Still have 1 requests outstanding when connection from /10.0.0.240:50282 is closed
+java.util.concurrent.RejectedExecutionException: Task scala.concurrent.impl.CallbackRunnable@357d894 rejected from java.util.concurrent.ThreadPoolExecutor@26f5bad1[Shutting down, pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2065)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:833)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1365)
+	at scala.concurrent.impl.ExecutionContextImpl$$anon$4.execute(ExecutionContextImpl.scala:138)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:72)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:288)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:288)
+	at scala.concurrent.Promise.complete(Promise.scala:53)
+	at scala.concurrent.Promise.complete$(Promise.scala:52)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:187)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:33)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:64)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+======================================================================
+  MULTI-MODEL DISTRIBUTED INFERENCE BENCHMARK
+======================================================================
+
+  System: Linux-6.8.0-1060-aws-x86_64-with-glibc2.35
+  Python: 3.11.16 | PyTorch: 2.6.0+cu126
+  GPU: Tesla T4 | CUDA: True
+  Signals: 5000 | Images: 50 | Detections: 10
+
+  [SETUP] Loading model registry...
+
+============================================================
+  MODEL REGISTRY — 10 models
+============================================================
+Name                      Category        Memory (MB)  Input Shape
+------------------------- --------------- ------------ --------------------
+ew_classifier             signal          50           (128,)
+signal_denoiser           signal          100          (128,)
+threat_prioritizer        signal          350          (128,)
+rf_fingerprinter          signal          120          (128,)
+anomaly_detector          signal          100          (128,)
+resnet18                  image_classification 300          (3, 224, 224)
+mobilenetv3               image_classification 150          (3, 224, 224)
+efficientnet_b0           image_classification 200          (3, 224, 224)
+yolov8_nano               object_detection 200          (3, 640, 640)
+yolov8_small              object_detection 400          (3, 640, 640)
+
+  Total estimated GPU memory: 1970 MB (1.9 GB)
+
+  [SETUP] Instantiating models...
+    Loaded 10 models
+
+  [SETUP] Generating synthetic data...
+    Total data: 201.4 MB
+
+  [MODE 1] Distributed GPU — Spark RDD...
+    Spark master: spark://10.0.0.240:7077
+
+──────────────────────────────────────────────────────────────────────
+  DISTRIBUTED INFERENCE RESULTS
+──────────────────────────────────────────────────────────────────────
+  Total Throughput : 2,677 samples/sec
+  Total Samples    : 25,170
+  Elapsed Time     : 9.40s
+  Partitions       : 4
+  Models           : 10
+
+  JOB COMPOSITION:
+  ─────────────────────────────────────────────────────────
+  Job: Distributed inference of 10 ML models
+  Stages: 1 (parallelize → map → collect)
+  Tasks: 4 (one per partition)
+  Each task: Load 10 models → run inference on data chunk → return results
+
+  EXECUTOR / WORKER DETAIL:
+  ──────────────────────────────────────────────────────────────────────
+  Part  Hostname             Device GPU                  ModelLoad  Inference  Samples
+  ──────────────────────────────────────────────────────────────────────
+  0     ip-10-0-0-240        cuda   Tesla T4             2.08       0.53       6290
+  1     ip-10-0-0-240        cuda   Tesla T4             2.09       0.53       6290
+  2     ip-10-0-0-240        cuda   Tesla T4             0.64       0.09       6290
+  3     ip-10-0-0-240        cuda   Tesla T4             0.71       0.16       6300
+  ──────────────────────────────────────────────────────────────────────
+
+  WORKER SUMMARY (1 unique workers):
+  ──────────────────────────────────────────────────────────────────────
+  Worker               Device CPUs  Tasks  Samples    GPU
+  ──────────────────────────────────────────────────────────────────────
+  ip-10-0-0-240        cuda   4     4      25,170     Tesla T4
+  ──────────────────────────────────────────────────────────────────────
+
+  MODEL INPUT/OUTPUT & THROUGHPUT:
+  ──────────────────────────────────────────────────────────────────────
+  Model                  Input Shape     Output Shape    Samples  Throughput
+  ──────────────────────────────────────────────────────────────────────
+  ew_classifier          [128]           [8]             5,000    30,544/s
+  signal_denoiser        [128]           [128]           5,000    151,057/s
+  threat_prioritizer     [128]           [64]            5,000    29,464/s
+  rf_fingerprinter       [128]           [32]            5,000    11,851/s
+  anomaly_detector       [128]           [64]            5,000    83,472/s
+  resnet18               [3, 224, 224]   [1000]          50       478/s
+  mobilenetv3            [3, 224, 224]   [1000]          50       263/s
+  efficientnet_b0        [3, 224, 224]   [1000]          50       349/s
+  yolov8_nano            [3, 640, 640]   [400]           10       377/s
+  yolov8_small           [3, 640, 640]   [400]           10       358/s
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK EXECUTOR METRICS (from REST API):
+  ──────────────────────────────────────────────────────────────────────
+  ID       Host                      Cores  Tasks  Duration
+  ──────────────────────────────────────────────────────────────────────
+  0        10.0.0.240                4      4      16.8s
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK JOBS:
+  ──────────────────────────────────────────────────────────────────────
+  Job 0: SUCCEEDED | Stages: 1/0 | Tasks: 4/4
+  ──────────────────────────────────────────────────────────────────────
+
+======================================================================
+  SAVING RESULTS
+======================================================================
+  Report: /app/results/report_aws_g4dn_p3_medium_distributed_sig5000_img50_det10_p4_20260926_115546.md
+  Raw data: /app/results/results_aws_g4dn_p3_medium_distributed_sig5000_img50_det10_p4_20260926_115546.json
+
+  Files saved:
+    /app/results/report_aws_g4dn_p3_medium_distributed_sig5000_img50_det10_p4_20260926_115546.md
+    /app/results/results_aws_g4dn_p3_medium_distributed_sig5000_img50_det10_p4_20260926_115546.json
+    /app/results/metrics_report_latest.md (latest)
+    /app/results/raw_results_latest.json (latest)
+
+  Total time: 17.1s
+

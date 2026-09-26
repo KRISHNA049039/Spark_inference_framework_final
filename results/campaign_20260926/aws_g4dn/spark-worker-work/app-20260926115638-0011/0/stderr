@@ -1,0 +1,95 @@
+Spark Executor Command: "/usr/lib/jvm/java-17-openjdk-amd64/bin/java" "-cp" "/opt/spark/conf/:/opt/spark/jars/*" "-Xmx4096M" "-Dspark.driver.port=34635" "-Dspark.network.timeout=600s" "-Dspark.rpc.message.maxSize=512" "-Djava.net.preferIPv6Addresses=false" "-XX:+IgnoreUnrecognizedVMOptions" "--add-opens=java.base/java.lang=ALL-UNNAMED" "--add-opens=java.base/java.lang.invoke=ALL-UNNAMED" "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED" "--add-opens=java.base/java.io=ALL-UNNAMED" "--add-opens=java.base/java.net=ALL-UNNAMED" "--add-opens=java.base/java.nio=ALL-UNNAMED" "--add-opens=java.base/java.util=ALL-UNNAMED" "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED" "--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED" "--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED" "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED" "--add-opens=java.base/sun.nio.cs=ALL-UNNAMED" "--add-opens=java.base/sun.security.action=ALL-UNNAMED" "--add-opens=java.base/sun.util.calendar=ALL-UNNAMED" "--add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED" "-Djdk.reflect.useDirectMethodHandle=false" "org.apache.spark.executor.CoarseGrainedExecutorBackend" "--driver-url" "spark://CoarseGrainedScheduler@ip-10-0-0-240.ec2.internal:34635" "--executor-id" "0" "--hostname" "10.0.0.240" "--cores" "4" "--app-id" "app-20260926115638-0011" "--worker-url" "spark://Worker@10.0.0.240:43597" "--resourceProfileId" "0"
+========================================
+
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/09/26 11:56:40 INFO CoarseGrainedExecutorBackend: Started daemon with process name: 1340@ip-10-0-0-240
+26/09/26 11:56:40 INFO SignalUtils: Registering signal handler for TERM
+26/09/26 11:56:40 INFO SignalUtils: Registering signal handler for HUP
+26/09/26 11:56:40 INFO SignalUtils: Registering signal handler for INT
+26/09/26 11:56:40 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/26 11:56:40 INFO SecurityManager: Changing view acls to: root
+26/09/26 11:56:40 INFO SecurityManager: Changing modify acls to: root
+26/09/26 11:56:40 INFO SecurityManager: Changing view acls groups to: 
+26/09/26 11:56:40 INFO SecurityManager: Changing modify acls groups to: 
+26/09/26 11:56:40 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/26 11:56:41 INFO TransportClientFactory: Successfully created connection to ip-10-0-0-240.ec2.internal/10.0.0.240:34635 after 70 ms (0 ms spent in bootstraps)
+26/09/26 11:56:41 INFO SecurityManager: Changing view acls to: root
+26/09/26 11:56:41 INFO SecurityManager: Changing modify acls to: root
+26/09/26 11:56:41 INFO SecurityManager: Changing view acls groups to: 
+26/09/26 11:56:41 INFO SecurityManager: Changing modify acls groups to: 
+26/09/26 11:56:41 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/26 11:56:41 INFO TransportClientFactory: Successfully created connection to ip-10-0-0-240.ec2.internal/10.0.0.240:34635 after 8 ms (0 ms spent in bootstraps)
+26/09/26 11:56:41 INFO DiskBlockManager: Created local directory at /tmp/spark-716318eb-dc69-4dda-8dce-f49548222088/executor-d18a60c3-b285-485f-8a73-85453e30fe75/blockmgr-f43b9f78-086a-483d-8bb3-845ed89b38e9
+26/09/26 11:56:41 INFO MemoryStore: MemoryStore started with capacity 2.2 GiB
+26/09/26 11:56:41 INFO CoarseGrainedExecutorBackend: Connecting to driver: spark://CoarseGrainedScheduler@ip-10-0-0-240.ec2.internal:34635
+26/09/26 11:56:41 INFO WorkerWatcher: Connecting to worker spark://Worker@10.0.0.240:43597
+26/09/26 11:56:41 INFO TransportClientFactory: Successfully created connection to /10.0.0.240:43597 after 5 ms (0 ms spent in bootstraps)
+26/09/26 11:56:41 INFO ResourceUtils: ==============================================================
+26/09/26 11:56:41 INFO ResourceUtils: No custom resources configured for spark.executor.
+26/09/26 11:56:41 INFO ResourceUtils: ==============================================================
+26/09/26 11:56:41 INFO WorkerWatcher: Successfully connected to spark://Worker@10.0.0.240:43597
+26/09/26 11:56:41 INFO CoarseGrainedExecutorBackend: Successfully registered with driver
+26/09/26 11:56:41 INFO Executor: Starting executor ID 0 on host 10.0.0.240
+26/09/26 11:56:41 INFO Executor: OS info Linux, 6.8.0-1060-aws, amd64
+26/09/26 11:56:41 INFO Executor: Java version 17.0.20.1
+26/09/26 11:56:41 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 45053.
+26/09/26 11:56:41 INFO NettyBlockTransferService: Server created on 10.0.0.240:45053
+26/09/26 11:56:41 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/26 11:56:41 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(0, 10.0.0.240, 45053, None)
+26/09/26 11:56:41 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(0, 10.0.0.240, 45053, None)
+26/09/26 11:56:41 INFO BlockManager: Initialized BlockManager: BlockManagerId(0, 10.0.0.240, 45053, None)
+26/09/26 11:56:41 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/09/26 11:56:41 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@165b133f for default.
+26/09/26 11:56:42 INFO CoarseGrainedExecutorBackend: Got assigned task 0
+26/09/26 11:56:42 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+26/09/26 11:56:42 INFO CoarseGrainedExecutorBackend: Got assigned task 1
+26/09/26 11:56:42 INFO Executor: Running task 1.0 in stage 0.0 (TID 1)
+26/09/26 11:56:42 INFO TorrentBroadcast: Started reading broadcast variable 2 with 1 pieces (estimated total size 4.0 MiB)
+26/09/26 11:56:42 INFO TransportClientFactory: Successfully created connection to ip-10-0-0-240.ec2.internal/10.0.0.240:44783 after 4 ms (0 ms spent in bootstraps)
+26/09/26 11:56:42 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 7.1 KiB, free 2.2 GiB)
+26/09/26 11:56:42 INFO TorrentBroadcast: Reading broadcast variable 2 took 143 ms
+26/09/26 11:56:42 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 10.8 KiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO TorrentBroadcast: Started reading broadcast variable 0 with 22 pieces (estimated total size 88.0 MiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece9 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece15 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece17 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece2 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece3 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece13 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece4 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece19 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece8 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece11 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece10 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece20 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece16 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:43 INFO MemoryStore: Block broadcast_0_piece7 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_0_piece14 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_0_piece5 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_0_piece18 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_0_piece6 stored as bytes in memory (estimated size 4.0 MiB, free 2.1 GiB)
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_0_piece1 stored as bytes in memory (estimated size 4.0 MiB, free 2.1 GiB)
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_0_piece12 stored as bytes in memory (estimated size 4.0 MiB, free 2.1 GiB)
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_0_piece21 stored as bytes in memory (estimated size 1169.7 KiB, free 2.1 GiB)
+26/09/26 11:56:44 INFO TorrentBroadcast: Reading broadcast variable 0 took 450 ms
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 272.0 B, free 2.1 GiB)
+26/09/26 11:56:44 INFO TorrentBroadcast: Started reading broadcast variable 1 with 1 pieces (estimated total size 4.0 MiB)
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 202.0 B, free 2.1 GiB)
+26/09/26 11:56:44 INFO TorrentBroadcast: Reading broadcast variable 1 took 6 ms
+26/09/26 11:56:44 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 272.0 B, free 2.1 GiB)
+26/09/26 11:56:48 INFO PythonRunner: Times: total = 5727, boot = 576, init = 2380, finish = 2771
+26/09/26 11:56:48 INFO PythonRunner: Times: total = 5729, boot = 572, init = 2385, finish = 2772
+26/09/26 11:56:48 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 2524 bytes result sent to driver
+26/09/26 11:56:48 INFO Executor: Finished task 1.0 in stage 0.0 (TID 1). 2524 bytes result sent to driver
+26/09/26 11:56:49 INFO CoarseGrainedExecutorBackend: Got assigned task 2
+26/09/26 11:56:49 INFO Executor: Running task 2.0 in stage 0.0 (TID 2)
+26/09/26 11:56:49 INFO CoarseGrainedExecutorBackend: Got assigned task 3
+26/09/26 11:56:49 INFO Executor: Running task 3.0 in stage 0.0 (TID 3)
+26/09/26 11:56:50 INFO PythonRunner: Times: total = 871, boot = -234, init = 328, finish = 777
+26/09/26 11:56:50 INFO Executor: Finished task 2.0 in stage 0.0 (TID 2). 2481 bytes result sent to driver
+26/09/26 11:56:50 INFO PythonRunner: Times: total = 955, boot = -423, init = 506, finish = 872
+26/09/26 11:56:50 INFO Executor: Finished task 3.0 in stage 0.0 (TID 3). 2481 bytes result sent to driver
+26/09/26 11:56:52 INFO CoarseGrainedExecutorBackend: Driver commanded a shutdown
+26/09/26 11:56:52 ERROR CoarseGrainedExecutorBackend: RECEIVED SIGNAL TERM
+tdown

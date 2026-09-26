@@ -1,0 +1,18 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 16:03:37 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+[Stage 0:>                                                          (0 + 0) / 8]
+
+[Stage 0:>                                                          (0 + 2) / 8]
+
+[Stage 0:>                                                          (0 + 4) / 8]
+
+[Stage 0:==============>                                            (2 + 4) / 8]
+
+[Stage 0:=============================>                             (4 + 4) / 8]
+
+[Stage 0:============================================>              (6 + 2) / 8]
+
+                                                                                
+RESULT_JSON {"app": "modes-ew_classifier-rdd_gpu", "app_id": "app-20260926160338-0001", "mode": "rdd_gpu", "model": "ew_classifier", "partitions": 8, "batch_size": 1024, "samples": 100000, "setup_s": 5.93, "start_epoch": 1790438618.9300127, "wall_s": 6.843, "processed": 100000, "throughput": 14614.1, "end_epoch": 1790438625.7727141, "partition_details": [{"partition_idx": 0, "executor_id": "ip-10-0-0-66_292", "hostname": "ip-10-0-0-66", "device": "cpu", "cuda_available": false, "model_load_time_sec": 0.014, "inference_time_sec": 0.0558, "total_task_time_sec": 0.0558, "samples_processed": 12500, "per_model_processed": {"ew_classifier": 12500}, "batch_size": 1024}, {"partition_idx": 1, "executor_id": "ip-10-0-0-66_291", "hostname": "ip-10-0-0-66", "device": "cpu", "cuda_available": false, "model_load_time_sec": 0.0155, "inference_time_sec": 0.06, "total_task_time_sec": 0.06, "samples_processed": 12500, "per_model_processed": {"ew_classifier": 12500}, "batch_size": 1024}, {"partition_idx": 2, "executor_id": "ip-10-0-0-178_314", "hostname": "ip-10-0-0-178", "device": "cuda", "cuda_available": true, "model_load_time_sec": 0.2846, "inference_time_sec": 1.8773, "total_task_time_sec": 1.8773, "samples_processed": 12500, "per_model_processed": {"ew_classifier": 12500}, "batch_size": 1024}, {"partition_idx": 3, "executor_id": "ip-10-0-0-178_313", "hostname": "ip-10-0-0-178", "device": "cuda", "cuda_available": true, "model_load_time_sec": 0.2985, "inference_time_sec": 1.876, "total_task_time_sec": 1.876, "samples_processed": 12500, "per_model_processed": {"ew_classifier": 12500}, "batch_size": 1024}, {"partition_idx": 4, "executor_id": "ip-10-0-0-66_292", "hostname": "ip-10-0-0-66", "device": "cpu", "cuda_available": false, "model_load_time_sec": 0.0085, "inference_time_sec": 0.0611, "total_task_time_sec": 0.0611, "samples_processed": 12500, "per_model_processed": {"ew_classifier": 12500}, "batch_size": 1024}, {"partition_idx": 5, "executor_id": "ip-10-0-0-66_291", "hostname": "ip-10-0-0-66", "device": "cpu", "cuda_available": false, "model_load_time_sec": 0.0083, "inference_time_sec": 0.066, "total_task_time_sec": 0.066, "samples_processed": 12500, "per_model_processed": {"ew_classifier": 12500}, "batch_size": 1024}, {"partition_idx": 6, "executor_id": "ip-10-0-0-66_292", "hostname": "ip-10-0-0-66", "device": "cpu", "cuda_available": false, "model_load_time_sec": 0.0083, "inference_time_sec": 0.0496, "total_task_time_sec": 0.0496, "samples_processed": 12500, "per_model_processed": {"ew_classifier": 12500}, "batch_size": 1024}, {"partition_idx": 7, "executor_id": "ip-10-0-0-66_291", "hostname": "ip-10-0-0-66", "device": "cpu", "cuda_available": false, "model_load_time_sec": 0.0082, "inference_time_sec": 0.0543, "total_task_time_sec": 0.0543, "samples_processed": 12500, "per_model_processed": {"ew_classifier": 12500}, "batch_size": 1024}]}

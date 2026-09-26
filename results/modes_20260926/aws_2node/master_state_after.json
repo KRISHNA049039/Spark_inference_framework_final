@@ -1,0 +1,358 @@
+{
+  "url" : "spark://10.0.0.66:7077",
+  "workers" : [ {
+    "id" : "worker-20260926155959-10.0.0.66-35459",
+    "host" : "10.0.0.66",
+    "port" : 35459,
+    "webuiaddress" : "http://10.0.0.66:8081",
+    "cores" : 4,
+    "coresused" : 0,
+    "coresfree" : 4,
+    "memory" : 12288,
+    "memoryused" : 0,
+    "memoryfree" : 12288,
+    "resources" : { },
+    "resourcesused" : { },
+    "resourcesfree" : { },
+    "state" : "ALIVE",
+    "lastheartbeat" : 1790439255275
+  }, {
+    "id" : "worker-20260926160037-10.0.0.178-41351",
+    "host" : "10.0.0.178",
+    "port" : 41351,
+    "webuiaddress" : "http://10.0.0.178:8081",
+    "cores" : 4,
+    "coresused" : 0,
+    "coresfree" : 4,
+    "memory" : 12288,
+    "memoryused" : 0,
+    "memoryfree" : 12288,
+    "resources" : {
+      "gpu" : {
+        "name" : "gpu",
+        "addresses" : [ "0" ]
+      }
+    },
+    "resourcesused" : {
+      "gpu" : {
+        "name" : "gpu",
+        "addresses" : [ ]
+      }
+    },
+    "resourcesfree" : {
+      "gpu" : {
+        "name" : "gpu",
+        "addresses" : [ "0" ]
+      }
+    },
+    "state" : "ALIVE",
+    "lastheartbeat" : 1790439248235
+  } ],
+  "aliveworkers" : 2,
+  "cores" : 8,
+  "coresused" : 0,
+  "memory" : 24576,
+  "memoryused" : 0,
+  "resources" : [ { }, {
+    "gpu" : {
+      "name" : "gpu",
+      "addresses" : [ "0" ]
+    }
+  } ],
+  "resourcesused" : [ { }, {
+    "gpu" : {
+      "name" : "gpu",
+      "addresses" : [ ]
+    }
+  } ],
+  "activeapps" : [ ],
+  "completedapps" : [ {
+    "id" : "app-20260926160318-0000",
+    "starttime" : 1790438598096,
+    "name" : "modes-ew_classifier-rdd_cpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:03:18 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 5810
+  }, {
+    "id" : "app-20260926160338-0001",
+    "starttime" : 1790438618328,
+    "name" : "modes-ew_classifier-rdd_gpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:03:38 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 7461
+  }, {
+    "id" : "app-20260926160400-0002",
+    "starttime" : 1790438640189,
+    "name" : "modes-ew_classifier-rdd_hybrid",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:04:00 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 5541
+  }, {
+    "id" : "app-20260926160420-0003",
+    "starttime" : 1790438660094,
+    "name" : "modes-ew_classifier-udf_cpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:04:20 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 36205
+  }, {
+    "id" : "app-20260926160511-0004",
+    "starttime" : 1790438711049,
+    "name" : "modes-ew_classifier-udf_gpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:05:11 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 17674
+  }, {
+    "id" : "app-20260926160543-0005",
+    "starttime" : 1790438743301,
+    "name" : "modes-ew_classifier-native_pbu_cpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:05:43 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 19499
+  }, {
+    "id" : "app-20260926160616-0006",
+    "starttime" : 1790438776542,
+    "name" : "modes-ew_classifier-native_pbu_gpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:06:16 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 18010
+  }, {
+    "id" : "app-20260926160648-0007",
+    "starttime" : 1790438808574,
+    "name" : "modes-ew_classifier-triton_pbu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:06:48 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 17699
+  }, {
+    "id" : "app-20260926160720-0008",
+    "starttime" : 1790438840283,
+    "name" : "modes-ew_classifier-rdd_gpu_aware",
+    "cores" : 4,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ {
+      "name" : "gpu",
+      "amount" : 1
+    } ],
+    "resourcesperslave" : [ {
+      "name" : "gpu",
+      "amount" : 1
+    } ],
+    "submitdate" : "Sat Sep 26 16:07:20 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 6434
+  }, {
+    "id" : "app-20260926160736-0009",
+    "starttime" : 1790438856882,
+    "name" : "modes-resnet18-rdd_cpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:07:36 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 11398
+  }, {
+    "id" : "app-20260926160758-0010",
+    "starttime" : 1790438878679,
+    "name" : "modes-resnet18-rdd_gpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:07:58 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 22043
+  }, {
+    "id" : "app-20260926160831-0011",
+    "starttime" : 1790438911089,
+    "name" : "modes-resnet18-rdd_hybrid",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:08:31 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 9442
+  }, {
+    "id" : "app-20260926160850-0012",
+    "starttime" : 1790438930905,
+    "name" : "modes-resnet18-udf_cpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:08:50 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 37726
+  }, {
+    "id" : "app-20260926160938-0013",
+    "starttime" : 1790438978627,
+    "name" : "modes-resnet18-udf_gpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:09:38 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 35078
+  }, {
+    "id" : "app-20260926161023-0014",
+    "starttime" : 1790439023458,
+    "name" : "modes-resnet18-native_pbu_cpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:10:23 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 35918
+  }, {
+    "id" : "app-20260926161109-0015",
+    "starttime" : 1790439069678,
+    "name" : "modes-resnet18-native_pbu_gpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:11:09 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 34648
+  }, {
+    "id" : "app-20260926161154-0016",
+    "starttime" : 1790439114497,
+    "name" : "modes-resnet18-triton_pbu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:11:54 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 30615
+  }, {
+    "id" : "app-20260926161235-0017",
+    "starttime" : 1790439155338,
+    "name" : "modes-resnet18-rdd_gpu_aware",
+    "cores" : 4,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ {
+      "name" : "gpu",
+      "amount" : 1
+    } ],
+    "resourcesperslave" : [ {
+      "name" : "gpu",
+      "amount" : 1
+    } ],
+    "submitdate" : "Sat Sep 26 16:12:35 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 9661
+  }, {
+    "id" : "app-20260926161255-0018",
+    "starttime" : 1790439175894,
+    "name" : "modes-platform10-platform10_cpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:12:55 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 19271
+  }, {
+    "id" : "app-20260926161325-0019",
+    "starttime" : 1790439205992,
+    "name" : "modes-platform10-platform10_gpu",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:13:25 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 20085
+  }, {
+    "id" : "app-20260926161357-0020",
+    "starttime" : 1790439237024,
+    "name" : "modes-platform10-platform10_hybrid",
+    "cores" : 8,
+    "user" : "root",
+    "memoryperexecutor" : 4096,
+    "memoryperslave" : 4096,
+    "resourcesperexecutor" : [ ],
+    "resourcesperslave" : [ ],
+    "submitdate" : "Sat Sep 26 16:13:57 UTC 2026",
+    "state" : "FINISHED",
+    "duration" : 14172
+  } ],
+  "activedrivers" : [ ],
+  "completeddrivers" : [ ],
+  "status" : "ALIVE"
+}

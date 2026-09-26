@@ -1,0 +1,48 @@
+
+================================================================================
+  SPARK vs SINGLE GPU — SCALABILITY PROOF BENCHMARK
+================================================================================
+  CUDA: True
+  GPU: NVIDIA GeForce GTX 1650
+  VRAM: 4.3 GB
+  CPU cores: 8
+
+  Loading 10 models...
+  Loaded 10 models
+  Generating data: 3000 signals, 50 images, 20 detections
+  Total data: 294.6 MB
+
+================================================================================
+  PHASE 1: SINGLE GPU BASELINES (No Spark)
+================================================================================
+
+  [SINGLE-GPU SEQUENTIAL] Device: cuda
+
+  ───────────────────────────────────────────────────────────────────────────
+  MODEL INPUT/OUTPUT DETAILS
+  ───────────────────────────────────────────────────────────────────────────
+  Model                  Input Shape        Output Shape       Throughput   Device
+  ───────────────────────────────────────────────────────────────────────────
+  ew_classifier          [128, 128]         [128, 8]              2,100/s   cuda
+  signal_denoiser        [128, 128]         [128, 128]           22,786/s   cuda
+  threat_prioritizer     [128, 128]         [128]                 1,810/s   cuda
+  rf_fingerprinter       [128, 128]         [128, 32]               870/s   cuda
+  anomaly_detector       [128, 128]         [128]                 8,899/s   cuda
+  resnet18               [50, 3, 224, 224]  [50, 1000]               52/s   cuda
+  mobilenetv3            [50, 3, 224, 224]  [50, 1000]               71/s   cuda
+  efficientnet_b0        [50, 3, 224, 224]  [50, 1000]               73/s   cuda
+  yolov8_nano            [20, 3, 640, 640]  [20, 400]                70/s   cuda
+  yolov8_small           [20, 3, 640, 640]  [20, 400]               197/s   cuda
+  ───────────────────────────────────────────────────────────────────────────
+
+  [SINGLE-GPU PARALLEL STREAMS] Device: cuda
+
+================================================================================
+  FINAL COMPARISON: SINGLE GPU vs SPARK CLUSTER
+================================================================================
+
+  Config                              Throughput      Time       Speedup    Verdict
+  ─────────────────────────────────── ─────────────── ────────── ────────── ────────────
+  single_gpu_sequential                    1,404/s    10.82s    1.00×   
+  single_gpu_parallel_streams             20,618/s     0.74s   14.69×   ★ BEST
+  ────────────────────────────────────────────────────────────────────────────────

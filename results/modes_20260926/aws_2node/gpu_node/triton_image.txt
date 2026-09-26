@@ -1,0 +1,1 @@
+nvcr.io/nvidia/tritonserver:25.01-py3

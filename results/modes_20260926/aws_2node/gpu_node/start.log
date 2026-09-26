@@ -1,0 +1,12 @@
+=== start gpu Sat Sep 26 16:00:20 UTC 2026 ===
+c4cbe7daebcf7585ba52fe2766820cc9ce66873dfe47451341dc860f5e84b06e
+resnet18 {'trace_max_abs_diff': 0.0, 'output_dims': [1000], 'bytes': 46917881}
+ew_classifier {'trace_max_abs_diff': 0.0, 'output_dims': [8], 'bytes': 1405273}
+558dccdc49fba2f48563be6ee36e82a0658e8d6aa6a99e142ca77f7578d3eb09
+triton ready http 200
+   },
+   "backend": "pytorch"
+  }
+ }
+}
+STARTED gpu

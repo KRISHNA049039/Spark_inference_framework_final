@@ -1,0 +1,130 @@
+{
+  "system_info": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.10",
+    "torch": "2.14.0+cu126",
+    "cpu_cores": 8,
+    "cuda": true,
+    "gpu_name": "NVIDIA GeForce GTX 1650",
+    "gpu_memory_gb": "4.3",
+    "gpu_count": 1,
+    "timestamp": "2026-09-26T17:32:21.814608"
+  },
+  "config": {
+    "signal_samples": 1000,
+    "image_samples": 20,
+    "detection_samples": 5,
+    "batch_size": 64,
+    "partitions": 4
+  },
+  "models": {
+    "ew_classifier": {
+      "category": "signal",
+      "memory_mb": 50
+    },
+    "signal_denoiser": {
+      "category": "signal",
+      "memory_mb": 100
+    },
+    "threat_prioritizer": {
+      "category": "signal",
+      "memory_mb": 350
+    },
+    "rf_fingerprinter": {
+      "category": "signal",
+      "memory_mb": 120
+    },
+    "anomaly_detector": {
+      "category": "signal",
+      "memory_mb": 100
+    },
+    "resnet18": {
+      "category": "image_classification",
+      "memory_mb": 300
+    },
+    "mobilenetv3": {
+      "category": "image_classification",
+      "memory_mb": 150
+    },
+    "efficientnet_b0": {
+      "category": "image_classification",
+      "memory_mb": 200
+    },
+    "yolov8_nano": {
+      "category": "object_detection",
+      "memory_mb": 200
+    },
+    "yolov8_small": {
+      "category": "object_detection",
+      "memory_mb": 400
+    }
+  },
+  "single_gpu": {
+    "mode": "single_gpu",
+    "device": "cuda",
+    "elapsed_time": 0.5237,
+    "total_samples_processed": 5070,
+    "total_throughput": 9681.4,
+    "per_model_processed": {
+      "ew_classifier": 1000,
+      "signal_denoiser": 1000,
+      "threat_prioritizer": 1000,
+      "rf_fingerprinter": 1000,
+      "anomaly_detector": 1000,
+      "resnet18": 20,
+      "mobilenetv3": 20,
+      "efficientnet_b0": 20,
+      "yolov8_nano": 5,
+      "yolov8_small": 5
+    },
+    "num_models": 10,
+    "num_batches": 16,
+    "batch_size": 64,
+    "avg_batch_latency_ms": 32.73,
+    "p99_batch_latency_ms": 206.09
+  },
+  "hybrid_cpu_gpu": {
+    "mode": "hybrid_cpu_gpu",
+    "elapsed_time": 0.3689,
+    "total_samples_processed": 5070,
+    "total_throughput": 13744.7,
+    "per_model_processed": {
+      "ew_classifier": 1000,
+      "signal_denoiser": 1000,
+      "threat_prioritizer": 1000,
+      "rf_fingerprinter": 1000,
+      "anomaly_detector": 1000,
+      "resnet18": 20,
+      "mobilenetv3": 20,
+      "efficientnet_b0": 20,
+      "yolov8_nano": 5,
+      "yolov8_small": 5
+    },
+    "num_models": 10,
+    "gpu_models": [
+      "ew_classifier",
+      "signal_denoiser",
+      "threat_prioritizer",
+      "rf_fingerprinter",
+      "anomaly_detector",
+      "resnet18",
+      "mobilenetv3",
+      "efficientnet_b0",
+      "yolov8_nano",
+      "yolov8_small"
+    ],
+    "cpu_models": [],
+    "num_on_gpu": 10,
+    "num_on_cpu": 0,
+    "strategy": "priority",
+    "batch_size": 64,
+    "num_batches": 16,
+    "avg_batch_latency_ms": 23.05,
+    "p99_batch_latency_ms": 159.23
+  },
+  "distributed_gpu": {
+    "mode": "distributed_gpu",
+    "error": "[WinError 10061] No connection could be made because the target machine actively refused it"
+  },
+  "total_benchmark_time": 73.86
+}

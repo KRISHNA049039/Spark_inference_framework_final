@@ -1,0 +1,22 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 13:38:49 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 1) / 4][Executor] host=adf6827a7a84, pid=4710, device=cuda, cuda=True, models_loaded=1, model_load_time=1.01s
+[Stage 0:==============>                                            (1 + 1) / 4][Executor] host=adf6827a7a84, pid=4710, device=cuda, cuda=True, models_loaded=1, model_load_time=0.01s
+[Stage 0:=============================>                             (2 + 1) / 4][Executor] host=adf6827a7a84, pid=4710, device=cuda, cuda=True, models_loaded=1, model_load_time=0.01s
+[Stage 0:============================================>              (3 + 1) / 4][Executor] host=adf6827a7a84, pid=4710, device=cuda, cuda=True, models_loaded=1, model_load_time=0.01s
+                                                                                {
+  "mode": "distributed_gpu_only",
+  "device_mode": "gpu_only",
+  "elapsed_time": 8.4166,
+  "total_samples_processed": 20000,
+  "total_throughput": 2376.3,
+  "per_model_processed": {
+    "example_mlp": 20000
+  },
+  "num_partitions": 4,
+  "num_models": 1,
+  "batch_size": 256,
+  "timestamp": "2026-09-26T13:39:02.556013"
+}
+Results written to results/example_mlp_20260926_133903.json

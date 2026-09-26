@@ -1,0 +1,74 @@
+{
+  "mode": "distributed_gpu_only",
+  "device_mode": "gpu_only",
+  "elapsed_time": 46.7243,
+  "total_samples_processed": 15190,
+  "total_throughput": 325.1,
+  "per_model_processed": {
+    "ew_classifier": 3000,
+    "signal_denoiser": 3000,
+    "threat_prioritizer": 3000,
+    "rf_fingerprinter": 3000,
+    "anomaly_detector": 3000,
+    "resnet18": 50,
+    "mobilenetv3": 50,
+    "efficientnet_b0": 50,
+    "yolov8_nano": 20,
+    "yolov8_small": 20
+  },
+  "num_partitions": 2,
+  "num_models": 10,
+  "batch_size": 512,
+  "partition_details": [
+    {
+      "partition_idx": 0,
+      "executor_id": "LAPTOP-OU17PKM2_19560",
+      "hostname": "LAPTOP-OU17PKM2",
+      "device": "cuda",
+      "cuda_available": true,
+      "model_load_time_sec": 5.9675,
+      "inference_time_sec": 2.0251,
+      "total_task_time_sec": 2.0251,
+      "samples_processed": 7595,
+      "per_model_processed": {
+        "ew_classifier": 1500,
+        "signal_denoiser": 1500,
+        "threat_prioritizer": 1500,
+        "rf_fingerprinter": 1500,
+        "anomaly_detector": 1500,
+        "resnet18": 25,
+        "mobilenetv3": 25,
+        "efficientnet_b0": 25,
+        "yolov8_nano": 10,
+        "yolov8_small": 10
+      },
+      "batch_size": 512
+    },
+    {
+      "partition_idx": 1,
+      "executor_id": "LAPTOP-OU17PKM2_24360",
+      "hostname": "LAPTOP-OU17PKM2",
+      "device": "cuda",
+      "cuda_available": true,
+      "model_load_time_sec": 7.3848,
+      "inference_time_sec": 2.837,
+      "total_task_time_sec": 2.837,
+      "samples_processed": 7595,
+      "per_model_processed": {
+        "ew_classifier": 1500,
+        "signal_denoiser": 1500,
+        "threat_prioritizer": 1500,
+        "rf_fingerprinter": 1500,
+        "anomaly_detector": 1500,
+        "resnet18": 25,
+        "mobilenetv3": 25,
+        "efficientnet_b0": 25,
+        "yolov8_nano": 10,
+        "yolov8_small": 10
+      },
+      "batch_size": 512
+    }
+  ],
+  "spark_ui_stats": {},
+  "timestamp": "2026-09-26T17:25:30.225345"
+}

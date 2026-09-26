@@ -1,0 +1,26 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 16:11:53 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+[Stage 0:>                                                          (0 + 4) / 8]
+
+[Stage 0:==============>                                            (2 + 4) / 8]
+
+[Stage 0:======================>                                    (3 + 4) / 8]
+
+[Stage 0:=============================>                             (4 + 4) / 8]
+
+[Stage 0:====================================>                      (5 + 3) / 8]
+
+[Stage 0:============================================>              (6 + 2) / 8]
+
+[Stage 2:>                                                          (0 + 4) / 8]
+
+[Stage 2:==============>                                            (2 + 4) / 8]
+
+[Stage 2:=============================>                             (4 + 4) / 8]
+
+[Stage 2:============================================>              (6 + 2) / 8]
+
+                                                                                
+RESULT_JSON {"app": "modes-resnet18-triton_pbu", "app_id": "app-20260926161154-0016", "mode": "triton_pbu", "model": "resnet18", "partitions": 8, "batch_size": 64, "samples": 256, "setup_s": 1.61, "start_epoch": 1790439115.0807846, "triton_before": "triton_metrics/modes-resnet18-triton_pbu_before.txt", "wall_s": 30.005, "processed": 256, "throughput": 8.5, "end_epoch": 1790439145.094945, "triton_after": "triton_metrics/modes-resnet18-triton_pbu_after.txt"}

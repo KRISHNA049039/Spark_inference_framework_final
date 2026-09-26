@@ -1,0 +1,351 @@
+Spark Command: /usr/lib/jvm/java-17-openjdk-amd64/bin/java -cp /opt/spark/conf/:/opt/spark/jars/* -Xmx1g org.apache.spark.deploy.master.Master --host ip-10-0-0-240.ec2.internal --port 7077 --webui-port 8080
+========================================
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/09/26 11:51:45 INFO Master: Started daemon with process name: 55@ip-10-0-0-240
+26/09/26 11:51:45 INFO SignalUtils: Registering signal handler for TERM
+26/09/26 11:51:45 INFO SignalUtils: Registering signal handler for HUP
+26/09/26 11:51:45 INFO SignalUtils: Registering signal handler for INT
+26/09/26 11:51:45 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/26 11:51:45 INFO SecurityManager: Changing view acls to: root
+26/09/26 11:51:45 INFO SecurityManager: Changing modify acls to: root
+26/09/26 11:51:45 INFO SecurityManager: Changing view acls groups to: 
+26/09/26 11:51:45 INFO SecurityManager: Changing modify acls groups to: 
+26/09/26 11:51:45 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/26 11:51:46 INFO Utils: Successfully started service 'sparkMaster' on port 7077.
+26/09/26 11:51:46 INFO Master: Starting Spark master at spark://ip-10-0-0-240.ec2.internal:7077
+26/09/26 11:51:46 INFO Master: Running Spark version 3.5.1
+26/09/26 11:51:46 INFO JettyUtils: Start Jetty 0.0.0.0:8080 for MasterUI
+26/09/26 11:51:46 INFO Utils: Successfully started service 'MasterUI' on port 8080.
+26/09/26 11:51:46 INFO MasterWebUI: Bound MasterWebUI to 0.0.0.0, and started at http://ip-10-0-0-240.ec2.internal:8080
+26/09/26 11:51:46 INFO Master: I have been elected leader! New state: ALIVE
+26/09/26 11:51:55 INFO Master: Registering worker 10.0.0.240:43597 with 4 cores, 12.0 GiB RAM
+26/09/26 11:52:17 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:52:17 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115217-0000
+26/09/26 11:52:17 INFO Master: Start scheduling for app app-20260926115217-0000 with rpId: 0
+26/09/26 11:52:17 INFO Master: Launching executor app-20260926115217-0000/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:52:17 INFO Master: Start scheduling for app app-20260926115217-0000 with rpId: 0
+26/09/26 11:52:29 INFO Master: Received unregister request from application app-20260926115217-0000
+26/09/26 11:52:29 INFO Master: Removing app app-20260926115217-0000
+26/09/26 11:52:29 INFO Master: 10.0.0.240:37060 got disassociated, removing it.
+26/09/26 11:52:29 INFO Master: ip-10-0-0-240.ec2.internal:35441 got disassociated, removing it.
+26/09/26 11:52:30 WARN Master: Got status update for unknown executor app-20260926115217-0000/0
+26/09/26 11:52:54 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:52:54 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115254-0001
+26/09/26 11:52:54 INFO Master: Start scheduling for app app-20260926115254-0001 with rpId: 0
+26/09/26 11:52:54 INFO Master: Launching executor app-20260926115254-0001/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:52:54 INFO Master: Start scheduling for app app-20260926115254-0001 with rpId: 0
+26/09/26 11:53:08 INFO Master: Received unregister request from application app-20260926115254-0001
+26/09/26 11:53:08 INFO Master: Removing app app-20260926115254-0001
+26/09/26 11:53:08 INFO Master: 10.0.0.240:54206 got disassociated, removing it.
+26/09/26 11:53:08 INFO Master: ip-10-0-0-240.ec2.internal:43299 got disassociated, removing it.
+26/09/26 11:53:08 WARN Master: Got status update for unknown executor app-20260926115254-0001/0
+26/09/26 11:53:16 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:53:16 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115316-0002
+26/09/26 11:53:16 INFO Master: Start scheduling for app app-20260926115316-0002 with rpId: 0
+26/09/26 11:53:16 INFO Master: Launching executor app-20260926115316-0002/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:53:16 INFO Master: Start scheduling for app app-20260926115316-0002 with rpId: 0
+26/09/26 11:53:33 INFO Master: Received unregister request from application app-20260926115316-0002
+26/09/26 11:53:33 INFO Master: Removing app app-20260926115316-0002
+26/09/26 11:53:33 INFO Master: 10.0.0.240:50900 got disassociated, removing it.
+26/09/26 11:53:33 INFO Master: ip-10-0-0-240.ec2.internal:43793 got disassociated, removing it.
+26/09/26 11:53:33 WARN Master: Got status update for unknown executor app-20260926115316-0002/0
+26/09/26 11:53:40 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:53:40 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115340-0003
+26/09/26 11:53:40 INFO Master: Start scheduling for app app-20260926115340-0003 with rpId: 0
+26/09/26 11:53:40 INFO Master: Launching executor app-20260926115340-0003/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:53:40 INFO Master: Start scheduling for app app-20260926115340-0003 with rpId: 0
+26/09/26 11:53:55 INFO Master: Received unregister request from application app-20260926115340-0003
+26/09/26 11:53:55 INFO Master: Removing app app-20260926115340-0003
+26/09/26 11:53:55 INFO Master: 10.0.0.240:56282 got disassociated, removing it.
+26/09/26 11:53:55 INFO Master: ip-10-0-0-240.ec2.internal:37487 got disassociated, removing it.
+26/09/26 11:53:55 WARN Master: Got status update for unknown executor app-20260926115340-0003/0
+26/09/26 11:54:02 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:54:02 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115402-0004
+26/09/26 11:54:02 INFO Master: Start scheduling for app app-20260926115402-0004 with rpId: 0
+26/09/26 11:54:02 INFO Master: Launching executor app-20260926115402-0004/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:54:02 INFO Master: Start scheduling for app app-20260926115402-0004 with rpId: 0
+26/09/26 11:54:16 INFO Master: Received unregister request from application app-20260926115402-0004
+26/09/26 11:54:16 INFO Master: Removing app app-20260926115402-0004
+26/09/26 11:54:16 INFO Master: 10.0.0.240:39754 got disassociated, removing it.
+26/09/26 11:54:16 INFO Master: ip-10-0-0-240.ec2.internal:45257 got disassociated, removing it.
+26/09/26 11:54:16 WARN Master: Got status update for unknown executor app-20260926115402-0004/0
+26/09/26 11:54:23 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:54:23 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115423-0005
+26/09/26 11:54:23 INFO Master: Start scheduling for app app-20260926115423-0005 with rpId: 0
+26/09/26 11:54:23 INFO Master: Launching executor app-20260926115423-0005/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:54:23 INFO Master: Start scheduling for app app-20260926115423-0005 with rpId: 0
+26/09/26 11:54:38 INFO Master: Received unregister request from application app-20260926115423-0005
+26/09/26 11:54:38 INFO Master: Removing app app-20260926115423-0005
+26/09/26 11:54:38 INFO Master: 10.0.0.240:50590 got disassociated, removing it.
+26/09/26 11:54:38 INFO Master: ip-10-0-0-240.ec2.internal:44333 got disassociated, removing it.
+26/09/26 11:54:39 WARN Master: Got status update for unknown executor app-20260926115423-0005/0
+26/09/26 11:54:46 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:54:46 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115446-0006
+26/09/26 11:54:46 INFO Master: Start scheduling for app app-20260926115446-0006 with rpId: 0
+26/09/26 11:54:46 INFO Master: Launching executor app-20260926115446-0006/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:54:46 INFO Master: Start scheduling for app app-20260926115446-0006 with rpId: 0
+26/09/26 11:55:05 INFO Master: Received unregister request from application app-20260926115446-0006
+26/09/26 11:55:05 INFO Master: Removing app app-20260926115446-0006
+26/09/26 11:55:05 INFO Master: 10.0.0.240:42564 got disassociated, removing it.
+26/09/26 11:55:05 INFO Master: ip-10-0-0-240.ec2.internal:33715 got disassociated, removing it.
+26/09/26 11:55:05 WARN Master: Got status update for unknown executor app-20260926115446-0006/0
+26/09/26 11:55:12 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:55:12 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115512-0007
+26/09/26 11:55:12 INFO Master: Start scheduling for app app-20260926115512-0007 with rpId: 0
+26/09/26 11:55:12 INFO Master: Launching executor app-20260926115512-0007/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:55:12 INFO Master: Start scheduling for app app-20260926115512-0007 with rpId: 0
+26/09/26 11:55:24 INFO Master: Received unregister request from application app-20260926115512-0007
+26/09/26 11:55:24 INFO Master: Removing app app-20260926115512-0007
+26/09/26 11:55:24 INFO Master: 10.0.0.240:46436 got disassociated, removing it.
+26/09/26 11:55:24 INFO Master: ip-10-0-0-240.ec2.internal:36021 got disassociated, removing it.
+26/09/26 11:55:25 WARN Master: Got status update for unknown executor app-20260926115512-0007/0
+26/09/26 11:55:32 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:55:32 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115532-0008
+26/09/26 11:55:32 INFO Master: Start scheduling for app app-20260926115532-0008 with rpId: 0
+26/09/26 11:55:32 INFO Master: Launching executor app-20260926115532-0008/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:55:32 INFO Master: Start scheduling for app app-20260926115532-0008 with rpId: 0
+26/09/26 11:55:45 INFO Master: Received unregister request from application app-20260926115532-0008
+26/09/26 11:55:45 INFO Master: Removing app app-20260926115532-0008
+26/09/26 11:55:45 INFO Master: 10.0.0.240:42156 got disassociated, removing it.
+26/09/26 11:55:45 INFO Master: ip-10-0-0-240.ec2.internal:42809 got disassociated, removing it.
+26/09/26 11:55:46 WARN Master: Got status update for unknown executor app-20260926115532-0008/0
+26/09/26 11:55:53 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:55:53 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115553-0009
+26/09/26 11:55:53 INFO Master: Start scheduling for app app-20260926115553-0009 with rpId: 0
+26/09/26 11:55:53 INFO Master: Launching executor app-20260926115553-0009/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:55:53 INFO Master: Start scheduling for app app-20260926115553-0009 with rpId: 0
+26/09/26 11:56:09 INFO Master: Received unregister request from application app-20260926115553-0009
+26/09/26 11:56:09 INFO Master: Removing app app-20260926115553-0009
+26/09/26 11:56:09 INFO Master: 10.0.0.240:59658 got disassociated, removing it.
+26/09/26 11:56:09 INFO Master: ip-10-0-0-240.ec2.internal:36199 got disassociated, removing it.
+26/09/26 11:56:09 WARN Master: Got status update for unknown executor app-20260926115553-0009/0
+26/09/26 11:56:16 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:56:16 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115616-0010
+26/09/26 11:56:16 INFO Master: Start scheduling for app app-20260926115616-0010 with rpId: 0
+26/09/26 11:56:16 INFO Master: Launching executor app-20260926115616-0010/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:56:16 INFO Master: Start scheduling for app app-20260926115616-0010 with rpId: 0
+26/09/26 11:56:31 INFO Master: Received unregister request from application app-20260926115616-0010
+26/09/26 11:56:31 INFO Master: Removing app app-20260926115616-0010
+26/09/26 11:56:31 INFO Master: 10.0.0.240:38804 got disassociated, removing it.
+26/09/26 11:56:31 INFO Master: ip-10-0-0-240.ec2.internal:38949 got disassociated, removing it.
+26/09/26 11:56:31 WARN Master: Got status update for unknown executor app-20260926115616-0010/0
+26/09/26 11:56:38 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:56:38 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115638-0011
+26/09/26 11:56:38 INFO Master: Start scheduling for app app-20260926115638-0011 with rpId: 0
+26/09/26 11:56:38 INFO Master: Launching executor app-20260926115638-0011/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:56:38 INFO Master: Start scheduling for app app-20260926115638-0011 with rpId: 0
+26/09/26 11:56:52 INFO Master: Received unregister request from application app-20260926115638-0011
+26/09/26 11:56:52 INFO Master: Removing app app-20260926115638-0011
+26/09/26 11:56:52 INFO Master: 10.0.0.240:49770 got disassociated, removing it.
+26/09/26 11:56:52 INFO Master: ip-10-0-0-240.ec2.internal:34635 got disassociated, removing it.
+26/09/26 11:56:52 WARN Master: Got status update for unknown executor app-20260926115638-0011/0
+26/09/26 11:56:59 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:56:59 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115659-0012
+26/09/26 11:56:59 INFO Master: Start scheduling for app app-20260926115659-0012 with rpId: 0
+26/09/26 11:56:59 INFO Master: Launching executor app-20260926115659-0012/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:56:59 INFO Master: Start scheduling for app app-20260926115659-0012 with rpId: 0
+26/09/26 11:57:13 INFO Master: Received unregister request from application app-20260926115659-0012
+26/09/26 11:57:13 INFO Master: Removing app app-20260926115659-0012
+26/09/26 11:57:13 INFO Master: 10.0.0.240:35898 got disassociated, removing it.
+26/09/26 11:57:13 INFO Master: ip-10-0-0-240.ec2.internal:37767 got disassociated, removing it.
+26/09/26 11:57:13 WARN Master: Got status update for unknown executor app-20260926115659-0012/0
+26/09/26 11:57:20 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 11:57:20 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926115720-0013
+26/09/26 11:57:20 INFO Master: Start scheduling for app app-20260926115720-0013 with rpId: 0
+26/09/26 11:57:20 INFO Master: Launching executor app-20260926115720-0013/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:57:20 INFO Master: Start scheduling for app app-20260926115720-0013 with rpId: 0
+26/09/26 11:57:34 INFO Master: Received unregister request from application app-20260926115720-0013
+26/09/26 11:57:34 INFO Master: Removing app app-20260926115720-0013
+26/09/26 11:57:34 INFO Master: 10.0.0.240:38762 got disassociated, removing it.
+26/09/26 11:57:34 INFO Master: ip-10-0-0-240.ec2.internal:34915 got disassociated, removing it.
+26/09/26 11:57:34 WARN Master: Got status update for unknown executor app-20260926115720-0013/0
+26/09/26 11:57:41 INFO Master: Registering app ClusterBench_cpu_only_1000
+26/09/26 11:57:41 INFO Master: Registered app ClusterBench_cpu_only_1000 with ID app-20260926115741-0014
+26/09/26 11:57:41 INFO Master: Start scheduling for app app-20260926115741-0014 with rpId: 0
+26/09/26 11:57:41 INFO Master: Launching executor app-20260926115741-0014/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:57:41 INFO Master: Start scheduling for app app-20260926115741-0014 with rpId: 0
+26/09/26 11:57:58 INFO Master: Received unregister request from application app-20260926115741-0014
+26/09/26 11:57:58 INFO Master: Removing app app-20260926115741-0014
+26/09/26 11:57:59 INFO Master: 10.0.0.240:38374 got disassociated, removing it.
+26/09/26 11:57:59 INFO Master: ip-10-0-0-240.ec2.internal:46253 got disassociated, removing it.
+26/09/26 11:57:59 WARN Master: Got status update for unknown executor app-20260926115741-0014/0
+26/09/26 11:58:07 INFO Master: Registering app ClusterBench_cpu_only_3000
+26/09/26 11:58:07 INFO Master: Registered app ClusterBench_cpu_only_3000 with ID app-20260926115807-0015
+26/09/26 11:58:07 INFO Master: Start scheduling for app app-20260926115807-0015 with rpId: 0
+26/09/26 11:58:07 INFO Master: Launching executor app-20260926115807-0015/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:58:07 INFO Master: Start scheduling for app app-20260926115807-0015 with rpId: 0
+26/09/26 11:58:29 INFO Master: Received unregister request from application app-20260926115807-0015
+26/09/26 11:58:29 INFO Master: Removing app app-20260926115807-0015
+26/09/26 11:58:29 INFO Master: 10.0.0.240:54764 got disassociated, removing it.
+26/09/26 11:58:29 INFO Master: ip-10-0-0-240.ec2.internal:33109 got disassociated, removing it.
+26/09/26 11:58:29 WARN Master: Got status update for unknown executor app-20260926115807-0015/0
+26/09/26 11:58:36 INFO Master: Registering app ClusterBench_gpu_only_1000
+26/09/26 11:58:36 INFO Master: Registered app ClusterBench_gpu_only_1000 with ID app-20260926115836-0016
+26/09/26 11:58:36 INFO Master: Start scheduling for app app-20260926115836-0016 with rpId: 0
+26/09/26 11:58:36 INFO Master: Launching executor app-20260926115836-0016/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:58:36 INFO Master: Start scheduling for app app-20260926115836-0016 with rpId: 0
+26/09/26 11:58:50 INFO Master: Received unregister request from application app-20260926115836-0016
+26/09/26 11:58:50 INFO Master: Removing app app-20260926115836-0016
+26/09/26 11:58:50 INFO Master: 10.0.0.240:60714 got disassociated, removing it.
+26/09/26 11:58:50 INFO Master: ip-10-0-0-240.ec2.internal:45451 got disassociated, removing it.
+26/09/26 11:58:50 WARN Master: Got status update for unknown executor app-20260926115836-0016/0
+26/09/26 11:58:58 INFO Master: Registering app ClusterBench_gpu_only_3000
+26/09/26 11:58:58 INFO Master: Registered app ClusterBench_gpu_only_3000 with ID app-20260926115858-0017
+26/09/26 11:58:58 INFO Master: Start scheduling for app app-20260926115858-0017 with rpId: 0
+26/09/26 11:58:58 INFO Master: Launching executor app-20260926115858-0017/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:58:58 INFO Master: Start scheduling for app app-20260926115858-0017 with rpId: 0
+26/09/26 11:59:13 INFO Master: Received unregister request from application app-20260926115858-0017
+26/09/26 11:59:13 INFO Master: Removing app app-20260926115858-0017
+26/09/26 11:59:14 INFO Master: 10.0.0.240:42176 got disassociated, removing it.
+26/09/26 11:59:14 INFO Master: ip-10-0-0-240.ec2.internal:38271 got disassociated, removing it.
+26/09/26 11:59:14 WARN Master: Got status update for unknown executor app-20260926115858-0017/0
+26/09/26 11:59:21 INFO Master: Registering app ClusterBench_hybrid_1000
+26/09/26 11:59:21 INFO Master: Registered app ClusterBench_hybrid_1000 with ID app-20260926115921-0018
+26/09/26 11:59:21 INFO Master: Start scheduling for app app-20260926115921-0018 with rpId: 0
+26/09/26 11:59:21 INFO Master: Launching executor app-20260926115921-0018/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:59:21 INFO Master: Start scheduling for app app-20260926115921-0018 with rpId: 0
+26/09/26 11:59:35 INFO Master: Received unregister request from application app-20260926115921-0018
+26/09/26 11:59:35 INFO Master: Removing app app-20260926115921-0018
+26/09/26 11:59:35 INFO Master: 10.0.0.240:50250 got disassociated, removing it.
+26/09/26 11:59:35 INFO Master: ip-10-0-0-240.ec2.internal:37609 got disassociated, removing it.
+26/09/26 11:59:35 WARN Master: Got status update for unknown executor app-20260926115921-0018/0
+26/09/26 11:59:42 INFO Master: Registering app ClusterBench_hybrid_3000
+26/09/26 11:59:42 INFO Master: Registered app ClusterBench_hybrid_3000 with ID app-20260926115942-0019
+26/09/26 11:59:42 INFO Master: Start scheduling for app app-20260926115942-0019 with rpId: 0
+26/09/26 11:59:42 INFO Master: Launching executor app-20260926115942-0019/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 11:59:42 INFO Master: Start scheduling for app app-20260926115942-0019 with rpId: 0
+26/09/26 11:59:58 INFO Master: Received unregister request from application app-20260926115942-0019
+26/09/26 11:59:58 INFO Master: Removing app app-20260926115942-0019
+26/09/26 11:59:58 INFO Master: 10.0.0.240:43564 got disassociated, removing it.
+26/09/26 11:59:58 INFO Master: ip-10-0-0-240.ec2.internal:41595 got disassociated, removing it.
+26/09/26 11:59:58 WARN Master: Got status update for unknown executor app-20260926115942-0019/0
+26/09/26 12:00:05 INFO Master: Registering app ClusterBench_gpu_only_3000
+26/09/26 12:00:05 INFO Master: Registered app ClusterBench_gpu_only_3000 with ID app-20260926120005-0020
+26/09/26 12:00:05 INFO Master: Start scheduling for app app-20260926120005-0020 with rpId: 0
+26/09/26 12:00:05 INFO Master: Launching executor app-20260926120005-0020/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:00:05 INFO Master: Start scheduling for app app-20260926120005-0020 with rpId: 0
+26/09/26 12:00:20 INFO Master: Received unregister request from application app-20260926120005-0020
+26/09/26 12:00:20 INFO Master: Removing app app-20260926120005-0020
+26/09/26 12:00:20 INFO Master: 10.0.0.240:59456 got disassociated, removing it.
+26/09/26 12:00:20 INFO Master: ip-10-0-0-240.ec2.internal:36999 got disassociated, removing it.
+26/09/26 12:00:20 WARN Master: Got status update for unknown executor app-20260926120005-0020/0
+26/09/26 12:00:27 INFO Master: Registering app ClusterBench_gpu_only_3000
+26/09/26 12:00:27 INFO Master: Registered app ClusterBench_gpu_only_3000 with ID app-20260926120027-0021
+26/09/26 12:00:27 INFO Master: Start scheduling for app app-20260926120027-0021 with rpId: 0
+26/09/26 12:00:27 INFO Master: Launching executor app-20260926120027-0021/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:00:27 INFO Master: Start scheduling for app app-20260926120027-0021 with rpId: 0
+26/09/26 12:00:41 INFO Master: Received unregister request from application app-20260926120027-0021
+26/09/26 12:00:41 INFO Master: Removing app app-20260926120027-0021
+26/09/26 12:00:41 INFO Master: 10.0.0.240:50944 got disassociated, removing it.
+26/09/26 12:00:41 INFO Master: ip-10-0-0-240.ec2.internal:36761 got disassociated, removing it.
+26/09/26 12:00:41 WARN Master: Got status update for unknown executor app-20260926120027-0021/0
+26/09/26 12:00:48 INFO Master: Registering app ClusterBench_gpu_only_3000
+26/09/26 12:00:48 INFO Master: Registered app ClusterBench_gpu_only_3000 with ID app-20260926120048-0022
+26/09/26 12:00:48 INFO Master: Start scheduling for app app-20260926120048-0022 with rpId: 0
+26/09/26 12:00:48 INFO Master: Launching executor app-20260926120048-0022/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:00:48 INFO Master: Start scheduling for app app-20260926120048-0022 with rpId: 0
+26/09/26 12:01:02 INFO Master: Received unregister request from application app-20260926120048-0022
+26/09/26 12:01:02 INFO Master: Removing app app-20260926120048-0022
+26/09/26 12:01:02 INFO Master: 10.0.0.240:56758 got disassociated, removing it.
+26/09/26 12:01:02 INFO Master: ip-10-0-0-240.ec2.internal:37401 got disassociated, removing it.
+26/09/26 12:01:03 WARN Master: Got status update for unknown executor app-20260926120048-0022/0
+26/09/26 12:01:08 INFO Master: Registering app byom-example_mlp
+26/09/26 12:01:08 INFO Master: Registered app byom-example_mlp with ID app-20260926120108-0023
+26/09/26 12:01:08 INFO Master: Start scheduling for app app-20260926120108-0023 with rpId: 0
+26/09/26 12:01:08 INFO Master: Launching executor app-20260926120108-0023/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:01:08 INFO Master: Start scheduling for app app-20260926120108-0023 with rpId: 0
+26/09/26 12:01:15 INFO Master: Received unregister request from application app-20260926120108-0023
+26/09/26 12:01:15 INFO Master: Removing app app-20260926120108-0023
+26/09/26 12:01:15 INFO Master: 10.0.0.240:33094 got disassociated, removing it.
+26/09/26 12:01:15 INFO Master: ip-10-0-0-240.ec2.internal:40113 got disassociated, removing it.
+26/09/26 12:01:16 WARN Master: Got status update for unknown executor app-20260926120108-0023/0
+26/09/26 12:01:20 INFO Master: Registering app byom-example_mlp
+26/09/26 12:01:20 INFO Master: Registered app byom-example_mlp with ID app-20260926120120-0024
+26/09/26 12:01:20 INFO Master: Start scheduling for app app-20260926120120-0024 with rpId: 0
+26/09/26 12:01:21 INFO Master: Launching executor app-20260926120120-0024/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:01:21 INFO Master: Start scheduling for app app-20260926120120-0024 with rpId: 0
+26/09/26 12:01:29 INFO Master: Received unregister request from application app-20260926120120-0024
+26/09/26 12:01:29 INFO Master: Removing app app-20260926120120-0024
+26/09/26 12:01:29 INFO Master: 10.0.0.240:52668 got disassociated, removing it.
+26/09/26 12:01:29 INFO Master: ip-10-0-0-240.ec2.internal:43537 got disassociated, removing it.
+26/09/26 12:01:29 WARN Master: Got status update for unknown executor app-20260926120120-0024/0
+26/09/26 12:01:34 INFO Master: Registering app byom-example_mlp
+26/09/26 12:01:34 INFO Master: Registered app byom-example_mlp with ID app-20260926120134-0025
+26/09/26 12:01:34 INFO Master: Start scheduling for app app-20260926120134-0025 with rpId: 0
+26/09/26 12:01:34 INFO Master: Launching executor app-20260926120134-0025/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:01:34 INFO Master: Start scheduling for app app-20260926120134-0025 with rpId: 0
+26/09/26 12:01:47 INFO Master: Received unregister request from application app-20260926120134-0025
+26/09/26 12:01:47 INFO Master: Removing app app-20260926120134-0025
+26/09/26 12:01:47 INFO Master: 10.0.0.240:45398 got disassociated, removing it.
+26/09/26 12:01:47 INFO Master: ip-10-0-0-240.ec2.internal:41041 got disassociated, removing it.
+26/09/26 12:01:47 WARN Master: Got status update for unknown executor app-20260926120134-0025/0
+26/09/26 12:01:52 INFO Master: Registering app byom-example_mlp
+26/09/26 12:01:52 INFO Master: Registered app byom-example_mlp with ID app-20260926120152-0026
+26/09/26 12:01:52 INFO Master: Start scheduling for app app-20260926120152-0026 with rpId: 0
+26/09/26 12:01:52 INFO Master: Launching executor app-20260926120152-0026/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:01:52 INFO Master: Start scheduling for app app-20260926120152-0026 with rpId: 0
+26/09/26 12:02:06 INFO Master: Received unregister request from application app-20260926120152-0026
+26/09/26 12:02:06 INFO Master: Removing app app-20260926120152-0026
+26/09/26 12:02:06 INFO Master: 10.0.0.240:33260 got disassociated, removing it.
+26/09/26 12:02:06 INFO Master: ip-10-0-0-240.ec2.internal:46035 got disassociated, removing it.
+26/09/26 12:02:06 WARN Master: Got status update for unknown executor app-20260926120152-0026/0
+26/09/26 12:02:14 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 12:02:14 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926120214-0027
+26/09/26 12:02:14 INFO Master: Start scheduling for app app-20260926120214-0027 with rpId: 0
+26/09/26 12:02:14 INFO Master: Launching executor app-20260926120214-0027/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:02:14 INFO Master: Start scheduling for app app-20260926120214-0027 with rpId: 0
+26/09/26 12:02:28 INFO Master: Received unregister request from application app-20260926120214-0027
+26/09/26 12:02:28 INFO Master: Removing app app-20260926120214-0027
+26/09/26 12:02:28 INFO Master: 10.0.0.240:59318 got disassociated, removing it.
+26/09/26 12:02:28 INFO Master: ip-10-0-0-240.ec2.internal:34049 got disassociated, removing it.
+26/09/26 12:02:28 WARN Master: Got status update for unknown executor app-20260926120214-0027/0
+26/09/26 12:02:28 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 12:02:28 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926120228-0028
+26/09/26 12:02:28 INFO Master: Start scheduling for app app-20260926120228-0028 with rpId: 0
+26/09/26 12:02:28 INFO Master: Launching executor app-20260926120228-0028/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:02:28 INFO Master: Start scheduling for app app-20260926120228-0028 with rpId: 0
+26/09/26 12:02:41 INFO Master: Received unregister request from application app-20260926120228-0028
+26/09/26 12:02:41 INFO Master: Removing app app-20260926120228-0028
+26/09/26 12:02:41 INFO Master: 10.0.0.240:37798 got disassociated, removing it.
+26/09/26 12:02:41 INFO Master: ip-10-0-0-240.ec2.internal:32941 got disassociated, removing it.
+26/09/26 12:02:41 WARN Master: Got status update for unknown executor app-20260926120228-0028/0
+26/09/26 12:02:41 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 12:02:41 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926120241-0029
+26/09/26 12:02:41 INFO Master: Start scheduling for app app-20260926120241-0029 with rpId: 0
+26/09/26 12:02:41 INFO Master: Launching executor app-20260926120241-0029/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:02:41 INFO Master: Start scheduling for app app-20260926120241-0029 with rpId: 0
+26/09/26 12:02:55 INFO Master: Received unregister request from application app-20260926120241-0029
+26/09/26 12:02:55 INFO Master: Removing app app-20260926120241-0029
+26/09/26 12:02:55 INFO Master: 10.0.0.240:49790 got disassociated, removing it.
+26/09/26 12:02:55 INFO Master: ip-10-0-0-240.ec2.internal:44689 got disassociated, removing it.
+26/09/26 12:02:55 WARN Master: Got status update for unknown executor app-20260926120241-0029/0
+26/09/26 12:02:55 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 12:02:55 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926120255-0030
+26/09/26 12:02:55 INFO Master: Start scheduling for app app-20260926120255-0030 with rpId: 0
+26/09/26 12:02:55 INFO Master: Launching executor app-20260926120255-0030/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:02:55 INFO Master: Start scheduling for app app-20260926120255-0030 with rpId: 0
+26/09/26 12:03:07 INFO Master: Received unregister request from application app-20260926120255-0030
+26/09/26 12:03:07 INFO Master: Removing app app-20260926120255-0030
+26/09/26 12:03:07 INFO Master: 10.0.0.240:34074 got disassociated, removing it.
+26/09/26 12:03:07 INFO Master: ip-10-0-0-240.ec2.internal:44675 got disassociated, removing it.
+26/09/26 12:03:08 WARN Master: Got status update for unknown executor app-20260926120255-0030/0
+26/09/26 12:03:08 INFO Master: Registering app MultiModel_Distributed_GPU
+26/09/26 12:03:08 INFO Master: Registered app MultiModel_Distributed_GPU with ID app-20260926120308-0031
+26/09/26 12:03:08 INFO Master: Start scheduling for app app-20260926120308-0031 with rpId: 0
+26/09/26 12:03:08 INFO Master: Launching executor app-20260926120308-0031/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:03:08 INFO Master: Start scheduling for app app-20260926120308-0031 with rpId: 0
+26/09/26 12:03:20 INFO Master: Received unregister request from application app-20260926120308-0031
+26/09/26 12:03:20 INFO Master: Removing app app-20260926120308-0031
+26/09/26 12:03:20 INFO Master: 10.0.0.240:38754 got disassociated, removing it.
+26/09/26 12:03:20 INFO Master: ip-10-0-0-240.ec2.internal:33035 got disassociated, removing it.
+26/09/26 12:03:20 WARN Master: Got status update for unknown executor app-20260926120308-0031/0
+26/09/26 12:03:37 INFO Master: Registering app lowlevel_trace
+26/09/26 12:03:37 INFO Master: Registered app lowlevel_trace with ID app-20260926120337-0032
+26/09/26 12:03:37 INFO Master: Start scheduling for app app-20260926120337-0032 with rpId: 0
+26/09/26 12:03:37 INFO Master: Launching executor app-20260926120337-0032/0 on worker worker-20260926115155-10.0.0.240-43597
+26/09/26 12:03:37 INFO Master: Start scheduling for app app-20260926120337-0032 with rpId: 0
+26/09/26 12:03:49 INFO Master: Received unregister request from application app-20260926120337-0032
+26/09/26 12:03:49 INFO Master: Removing app app-20260926120337-0032
+26/09/26 12:03:49 INFO Master: 10.0.0.240:36796 got disassociated, removing it.
+26/09/26 12:03:49 INFO Master: ip-10-0-0-240.ec2.internal:41111 got disassociated, removing it.
+26/09/26 12:03:49 WARN Master: Got status update for unknown executor app-20260926120337-0032/0

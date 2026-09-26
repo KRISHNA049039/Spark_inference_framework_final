@@ -1,0 +1,74 @@
+{
+  "mode": "distributed_cpu_only",
+  "device_mode": "cpu_only",
+  "elapsed_time": 96.747,
+  "total_samples_processed": 5190,
+  "total_throughput": 53.6,
+  "per_model_processed": {
+    "ew_classifier": 1000,
+    "signal_denoiser": 1000,
+    "threat_prioritizer": 1000,
+    "rf_fingerprinter": 1000,
+    "anomaly_detector": 1000,
+    "resnet18": 50,
+    "mobilenetv3": 50,
+    "efficientnet_b0": 50,
+    "yolov8_nano": 20,
+    "yolov8_small": 20
+  },
+  "num_partitions": 2,
+  "num_models": 10,
+  "batch_size": 256,
+  "partition_details": [
+    {
+      "partition_idx": 0,
+      "executor_id": "adf6827a7a84_2791",
+      "hostname": "adf6827a7a84",
+      "device": "cpu",
+      "cuda_available": true,
+      "model_load_time_sec": 10.5817,
+      "inference_time_sec": 9.2998,
+      "total_task_time_sec": 9.2998,
+      "samples_processed": 2595,
+      "per_model_processed": {
+        "ew_classifier": 500,
+        "signal_denoiser": 500,
+        "threat_prioritizer": 500,
+        "rf_fingerprinter": 500,
+        "anomaly_detector": 500,
+        "resnet18": 25,
+        "mobilenetv3": 25,
+        "efficientnet_b0": 25,
+        "yolov8_nano": 10,
+        "yolov8_small": 10
+      },
+      "batch_size": 256
+    },
+    {
+      "partition_idx": 1,
+      "executor_id": "adf6827a7a84_2791",
+      "hostname": "adf6827a7a84",
+      "device": "cpu",
+      "cuda_available": true,
+      "model_load_time_sec": 5.5294,
+      "inference_time_sec": 13.8869,
+      "total_task_time_sec": 13.8869,
+      "samples_processed": 2595,
+      "per_model_processed": {
+        "ew_classifier": 500,
+        "signal_denoiser": 500,
+        "threat_prioritizer": 500,
+        "rf_fingerprinter": 500,
+        "anomaly_detector": 500,
+        "resnet18": 25,
+        "mobilenetv3": 25,
+        "efficientnet_b0": 25,
+        "yolov8_nano": 10,
+        "yolov8_small": 10
+      },
+      "batch_size": 256
+    }
+  ],
+  "spark_ui_stats": {},
+  "timestamp": "2026-09-26T13:15:17.334275"
+}

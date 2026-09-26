@@ -1,0 +1,133 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 12:37:08 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 1) / 4][Stage 0:>                                                          (0 + 2) / 4][Stage 0:==============>                                            (1 + 1) / 4][Stage 0:=============================>                             (2 + 1) / 4][Stage 0:============================================>              (3 + 1) / 4]                                                                                
+======================================================================
+  MULTI-MODEL DISTRIBUTED INFERENCE BENCHMARK
+======================================================================
+
+  System: Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35
+  Python: 3.11.15 | PyTorch: 2.6.0+cu126
+  GPU: NVIDIA GeForce GTX 1650 | CUDA: True
+  Signals: 1000 | Images: 20 | Detections: 5
+
+  [SETUP] Loading model registry...
+
+============================================================
+  MODEL REGISTRY — 10 models
+============================================================
+Name                      Category        Memory (MB)  Input Shape
+------------------------- --------------- ------------ --------------------
+ew_classifier             signal          50           (128,)
+signal_denoiser           signal          100          (128,)
+threat_prioritizer        signal          350          (128,)
+rf_fingerprinter          signal          120          (128,)
+anomaly_detector          signal          100          (128,)
+resnet18                  image_classification 300          (3, 224, 224)
+mobilenetv3               image_classification 150          (3, 224, 224)
+efficientnet_b0           image_classification 200          (3, 224, 224)
+yolov8_nano               object_detection 200          (3, 640, 640)
+yolov8_small              object_detection 400          (3, 640, 640)
+
+  Total estimated GPU memory: 1970 MB (1.9 GB)
+
+  [SETUP] Instantiating models...
+    Loaded 10 models
+
+  [SETUP] Generating synthetic data...
+    Total data: 87.8 MB
+
+  [MODE 2] Single GPU — CUDA Streams...
+    Throughput: 2,680 total samples/sec
+    Time: 1.89s
+
+  [MODE 3] Hybrid CPU+GPU — Memory-Aware Split...
+
+============================================================
+  GPU MEMORY MANAGER — 1 GPU(s) detected
+============================================================
+
+  GPU 0: 4096 MB total, 1626 MB free, 60.3% used
+    └─ yolov8_small: 400 MB
+    └─ yolov8_nano: 200 MB
+    └─ resnet18: 300 MB
+    └─ efficientnet_b0: 200 MB
+    └─ mobilenetv3: 150 MB
+    └─ threat_prioritizer: 350 MB
+    └─ ew_classifier: 50 MB
+    └─ rf_fingerprinter: 120 MB
+    └─ signal_denoiser: 100 MB
+    └─ anomaly_detector: 100 MB
+
+  Summary: 10 on GPU (1970 MB), 0 on CPU (0 MB)
+    Throughput: 8,605 total samples/sec
+    GPU models: ['ew_classifier', 'signal_denoiser', 'threat_prioritizer', 'rf_fingerprinter', 'anomaly_detector', 'resnet18', 'mobilenetv3', 'efficientnet_b0', 'yolov8_nano', 'yolov8_small']
+    CPU models: []
+    Time: 0.59s
+
+  [MODE 1] Distributed GPU — Spark RDD...
+    Spark master: local[2]
+
+──────────────────────────────────────────────────────────────────────
+  DISTRIBUTED INFERENCE RESULTS
+──────────────────────────────────────────────────────────────────────
+  Total Throughput : 80 samples/sec
+  Total Samples    : 5,070
+  Elapsed Time     : 63.22s
+  Partitions       : 4
+  Models           : 10
+
+  JOB COMPOSITION:
+  ─────────────────────────────────────────────────────────
+  Job: Distributed inference of 10 ML models
+  Stages: 1 (parallelize → map → collect)
+  Tasks: 4 (one per partition)
+  Each task: Load 10 models → run inference on data chunk → return results
+
+  EXECUTOR / WORKER DETAIL:
+  ──────────────────────────────────────────────────────────────────────
+  Part  Hostname             Device GPU                  ModelLoad  Inference  Samples
+  ──────────────────────────────────────────────────────────────────────
+  0     adf6827a7a84         cuda   NVIDIA GeForce GTX   14.09      15.98      1267
+  1     adf6827a7a84         cuda   NVIDIA GeForce GTX   5.00       0.40       1267
+  2     adf6827a7a84         cuda   NVIDIA GeForce GTX   1.88       0.26       1267
+  3     adf6827a7a84         cuda   NVIDIA GeForce GTX   1.74       0.26       1269
+  ──────────────────────────────────────────────────────────────────────
+
+  WORKER SUMMARY (1 unique workers):
+  ──────────────────────────────────────────────────────────────────────
+  Worker               Device CPUs  Tasks  Samples    GPU
+  ──────────────────────────────────────────────────────────────────────
+  adf6827a7a84         cuda   8     4      5,070      NVIDIA GeForce GTX 1650
+  ──────────────────────────────────────────────────────────────────────
+
+  MODEL INPUT/OUTPUT & THROUGHPUT:
+  ──────────────────────────────────────────────────────────────────────
+  Model                  Input Shape     Output Shape    Samples  Throughput
+  ──────────────────────────────────────────────────────────────────────
+  ew_classifier          [128]           [8]             1,000    241/s
+  signal_denoiser        [128]           [128]           1,000    986/s
+  threat_prioritizer     [128]           [64]            1,000    519/s
+  rf_fingerprinter       [128]           [32]            1,000    254/s
+  anomaly_detector       [128]           [64]            1,000    1,801/s
+  resnet18               [3, 224, 224]   [1000]          20       10/s
+  mobilenetv3            [3, 224, 224]   [1000]          20       18/s
+  efficientnet_b0        [3, 224, 224]   [1000]          20       40/s
+  yolov8_nano            [3, 640, 640]   [400]           5        29/s
+  yolov8_small           [3, 640, 640]   [400]           5        31/s
+  ──────────────────────────────────────────────────────────────────────
+
+======================================================================
+  SAVING RESULTS
+======================================================================
+  Report: /app/results/report_wsl2_docker_p1_modes_small_all_sig1000_img20_det5_p4_20260926_123831.md
+  Raw data: /app/results/results_wsl2_docker_p1_modes_small_all_sig1000_img20_det5_p4_20260926_123831.json
+
+  Files saved:
+    /app/results/report_wsl2_docker_p1_modes_small_all_sig1000_img20_det5_p4_20260926_123831.md
+    /app/results/results_wsl2_docker_p1_modes_small_all_sig1000_img20_det5_p4_20260926_123831.json
+    /app/results/metrics_report_latest.md (latest)
+    /app/results/raw_results_latest.json (latest)
+
+  Total time: 118.5s
+

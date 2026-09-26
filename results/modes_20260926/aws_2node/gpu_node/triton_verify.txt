@@ -1,0 +1,143 @@
+resnet18 max |triton - eager| = 5.781650543212891e-06
+ew_classifier max |triton - eager| = 0.13430580496788025
+{
+ "server": {
+  "name": "triton",
+  "version": "2.54.0",
+  "extensions": [
+   "classification",
+   "sequence",
+   "model_repository",
+   "model_repository(unload_dependents)",
+   "schedule_policy",
+   "model_configuration",
+   "system_shared_memory",
+   "cuda_shared_memory",
+   "binary_tensor_data",
+   "parameters",
+   "statistics",
+   "trace",
+   "logging"
+  ]
+ },
+ "resnet18": {
+  "max_abs_diff_vs_eager_cpu": 5.781650543212891e-06,
+  "config": {
+   "name": "resnet18",
+   "platform": "pytorch_libtorch",
+   "version_policy": {
+    "latest": {
+     "num_versions": 1
+    }
+   },
+   "max_batch_size": 256,
+   "input": [
+    {
+     "name": "INPUT__0",
+     "data_type": "TYPE_FP32",
+     "dims": [
+      "3",
+      "224",
+      "224"
+     ]
+    }
+   ],
+   "output": [
+    {
+     "name": "OUTPUT__0",
+     "data_type": "TYPE_FP32",
+     "dims": [
+      "1000"
+     ]
+    }
+   ],
+   "instance_group": [
+    {
+     "name": "resnet18_0",
+     "count": 2,
+     "gpus": [
+      0
+     ],
+     "kind": "KIND_GPU"
+    }
+   ],
+   "default_model_filename": "model.pt",
+   "dynamic_batching": {
+    "preferred_batch_size": [
+     64,
+     128,
+     256
+    ],
+    "max_queue_delay_microseconds": "2000"
+   },
+   "optimization": {
+    "input_pinned_memory": {
+     "enable": true
+    },
+    "output_pinned_memory": {
+     "enable": true
+    }
+   },
+   "backend": "pytorch"
+  }
+ },
+ "ew_classifier": {
+  "max_abs_diff_vs_eager_cpu": 0.13430580496788025,
+  "config": {
+   "name": "ew_classifier",
+   "platform": "pytorch_libtorch",
+   "version_policy": {
+    "latest": {
+     "num_versions": 1
+    }
+   },
+   "max_batch_size": 4096,
+   "input": [
+    {
+     "name": "INPUT__0",
+     "data_type": "TYPE_FP32",
+     "dims": [
+      "128"
+     ]
+    }
+   ],
+   "output": [
+    {
+     "name": "OUTPUT__0",
+     "data_type": "TYPE_FP32",
+     "dims": [
+      "8"
+     ]
+    }
+   ],
+   "instance_group": [
+    {
+     "name": "ew_classifier_0",
+     "count": 2,
+     "gpus": [
+      0
+     ],
+     "kind": "KIND_GPU"
+    }
+   ],
+   "default_model_filename": "model.pt",
+   "dynamic_batching": {
+    "preferred_batch_size": [
+     1024,
+     2048,
+     4096
+    ],
+    "max_queue_delay_microseconds": "2000"
+   },
+   "optimization": {
+    "input_pinned_memory": {
+     "enable": true
+    },
+    "output_pinned_memory": {
+     "enable": true
+    }
+   },
+   "backend": "pytorch"
+  }
+ }
+}

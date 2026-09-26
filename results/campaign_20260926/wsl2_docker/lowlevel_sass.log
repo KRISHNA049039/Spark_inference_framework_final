@@ -1,0 +1,215 @@
+{
+  "host": "adf6827a7a84",
+  "os": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "python": "3.11.15",
+  "torch": "2.6.0+cu126",
+  "cuda": "12.6",
+  "cudnn": 90501,
+  "time": "2026-09-26 13:58:08"
+}
+
+==============================================================================
+  6. SASS - one kernel from Python down to GPU machine code (Triton)
+==============================================================================
+  compiled: regs/thread=26 spills=0 shared=0B num_warps=4 (= 128 threads/block)
+
+  PTX (virtual ISA, 176 lines; first 45 of the kernel body):
+    .visible .entry bias_relu(
+    	.param .u64 .ptr .global .align 1 bias_relu_param_0,
+    	.param .u64 .ptr .global .align 1 bias_relu_param_1,
+    	.param .u64 .ptr .global .align 1 bias_relu_param_2,
+    	.param .u32 bias_relu_param_3
+    )
+    .reqntid 128, 1, 1
+    {
+    	.reg .pred 	%p<7>;
+    	.reg .b32 	%r<38>;
+    	.reg .f32 	%f<33>;
+    	.reg .b64 	%rd<12>;
+    	ld.param.u64 	%rd7, [bias_relu_param_0];
+    	ld.param.u64 	%rd8, [bias_relu_param_1];
+    	mov.u32 %r1, %ctaid.x;
+    	shl.b32 	%r26, %r1, 10;
+    	ld.param.u64 	%rd9, [bias_relu_param_2];
+    	ld.param.u32 	%r27, [bias_relu_param_3];
+    	mov.u32 	%r28, %tid.x;
+    	shl.b32 	%r29, %r28, 2;
+    	and.b32  	%r30, %r29, 508;
+    	or.b32  	%r31, %r26, %r30;
+    	or.b32  	%r32, %r31, 512;
+    	setp.lt.s32 	%p1, %r31, %r27;
+    	setp.lt.s32 	%p2, %r32, %r27;
+    	mul.wide.s32 	%rd10, %r31, 4;
+    	add.s64 	%rd1, %rd7, %rd10;
+    	add.s64 	%rd2, %rd1, 2048;
+    	mov.u32 %r2, 0x0;
+    	mov.u32 %r3, 0x0;
+    	mov.u32 %r4, 0x0;
+    	mov.u32 %r5, 0x0;
+    	@%p1 ld.global.v4.b32 { %r2, %r3, %r4, %r5 }, [ %rd1 + 0 ];
+    	mov.b32 	%f1, %r2;
+    	mov.b32 	%f2, %r3;
+    	mov.b32 	%f3, %r4;
+    	mov.b32 	%f4, %r5;
+    	mov.u32 %r6, 0x0;
+    	mov.u32 %r7, 0x0;
+    	mov.u32 %r8, 0x0;
+    	mov.u32 %r9, 0x0;
+    	@%p2 ld.global.v4.b32 { %r6, %r7, %r8, %r9 }, [ %rd2 + 0 ];
+    	mov.b32 	%f5, %r6;
+    	mov.b32 	%f6, %r7;
+    	mov.b32 	%f7, %r8;
+
+  SASS (real sm_75 machine code, 56 instructions; each is 128 bits = instruction + scheduling control bits):
+           /*0000*/                   IMAD.MOV.U32 R1, RZ, RZ, c[0x0][0x28] ;       /* 0x00000a00ff017624 */
+           /*0010*/                   S2R R0, SR_TID.X ;                            /* 0x0000000000007919 */
+           /*0020*/                   IMAD.MOV.U32 R19, RZ, RZ, 0x4 ;               /* 0x00000004ff137424 */
+           /*0030*/                   CS2R R12, SRZ ;                               /* 0x00000000000c7805 */
+           /*0040*/                   CS2R R14, SRZ ;                               /* 0x00000000000e7805 */
+           /*0050*/                   S2R R3, SR_CTAID.X ;                          /* 0x0000000000037919 */
+           /*0060*/                   CS2R R20, SRZ ;                               /* 0x0000000000147805 */
+           /*0070*/                   CS2R R22, SRZ ;                               /* 0x0000000000167805 */
+           /*0080*/                   CS2R R4, SRZ ;                                /* 0x0000000000047805 */
+           /*0090*/                   CS2R R6, SRZ ;                                /* 0x0000000000067805 */
+           /*00a0*/                   CS2R R8, SRZ ;                                /* 0x0000000000087805 */
+           /*00b0*/                   CS2R R10, SRZ ;                               /* 0x00000000000a7805 */
+           /*00c0*/                   IMAD.SHL.U32 R0, R0, 0x4, RZ ;                /* 0x0000000400007824 */
+           /*00d0*/                   LOP3.LUT R0, R0, 0x1fc, RZ, 0xc0, !PT ;       /* 0x000001fc00007812 */
+           /*00e0*/                   IMAD R0, R3, 0x400, R0 ;                      /* 0x0000040003007824 */
+           /*00f0*/                   SHF.R.S32.HI R3, RZ, 0x15, R3 ;               /* 0x00000015ff037819 */
+           /*0100*/                   SGXT R3, R3, 0x1 ;                            /* 0x000000010303781a */
+           /*0110*/                   IADD3 R2, R0.reuse, 0x200, RZ ;               /* 0x0000020000027810 */
+           /*0120*/                   LEA.HI R3, R3, R0, RZ, 0x6 ;                  /* 0x0000000003037211 */
+           /*0130*/                   ISETP.GE.AND P0, PT, R0, c[0x0][0x178], PT ;  /* 0x00005e0000007a0c */
+           /*0140*/                   LOP3.LUT R3, R3, 0xffffffc0, RZ, 0xc0, !PT ;  /* 0xffffffc003037812 */
+           /*0150*/                   ISETP.GE.AND P1, PT, R2, c[0x0][0x178], PT ;  /* 0x00005e0002007a0c */
+           /*0160*/                   IMAD.IADD R16, R0.reuse, 0x1, -R3 ;           /* 0x0000000100107824 */
+           /*0170*/                   IMAD.WIDE R2, R0, R19, c[0x0][0x160] ;        /* 0x0000580000027625 */
+           /*0180*/                   IMAD.WIDE R16, R16, R19, c[0x0][0x168] ;      /* 0x00005a0010107625 */
+           /*0190*/              @!P0 LDG.E.128.SYS R12, [R2] ;                     /* 0x00000000020c8381 */
+           /*01a0*/              @!P0 LDG.E.128.SYS R20, [R16] ;                    /* 0x0000000010148381 */
+           /*01b0*/              @!P1 LDG.E.128.SYS R8, [R2+0x800] ;                /* 0x0008000002089381 */
+           /*01c0*/              @!P1 LDG.E.128.SYS R4, [R16] ;                     /* 0x0000000010049381 */
+           /*01d0*/                   FADD R12, R20, R12 ;                          /* 0x0000000c140c7221 */
+           /*01e0*/                   FADD R13, R21, R13 ;                          /* 0x0000000d150d7221 */
+           /*01f0*/                   FADD R14, R22, R14 ;                          /* 0x0000000e160e7221 */
+           /*0200*/                   FMNMX R12, RZ, R12, !PT ;                     /* 0x0000000cff0c7209 */
+           /*0210*/                   FADD R15, R23, R15 ;                          /* 0x0000000f170f7221 */
+           /*0220*/                   FMNMX R13, RZ, R13, !PT ;                     /* 0x0000000dff0d7209 */
+           /*0230*/                   FADD R8, R4, R8 ;                             /* 0x0000000804087221 */
+           /*0240*/                   FMNMX R14, RZ, R14, !PT ;                     /* 0x0000000eff0e7209 */
+           /*0250*/                   FADD R9, R5, R9 ;                             /* 0x0000000905097221 */
+           /*0260*/                   FMNMX R15, RZ, R15, !PT ;                     /* 0x0000000fff0f7209 */
+           /*0270*/                   IMAD.WIDE R4, R0, R19, c[0x0][0x170] ;        /* 0x00005c0000047625 */
+           /*0280*/                   FMNMX R8, RZ, R8, !PT ;                       /* 0x00000008ff087209 */
+           /*0290*/                   FMNMX R9, RZ, R9, !PT ;                       /* 0x00000009ff097209 */
+           /*02a0*/                   FADD R6, R6, R10 ;                            /* 0x0000000a06067221 */
+           /*02b0*/                   FADD R7, R7, R11 ;                            /* 0x0000000b07077221 */
+           /*02c0*/              @!P0 STG.E.128.SYS [R4], R12 ;                     /* 0x0000000c04008386 */
+           /*02d0*/                   FMNMX R10, RZ, R6, !PT ;                      /* 0x00000006ff0a7209 */
+           /*02e0*/                   FMNMX R11, RZ, R7, !PT ;                      /* 0x00000007ff0b7209 */
+           /*02f0*/               @P1 EXIT ;                                        /* 0x000000000000194d */
+           /*0300*/                   STG.E.128.SYS [R4+0x800], R8 ;                /* 0x0008000804007386 */
+           /*0310*/                   EXIT ;                                        /* 0x000000000000794d */
+           /*0320*/                   BRA 0x320;                                    /* 0xfffffff000007947 */
+           /*0330*/                   NOP;                                          /* 0x0000000000007918 */
+           /*0340*/                   NOP;                                          /* 0x0000000000007918 */
+           /*0350*/                   NOP;                                          /* 0x0000000000007918 */
+           /*0360*/                   NOP;                                          /* 0x0000000000007918 */
+           /*0370*/                   NOP;                                          /* 0x0000000000007918 */
+
+  cuobjdump -res-usage: Resource usage:
+ Common:
+  GLOBAL:0
+ Function bias_relu:
+  REG:26 STACK:0 SHARED:0 LOCAL:0 CONSTANT[0]:380 TEXTURE:0 SURFACE:0 SAMPLER:0
+
+  torch.compile(ew_classifier): rc=0; generated 4 fused Triton kernels + 6 cuBLAS calls (full code: inductor_ew_classifier_output_code.txt)
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code] @triton.jit
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code] def triton_poi_fused__native_batch_norm_legit_no_training_addmm_relu_0(
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code] @triton.jit
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code] def triton_poi_fused__native_batch_norm_legit_no_training_addmm_relu_1(
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code] @triton.jit
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code] def triton_poi_fused__native_batch_norm_legit_no_training_addmm_relu_2(
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code] @triton.jit
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code] def triton_poi_fused_addmm_relu_3(in_out_ptr0, in_ptr0, xnumel, XBLOCK 
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code]         extern_kernels.mm(arg2_1, reinterpret_tensor(arg0_1, (128, 256)
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code]         extern_kernels.mm(buf1, reinterpret_tensor(arg7_1, (256, 512), 
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code]         extern_kernels.mm(buf3, reinterpret_tensor(arg13_1, (512, 256),
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code]         extern_kernels.mm(buf5, reinterpret_tensor(arg19_1, (256, 128),
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code]         extern_kernels.mm(buf7, reinterpret_tensor(arg25_1, (128, 64), 
+    V0926 13:58:37.094000 902 torch/_inductor/graph.py:2045] [0/0] [__output_code]         extern_kernels.addmm(arg28_1, buf9, reinterpret_tensor(arg27_1,
+
+==============================================================================
+  1. CPU - ISA dispatch, SIMD registers, oneDNN JIT
+==============================================================================
+  platform                : Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.35
+  machine                 : x86_64
+  processor               : x86_64
+  logical_cpus            : 8
+  torch_cpu_capability    : AVX2
+  mkldnn_available        : True
+  torch_threads           : 4
+  simd_flags              : ['sse', 'sse2', 'ssse3', 'fma', 'sse4_1', 'sse4_2', 'avx', 'f16c', 'avx2']
+
+  What this means:
+    torch_cpu_capability=AVX2 -> ATen's vectorized CPU kernels are compiled several
+    times (DEFAULT/AVX2/AVX512) and the AVX2 copy is picked at runtime via CPUID.
+    AVX2 = 16 x 256-bit YMM registers; one YMM holds 8 x fp32. With FMA3 a single
+    VFMADD231PS does 8 multiply-adds -> 16 FLOP/instruction, 2 ports -> 32 FLOP/cycle/core.
+
+  oneDNN verbose (10 lines) - the 'jit:avx2' / 'brg' field is the x86 code path chosen:
+    onednn_verbose,info,oneDNN v3.5.3 (commit 66f0cb9eb66affd2da3bf5f8d897376f04aae6af)
+    onednn_verbose,info,cpu,runtime:OpenMP,nthr:4
+    onednn_verbose,info,cpu,isa:Intel AVX2
+    onednn_verbose,info,gpu,runtime:none
+    onednn_verbose,info,graph,backend,0:dnnl_backend
+    onednn_verbose,primitive,info,template:operation,engine,primitive,implementation,prop_kind,memory_descriptors,attributes,auxiliary,problem_desc,exec_time
+    onednn_verbose,graph,info,template:operation,engine,partition_id,partition_kind,op_names,data_formats,logical_tensors,fpmath_mode,backend,exec_time
+    onednn_verbose,primitive,exec,cpu,reorder,jit:uni,undef,src_f32::blocked:abcd::f0 dst_f32::blocked:Acdb8a::f0,attr-scratchpad:user,,64x3x7x7,1.552
+    onednn_verbose,primitive,exec,cpu,convolution,jit:avx2,forward_training,src_f32:a:blocked:abcd::f0 wei_f32:a:blocked:Acdb8a::f0 bia_f32:a:blocked:a::f0 dst_f32:a:blocked:aBcd8b::f0,attr-scratchpad:user,alg:convolution_di
+    onednn_verbose,primitive,exec,cpu,reorder,jit:blk,undef,src_f32::blocked:aBcd8b::f0 dst_f32::blocked:abcd::f0,attr-scratchpad:user,,8x64x112x112,33.198
+
+  gcc -O3 -mavx2 -mfma of `s += a[i]*b[i]` (the inner loop of every Linear layer):
+   	endbr64
+   	movq	%rsi, %rcx
+   	testl	%edx, %edx
+   	jle	.L9
+   	leal	-1(%rdx), %eax
+   	cmpl	$6, %eax
+   	jbe	.L10
+   	movl	%edx, %esi
+   	xorl	%eax, %eax
+   	vxorps	%xmm0, %xmm0, %xmm0
+   	shrl	$3, %esi
+   	salq	$5, %rsi
+   	vmovups	(%rdi,%rax), %ymm3
+   	vfmadd231ps	(%rcx,%rax), %ymm3, %ymm0
+   	addq	$32, %rax
+   	cmpq	%rsi, %rax
+   	jne	.L4
+   	vextractf128	$0x1, %ymm0, %xmm1
+   	movl	%edx, %eax
+   	vaddps	%xmm0, %xmm1, %xmm0
+   	andl	$-8, %eax
+   	movl	%eax, %esi
+   	vmovhlps	%xmm0, %xmm0, %xmm1
+   	vaddps	%xmm0, %xmm1, %xmm1
+   	vshufps	$85, %xmm1, %xmm1, %xmm0
+   	vaddps	%xmm1, %xmm0, %xmm0
+   	cmpl	%eax, %edx
+   	je	.L14
+   	vzeroupper
+   	movl	%edx, %r8d
+   	subl	%eax, %r8d
+   	leal	-1(%r8), %r9d
+   	cmpl	$2, %r9d
+   	jbe	.L7
+   	vmovups	(%rdi,%rax,4), %xmm4
+   	vmulps	(%rcx,%rax,4), %xmm4, %xmm1
+   	movl	%r8d, %eax
+   	andl	$-4, %eax
+   	addl	%eax, %esi
+   	vmovhlps	%xmm1, %xmm1, %xmm2
+
+Saved results/campaign_20260926/wsl2_docker/lowlevel_sass/lowlevel.json

@@ -1,0 +1,136 @@
+Spark Executor Command: "/usr/lib/jvm/java-17-openjdk-amd64/bin/java" "-cp" "/opt/spark/conf/:/opt/spark/jars/*" "-Xmx4096M" "-Dspark.network.timeout=600s" "-Dspark.driver.port=34073" "-Dspark.rpc.message.maxSize=512" "-Djava.net.preferIPv6Addresses=false" "-XX:+IgnoreUnrecognizedVMOptions" "--add-opens=java.base/java.lang=ALL-UNNAMED" "--add-opens=java.base/java.lang.invoke=ALL-UNNAMED" "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED" "--add-opens=java.base/java.io=ALL-UNNAMED" "--add-opens=java.base/java.net=ALL-UNNAMED" "--add-opens=java.base/java.nio=ALL-UNNAMED" "--add-opens=java.base/java.util=ALL-UNNAMED" "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED" "--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED" "--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED" "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED" "--add-opens=java.base/sun.nio.cs=ALL-UNNAMED" "--add-opens=java.base/sun.security.action=ALL-UNNAMED" "--add-opens=java.base/sun.util.calendar=ALL-UNNAMED" "--add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED" "-Djdk.reflect.useDirectMethodHandle=false" "org.apache.spark.executor.CoarseGrainedExecutorBackend" "--driver-url" "spark://CoarseGrainedScheduler@ip-10-0-0-66.ec2.internal:34073" "--executor-id" "1" "--hostname" "10.0.0.66" "--cores" "4" "--app-id" "app-20260926161023-0014" "--worker-url" "spark://Worker@10.0.0.66:35459" "--resourceProfileId" "0"
+========================================
+
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/09/26 16:10:24 INFO CoarseGrainedExecutorBackend: Started daemon with process name: 1848@ip-10-0-0-66
+26/09/26 16:10:24 INFO SignalUtils: Registering signal handler for TERM
+26/09/26 16:10:24 INFO SignalUtils: Registering signal handler for HUP
+26/09/26 16:10:24 INFO SignalUtils: Registering signal handler for INT
+26/09/26 16:10:24 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/26 16:10:24 INFO SecurityManager: Changing view acls to: root
+26/09/26 16:10:24 INFO SecurityManager: Changing modify acls to: root
+26/09/26 16:10:24 INFO SecurityManager: Changing view acls groups to: 
+26/09/26 16:10:24 INFO SecurityManager: Changing modify acls groups to: 
+26/09/26 16:10:24 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/26 16:10:25 INFO TransportClientFactory: Successfully created connection to ip-10-0-0-66.ec2.internal/10.0.0.66:34073 after 52 ms (0 ms spent in bootstraps)
+26/09/26 16:10:25 INFO SecurityManager: Changing view acls to: root
+26/09/26 16:10:25 INFO SecurityManager: Changing modify acls to: root
+26/09/26 16:10:25 INFO SecurityManager: Changing view acls groups to: 
+26/09/26 16:10:25 INFO SecurityManager: Changing modify acls groups to: 
+26/09/26 16:10:25 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/26 16:10:25 INFO TransportClientFactory: Successfully created connection to ip-10-0-0-66.ec2.internal/10.0.0.66:34073 after 1 ms (0 ms spent in bootstraps)
+26/09/26 16:10:25 INFO DiskBlockManager: Created local directory at /tmp/spark-df034fd4-5d8e-44a8-9f2c-fe65ae34c6ca/executor-0a0d25ea-01d0-4fdf-bb3d-6915d2467036/blockmgr-599f2e07-1947-4de8-8a4c-1e2aaf707feb
+26/09/26 16:10:25 INFO MemoryStore: MemoryStore started with capacity 2.2 GiB
+26/09/26 16:10:25 INFO CoarseGrainedExecutorBackend: Connecting to driver: spark://CoarseGrainedScheduler@ip-10-0-0-66.ec2.internal:34073
+26/09/26 16:10:25 INFO WorkerWatcher: Connecting to worker spark://Worker@10.0.0.66:35459
+26/09/26 16:10:25 INFO TransportClientFactory: Successfully created connection to /10.0.0.66:35459 after 2 ms (0 ms spent in bootstraps)
+26/09/26 16:10:25 INFO WorkerWatcher: Successfully connected to spark://Worker@10.0.0.66:35459
+26/09/26 16:10:25 INFO ResourceUtils: ==============================================================
+26/09/26 16:10:25 INFO ResourceUtils: No custom resources configured for spark.executor.
+26/09/26 16:10:25 INFO ResourceUtils: ==============================================================
+26/09/26 16:10:25 INFO CoarseGrainedExecutorBackend: Successfully registered with driver
+26/09/26 16:10:25 INFO Executor: Starting executor ID 1 on host 10.0.0.66
+26/09/26 16:10:25 INFO Executor: OS info Linux, 6.8.0-1060-aws, amd64
+26/09/26 16:10:25 INFO Executor: Java version 17.0.20.1
+26/09/26 16:10:25 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 38763.
+26/09/26 16:10:25 INFO NettyBlockTransferService: Server created on 10.0.0.66:38763
+26/09/26 16:10:25 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/26 16:10:25 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(1, 10.0.0.66, 38763, None)
+26/09/26 16:10:25 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(1, 10.0.0.66, 38763, None)
+26/09/26 16:10:25 INFO BlockManager: Initialized BlockManager: BlockManagerId(1, 10.0.0.66, 38763, None)
+26/09/26 16:10:25 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/09/26 16:10:25 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@4356de7a for default.
+26/09/26 16:10:43 INFO CoarseGrainedExecutorBackend: Got assigned task 1
+26/09/26 16:10:43 INFO Executor: Running task 1.0 in stage 0.0 (TID 1)
+26/09/26 16:10:43 INFO TorrentBroadcast: Started reading broadcast variable 1 with 1 pieces (estimated total size 4.0 MiB)
+26/09/26 16:10:43 INFO CoarseGrainedExecutorBackend: Got assigned task 3
+26/09/26 16:10:43 INFO Executor: Running task 3.0 in stage 0.0 (TID 3)
+26/09/26 16:10:43 INFO TransportClientFactory: Successfully created connection to /10.0.0.178:33203 after 1 ms (0 ms spent in bootstraps)
+26/09/26 16:10:43 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 8.5 KiB, free 2.2 GiB)
+26/09/26 16:10:43 INFO TorrentBroadcast: Reading broadcast variable 1 took 120 ms
+26/09/26 16:10:43 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 16.3 KiB, free 2.2 GiB)
+26/09/26 16:10:44 INFO CodeGenerator: Code generated in 197.774534 ms
+26/09/26 16:10:46 INFO PythonRunner: Times: total = 2887, boot = 544, init = 137, finish = 2206
+26/09/26 16:10:46 INFO PythonRunner: Times: total = 2917, boot = 541, init = 166, finish = 2210
+26/09/26 16:10:46 INFO Executor: Finished task 1.0 in stage 0.0 (TID 1). 2220 bytes result sent to driver
+26/09/26 16:10:46 INFO Executor: Finished task 3.0 in stage 0.0 (TID 3). 2220 bytes result sent to driver
+26/09/26 16:10:46 INFO CoarseGrainedExecutorBackend: Got assigned task 4
+26/09/26 16:10:46 INFO Executor: Running task 4.0 in stage 0.0 (TID 4)
+26/09/26 16:10:47 INFO CoarseGrainedExecutorBackend: Got assigned task 5
+26/09/26 16:10:47 INFO Executor: Running task 5.0 in stage 0.0 (TID 5)
+26/09/26 16:10:49 INFO PythonRunner: Times: total = 1747, boot = -453, init = 530, finish = 1670
+26/09/26 16:10:49 INFO Executor: Finished task 4.0 in stage 0.0 (TID 4). 2177 bytes result sent to driver
+26/09/26 16:10:49 INFO PythonRunner: Times: total = 1823, boot = -538, init = 612, finish = 1749
+26/09/26 16:10:49 INFO Executor: Finished task 5.0 in stage 0.0 (TID 5). 2177 bytes result sent to driver
+26/09/26 16:10:51 INFO CoarseGrainedExecutorBackend: Got assigned task 9
+26/09/26 16:10:51 INFO Executor: Running task 1.0 in stage 2.0 (TID 9)
+26/09/26 16:10:51 INFO CoarseGrainedExecutorBackend: Got assigned task 11
+26/09/26 16:10:51 INFO Executor: Running task 3.0 in stage 2.0 (TID 11)
+26/09/26 16:10:51 INFO MapOutputTrackerWorker: Updating epoch to 1 and clearing cache
+26/09/26 16:10:51 INFO TorrentBroadcast: Started reading broadcast variable 2 with 1 pieces (estimated total size 4.0 MiB)
+26/09/26 16:10:51 INFO TransportClientFactory: Successfully created connection to ip-10-0-0-66.ec2.internal/10.0.0.66:40823 after 1 ms (0 ms spent in bootstraps)
+26/09/26 16:10:51 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 18.8 KiB, free 2.2 GiB)
+26/09/26 16:10:51 INFO TorrentBroadcast: Reading broadcast variable 2 took 13 ms
+26/09/26 16:10:51 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 36.7 KiB, free 2.2 GiB)
+26/09/26 16:10:51 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+26/09/26 16:10:51 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+26/09/26 16:10:51 INFO MapOutputTrackerWorker: Doing the fetch; tracker endpoint = NettyRpcEndpointRef(spark://MapOutputTracker@ip-10-0-0-66.ec2.internal:34073)
+26/09/26 16:10:51 INFO MapOutputTrackerWorker: Got the map output locations
+26/09/26 16:10:51 INFO ShuffleBlockFetcherIterator: Getting 8 (19.9 MiB) non-empty blocks including 4 (9.9 MiB) local and 0 (0.0 B) host-local and 0 (0.0 B) push-merged-local and 4 (9.9 MiB) remote blocks
+26/09/26 16:10:51 INFO ShuffleBlockFetcherIterator: Getting 8 (19.9 MiB) non-empty blocks including 4 (9.9 MiB) local and 0 (0.0 B) host-local and 0 (0.0 B) push-merged-local and 4 (9.9 MiB) remote blocks
+26/09/26 16:10:51 INFO ShuffleBlockFetcherIterator: Started 1 remote fetches in 26 ms
+26/09/26 16:10:51 INFO ShuffleBlockFetcherIterator: Started 1 remote fetches in 26 ms
+26/09/26 16:10:51 INFO CodeGenerator: Code generated in 12.627236 ms
+26/09/26 16:10:51 INFO TorrentBroadcast: Started reading broadcast variable 0 with 12 pieces (estimated total size 48.0 MiB)
+26/09/26 16:10:51 INFO BaseAllocator: Debug mode disabled.
+26/09/26 16:10:51 INFO DefaultAllocationManagerOption: allocation manager type not specified, using netty as the default type
+26/09/26 16:10:51 INFO CheckAllocator: Using DefaultAllocationManager at memory-netty-12.0.1.jar!/org/apache/arrow/memory/DefaultAllocationManagerFactory.class
+26/09/26 16:10:51 INFO MemoryStore: Block broadcast_0_piece7 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:51 INFO MemoryStore: Block broadcast_0_piece9 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:51 INFO MemoryStore: Block broadcast_0_piece5 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0_piece6 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO CodeGenerator: Code generated in 17.104181 ms
+26/09/26 16:10:52 INFO CodeGenerator: Code generated in 11.809322 ms
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0_piece10 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0_piece8 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0_piece4 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0_piece3 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0_piece2 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0_piece11 stored as bytes in memory (estimated size 913.4 KiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0_piece1 stored as bytes in memory (estimated size 4.0 MiB, free 2.2 GiB)
+26/09/26 16:10:52 INFO TorrentBroadcast: Reading broadcast variable 0 took 166 ms
+26/09/26 16:10:52 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 272.0 B, free 2.2 GiB)
+[MODEL_LOAD] app=modes-resnet18-native_pbu_cpu host=ip-10-0-0-66 pid=1956 device=cpu secs=1.482
+[MODEL_LOAD] app=modes-resnet18-native_pbu_cpu host=ip-10-0-0-66 pid=1952 device=cpu secs=1.487
+26/09/26 16:10:57 INFO ArrowPythonRunner: Times: total = 5542, boot = 533, init = 2682, finish = 2327
+26/09/26 16:10:57 INFO ArrowPythonRunner: Times: total = 5558, boot = 530, init = 2695, finish = 2333
+26/09/26 16:10:57 INFO Executor: Finished task 1.0 in stage 2.0 (TID 9). 134862 bytes result sent to driver
+26/09/26 16:10:57 INFO Executor: Finished task 3.0 in stage 2.0 (TID 11). 134841 bytes result sent to driver
+26/09/26 16:10:57 INFO CoarseGrainedExecutorBackend: Got assigned task 12
+26/09/26 16:10:57 INFO CoarseGrainedExecutorBackend: Got assigned task 13
+26/09/26 16:10:57 INFO Executor: Running task 4.0 in stage 2.0 (TID 12)
+26/09/26 16:10:57 INFO Executor: Running task 5.0 in stage 2.0 (TID 13)
+26/09/26 16:10:57 INFO ShuffleBlockFetcherIterator: Getting 8 (19.9 MiB) non-empty blocks including 4 (9.9 MiB) local and 0 (0.0 B) host-local and 0 (0.0 B) push-merged-local and 4 (9.9 MiB) remote blocks
+26/09/26 16:10:57 INFO ShuffleBlockFetcherIterator: Started 1 remote fetches in 2 ms
+26/09/26 16:10:57 INFO ShuffleBlockFetcherIterator: Getting 8 (19.9 MiB) non-empty blocks including 4 (9.9 MiB) local and 0 (0.0 B) host-local and 0 (0.0 B) push-merged-local and 4 (9.9 MiB) remote blocks
+26/09/26 16:10:57 INFO ShuffleBlockFetcherIterator: Started 1 remote fetches in 1 ms
+26/09/26 16:10:58 INFO ArrowPythonRunner: Times: total = 1026, boot = 99, init = 94, finish = 833
+26/09/26 16:10:58 INFO Executor: Finished task 5.0 in stage 2.0 (TID 13). 134819 bytes result sent to driver
+26/09/26 16:10:58 INFO CoarseGrainedExecutorBackend: Got assigned task 14
+26/09/26 16:10:58 INFO Executor: Running task 6.0 in stage 2.0 (TID 14)
+26/09/26 16:10:58 INFO ArrowPythonRunner: Times: total = 1042, boot = 84, init = 112, finish = 846
+26/09/26 16:10:58 INFO Executor: Finished task 4.0 in stage 2.0 (TID 12). 134847 bytes result sent to driver
+26/09/26 16:10:58 INFO ShuffleBlockFetcherIterator: Getting 8 (19.9 MiB) non-empty blocks including 4 (9.9 MiB) local and 0 (0.0 B) host-local and 0 (0.0 B) push-merged-local and 4 (9.9 MiB) remote blocks
+26/09/26 16:10:58 INFO ShuffleBlockFetcherIterator: Started 1 remote fetches in 1 ms
+26/09/26 16:10:58 INFO CoarseGrainedExecutorBackend: Got assigned task 15
+26/09/26 16:10:58 INFO Executor: Running task 7.0 in stage 2.0 (TID 15)
+26/09/26 16:10:58 INFO ShuffleBlockFetcherIterator: Getting 8 (19.9 MiB) non-empty blocks including 4 (9.9 MiB) local and 0 (0.0 B) host-local and 0 (0.0 B) push-merged-local and 4 (9.9 MiB) remote blocks
+26/09/26 16:10:58 INFO ShuffleBlockFetcherIterator: Started 1 remote fetches in 1 ms
+26/09/26 16:10:59 INFO ArrowPythonRunner: Times: total = 1038, boot = 147, init = 82, finish = 809
+26/09/26 16:10:59 INFO Executor: Finished task 7.0 in stage 2.0 (TID 15). 134782 bytes result sent to driver
+26/09/26 16:10:59 INFO ArrowPythonRunner: Times: total = 1080, boot = 143, init = 93, finish = 844
+26/09/26 16:10:59 INFO Executor: Finished task 6.0 in stage 2.0 (TID 14). 134883 bytes result sent to driver
+26/09/26 16:10:59 INFO CoarseGrainedExecutorBackend: Driver commanded a shutdown
+26/09/26 16:10:59 ERROR CoarseGrainedExecutorBackend: RECEIVED SIGNAL TERM
+tdown

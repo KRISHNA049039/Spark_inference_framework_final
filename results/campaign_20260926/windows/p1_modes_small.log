@@ -1,0 +1,265 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/09/26 17:32:58 WARN Shell: Did not find winutils.exe: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\testing\utils.py:127: FutureWarning: PySpark does not yet fully support pandas >= 3.0.0. Some features may not work correctly. It is recommended to use pandas < 3.0.0 for now.
+  require_minimum_pandas_version()
+26/09/26 17:33:01 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 1) / 4][W926 17:33:41.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 20971520 bytes (free: 3009012532, total: 4294705152).
+fatal   : Memory allocation failure
+26/09/26 17:33:42 ERROR Executor: Exception in task 0.0 in stage 0.0 (TID 0)
+org.apache.spark.api.python.PythonException: [PYTHON_EXCEPTION] An exception was thrown from the Python worker: Traceback (most recent call last):
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\python\lib\pyspark.zip\pyspark\worker.py", line 3622, in main
+    process()
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\python\lib\pyspark.zip\pyspark\worker.py", line 3612, in process
+    serializer.dump_stream(out_iter, outfile)
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\python\lib\pyspark.zip\pyspark\serializers.py", line 257, in dump_stream
+    vs = list(itertools.islice(iterator, batch))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\python\lib\pyspark.zip\pyspark\util.py", line 159, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\pytorch-spark-inference-platform 1\inference\distributed_gpu.py", line 368, in infer_on_partition
+    model_results = run_models_on_streams(loaded_models, data_chunk, bs, device)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\pytorch-spark-inference-platform 1\inference\distributed_gpu.py", line 173, in run_models_on_streams
+    output = model(batch_tensor)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\pytorch-spark-inference-platform 1\models\image_models.py", line 61, in forward
+    return self.model(x)
+           ^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\models\mobilenetv3.py", line 221, in forward
+    return self._forward_impl(x)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\models\mobilenetv3.py", line 211, in _forward_impl
+    x = self.features(x)
+        ^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\container.py", line 259, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\models\mobilenetv3.py", line 112, in forward
+    result = self.block(input)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\container.py", line 259, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\torchvision\ops\misc.py", line 261, in forward
+    return scale * input
+           ~~~~~~^~~~~~~
+torch.AcceleratorError: CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+
+ SQLSTATE: 38000
+	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:665)
+	at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1063)
+	at org.apache.spark.api.python.PythonRunner$$anon$3.read(PythonRunner.scala:1045)
+	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:602)
+	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+	at scala.collection.mutable.Growable.addAll(Growable.scala:61)
+	at scala.collection.mutable.Growable.addAll$(Growable.scala:57)
+	at scala.collection.mutable.ArrayBuilder.addAll(ArrayBuilder.scala:75)
+	at scala.collection.IterableOnceOps.toArray(IterableOnce.scala:1528)
+	at scala.collection.IterableOnceOps.toArray$(IterableOnce.scala:1521)
+	at org.apache.spark.InterruptibleIterator.toArray(InterruptibleIterator.scala:28)
+	at org.apache.spark.rdd.RDD.$anonfun$collect$2(RDD.scala:1073)
+	at org.apache.spark.SparkContext.$anonfun$runJob$5(SparkContext.scala:2536)
+	at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:206)
+	at org.apache.spark.scheduler.Task.run(Task.scala:147)
+	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:894)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:86)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:83)
+	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:97)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:897)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 32744 bytes. Error detail: ChunkPool::allocate
+# An error report file with more information is saved as:
+# D:\pytorch-spark-inference-platform 1\hs_err_pid12208.log
+#
+# Compiler replay data is saved as:
+# D:\pytorch-spark-inference-platform 1\replay_pid12208.log
+ERROR:root:Exception while sending command.
+Traceback (most recent call last):
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\clientserver.py", line 535, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\clientserver.py", line 566, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+Traceback (most recent call last):
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\core\rdd.py", line 1699, in collect
+    sock_info = self.ctx._jvm.PythonRDD.collectAndServe(self._jrdd.rdd())
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\java_gateway.py", line 1362, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\errors\exceptions\captured.py", line 251, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\protocol.py", line 335, in get_return_value
+    raise Py4JError(
+py4j.protocol.Py4JError: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\pytorch-spark-inference-platform 1\benchmark\run_benchmark.py", line 88, in run_mode_distributed
+    result = run_distributed_gpu_inference(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\pytorch-spark-inference-platform 1\inference\distributed_gpu.py", line 396, in run_distributed_gpu_inference
+    partition_results = data_rdd.map(infer_on_partition).collect()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\core\rdd.py", line 1697, in collect
+    with SCCallSiteSync(self.context):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyspark\traceback_utils.py", line 80, in __exit__
+    self._context._jsc.setCallSite(None)
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\java_gateway.py", line 1361, in __call__
+    answer = self.gateway_client.send_command(command)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\java_gateway.py", line 1036, in send_command
+    connection = self._get_connection()
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\clientserver.py", line 284, in _get_connection
+    connection = self._create_new_connection()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\clientserver.py", line 291, in _create_new_connection
+    connection.connect_to_java_server()
+  File "C:\Users\kkc24\AppData\Local\Programs\Python\Python312\Lib\site-packages\py4j\clientserver.py", line 438, in connect_to_java_server
+    self.socket.connect((self.java_address, self.java_port))
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+======================================================================
+  MULTI-MODEL DISTRIBUTED INFERENCE BENCHMARK
+======================================================================
+
+  System: Windows-11-10.0.26200-SP0
+  Python: 3.12.10 | PyTorch: 2.14.0+cu126
+  GPU: NVIDIA GeForce GTX 1650 | CUDA: True
+  Signals: 1000 | Images: 20 | Detections: 5
+
+  [SETUP] Loading model registry...
+
+============================================================
+  MODEL REGISTRY — 10 models
+============================================================
+Name                      Category        Memory (MB)  Input Shape
+------------------------- --------------- ------------ --------------------
+ew_classifier             signal          50           (128,)
+signal_denoiser           signal          100          (128,)
+threat_prioritizer        signal          350          (128,)
+rf_fingerprinter          signal          120          (128,)
+anomaly_detector          signal          100          (128,)
+resnet18                  image_classification 300          (3, 224, 224)
+mobilenetv3               image_classification 150          (3, 224, 224)
+efficientnet_b0           image_classification 200          (3, 224, 224)
+yolov8_nano               object_detection 200          (3, 640, 640)
+yolov8_small              object_detection 400          (3, 640, 640)
+
+  Total estimated GPU memory: 1970 MB (1.9 GB)
+
+  [SETUP] Instantiating models...
+    Loaded 10 models
+
+  [SETUP] Generating synthetic data...
+    Total data: 87.8 MB
+
+  [MODE 2] Single GPU — CUDA Streams...
+    Throughput: 9,681 total samples/sec
+    Time: 0.52s
+
+  [MODE 3] Hybrid CPU+GPU — Memory-Aware Split...
+
+============================================================
+  GPU MEMORY MANAGER — 1 GPU(s) detected
+============================================================
+
+  GPU 0: 4096 MB total, 1626 MB free, 60.3% used
+    └─ yolov8_small: 400 MB
+    └─ yolov8_nano: 200 MB
+    └─ resnet18: 300 MB
+    └─ efficientnet_b0: 200 MB
+    └─ mobilenetv3: 150 MB
+    └─ threat_prioritizer: 350 MB
+    └─ ew_classifier: 50 MB
+    └─ rf_fingerprinter: 120 MB
+    └─ signal_denoiser: 100 MB
+    └─ anomaly_detector: 100 MB
+
+  Summary: 10 on GPU (1970 MB), 0 on CPU (0 MB)
+    Throughput: 13,745 total samples/sec
+    GPU models: ['ew_classifier', 'signal_denoiser', 'threat_prioritizer', 'rf_fingerprinter', 'anomaly_detector', 'resnet18', 'mobilenetv3', 'efficientnet_b0', 'yolov8_nano', 'yolov8_small']
+    CPU models: []
+    Time: 0.37s
+
+  [MODE 1] Distributed GPU — Spark RDD...
+    Spark master: local[2]
+    [ERROR] Spark mode failed: [WinError 10061] No connection could be made because the target machine actively refused it
+
+======================================================================
+  SAVING RESULTS
+======================================================================
+  Report: D:\pytorch-spark-inference-platform 1\results\report_windows_p1_modes_small_all_sig1000_img20_det5_p4_20260926_173344.md
+  Raw data: D:\pytorch-spark-inference-platform 1\results\results_windows_p1_modes_small_all_sig1000_img20_det5_p4_20260926_173344.json
+
+  Files saved:
+    D:\pytorch-spark-inference-platform 1\results\report_windows_p1_modes_small_all_sig1000_img20_det5_p4_20260926_173344.md
+    D:\pytorch-spark-inference-platform 1\results\results_windows_p1_modes_small_all_sig1000_img20_det5_p4_20260926_173344.json
+    D:\pytorch-spark-inference-platform 1\results\metrics_report_latest.md (latest)
+    D:\pytorch-spark-inference-platform 1\results\raw_results_latest.json (latest)
+
+  Total time: 73.9s
+
+ERROR: The process "26524" not found.

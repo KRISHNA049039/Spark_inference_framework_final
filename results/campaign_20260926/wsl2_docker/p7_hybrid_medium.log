@@ -1,0 +1,93 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 13:27:43 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 0) / 4][Stage 0:>                                                          (0 + 1) / 4][Stage 0:>                                                          (0 + 1) / 4][Executor] host=adf6827a7a84, pid=3775, device=cuda, cuda=True, models_loaded=10, model_load_time=45.96s
+[Stage 0:>                                                          (0 + 2) / 4][Stage 0:==============>                                            (1 + 1) / 4][Executor] host=adf6827a7a84, pid=3775, device=cuda, cuda=True, models_loaded=10, model_load_time=3.66s
+[Stage 0:=============================>                             (2 + 1) / 4][Executor] host=adf6827a7a84, pid=3775, device=cuda, cuda=True, models_loaded=10, model_load_time=2.87s
+[Stage 0:============================================>              (3 + 1) / 4][Executor] host=adf6827a7a84, pid=3775, device=cuda, cuda=True, models_loaded=10, model_load_time=5.09s
+                                                                                
+================================================================================
+  SPARK CLUSTER BENCHMARK
+================================================================================
+
+  CONFIGURATION:
+  ─────────────────────────────────────────────────────────────
+  Device Mode     : HYBRID
+  Partitions      : 4
+  Signal Samples  : 3,000 (per model, 128-dim IQ vectors)
+  Image Samples   : 100 (3x224x224 RGB tensors)
+  Detection Imgs  : 30 (3x640x640 RGB tensors)
+  ─────────────────────────────────────────────────────────────
+
+  WHAT THIS MEASURES:
+  ─────────────────────────────────────────────────────────────
+  INPUT:    Synthetic sensor data fed into 10 ML models simultaneously
+  PROCESS:  Spark distributes data chunks to executors across the cluster
+            Each executor loads models → runs batch inference → returns count
+  OUTPUT:   Throughput (samples/sec) = how fast the cluster processes data
+  ─────────────────────────────────────────────────────────────
+
+  [1/4] Loading model registry...
+         Loaded 10 models
+  [2/4] Generating synthetic data...
+         15,360 samples, 483.2 MB
+         Per-partition: ~121 MB
+  [3/4] Connecting to Spark cluster...
+         Master: local[2]
+  [4/4] Running distributed inference (hybrid mode)...
+
+────────────────────────────────────────────────────────────────────────────────
+  RESULTS — HYBRID MODE
+────────────────────────────────────────────────────────────────────────────────
+
+  THROUGHPUT:
+    Total Samples Processed : 15,360
+    Elapsed Time            : 117.25 seconds
+    ► Throughput            : 131 samples/second
+
+  EXPLANATION:
+    "Throughput" = total samples processed by ALL models across ALL executors
+    divided by wall-clock time. Higher = better cluster utilization.
+
+  PARTITION / TASK DETAIL:
+  ────────────────────────────────────────────────────────────────────────────
+  Part  Executor                            Device Samples  ModelLoad  Inference  Total   
+  ────────────────────────────────────────────────────────────────────────────
+  0     adf6827a7a84                        cuda   3839     45.96      9.31       9.31    
+  1     adf6827a7a84                        cuda   3839     3.66       0.65       0.65    
+  2     adf6827a7a84                        cuda   3839     2.87       0.66       0.66    
+  3     adf6827a7a84                        cuda   3843     5.09       1.28       1.28    
+  ────────────────────────────────────────────────────────────────────────────
+
+  EXECUTOR SUMMARY:
+  ────────────────────────────────────────────────────────────────────────────
+  Executor                            Device Tasks  Samples    ModelLoad  InferTime  Throughput
+  ────────────────────────────────────────────────────────────────────────────
+  adf6827a7a84                        cuda   4      15,360     45.96      11.90      1,290/sec
+  ────────────────────────────────────────────────────────────────────────────
+
+  PER-MODEL SAMPLES PROCESSED:
+  ────────────────────────────────────────
+    anomaly_detector          : 3,000
+    efficientnet_b0           : 100
+    ew_classifier             : 3,000
+    mobilenetv3               : 100
+    resnet18                  : 100
+    rf_fingerprinter          : 3,000
+    signal_denoiser           : 3,000
+    threat_prioritizer        : 3,000
+    yolov8_nano               : 30
+    yolov8_small              : 30
+  ────────────────────────────────────────
+    TOTAL                     : 15,360
+
+  KEY METRICS EXPLAINED:
+  ─────────────────────────────────────────────────────────────
+  ModelLoad  : Time to deserialize 10 model weights onto device (once per executor)
+  Inference  : Time to run forward passes on all data batches
+  Throughput : samples_processed / inference_time (per executor)
+  Partitions : Data split into N chunks, 1 task per chunk
+  Tasks      : Spark units of work, distributed across executors
+  ─────────────────────────────────────────────────────────────
+
+  Results saved: /app/results/cluster_benchmark_hybrid_3000_20260926_133022.json

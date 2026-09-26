@@ -1,0 +1,146 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/26 11:52:16 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[Stage 0:>                                                          (0 + 0) / 4][Stage 0:>                                                          (0 + 2) / 4][Stage 0:>                                                          (0 + 3) / 4][Stage 0:=============================>                             (2 + 2) / 4]                                                                                26/09/26 11:52:29 ERROR TransportResponseHandler: Still have 1 requests outstanding when connection from /10.0.0.240:46574 is closed
+
+======================================================================
+  MULTI-MODEL DISTRIBUTED INFERENCE BENCHMARK
+======================================================================
+
+  System: Linux-6.8.0-1060-aws-x86_64-with-glibc2.35
+  Python: 3.11.16 | PyTorch: 2.6.0+cu126
+  GPU: Tesla T4 | CUDA: True
+  Signals: 1000 | Images: 20 | Detections: 5
+
+  [SETUP] Loading model registry...
+
+============================================================
+  MODEL REGISTRY — 10 models
+============================================================
+Name                      Category        Memory (MB)  Input Shape
+------------------------- --------------- ------------ --------------------
+ew_classifier             signal          50           (128,)
+signal_denoiser           signal          100          (128,)
+threat_prioritizer        signal          350          (128,)
+rf_fingerprinter          signal          120          (128,)
+anomaly_detector          signal          100          (128,)
+resnet18                  image_classification 300          (3, 224, 224)
+mobilenetv3               image_classification 150          (3, 224, 224)
+efficientnet_b0           image_classification 200          (3, 224, 224)
+yolov8_nano               object_detection 200          (3, 640, 640)
+yolov8_small              object_detection 400          (3, 640, 640)
+
+  Total estimated GPU memory: 1970 MB (1.9 GB)
+
+  [SETUP] Instantiating models...
+    Loaded 10 models
+
+  [SETUP] Generating synthetic data...
+    Total data: 87.8 MB
+
+  [MODE 2] Single GPU — CUDA Streams...
+    Throughput: 37,162 total samples/sec
+    Time: 0.14s
+
+  [MODE 3] Hybrid CPU+GPU — Memory-Aware Split...
+
+============================================================
+  GPU MEMORY MANAGER — 1 GPU(s) detected
+============================================================
+
+  GPU 0: 14913 MB total, 12443 MB free, 16.6% used
+    └─ yolov8_small: 400 MB
+    └─ yolov8_nano: 200 MB
+    └─ resnet18: 300 MB
+    └─ efficientnet_b0: 200 MB
+    └─ mobilenetv3: 150 MB
+    └─ threat_prioritizer: 350 MB
+    └─ ew_classifier: 50 MB
+    └─ rf_fingerprinter: 120 MB
+    └─ signal_denoiser: 100 MB
+    └─ anomaly_detector: 100 MB
+
+  Summary: 10 on GPU (1970 MB), 0 on CPU (0 MB)
+    Throughput: 38,178 total samples/sec
+    GPU models: ['ew_classifier', 'signal_denoiser', 'threat_prioritizer', 'rf_fingerprinter', 'anomaly_detector', 'resnet18', 'mobilenetv3', 'efficientnet_b0', 'yolov8_nano', 'yolov8_small']
+    CPU models: []
+    Time: 0.13s
+
+  [MODE 1] Distributed GPU — Spark RDD...
+    Spark master: spark://10.0.0.240:7077
+
+──────────────────────────────────────────────────────────────────────
+  DISTRIBUTED INFERENCE RESULTS
+──────────────────────────────────────────────────────────────────────
+  Total Throughput : 561 samples/sec
+  Total Samples    : 5,070
+  Elapsed Time     : 9.04s
+  Partitions       : 4
+  Models           : 10
+
+  JOB COMPOSITION:
+  ─────────────────────────────────────────────────────────
+  Job: Distributed inference of 10 ML models
+  Stages: 1 (parallelize → map → collect)
+  Tasks: 4 (one per partition)
+  Each task: Load 10 models → run inference on data chunk → return results
+
+  EXECUTOR / WORKER DETAIL:
+  ──────────────────────────────────────────────────────────────────────
+  Part  Hostname             Device GPU                  ModelLoad  Inference  Samples
+  ──────────────────────────────────────────────────────────────────────
+  0     ip-10-0-0-240        cuda   Tesla T4             2.09       0.52       1267
+  1     ip-10-0-0-240        cuda   Tesla T4             2.07       0.46       1267
+  2     ip-10-0-0-240        cuda   Tesla T4             0.64       0.04       1267
+  3     ip-10-0-0-240        cuda   Tesla T4             0.63       0.05       1269
+  ──────────────────────────────────────────────────────────────────────
+
+  WORKER SUMMARY (1 unique workers):
+  ──────────────────────────────────────────────────────────────────────
+  Worker               Device CPUs  Tasks  Samples    GPU
+  ──────────────────────────────────────────────────────────────────────
+  ip-10-0-0-240        cuda   4     4      5,070      Tesla T4
+  ──────────────────────────────────────────────────────────────────────
+
+  MODEL INPUT/OUTPUT & THROUGHPUT:
+  ──────────────────────────────────────────────────────────────────────
+  Model                  Input Shape     Output Shape    Samples  Throughput
+  ──────────────────────────────────────────────────────────────────────
+  ew_classifier          [128]           [8]             1,000    11,086/s
+  signal_denoiser        [128]           [128]           1,000    111,111/s
+  threat_prioritizer     [128]           [64]            1,000    7,407/s
+  rf_fingerprinter       [128]           [32]            1,000    2,493/s
+  anomaly_detector       [128]           [64]            1,000    27,100/s
+  resnet18               [3, 224, 224]   [1000]          20       189/s
+  mobilenetv3            [3, 224, 224]   [1000]          20       175/s
+  efficientnet_b0        [3, 224, 224]   [1000]          20       163/s
+  yolov8_nano            [3, 640, 640]   [400]           5        221/s
+  yolov8_small           [3, 640, 640]   [400]           5        219/s
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK EXECUTOR METRICS (from REST API):
+  ──────────────────────────────────────────────────────────────────────
+  ID       Host                      Cores  Tasks  Duration
+  ──────────────────────────────────────────────────────────────────────
+  0        10.0.0.240                4      4      15.3s
+  ──────────────────────────────────────────────────────────────────────
+
+  SPARK JOBS:
+  ──────────────────────────────────────────────────────────────────────
+  Job 0: SUCCEEDED | Stages: 1/0 | Tasks: 4/4
+  ──────────────────────────────────────────────────────────────────────
+
+======================================================================
+  SAVING RESULTS
+======================================================================
+  Report: /app/results/report_aws_g4dn_p1_modes_small_all_sig1000_img20_det5_p4_20260926_115230.md
+  Raw data: /app/results/results_aws_g4dn_p1_modes_small_all_sig1000_img20_det5_p4_20260926_115230.json
+
+  Files saved:
+    /app/results/report_aws_g4dn_p1_modes_small_all_sig1000_img20_det5_p4_20260926_115230.md
+    /app/results/results_aws_g4dn_p1_modes_small_all_sig1000_img20_det5_p4_20260926_115230.json
+    /app/results/metrics_report_latest.md (latest)
+    /app/results/raw_results_latest.json (latest)
+
+  Total time: 17.9s
+
