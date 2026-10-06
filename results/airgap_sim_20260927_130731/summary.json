@@ -1,0 +1,74 @@
+[
+    {
+        "Test":  "T01",
+        "Title":  "Prerequisites: Docker, images, GPU, model weights on the staging disk",
+        "Result":  "PASS",
+        "Seconds":  31.2
+    },
+    {
+        "Test":  "T02",
+        "Title":  "Start HDFS (namenode + datanode) and wait for a live datanode",
+        "Result":  "PASS",
+        "Seconds":  47.9
+    },
+    {
+        "Test":  "T03",
+        "Title":  "Upload the model weights into HDFS (/models/weights) and verify byte counts",
+        "Result":  "PASS",
+        "Seconds":  625.4
+    },
+    {
+        "Test":  "T04",
+        "Title":  "model_store over WebHDFS: fetch + checksum, missing path, unreachable host",
+        "Result":  "PASS",
+        "Seconds":  61.7
+    },
+    {
+        "Test":  "T05",
+        "Title":  "Model server (kitchen) with models from HDFS: fetch into node cache, load on GPU",
+        "Result":  "PASS",
+        "Seconds":  461.8
+    },
+    {
+        "Test":  "T06",
+        "Title":  "Call the model server directly (POST /predict, no Spark)",
+        "Result":  "PASS",
+        "Seconds":  70.6
+    },
+    {
+        "Test":  "T07",
+        "Title":  "Spark cluster, service mode: lean master + worker POST to the kitchen",
+        "Result":  "PASS",
+        "Seconds":  96.6
+    },
+    {
+        "Test":  "T08",
+        "Title":  "Node cache: restarting the kitchen reuses the downloaded models",
+        "Result":  "PASS",
+        "Seconds":  206.5
+    },
+    {
+        "Test":  "T09",
+        "Title":  "HDFS outage with a warm cache: kitchen still starts and serves",
+        "Result":  "PASS",
+        "Seconds":  304.3
+    },
+    {
+        "Test":  "T10",
+        "Title":  "Master file-system mode: models read from a shared/local path (file://), no HDFS",
+        "Result":  "PASS",
+        "Seconds":  359.8
+    },
+    {
+        "Test":  "T11",
+        "Title":  "Cluster (in-process) mode: the Spark executor fetches models from HDFS and runs NER itself",
+        "Result":  "PASS",
+        "Seconds":  620.9
+    },
+    {
+        "Test":  "T12",
+        "Title":  "Teardown (keeps HDFS data + node caches unless -Wipe)",
+        "Result":  "PASS",
+        "Seconds":  30
+    }
+]

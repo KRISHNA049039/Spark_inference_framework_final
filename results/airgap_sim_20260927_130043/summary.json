@@ -1,0 +1,6 @@
+{
+    "Test":  "T11",
+    "Title":  "Cluster (in-process) mode: the Spark executor fetches models from HDFS and runs NER itself",
+    "Result":  "PASS",
+    "Seconds":  378
+}

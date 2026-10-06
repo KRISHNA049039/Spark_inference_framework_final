@@ -74,7 +74,7 @@ SCORE_THRESHOLD = 0.35       # lower than English-only default; non-EN scores ru
 MAX_CHARS = 1500             # approx chunk size in characters
 BATCH_SIZE = 16              # GLiNER chunks per forward pass
 USE_FP16 = True             # half precision on GPU (ignored on CPU)
-TRANSLATE_MAX_TOKENS = 400   # per-chunk cap for NLLB generation
+TRANSLATE_MAX_TOKENS = 400   # NLLB input / output cap; translation chunks are sized to fit it
 TRANSLATE_BATCH_SIZE = 8     # chunks per NLLB forward pass
 # Tesseract OCR languages. This MUST include the scripts your images actually
 # contain, or OCR returns garbage and NER sees almost nothing. Join packs with
@@ -473,9 +473,15 @@ def preprocess(text: str) -> str:
     return text.strip()
 
 
+# Sentence ends: Latin / CJK punctuation plus the Devanagari danda and double
+# danda (Hindi, Marathi, ...) and the Urdu full stop / Arabic question mark -
+# without them a whole Devanagari document is one "sentence".
+_SENTENCE_SPLIT = re.compile(r"(?<=[.!?。!?।॥۔؟])\s+")
+
+
 def chunk_text(text: str, max_chars: int = MAX_CHARS):
     """Split text into character-bounded chunks while tracking offsets."""
-    sentences = re.split(r"(?<=[.!?。!?])\s+", text)
+    sentences = _SENTENCE_SPLIT.split(text)
     chunks, offsets = [], []
     cur, cur_start, cursor = "", 0, 0
 
@@ -494,6 +500,43 @@ def chunk_text(text: str, max_chars: int = MAX_CHARS):
     if cur:
         chunks.append(cur); offsets.append(cur_start)
     return chunks, offsets
+
+
+def chunk_for_translation(text: str, tokenizer, max_tokens: int = TRANSLATE_MAX_TOKENS):
+    """Split text into NLLB translation units: one per sentence (and per line).
+
+    NLLB is trained on single sentences: given several at once it can stop
+    early and drop the rest, and a chunk bounded by characters (chunk_text)
+    can exceed max_tokens - non-Latin scripts need far more tokens per
+    character - and be truncated. Both silently lose text. A unit still over
+    the token budget is split between words; translate_chunks() batches the
+    units, so short units cost no extra GPU passes.
+    """
+    budget = max_tokens - 2  # NLLB adds the source-language token and </s>
+
+    def n_tokens(s):
+        return len(tokenizer(s, add_special_tokens=False)["input_ids"])
+
+    units = []
+    for line in text.splitlines():
+        for sent in _SENTENCE_SPLIT.split(line):
+            sent = sent.strip()
+            if not sent:
+                continue
+            if n_tokens(sent) <= budget:
+                units.append(sent)
+                continue
+            cur = ""
+            for word in sent.split():
+                candidate = f"{cur} {word}" if cur else word
+                if cur and n_tokens(candidate) > budget:
+                    units.append(cur)
+                    cur = word
+                else:
+                    cur = candidate
+            if cur:
+                units.append(cur)
+    return units
 
 
 # =====================================================================
@@ -656,7 +699,7 @@ def process_paths_batched(models, paths, labels=DEFAULT_LABELS):
     for src_code, idxs in by_src.items():
         pooled_chunks, spans = [], []
         for idx in idxs:
-            chunks, _ = chunk_text(records[idx]["original"])
+            chunks = chunk_for_translation(records[idx]["original"], nllb_tokenizer)
             spans.append((idx, len(pooled_chunks), len(chunks)))
             pooled_chunks.extend(chunks)
         eng = translate_chunks(nllb_model, nllb_tokenizer,

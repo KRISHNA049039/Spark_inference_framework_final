@@ -1,0 +1,463 @@
+{
+ "docs": {
+  "sample_scan6.png": {
+   "bytes": 21390,
+   "extract_s": 3.018,
+   "extractor": "tesseract OCR",
+   "image": "900x300 RGB",
+   "chars": 161,
+   "utf8_bytes": 161,
+   "lid_s": 3.3276,
+   "lang": "en",
+   "route": "direct",
+   "nllb_src": null,
+   "chunks": 1
+  },
+  "sample_text1.txt": {
+   "bytes": 1393,
+   "extract_s": 0.007,
+   "extractor": "plain text read",
+   "chars": 1381,
+   "utf8_bytes": 1383,
+   "lid_s": 0.0035,
+   "lang": "en",
+   "route": "direct",
+   "nllb_src": null,
+   "chunks": 1
+  },
+  "sample_text2.txt": {
+   "bytes": 1505,
+   "extract_s": 0.003,
+   "extractor": "plain text read",
+   "chars": 1501,
+   "utf8_bytes": 1503,
+   "lid_s": 0.0013,
+   "lang": "en",
+   "route": "direct",
+   "nllb_src": null,
+   "chunks": 2
+  },
+  "sample_text3.txt": {
+   "bytes": 114,
+   "extract_s": 0.003,
+   "extractor": "plain text read",
+   "chars": 114,
+   "utf8_bytes": 114,
+   "lid_s": 0.0003,
+   "lang": "en",
+   "route": "direct",
+   "nllb_src": null,
+   "chunks": 1
+  },
+  "sample_text4.txt": {
+   "bytes": 3535,
+   "extract_s": 0.004,
+   "extractor": "plain text read",
+   "chars": 1421,
+   "utf8_bytes": 3533,
+   "lid_s": 0.0026,
+   "lang": "hi",
+   "route": "translate",
+   "nllb_src": "hin_Deva",
+   "chunks": 1
+  },
+  "sample_text5.txt": {
+   "bytes": 4485,
+   "extract_s": 0.005,
+   "extractor": "plain text read",
+   "chars": 1790,
+   "utf8_bytes": 4482,
+   "lid_s": 0.0022,
+   "lang": "mr",
+   "route": "translate",
+   "nllb_src": "mar_Deva",
+   "chunks": 2
+  }
+ },
+ "runs": [
+  {
+   "run": "cold (first call)",
+   "total_s": 36.84,
+   "stage_s": {
+    "extract_text": 2.674,
+    "detect_language": 0.007,
+    "translate_chunks": 21.15,
+    "predict_chunks": 12.997
+   },
+   "calls": [
+    {
+     "op": "nllb.generate",
+     "src_lang": "hin_Deva",
+     "input_ids": [
+      1,
+      400
+     ],
+     "output_ids": [
+      1,
+      178
+     ],
+     "input_tokens_real": 400,
+     "s": 11.975
+    },
+    {
+     "op": "nllb.generate",
+     "src_lang": "mar_Deva",
+     "input_ids": [
+      2,
+      400
+     ],
+     "output_ids": [
+      2,
+      262
+     ],
+     "input_tokens_real": 512,
+     "s": 8.693
+    },
+    {
+     "op": "gliner.batch_predict_entities",
+     "batch": 7,
+     "chars": [
+      161,
+      1377,
+      1338,
+      162,
+      114,
+      725,
+      1415
+     ],
+     "entities": [
+      8,
+      28,
+      32,
+      3,
+      6,
+      14,
+      27
+     ],
+     "s": 12.996
+    }
+   ],
+   "nllb_encoder_calls": 2,
+   "nllb_decoder_steps": 438,
+   "gliner_forward_inputs": [
+    {
+     "input_ids": [
+      [
+       7,
+       456
+      ],
+      "int64"
+     ],
+     "token_type_ids": [
+      [
+       7,
+       456
+      ],
+      "int64"
+     ],
+     "attention_mask": [
+      [
+       7,
+       456
+      ],
+      "int64"
+     ],
+     "words_mask": [
+      [
+       7,
+       456
+      ],
+      "int64"
+     ],
+     "span_idx": [
+      [
+       7,
+       3276,
+       2
+      ],
+      "int64"
+     ],
+     "span_mask": [
+      [
+       7,
+       3276
+      ],
+      "bool"
+     ],
+     "text_lengths": [
+      [
+       7,
+       1
+      ],
+      "int64"
+     ]
+    }
+   ],
+   "peak_activation_mb": 284.6,
+   "entities_unique": {
+    "sample_scan6.png": 8,
+    "sample_text1.txt": 28,
+    "sample_text2.txt": 33,
+    "sample_text3.txt": 6,
+    "sample_text4.txt": 14,
+    "sample_text5.txt": 24
+   },
+   "result_json_bytes": 40678
+  },
+  {
+   "run": "warm (second call)",
+   "total_s": 69.63,
+   "stage_s": {
+    "extract_text": 50.249,
+    "detect_language": 0.367,
+    "translate_chunks": 16.141,
+    "predict_chunks": 2.548
+   },
+   "calls": [
+    {
+     "op": "nllb.generate",
+     "src_lang": "hin_Deva",
+     "input_ids": [
+      1,
+      400
+     ],
+     "output_ids": [
+      1,
+      178
+     ],
+     "input_tokens_real": 400,
+     "s": 6.482
+    },
+    {
+     "op": "nllb.generate",
+     "src_lang": "mar_Deva",
+     "input_ids": [
+      2,
+      400
+     ],
+     "output_ids": [
+      2,
+      262
+     ],
+     "input_tokens_real": 512,
+     "s": 9.394
+    },
+    {
+     "op": "gliner.batch_predict_entities",
+     "batch": 7,
+     "chars": [
+      161,
+      1377,
+      1338,
+      162,
+      114,
+      725,
+      1415
+     ],
+     "entities": [
+      8,
+      28,
+      32,
+      3,
+      6,
+      14,
+      27
+     ],
+     "s": 2.547
+    }
+   ],
+   "nllb_encoder_calls": 2,
+   "nllb_decoder_steps": 438,
+   "gliner_forward_inputs": [
+    {
+     "input_ids": [
+      [
+       7,
+       456
+      ],
+      "int64"
+     ],
+     "token_type_ids": [
+      [
+       7,
+       456
+      ],
+      "int64"
+     ],
+     "attention_mask": [
+      [
+       7,
+       456
+      ],
+      "int64"
+     ],
+     "words_mask": [
+      [
+       7,
+       456
+      ],
+      "int64"
+     ],
+     "span_idx": [
+      [
+       7,
+       3276,
+       2
+      ],
+      "int64"
+     ],
+     "span_mask": [
+      [
+       7,
+       3276
+      ],
+      "bool"
+     ],
+     "text_lengths": [
+      [
+       7,
+       1
+      ],
+      "int64"
+     ]
+    }
+   ],
+   "peak_activation_mb": 276.5,
+   "entities_unique": {
+    "sample_scan6.png": 8,
+    "sample_text1.txt": 28,
+    "sample_text2.txt": 33,
+    "sample_text3.txt": 6,
+    "sample_text4.txt": 14,
+    "sample_text5.txt": 24
+   },
+   "result_json_bytes": 40678
+  }
+ ],
+ "env": {
+  "torch": "2.6.0+cu126",
+  "cuda": "12.6",
+  "cudnn": 90501,
+  "device": "cuda",
+  "MODEL_STORE_URI": "hdfs://hdfs-namenode:8020/models/weights",
+  "cpu_count": 8,
+  "gpu": {
+   "name": "NVIDIA GeForce GTX 1650",
+   "sm_count": 16,
+   "cc": "7.5",
+   "total_mb": 4096
+  }
+ },
+ "pcie_256MB_copy": {
+  "pageable": {
+   "h2d_gb_s": 3.41,
+   "d2h_gb_s": 0.06
+  },
+  "pinned": {
+   "h2d_gb_s": 8.32,
+   "d2h_gb_s": 0.07
+  }
+ },
+ "load": {
+  "resolve_and_hf_cache_s": 0.2,
+  "gliner_dir": {
+   "path": "/model_cache/hdfs-namenode/models/weights/gliner-multi",
+   "bytes": 2311737808,
+   "big_files": [
+    [
+     "pytorch_model.bin",
+     1155900362
+    ],
+    [
+     "model.safetensors",
+     1155830112
+    ]
+   ]
+  },
+  "nllb_dir": {
+   "path": "/model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M",
+   "bytes": 2482656260,
+   "big_files": [
+    [
+     "pytorch_model.bin",
+     2460457927
+    ],
+    [
+     "tokenizer.json",
+     17331176
+    ],
+    [
+     "sentencepiece.bpe.model",
+     4852054
+    ]
+   ]
+  },
+  "gliner_disk_to_ram_s": 143.84,
+  "gliner_fp32": {
+   "params": 288949504,
+   "bytes": 1155802112,
+   "dtypes": [
+    "torch.float32"
+   ]
+  },
+  "gliner_to_gpu_s": 28.31,
+  "gliner_half_s": 0.29,
+  "gliner_fp16": {
+   "params": 288949504,
+   "bytes": 577903104,
+   "dtypes": [
+    "torch.float16"
+   ]
+  },
+  "gpu_after_gliner": {
+   "allocated_mb": 567.1,
+   "reserved_mb": 1528.0
+  },
+  "nllb_tokenizer_s": 5.25,
+  "nllb_disk_to_ram_s": 0.76,
+  "nllb": {
+   "params": 615073792,
+   "bytes": 2468700160,
+   "dtypes": [
+    "torch.float32"
+   ]
+  },
+  "nllb_to_gpu_s": 96.95,
+  "gpu_after_nllb": {
+   "allocated_mb": 2921.5,
+   "reserved_mb": 2950.0
+  },
+  "gliner_class": "gliner.model.GLiNER / inner SpanModel",
+  "nllb_class": "M2M100ForConditionalGeneration"
+ },
+ "ocr_langs": "eng+mar+hin+tel+tam+kan+ben+guj+pan+mal+urd",
+ "labels": [
+  "person",
+  "rank",
+  "organization",
+  "military unit",
+  "weapon system",
+  "vehicle",
+  "aircraft",
+  "vessel",
+  "equipment",
+  "facility",
+  "location",
+  "coordinates",
+  "operation name",
+  "event",
+  "date",
+  "time",
+  "nationality",
+  "communication identifier",
+  "phone number"
+ ],
+ "settings": {
+  "MAX_CHARS": 1500,
+  "BATCH_SIZE": 16,
+  "TRANSLATE_BATCH_SIZE": 8,
+  "TRANSLATE_MAX_TOKENS": 400,
+  "SCORE_THRESHOLD": 0.35,
+  "USE_FP16": true
+ }
+}

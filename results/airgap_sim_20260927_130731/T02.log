@@ -1,0 +1,18 @@
+ Network airgap-sim_default Creating 
+ Network airgap-sim_default Created 
+ Volume airgap-sim_hdfs-name Creating 
+ Volume airgap-sim_hdfs-name Created 
+ Volume airgap-sim_hdfs-data Creating 
+ Volume airgap-sim_hdfs-data Created 
+ Container sim-hdfs-namenode Creating 
+ Container sim-hdfs-namenode Created 
+ Container sim-hdfs-datanode Creating 
+ Container sim-hdfs-datanode Created 
+ Container sim-hdfs-namenode Starting 
+ Container sim-hdfs-namenode Started 
+ Container sim-hdfs-namenode Waiting 
+ Container sim-hdfs-namenode Healthy 
+ Container sim-hdfs-datanode Starting 
+ Container sim-hdfs-datanode Started 
+
+Live datanodes: 1; WebHDFS: http://localhost:9870

@@ -1,0 +1,9 @@
+Docker VM memory: 5.8 GB (>= 5.5 GB needed for the model server + HDFS + Spark)
+image ok: apache/hadoop:3.4.1
+image ok: ner-translate-server:latest
+image ok: spark-lean:latest
+image ok: ner-translate-worker:latest
+weights ok: gliner-multi\gliner_config.json
+weights ok: nllb-200-distilled-600M\config.json
+weights ok: hf_cache\models--microsoft--mdeberta-v3-base
+GPU in containers: True NVIDIA GeForce GTX 1650

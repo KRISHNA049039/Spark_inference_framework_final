@@ -1,0 +1,78 @@
+Spark Executor Command: "/usr/lib/jvm/java-17-openjdk-amd64/bin/java" "-cp" "/opt/spark/conf/:/opt/spark/jars/*" "-Xmx4096M" "-Dspark.network.timeout=600s" "-Dspark.driver.port=40449" "-Dspark.rpc.message.maxSize=512" "-Djava.net.preferIPv6Addresses=false" "-XX:+IgnoreUnrecognizedVMOptions" "--add-opens=java.base/java.lang=ALL-UNNAMED" "--add-opens=java.base/java.lang.invoke=ALL-UNNAMED" "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED" "--add-opens=java.base/java.io=ALL-UNNAMED" "--add-opens=java.base/java.net=ALL-UNNAMED" "--add-opens=java.base/java.nio=ALL-UNNAMED" "--add-opens=java.base/java.util=ALL-UNNAMED" "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED" "--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED" "--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED" "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED" "--add-opens=java.base/sun.nio.cs=ALL-UNNAMED" "--add-opens=java.base/sun.security.action=ALL-UNNAMED" "--add-opens=java.base/sun.util.calendar=ALL-UNNAMED" "--add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED" "-Djdk.reflect.useDirectMethodHandle=false" "org.apache.spark.executor.CoarseGrainedExecutorBackend" "--driver-url" "spark://CoarseGrainedScheduler@ner-cluster-master:40449" "--executor-id" "0" "--hostname" "172.21.0.3" "--cores" "4" "--app-id" "app-20260927091254-0000" "--worker-url" "spark://Worker@172.21.0.3:35355" "--resourceProfileId" "0"
+========================================
+
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/09/27 09:12:57 INFO CoarseGrainedExecutorBackend: Started daemon with process name: 129@ner-cluster-worker
+26/09/27 09:12:57 INFO SignalUtils: Registering signal handler for TERM
+26/09/27 09:12:57 INFO SignalUtils: Registering signal handler for HUP
+26/09/27 09:12:57 INFO SignalUtils: Registering signal handler for INT
+26/09/27 09:12:58 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/27 09:12:58 INFO SecurityManager: Changing view acls to: root
+26/09/27 09:12:58 INFO SecurityManager: Changing modify acls to: root
+26/09/27 09:12:58 INFO SecurityManager: Changing view acls groups to: 
+26/09/27 09:12:58 INFO SecurityManager: Changing modify acls groups to: 
+26/09/27 09:12:58 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/27 09:13:00 WARN TransportClientFactory: DNS resolution succeed for ner-cluster-master/172.21.0.2:40449 took 2017 ms
+26/09/27 09:13:01 INFO TransportClientFactory: Successfully created connection to ner-cluster-master/172.21.0.2:40449 after 253 ms (0 ms spent in bootstraps)
+26/09/27 09:13:01 INFO SecurityManager: Changing view acls to: root
+26/09/27 09:13:01 INFO SecurityManager: Changing modify acls to: root
+26/09/27 09:13:01 INFO SecurityManager: Changing view acls groups to: 
+26/09/27 09:13:01 INFO SecurityManager: Changing modify acls groups to: 
+26/09/27 09:13:01 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/27 09:13:01 INFO TransportClientFactory: Successfully created connection to ner-cluster-master/172.21.0.2:40449 after 5 ms (0 ms spent in bootstraps)
+26/09/27 09:13:01 INFO DiskBlockManager: Created local directory at /tmp/spark-17c015b7-08c9-41b6-9e84-265b6b80922d/executor-17ba22b9-6a3b-4a99-9aac-a6b9ab301db9/blockmgr-f21db4b7-48e8-4fd3-b3b6-f49274445277
+26/09/27 09:13:02 INFO MemoryStore: MemoryStore started with capacity 2.2 GiB
+26/09/27 09:13:18 INFO WorkerWatcher: Connecting to worker spark://Worker@172.21.0.3:35355
+26/09/27 09:13:18 INFO CoarseGrainedExecutorBackend: Connecting to driver: spark://CoarseGrainedScheduler@ner-cluster-master:40449
+26/09/27 09:13:18 INFO TransportClientFactory: Successfully created connection to /172.21.0.3:35355 after 37 ms (0 ms spent in bootstraps)
+26/09/27 09:13:18 INFO WorkerWatcher: Successfully connected to spark://Worker@172.21.0.3:35355
+26/09/27 09:13:18 INFO ResourceUtils: ==============================================================
+26/09/27 09:13:18 INFO ResourceUtils: No custom resources configured for spark.executor.
+26/09/27 09:13:18 INFO ResourceUtils: ==============================================================
+26/09/27 09:13:19 INFO CoarseGrainedExecutorBackend: Successfully registered with driver
+26/09/27 09:13:19 INFO Executor: Starting executor ID 0 on host 172.21.0.3
+26/09/27 09:13:19 INFO Executor: OS info Linux, 6.18.33.2-microsoft-standard-WSL2, amd64
+26/09/27 09:13:19 INFO Executor: Java version 17.0.20
+26/09/27 09:13:19 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 41231.
+26/09/27 09:13:19 INFO NettyBlockTransferService: Server created on 172.21.0.3:41231
+26/09/27 09:13:19 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/27 09:13:19 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(0, 172.21.0.3, 41231, None)
+26/09/27 09:13:19 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(0, 172.21.0.3, 41231, None)
+26/09/27 09:13:19 INFO BlockManager: Initialized BlockManager: BlockManagerId(0, 172.21.0.3, 41231, None)
+26/09/27 09:13:19 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/09/27 09:13:19 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@624665fc for default.
+26/09/27 09:13:46 INFO CoarseGrainedExecutorBackend: Got assigned task 0
+26/09/27 09:13:46 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+26/09/27 09:13:46 INFO TorrentBroadcast: Started reading broadcast variable 1 with 1 pieces (estimated total size 4.0 MiB)
+26/09/27 09:13:47 INFO TransportClientFactory: Successfully created connection to ner-cluster-master/172.21.0.2:39367 after 22 ms (0 ms spent in bootstraps)
+26/09/27 09:13:47 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 5.0 KiB, free 2.2 GiB)
+26/09/27 09:13:47 INFO TorrentBroadcast: Reading broadcast variable 1 took 941 ms
+26/09/27 09:13:48 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 7.8 KiB, free 2.2 GiB)
+26/09/27 09:13:50 INFO TorrentBroadcast: Started reading broadcast variable 0 with 1 pieces (estimated total size 4.0 MiB)
+26/09/27 09:13:50 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 201.0 B, free 2.2 GiB)
+26/09/27 09:13:50 INFO TorrentBroadcast: Reading broadcast variable 0 took 17 ms
+26/09/27 09:13:51 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 272.0 B, free 2.2 GiB)
+[ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/gliner-multi
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/hf_cache
+[ner_translate] offline HF cache: models--microsoft--mdeberta-v3-base -> /root/.cache/huggingface/hub
+GPU detected: NVIDIA GeForce GTX 1650
+config.json not found in /model_cache/hdfs-namenode/models/weights/gliner-multi
+/usr/local/lib/python3.11/dist-packages/transformers/convert_slow_tokenizer.py:558: UserWarning: The sentencepiece tokenizer that you are converting to a fast tokenizer uses the byte fallback option which is not implemented in the fast tokenizers. In practice this means that the fast version of the tokenizer can produce unknown tokens whereas the sentencepiece version would have converted these unknown tokens into a sequence of byte tokens matching the original piece of text.
+  warnings.warn(
+GLiNER using fp16.
+Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+[done] /app/data/ner_samples/sample_scan6.png  lang=en  route=direct  -> 8 unique entities
+[done] /app/data/ner_samples/sample_text1.txt  lang=en  route=direct  -> 28 unique entities
+[done] /app/data/ner_samples/sample_text2.txt  lang=en  route=direct  -> 33 unique entities
+[done] /app/data/ner_samples/sample_text3.txt  lang=en  route=direct  -> 6 unique entities
+[done] /app/data/ner_samples/sample_text4.txt  lang=hi  route=translated  -> 14 unique entities
+[done] /app/data/ner_samples/sample_text5.txt  lang=mr  route=translated  -> 24 unique entities
+26/09/27 09:22:51 INFO PythonRunner: Times: total = 542847, boot = 2202, init = 32765, finish = 507880
+26/09/27 09:22:52 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 22409 bytes result sent to driver
+26/09/27 09:22:54 INFO CoarseGrainedExecutorBackend: Driver commanded a shutdown
+26/09/27 09:22:54 INFO MemoryStore: MemoryStore cleared
+26/09/27 09:22:54 INFO BlockManager: BlockManager stopped
+26/09/27 09:22:54 INFO ShutdownHookManager: Shutdown hook called
+26/09/27 09:22:54 INFO ShutdownHookManager: Deleting directory /tmp/spark-17c015b7-08c9-41b6-9e84-265b6b80922d/executor-17ba22b9-6a3b-4a99-9aac-a6b9ab301db9/spark-551ee5ab-c7cc-40a6-b38e-80646b3ca1f9

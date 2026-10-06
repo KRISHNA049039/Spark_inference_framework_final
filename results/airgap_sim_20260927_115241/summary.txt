@@ -1,0 +1,8 @@
+﻿
+Test Title                                                                            Result Seconds
+---- -----                                                                            ------ -------
+T05  Model server (kitchen) with models from HDFS: fetch into node cache, load on GPU PASS     253.8
+T06  Call the model server directly (POST /predict, no Spark)                         PASS      58.5
+
+
+

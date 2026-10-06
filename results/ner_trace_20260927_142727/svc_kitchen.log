@@ -1,0 +1,40 @@
+2026-09-27T08:57:58.352140091Z INFO:     Started server process [7]
+2026-09-27T08:57:58.352508441Z INFO:     Waiting for application startup.
+2026-09-27T08:57:58.353323451Z INFO:ner_translate.serve:Loading GLiNER + NLLB + language-id...
+2026-09-27T08:57:58.370268649Z [ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+2026-09-27T08:57:58.373425777Z [model_store] cache hit /model_cache/hdfs-namenode/models/weights/gliner-multi
+2026-09-27T08:57:58.373999154Z [model_store] cache hit /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M
+2026-09-27T08:57:58.374086666Z [model_store] cache hit /model_cache/hdfs-namenode/models/weights/hf_cache
+2026-09-27T08:57:58.469050140Z [ner_translate] offline HF cache: models--microsoft--mdeberta-v3-base -> /root/.cache/huggingface/hub
+2026-09-27T08:57:59.149396883Z GPU detected: NVIDIA GeForce GTX 1650
+2026-09-27T08:57:59.150789002Z config.json not found in /model_cache/hdfs-namenode/models/weights/gliner-multi
+2026-09-27T08:57:59.150827813Z WARNING:huggingface_hub.hub_mixin:config.json not found in /model_cache/hdfs-namenode/models/weights/gliner-multi
+2026-09-27T08:58:01.620159306Z /usr/local/lib/python3.11/site-packages/transformers/convert_slow_tokenizer.py:558: UserWarning: The sentencepiece tokenizer that you are converting to a fast tokenizer uses the byte fallback option which is not implemented in the fast tokenizers. In practice this means that the fast version of the tokenizer can produce unknown tokens whereas the sentencepiece version would have converted these unknown tokens into a sequence of byte tokens matching the original piece of text.
+2026-09-27T08:58:01.620268539Z   warnings.warn(
+2026-09-27T08:59:51.018676676Z GLiNER using fp16.
+2026-09-27T09:01:05.007882597Z INFO:ner_translate.serve:Models loaded in 186.6s
+2026-09-27T09:01:05.052966525Z INFO:     Application startup complete.
+2026-09-27T09:01:05.084177129Z INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-09-27T09:01:08.100302827Z INFO:     127.0.0.1:50468 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:01:18.534807940Z INFO:     127.0.0.1:54570 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:01:29.108182955Z INFO:     127.0.0.1:38526 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:01:40.483523661Z INFO:     127.0.0.1:54848 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:01:52.521577126Z INFO:     127.0.0.1:33434 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:02:25.479614517Z INFO:     127.0.0.1:55784 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:02:31.920323952Z Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+2026-09-27T09:02:39.540817569Z INFO:     127.0.0.1:57122 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:03:13.973557632Z INFO:     127.0.0.1:41716 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:03:25.652703724Z INFO:     127.0.0.1:60536 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:03:31.970988891Z [done] /app/data/ner_samples/sample_scan6.png  lang=en  route=direct  -> 8 unique entities
+2026-09-27T09:03:31.971640572Z [done] /app/data/ner_samples/sample_text1.txt  lang=en  route=direct  -> 27 unique entities
+2026-09-27T09:03:31.973337363Z [done] /app/data/ner_samples/sample_text2.txt  lang=en  route=direct  -> 33 unique entities
+2026-09-27T09:03:31.977610257Z INFO:ner_translate.serve:Processed 3 path(s) in 99.20s
+2026-09-27T09:03:32.016430121Z INFO:     172.21.0.4:42840 - "POST /predict HTTP/1.1" 200 OK
+2026-09-27T09:03:36.682725404Z INFO:     127.0.0.1:36274 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:03:48.151981388Z INFO:     127.0.0.1:44106 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:03:59.046085993Z INFO:     127.0.0.1:33824 - "GET /health HTTP/1.1" 200 OK
+2026-09-27T09:03:59.295994991Z [done] /app/data/ner_samples/sample_text3.txt  lang=en  route=direct  -> 6 unique entities
+2026-09-27T09:03:59.296571069Z [done] /app/data/ner_samples/sample_text4.txt  lang=hi  route=translated  -> 14 unique entities
+2026-09-27T09:03:59.297308071Z [done] /app/data/ner_samples/sample_text5.txt  lang=mr  route=translated  -> 24 unique entities
+2026-09-27T09:03:59.298140584Z INFO:ner_translate.serve:Processed 3 path(s) in 126.51s
+2026-09-27T09:03:59.301973175Z INFO:     172.21.0.4:42826 - "POST /predict HTTP/1.1" 200 OK

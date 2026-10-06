@@ -1,0 +1,16 @@
+docker.exe :  Volume airgap-sim_kitchen-cache Creating 
+At D:\pytorch-spark-inference-platform 1\deploy\airgap_sim_tests.ps1:31 char:15
++ function Dc { & docker compose -f $Compose @args 2>&1 }
++               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Volume airgap-...cache Creating :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Volume airgap-sim_kitchen-cache Created 
+ Container airgap-sim-ner-translate-server-run-68aa073e9d1f Creating 
+ Container airgap-sim-ner-translate-server-run-68aa073e9d1f Created 
+[model_store] fetched http://hdfs-namenode:9870/models/weights/gliner-multi/gliner_config.json -> /tmp/t04/hdfs-namenode/models/weights/gliner-multi/gliner_config.json  0.0 MB in 24.7 s (0 MB/s)
+sha256 e25f61d91620df84aae8076811ee592e926e94d341b82e7bc1be359718f83017
+[model_store] cache hit /tmp/t04/hdfs-namenode/models/weights/gliner-multi/gliner_config.json
+expected error: FileNotFoundError model store: /models/weights/does-not-exist not found in HDFS at http://hdfs-namenode:9870 (HTTP 404)
+expected error: ConnectionError model store: cannot reach WebHDFS at http://no-such-namenode:9870: [Errno -2] Name or service not known
+sha256 of the local original: e25f61d91620df84aae8076811ee592e926e94d341b82e7bc1be359718f83017

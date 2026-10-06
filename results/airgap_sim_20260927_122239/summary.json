@@ -1,0 +1,20 @@
+[
+    {
+        "Test":  "T08",
+        "Title":  "Node cache: restarting the kitchen reuses the downloaded models",
+        "Result":  "PASS",
+        "Seconds":  181.5
+    },
+    {
+        "Test":  "T09",
+        "Title":  "HDFS outage with a warm cache: kitchen still starts and serves",
+        "Result":  "PASS",
+        "Seconds":  242.7
+    },
+    {
+        "Test":  "T10",
+        "Title":  "Master file-system mode: models read from a shared/local path (file://), no HDFS",
+        "Result":  "FAIL",
+        "Seconds":  919.2
+    }
+]

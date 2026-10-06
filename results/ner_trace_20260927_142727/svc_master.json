@@ -1,0 +1,32 @@
+{
+  "url" : "spark://ner-translate-master:7077",
+  "workers" : [ {
+    "id" : "worker-20260927085758-172.21.0.4-34219",
+    "host" : "172.21.0.4",
+    "port" : 34219,
+    "webuiaddress" : "http://172.21.0.4:8081",
+    "cores" : 4,
+    "coresused" : 0,
+    "coresfree" : 4,
+    "memory" : 2048,
+    "memoryused" : 0,
+    "memoryfree" : 2048,
+    "resources" : { },
+    "resourcesused" : { },
+    "resourcesfree" : { },
+    "state" : "ALIVE",
+    "lastheartbeat" : 1790499660306
+  } ],
+  "aliveworkers" : 1,
+  "cores" : 4,
+  "coresused" : 0,
+  "memory" : 2048,
+  "memoryused" : 0,
+  "resources" : [ { } ],
+  "resourcesused" : [ { } ],
+  "activeapps" : [ ],
+  "completedapps" : [ ],
+  "activedrivers" : [ ],
+  "completeddrivers" : [ ],
+  "status" : "ALIVE"
+}

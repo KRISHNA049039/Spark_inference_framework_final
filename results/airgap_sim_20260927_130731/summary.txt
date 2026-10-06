@@ -1,0 +1,18 @@
+﻿
+Test Title                                                                                      Result Seconds
+---- -----                                                                                      ------ -------
+T01  Prerequisites: Docker, images, GPU, model weights on the staging disk                      PASS      31.2
+T02  Start HDFS (namenode + datanode) and wait for a live datanode                              PASS      47.9
+T03  Upload the model weights into HDFS (/models/weights) and verify byte counts                PASS     625.4
+T04  model_store over WebHDFS: fetch + checksum, missing path, unreachable host                 PASS      61.7
+T05  Model server (kitchen) with models from HDFS: fetch into node cache, load on GPU           PASS     461.8
+T06  Call the model server directly (POST /predict, no Spark)                                   PASS      70.6
+T07  Spark cluster, service mode: lean master + worker POST to the kitchen                      PASS      96.6
+T08  Node cache: restarting the kitchen reuses the downloaded models                            PASS     206.5
+T09  HDFS outage with a warm cache: kitchen still starts and serves                             PASS     304.3
+T10  Master file-system mode: models read from a shared/local path (file://), no HDFS           PASS     359.8
+T11  Cluster (in-process) mode: the Spark executor fetches models from HDFS and runs NER itself PASS     620.9
+T12  Teardown (keeps HDFS data + node caches unless -Wipe)                                      PASS        30
+
+
+

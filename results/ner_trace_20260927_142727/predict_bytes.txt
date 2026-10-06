@@ -1,0 +1,3 @@
+190 52 127 1375 0.003743 0.773501 0.773975 {"paths":["/app/data/ner_samples/sample_text3.txt"]}
+273 134 128 18803 0.001592 4.259948 4.260577 {"paths":["/app/data/ner_samples/sample_scan6.png","/app/data/ner_samples/sample_text1.txt","/app/data/ner_samples/sample_text2.txt"]}
+273 134 128 19259 0.002299 19.357837 19.361013 {"paths":["/app/data/ner_samples/sample_text3.txt","/app/data/ner_samples/sample_text4.txt","/app/data/ner_samples/sample_text5.txt"]}

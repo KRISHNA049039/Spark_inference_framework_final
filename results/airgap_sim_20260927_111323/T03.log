@@ -1,0 +1,18 @@
+docker : Error response from daemon: container 3ccc2a851b6367da4f03caf51619ba88db033e949eb85fee490c755049e7b201 is not 
+running
+At D:\pytorch-spark-inference-platform 1\deploy\airgap_sim_tests.ps1:105 char:10
++     $o = docker exec sim-hdfs-namenode hdfs dfs -put -f /staging/glin ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error response ... is not running:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+gliner-multi: local 2,31,17,37,808 bytes, HDFS 0 bytes
+nllb-200-distilled-600M: local 2,48,26,56,260 bytes, HDFS 0 bytes
+docker : Error response from daemon: container 3ccc2a851b6367da4f03caf51619ba88db033e949eb85fee490c755049e7b201 is not 
+running
+At D:\pytorch-spark-inference-platform 1\deploy\airgap_sim_tests.ps1:114 char:5
++     docker exec sim-hdfs-namenode hdfs dfs -ls -R /models/weights 2>& ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error response ... is not running:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+

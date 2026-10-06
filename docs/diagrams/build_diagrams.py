@@ -605,9 +605,323 @@ def d_observability():
     D.append(g)
 
 
+# ============================================================ 21 air-gap simulation topology
+def d_airgap_sim():
+    g = Diagram("airgap_sim_topology", "21. Air-gapped cluster simulation: models in HDFS, nodes fetch into a local cache",
+                "deploy/docker-compose.airgap_sim.yml - profiles hdfs / service / cluster; MODEL_STORE_URI selects where models come from")
+    g.container("hd", 0, 0, 330, 360, "*HDFS (profile: hdfs) - 'master storage'")
+    g.box("nn", 20, 40, 290, 80, "*hdfs-namenode :8020 RPC, :9870 WebHDFS\nfile system metadata: /models/weights/...\nredirects reads to the datanode", "storage", font=11)
+    g.box("dn", 20, 150, 290, 70, "*hdfs-datanode :9866 data, :9864 HTTP\nstores the blocks (128 MB each)", "storage", font=11)
+    g.box("st", 20, 250, 290, 90, "*Upload once (T03)\nhdfs dfs -put gliner-multi\n  nllb-200-distilled-600M hf_cache\n  /models/weights/   (4.6 GB)", "note", font=11)
+    g.container("sv", 370, 0, 460, 360, "*Service mode (profile: service)")
+    g.box("kit", 390, 40, 420, 110, "*ner-translate-server  (the 'kitchen', GPU)\nload(): model_store.resolve(MODEL_STORE_URI/<model>)\n -> WebHDFS download into kitchen-cache (once)\n -> GLiNER + NLLB loaded on the GPU, POST /predict", "triton", font=11)
+    g.box("smw", 390, 180, 200, 80, "*ner-translate-master\nlean Spark master + driver", "spark", font=11)
+    g.box("sww", 610, 180, 200, 80, "*ner-translate-worker\nlean executor: POST paths", "spark", font=11)
+    g.box("kc", 390, 290, 420, 50, "*kitchen-cache volume = that node's local disk (/model_cache)", "storage", shape="cyl", font=11)
+    g.container("cl", 870, 0, 460, 360, "*Cluster mode (profile: cluster)")
+    g.box("cm", 890, 40, 200, 80, "*ner-cluster-master\nSpark master + driver", "spark", font=11)
+    g.box("cw", 1110, 40, 200, 110, "*ner-cluster-worker (GPU)\nexecutor: load() per task\n-> model_store fetch\n-> NER in-process", "python", font=11)
+    g.box("wc", 890, 180, 420, 50, "*worker-cache volume = worker node's local disk", "storage", shape="cyl", font=11)
+    g.box("fs", 890, 260, 420, 80, "*Alternative source: master file system\nMODEL_STORE_URI=file:///mnt/models (MODEL_FS_DIR mounted\nread-only on every node) - no copy, no HDFS", "note", font=11)
+    g.box("data", 370, 390, 960, 50, "*Shared data volume ../data -> /app/data on every node: the same file paths are valid for Spark and the kitchen", "white", font=11)
+    g.edge("nn", "dn", "block locations")
+    g.edge("st", "dn", "", dashed=True, exit=(0.5, 0), entry=(0.5, 1))
+    g.edge("kit", "nn", "WebHDFS GET (op=OPEN)", exit=(0, 0.3), entry=(1, 0.5), color="#7b4f9d")
+    g.edge("cw", "nn", "WebHDFS GET", exit=(0.5, 0), entry=(0.5, 0), points=[(1210, -18), (165, -18)], color="#7b4f9d")
+    g.edge("kit", "kc", "cache", dashed=True, exit=(0, 0.9), entry=(0, 0.5), points=[(380, 139), (380, 315)])
+    g.edge("sww", "kit", "HTTP POST /predict", exit=(0.5, 0), entry=(0.8, 1))
+    g.edge("smw", "sww", "tasks")
+    g.edge("cm", "cw", "tasks")
+    g.edge("cw", "wc", "cache", dashed=True, exit=(0.5, 1), entry=(0.8, 0))
+    D.append(g)
+
+
+# ============================================================ 22 model fetch sequence
+def d_model_fetch():
+    g = Diagram("model_fetch_sequence", "22. How a node gets a model from HDFS (models/model_store.py)",
+                "WebHDFS = HDFS's HTTP API; only the Python standard library is needed on the node")
+    cols = [("pipeline.load()", "python"), ("model_store.resolve()", "python"), ("node cache\n/model_cache", "storage"),
+            ("namenode :9870", "storage"), ("datanode :9864", "storage")]
+    msgs = [(0, 1, "1 resolve(MODEL_STORE_URI + '/gliner-multi')"), (1, 2, "2 <dir>.complete marker present?"),
+            (2, 1, "3a yes -> 'cache hit', return local dir (works even if HDFS is down)"),
+            (1, 3, "3b no -> GETFILESTATUS / LISTSTATUS (walk the tree)"), (1, 3, "4 per file: GET ?op=OPEN"),
+            (3, 1, "5 HTTP 307 redirect to the datanode holding the blocks"), (1, 4, "6 follow redirect, stream bytes (8 MB chunks)"),
+            (4, 1, "7 file bytes"), (1, 2, "8 write into .partial-*/, check size == HDFS length"),
+            (1, 2, "9 os.replace(.partial -> final) + write .complete (atomic publish)"), (1, 0, "10 local path -> from_pretrained(local path)")]
+    sequence(g, cols, msgs, colw=260, step=40)
+    D.append(g)
+
+
+# ============================================================ 23 NER document pipeline
+def d_ner_pipeline():
+    g = Diagram("ner_document_pipeline", "23. What happens to every document (models/pipelines/ner_translate/mt_ner_all_formats.py)",
+                "process_paths_batched(): extract -> detect -> route -> translate (batched per language) -> NER (batched across documents) -> merge")
+    g.box("in", 0, 40, 170, 90, "*Input file\ntxt md csv json html\npdf docx odt rtf epub\npptx xlsx xls ods\npng jpg tif ...", "client", font=10)
+    g.box("ex", 200, 40, 190, 90, "*1 extract_text()\nby extension; PDF text\nlayer, else OCR 300 dpi\n(tesseract, 11 Indic+EN\nlanguages)", "python", font=10)
+    g.box("pp", 420, 40, 160, 90, "*2 preprocess()\nNFC normalise,\nstrip BOM / nbsp,\ncollapse spaces", "python", font=10)
+    g.box("li", 610, 40, 170, 90, "*3 detect_language()\npy3langid on the\nfirst 1,000 chars", "python", font=10)
+    g.box("ro", 810, 40, 190, 90, "*4 route\nen fr de es it pt -> direct\nhi mr te ta kn bn gu pa ml\nur ar zh ja ko ru ... -> translate", "note", font=10)
+    g.box("tr", 810, 180, 190, 110, "*5 translate (NLLB-200)\none unit per sentence / line\n(danda-aware), grouped by\nsource language, batch 8,\n<=400 tokens -> English", "gpu", font=10)
+    g.box("ch", 580, 180, 200, 110, "*6 chunk_text()\nsentence split, <=1,500\nchars, keep offsets;\nchunks of ALL documents\npooled together", "python", font=10)
+    g.box("ne", 350, 180, 200, 110, "*7 GLiNER NER (fp16)\nzero-shot, 19 labels\n(person, rank, unit,\nweapon, location ...),\nthreshold 0.35, batch 16", "gpu", font=10)
+    g.box("ph", 120, 180, 200, 110, "*8 regex phone numbers\non translated AND\noriginal text (digits\nsurvive translation)", "python", font=10)
+    g.box("out", 0, 330, 1000, 70, "*9 per document: {path, language, translated, text_used, original_text, entities_all, entities_unique (deduped by text+type, best score)} - keyed by file name", "good", font=11)
+    for a, b in [("in", "ex"), ("ex", "pp"), ("pp", "li"), ("li", "ro")]:
+        g.edge(a, b, "")
+    g.edge("ro", "tr", "translate path")
+    g.edge("ro", "ch", "direct path", exit=(0.1, 1), entry=(1, 0.2), points=[(829, 150), (800, 150), (800, 202)])
+    g.edge("tr", "ch", "English text")
+    g.edge("ch", "ne", "")
+    g.edge("ne", "ph", "")
+    g.edge("ph", "out", "", exit=(0.5, 1), entry=(0.22, 0))
+    D.append(g)
+
+
+# ============================================================ 24 lifecycle
+def d_lifecycle():
+    g = Diagram("ner_lifecycle", "24. NER on the cluster - complete lifecycle from build to shutdown",
+                "Left to right, top to bottom in time; each phase lists what runs and what state it leaves behind")
+    phases = [("0 Build (connected)", "images: spark-lean,\nner-translate-server,\nner-translate-worker,\napache/hadoop; weights\nfrom Hugging Face", "client"),
+              ("1 Transfer", "docker save tars +\nweights + code bundle\n-> media / diode ->\ndocker load; checksums", "note"),
+              ("2 Store models", "hdfs dfs -put gliner-multi,\nnllb-600M, hf_cache\n-> /models/weights\n(or copy to master FS)", "storage"),
+              ("3 Start services", "HDFS; kitchen: fetch\nmodels -> cache -> GPU;\nSpark master + workers\nregister", "triton"),
+              ("4 Submit", "submit_pipeline_job:\nmanifest, files, master,\nexecution mode ->\nSparkSession", "driver"),
+              ("5 Execute", "P tasks on worker slots;\nservice: POST /predict\ncluster: load() + run()\nin the executor", "spark"),
+              ("6 Collect", "per-partition results\n-> driver merges ->\nresults/ner_translate_\n<ts>.json", "good"),
+              ("7 Stop", "spark.stop(); compose\ndown (caches + HDFS\nkept); new model version\n= new HDFS dir", "bad")]
+    for i, (t, d, st) in enumerate(phases):  # two rows of four
+        x, y = (i % 4) * 240, (i // 4) * 240
+        g.box(f"p{i}", x, y, 200, 40, "*" + t, st, font=12)
+        g.box(f"d{i}", x, y + 60, 200, 110, d, "white", font=11)
+        g.edge(f"p{i}", f"d{i}", "")
+        if i == 4:
+            g.edge("p3", "p4", "", exit=(1, 0.5), entry=(0.5, 0), points=[(920, 20), (920, 205), (100, 205)])
+        elif i:
+            g.edge(f"p{i - 1}", f"p{i}", "")
+    D.append(g)
+
+
+# ============================================================ 25 data movement paths
+def d_data_paths():
+    g = Diagram("ner_data_paths", "25. NER on Spark - every data movement path",
+                "(n) = path number in the text. Service mode: the kitchen reads the documents; cluster mode: the Python worker does (the primed paths)")
+    g.container("st", 0, 0, 300, 720, "*Storage (outside Spark)")
+    g.box("data", 20, 40, 260, 100, "*Shared data volume\n/app/data/ner_samples/*\nhost folder here; NFS on a real cluster\nsame absolute path on every node", "storage", font=11)
+    g.box("hdfs", 20, 400, 260, 110, "*HDFS /models/weights\ngliner-multi 2.3 GB\nnllb-200-distilled-600M 2.5 GB\nhf_cache 4 MB\nnamenode :9870 / datanode :9864", "storage", font=11)
+    g.box("res", 20, 600, 260, 80, "*Results volume\n/app/results/\nner_translate_<ts>.json", "storage", shape="cyl", font=11)
+    g.container("mn", 340, 0, 330, 720, "*Master node (the driver runs here)")
+    g.box("cli", 360, 40, 290, 70, "*Driver Python\npython submit_pipeline_job.py\n-> text_pipeline_engine", "driver", font=11)
+    g.box("djvm", 360, 170, 290, 110, "*Driver JVM (SparkSubmit via Py4J)\nSparkContext, DAGScheduler,\nTaskScheduler, BlockManager,\nevent log writer", "spark", font=11)
+    g.box("sm", 360, 340, 290, 60, "*Spark Master :7077\nworkers, cores, executors", "spark", font=11)
+    g.box("nt", 360, 590, 290, 110, "What travels through Spark: file names\n(~40-70 bytes each), the pickled\nclosure, broadcast settings and the\nresult dicts. Document bytes never do.", "note", font=11)
+    g.container("wn", 710, 0, 330, 720, "*Worker node")
+    g.box("wd", 730, 40, 290, 55, "*Worker daemon\n-c 4 -m 2g (service) / 6g (cluster)", "spark", font=11)
+    g.box("exe", 730, 150, 290, 110, "*Executor JVM\nCoarseGrainedExecutorBackend\n4 cores / spark.task.cpus 2 = 2 slots\nTaskRunner threads", "spark", font=11)
+    g.box("pyw", 730, 320, 290, 100, "*Python worker (one per running task)\nforked by pyspark.daemon\nruns process_partition()\ncluster mode: reads the documents (8')", "python", font=11)
+    g.box("wc", 730, 470, 135, 60, "*/model_cache\n(cluster mode)", "storage", shape="cyl", font=10)
+    g.box("wg", 885, 470, 135, 60, "*GPU\n(cluster mode)", "gpu", font=10)
+    g.container("kn", 1080, 0, 330, 720, "*Model server node (service mode)")
+    g.box("k", 1100, 150, 290, 110, "*Kitchen: uvicorn + FastAPI\nPOST /predict (thread pool)\nGLiNER + NLLB loaded once\nat startup", "triton", font=11)
+    g.box("kc", 1100, 320, 135, 70, "*/model_cache\nkitchen-cache", "storage", shape="cyl", font=10)
+    g.box("kg", 1255, 320, 135, 70, "*GPU GTX 1650\n4 GB VRAM", "gpu", font=10)
+    g.edge("cli", "data", "(3) list names", exit=(0, 0.5), entry=(1, 0.35))
+    g.edge("data", "k", "(8) document bytes read by the kitchen (service mode)", dashed=True, exit=(0.94, 0), entry=(0.93, 0),
+           points=[(264.4, -22), (1370, -22)], label_seg=1)
+    g.edge("cli", "djvm", "(4) Py4J: pickled\npaths + closure", exit=(0.3, 1), entry=(0.3, 0))
+    g.edge("djvm", "cli", "(9c) local socket", dashed=True, exit=(0.75, 0), entry=(0.75, 1))
+    g.edge("djvm", "sm", "(10) register app", dashed=True)
+    g.edge("sm", "wd", "(10)", dashed=True, exit=(1, 0.3), entry=(0, 0.5), points=[(680, 358), (680, 67)], label_seg=2)
+    g.edge("wd", "exe", "spawns")
+    g.edge("djvm", "exe", "(5) LaunchTask + taskBinary", exit=(1, 0.5), entry=(0, 0.68))
+    g.edge("exe", "djvm", "(9b) StatusUpdate + result bytes", dashed=True, exit=(0, 0.9), entry=(1, 0.72))
+    g.edge("exe", "pyw", "(6) local socket\nframed pickle", both=True)
+    g.edge("pyw", "k", "(7) POST /predict {paths}\n<- JSON results", both=True, exit=(1, 0.5), entry=(0, 0.77), points=[(1060, 370), (1060, 235)])
+    g.edge("kc", "k", "(2) load", exit=(0.5, 0), entry=(0.25, 1))
+    g.edge("k", "kg", "PCIe", exit=(0.75, 1), entry=(0.5, 0))
+    g.edge("hdfs", "kc", "(1) WebHDFS GET, once per node", exit=(1, 0.5), entry=(0.5, 1), points=[(700, 455), (1167, 455)], label_seg=0)
+    g.edge("hdfs", "wc", "(1') WebHDFS (cluster mode)", exit=(1, 0.909), entry=(0, 0.5))
+    g.edge("wc", "pyw", "(2')", exit=(0.5, 0), entry=(0.23, 1))
+    g.edge("pyw", "wg", "PCIe", exit=(0.8, 1), entry=(0.5, 0))
+    g.edge("cli", "res", "(9d) results JSON", exit=(0, 0.85), entry=(1, 0.5), points=[(325, 99.5), (325, 640)], label_seg=1)
+    D.append(g)
+
+
+# ============================================================ 26 Spark call sequence
+def d_spark_sequence():
+    g = Diagram("ner_spark_sequence", "26. One NER job through Spark - process by process (service mode)",
+                "Solid = request / call, dashed = reply. Cluster mode replaces steps 13-15 by load() + run() inside the Python worker")
+    cols = [("Driver Python\nsubmit_pipeline_job", "driver"), ("Driver JVM\nSparkContext", "spark"), ("Spark master\n+ worker daemon", "spark"),
+            ("Executor JVM", "spark"), ("Python worker\n(pyspark.daemon)", "python"), ("Kitchen\nFastAPI + GPU", "triton")]
+    msgs = [(0, 0, "1 argparse, manifest, list data/ner_samples -> 6 absolute paths"),
+            (0, 1, "2 Py4J: launch SparkSubmit JVM, new SparkContext"),
+            (1, 2, "3 RegisterApplication (RPC :7077)"),
+            (2, 3, "4 LaunchExecutor -> worker forks the executor JVM"),
+            (3, 1, "5 RegisterExecutor (4 cores)"),
+            (0, 1, "6 parallelize: 2 pickled batches of 3 paths"),
+            (0, 1, "7 mapPartitions().collect(): pickled closure"),
+            (1, 1, "8 DAGScheduler: 1 job, 1 ResultStage, 2 tasks; taskBinary broadcast"),
+            (1, 3, "9 LaunchTask x2 (task + its path batch)"),
+            (3, 1, "10 fetch taskBinary + broadcast blocks"),
+            (3, 4, "11 get worker from daemon; write header, closure, paths"),
+            (4, 4, "12 unpickle closure; process_partition(iterator of 3 paths)"),
+            (4, 5, "13 POST /predict {paths: 3 absolute paths}"),
+            (5, 5, "14 read files, OCR, language id, NLLB, GLiNER on the GPU"),
+            (5, 4, "15 200 OK, JSON {file: result}"),
+            (4, 3, "16 pickled dict + timing + END_OF_STREAM"),
+            (3, 1, "17 StatusUpdate FINISHED + DirectTaskResult"),
+            (1, 1, "18 both tasks done -> job done; results in partition order"),
+            (1, 0, "19 collectAndServe: local socket, 2 dicts"),
+            (0, 0, "20 merge by file name, write results/ner_translate_<ts>.json"),
+            (0, 1, "21 spark.stop(): executor killed, app FINISHED")]
+    sequence(g, cols, msgs, colw=235, step=34)
+    D.append(g)
+
+
+# ============================================================ 27 tensor path inside the model process
+def d_tensor_path():
+    g = Diagram("ner_tensor_path", "27. Inside the model process - from file bytes to entities",
+                "Top row runs on CPU cores, bottom row on the GPU; every crossing is a PCIe copy (the kitchen, or the Python worker in cluster mode)")
+    g.container("cpu", 0, 0, 1400, 200, "*CPU (Python process)")
+    g.container("gpu", 0, 300, 1400, 170, "*GPU (CUDA kernels, weights resident in VRAM)")
+    cpu = [("f", "*1 File bytes\nopen()/read from the\nshared volume\n(page cache)", "storage"),
+           ("x", "*2 extract_text\n.txt: decode UTF-8\n.png: Pillow decode ->\ntesseract subprocess", "python"),
+           ("p", "*3 preprocess + LID\nNFC, whitespace\npy3langid on first\n1,000 chars", "python"),
+           ("t", "*4 NLLB tokenizer\nSentencePiece ->\nint64 ids [B, T]\n(B <= 8, T <= 400)", "python"),
+           ("d", "*6 decode ids\n-> English text\nchunk_text <= 1,500\nchars per chunk", "python"),
+           ("gt", "*7 GLiNER prep\nwords + 19 label\nprompts -> DeBERTa\ntokenizer ids", "python"),
+           ("o", "*9 postprocess\nthreshold 0.35, offsets,\ndedupe, phone regex\n-> dict -> JSON", "python")]
+    for i, (cid, lab, st) in enumerate(cpu):
+        g.box(cid, 15 + i * 198, 50, 178, 130, lab, st, font=11)
+    g.box("ne", 610, 340, 330, 110, "*5 NLLB-200 600M (fp32)\nencoder once per batch, then the decoder\nruns one step per output token (KV cache)\nuntil EOS / 400 tokens", "gpu", font=11)
+    g.box("ge", 1000, 340, 380, 110, "*8 GLiNER (fp16)\nmDeBERTa-v3 encoder over words + labels\nspan representations x label embeddings\n-> sigmoid scores per (span, label)", "gpu", font=11)
+    for a, b in (("f", "x"), ("x", "p"), ("p", "t"), ("d", "gt")):
+        g.edge(a, b, "")
+    g.edge("p", "gt", "English / well-supported:\nno translation", dashed=True, exit=(0.5, 0), entry=(0.5, 0),
+           points=[(501, 32), (1104, 32)], label_seg=1)
+    g.edge("t", "ne", "H2D ids", exit=(0.5, 1), entry=(0.2, 0))
+    g.edge("ne", "d", "D2H ids", dashed=True, exit=(0.8, 0), entry=(0.5, 1))
+    g.edge("gt", "ge", "H2D ids + masks", exit=(0.5, 1), entry=(0.3, 0))
+    g.edge("ge", "o", "D2H spans + scores", dashed=True, exit=(0.8, 0), entry=(0.5, 1))
+    D.append(g)
+
+
+# ============================================================ 28 image family tree
+def d_image_tree():
+    g = Diagram("docker_image_tree", "28. Docker images - what is built from what",
+                "Three Dockerfiles, four images; arrows = FROM / build target. Sizes as listed by docker images on the laptop")
+    g.box("ubu", 0, 40, 220, 60, "*ubuntu:22.04\n(pulled)", "client", font=11)
+    g.box("base", 280, 25, 300, 90, "*stage spark-base  (deploy/Dockerfile)\nPython 3.11, Java 17, Spark 3.5.1\nno torch, no CUDA", "spark", font=11)
+    g.box("final", 660, 0, 330, 115, "*multi-model-inference:latest\n--target final (default)  27.7 GB\ntorch 2.6 cu126 + requirements.txt,\nplatform code, torchvision weights", "gpu", font=11)
+    g.box("lean", 660, 165, 330, 95, "*spark-lean:latest\n--target lean  2.2 GB\npyspark + requests + platform code\nno torch: talks to a model server", "spark", font=11)
+    g.box("worker", 1070, 0, 330, 115, "*ner-translate-worker:latest\ndeploy/Dockerfile.ner_translate  28.1 GB\nFROM multi-model-inference + tesseract\n/poppler (.deb bundle) + NER wheelhouse", "gpu", font=11)
+    g.box("py", 0, 335, 220, 60, "*python:3.11-slim-bookworm\n(pulled)", "client", font=11)
+    g.box("server", 660, 310, 330, 115, "*ner-translate-server:latest\ndeploy/Dockerfile.ner_translate_server  9.3 GB\ntesseract + torch cu126 + NER wheelhouse,\nno Spark / Java; code + weights mounted", "triton", font=11)
+    g.box("inputs", 1070, 180, 330, 110, "*Offline build inputs\nbind-mounted during the build, never an image layer:\nwheels/ner_translate - pip wheelhouse\ndebs/ner_translate - apt .deb bundle", "note", font=11)
+    g.container("ext", 0, 470, 1400, 100, "*Pulled, not built")
+    g.box("hadoop", 20, 505, 420, 50, "*apache/hadoop:3.4.1  3.3 GB - HDFS namenode / datanode (air-gap simulation)", "storage", font=10)
+    g.box("triton", 470, 505, 440, 50, "*nvcr.io/nvidia/tritonserver:<tag> - Triton model server (AWS modes runs)", "triton", font=10)
+    g.box("cuda", 940, 505, 440, 50, "*nvidia/cuda:12.6.3-base - only for the nvidia-smi GPU check in setup scripts", "white", font=10)
+    g.edge("ubu", "base", "FROM")
+    g.edge("base", "final", "target final", exit=(1, 0.3), entry=(0, 0.5))
+    g.edge("base", "lean", "target lean", exit=(1, 0.8), entry=(0, 0.5))
+    g.edge("final", "worker", "FROM")
+    g.edge("py", "server", "FROM", exit=(1, 0.5), entry=(0, 0.5), points=[(440, 365), (440, 367.5)])
+    g.edge("inputs", "worker", "", dashed=True, exit=(0.5, 0), entry=(0.5, 1))
+    g.edge("inputs", "server", "", dashed=True, exit=(0.5, 1), entry=(1, 0.5), points=[(1235, 367.5)])
+    D.append(g)
+
+
+# ============================================================ 29 three execution architectures
+def d_exec_architectures():
+    g = Diagram("docker_architectures", "29. Three ways the containers run a model - and which compose files build each",
+                "[image] in brackets; host ports as published by the compose files")
+    cols = [
+        ("A. Shared cluster - models inside the executors",
+         ("spark-master  [multi-model-inference]\nmaster :7077, UI :8080, driver UI :4040\nthe driver runs here (docker exec)", "spark"),
+         ("spark-gpu-worker / spark-cpu-worker\n[multi-model-inference]\nexecutors + Python workers load the\ntensor models (GPU worker: on the GPU)", "gpu"),
+         "docker-compose.laptop.yml / .cluster.yml /\n.cluster.linux.yml; docker run scripts:\nstart_cluster.ps1, setup_*.sh, AWS modes_node.sh\n(+ Triton container for the Triton mode)"),
+        ("B. Dedicated pipeline cluster (Option A)",
+         ("ner-translate-master  [ner-translate-worker]\nhost ports 7078 / 8081 / 4041\ndriver imports the pipeline", "spark"),
+         ("ner-translate-worker  [ner-translate-worker]\nthe executor's Python worker imports the\npipeline and loads GLiNER + NLLB itself", "gpu"),
+         "docker-compose.ner_translate.yml\nair-gap simulation, profile cluster\n(sim-ner-cluster-master / -worker, 8084 / 4044)\nwhen executors must own the models"),
+        ("C. Waiter / kitchen (Option B)",
+         ("ner-translate-master + ner-translate-worker\n[spark-lean - no torch]\nhost ports 7080 / 8083 / 4043", "spark"),
+         ("ner-translate-server (kitchen)\n[ner-translate-server]  FastAPI :8000 (host 8001)\nGLiNER + NLLB loaded once on the GPU", "triton"),
+         "docker-compose.ner_translate_server.yml\n(start via setup_ner_translate_server.sh)\nair-gap simulation, profile service (sim-*)\nrecommended for GPU pipelines"),
+    ]
+    for i, (title, top, bottom, note) in enumerate(cols):
+        x = i * 470
+        g.container(f"c{i}", x, 0, 450, 430, "*" + title)
+        g.box(f"t{i}", x + 20, 40, 410, 80, "*" + top[0], top[1], font=11)
+        g.box(f"b{i}", x + 20, 175, 410, 95, "*" + bottom[0], bottom[1], font=11)
+        g.box(f"n{i}", x + 20, 310, 410, 100, note, "note", font=11)
+        g.edge(f"t{i}", f"b{i}", ["tasks (RPC)", "tasks (RPC)", "tasks -> worker -> HTTP POST /predict {paths}"][i])
+    g.box("shared", 0, 470, 1390, 60, "*Shared by all of them: bind mounts ../data  ../models  ../results at the same path (/app/...) in every container - "
+          "Spark sends file paths, each container opens the files itself.  Air-gap simulation adds HDFS (apache/hadoop) as the model store.", "storage", font=11)
+    D.append(g)
+
+
+# ============================================================ 30 which file to use
+def d_compose_decision():
+    g = Diagram("docker_decision", "30. Which compose file or script to use",
+                "Start from what you want to run; each leaf names the file and why")
+    g.box("root", 0, 250, 190, 70, "*What do you\nwant to run?", "client", font=12)
+    g.box("tm", 250, 110, 230, 70, "*Tensor models\n(10 built-ins, BYOM plugins)", "gpu", font=11)
+    g.box("ner", 250, 420, 230, 70, "*NER pipeline\n(documents -> entities)", "triton", font=11)
+    leaves_t = [("one container, no cluster, code mounted", "docker-compose.yml"),
+                ("Spark cluster on this laptop (1 GPU)", "docker-compose.laptop.yml"),
+                ("several workers, Windows Docker Desktop", "docker-compose.cluster.yml"),
+                ("one Linux host / EC2 (host network)", "docker-compose.cluster.linux.yml"),
+                ("several machines: LAN lab / AWS", "start_cluster.ps1 / run_aws_*.ps1 (docker run)")]
+    leaves_n = [("production shape: one model copy per GPU", "docker-compose.ner_translate_server.yml"),
+                ("executors hold the models, no server", "docker-compose.ner_translate.yml"),
+                ("models from HDFS / master FS + test suite", "docker-compose.airgap_sim.yml (profiles)")]
+    for i, (why, what) in enumerate(leaves_t):
+        g.box(f"lt{i}", 560, i * 62, 560, 50, f"{why}\n*-> {what}", "white", font=11)
+        g.edge("tm", f"lt{i}", "", exit=(1, 0.5), entry=(0, 0.5), points=[(520, 145), (520, i * 62 + 25)])
+    for i, (why, what) in enumerate(leaves_n):
+        g.box(f"ln{i}", 560, 360 + i * 62, 560, 50, f"{why}\n*-> {what}", "white", font=11)
+        g.edge("ner", f"ln{i}", "", exit=(1, 0.5), entry=(0, 0.5), points=[(520, 455), (520, 360 + i * 62 + 25)])
+    g.edge("root", "tm", "", exit=(1, 0.3), entry=(0, 0.5), points=[(220, 271), (220, 145)])
+    g.edge("root", "ner", "", exit=(1, 0.7), entry=(0, 0.5), points=[(220, 299), (220, 455)])
+    D.append(g)
+
+
+# ============================================================ 31 who owns models and data (multi-host)
+def d_ownership():
+    g = Diagram("cluster_ownership", "31. Who owns models and data - recommended air-gapped layout (service mode)",
+                "Each box is a machine. The Spark master owns nothing: models live in the model store, documents in the shared folder")
+    g.container("st", 0, 0, 330, 470, "*Storage node (10.0.0.5)")
+    g.box("hdfs", 20, 40, 290, 110, "*HDFS  (apache/hadoop)\nnamenode :8020 / WebHDFS :9870\ndatanode :9864 / :9866\n/models/weights: gliner, nllb, hf_cache", "storage", font=11)
+    g.box("nfs", 20, 200, 290, 110, "*Shared data folder (NFS export)\n/srv/data  ->  mounted as /app/data\ndocuments to process\n(+ backend uploads)", "storage", shape="cyl", font=11)
+    g.box("nt1", 20, 350, 290, 100, "OWNS: the model files and the\ndocuments. Nothing else needs a copy\nexcept the node caches.", "note", font=11)
+    g.container("mn", 380, 0, 330, 470, "*Master node (10.0.0.10)")
+    g.box("sm", 400, 40, 290, 70, "*Spark master :7077  [spark-lean]\nschedules only - owns nothing", "spark", font=11)
+    g.box("drv", 400, 150, 290, 110, "*Driver (submit_pipeline_job.py)\nlists /app/data (needs the share)\nwrites results/ner_translate_<ts>.json", "driver", font=11)
+    g.box("res", 400, 300, 290, 60, "*results/ (local or on the share)", "storage", shape="cyl", font=11)
+    g.box("nt2", 400, 380, 290, 70, "NEEDS: the data share (to list files).\nNo models.", "note", font=11)
+    g.container("gn", 760, 0, 330, 470, "*GPU node (10.0.0.12)")
+    g.box("kit", 780, 40, 290, 110, "*Model server (kitchen)\n[ner-translate-server]  :8000\nopens the documents, runs OCR,\nNLLB + GLiNER on the GPU", "triton", font=11)
+    g.box("kc", 780, 200, 290, 60, "*/model_cache (local disk)", "storage", shape="cyl", font=11)
+    g.box("nt3", 780, 300, 290, 150, "NEEDS: the data share (same path),\nWebHDFS access to the storage node\n(first load), a GPU, >= 5 GB local disk.\nOWNS: the only loaded copy of the\nmodels.", "note", font=11)
+    g.container("wn", 1140, 0, 300, 470, "*Worker node(s) (10.0.0.11, ...)")
+    g.box("wk", 1160, 40, 260, 110, "*Spark worker  [spark-lean]\nexecutors send file NAMES to\nthe kitchen (HTTP)", "spark", font=11)
+    g.box("nt4", 1160, 200, 260, 250, "NEEDS in service mode: nothing but\nnetwork - no data share, no models,\nno GPU.\n\nIn cluster mode it needs what the\nGPU node needs: the data share,\nWebHDFS access, a GPU, a local\nmodel cache.", "note", font=11)
+    g.edge("hdfs", "kc", "WebHDFS, first load only", exit=(1, 0.3), entry=(0, 0.5), points=[(345, 73), (345, -25), (740, -25), (740, 230)], label_seg=2)
+    g.edge("kc", "kit", "load", exit=(0.5, 0), entry=(0.5, 1))
+    g.edge("nfs", "drv", "NFS: list files", exit=(1, 0.3), entry=(0, 0.5))
+    g.edge("nfs", "kit", "NFS: read files", dashed=True, exit=(1, 0.9), entry=(0, 0.8), points=[(345, 299), (345, 370), (750, 370), (750, 128)], label_seg=2)
+    g.edge("drv", "res", "", exit=(0.5, 1), entry=(0.5, 0))
+    g.edge("sm", "wk", "tasks", exit=(1, 0.3), entry=(0, 0.2), points=[(725, 61), (725, -50), (1125, -50), (1125, 62)], label_seg=2)
+    g.edge("wk", "kit", "POST /predict {paths}", exit=(0.5, 1), entry=(1, 0.8), points=[(1290, 175), (1110, 175), (1110, 128)], label_seg=1)
+    D.append(g)
+
+
 for fn in (d_rdd, d_udf, d_native, d_gpu_aware, d_triton_mode, d_recommended, d_alt_sidecar, d_alt_inprocess, d_alt_ray,
            d_alt_k8s, d_alt_queue, d_aws, d_airgapped, d_sequence,
-           d_module_map, d_seq_submit, d_seq_pipeline, d_plugin_flow, d_observability):
+           d_module_map, d_seq_submit, d_seq_pipeline, d_plugin_flow, d_observability,
+           d_airgap_sim, d_model_fetch, d_ner_pipeline, d_lifecycle, d_data_paths, d_spark_sequence, d_tensor_path,
+           d_image_tree, d_exec_architectures, d_compose_decision, d_ownership):
     fn()
 
 if __name__ == "__main__":

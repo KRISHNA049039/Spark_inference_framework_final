@@ -246,9 +246,13 @@ const DESIGN = {
   "models/__init__.py": ["Registers the 10 built-in models (metadata only) in get_default_registry().", "", ""],
   "models/model_registry.py": ["ModelRegistry: name -> ModelInfo(class, input_shape, output_desc, category, estimated_memory_mb).",
     "load_model caches ONE instance per name and moves it with .to(device) - callers share that instance. serialize_model/deserialize_model use state_dict bytes (weights_only=True on load).", ""],
+  "models/model_store.py": ["Model store: resolves where model weights live - a local path, file:// (a file system on the master shared with the nodes) or hdfs:// (an air-gapped HDFS cluster, read through WebHDFS with the standard library only) - into a local folder.",
+    `resolve() (${R("models/model_store.py", "resolve")}) returns local paths as-is; for hdfs:// it walks the tree with GETFILESTATUS/LISTSTATUS and streams every file with op=OPEN (namenode redirects to a datanode) into MODEL_CACHE_DIR (${R("models/model_store.py", "_fetch_hdfs")}). Downloads go to a .partial-* folder, sizes are checked against HDFS, the folder is renamed into place and a .complete marker written - so concurrent Python workers on a node never see half a model and later loads are cache hits, even while HDFS is down.`,
+    "Configured by MODEL_STORE_URI (unset = original repository paths), MODEL_CACHE_DIR, MODEL_STORE_WEBHDFS, MODEL_STORE_USER. Supports simple (user.name) WebHDFS auth only - for Kerberised HDFS use HttpFS/Knox or the file:// mode. Used by models/pipelines/ner_translate/pipeline.py (gliner-multi, nllb-200-distilled-600M, hf_cache) and by plugin_loader for weights_path URIs."],
   "models/plugin_loader.py": ["BYOM glue: imports each manifest module, registers it, optionally loads weights_path into the registry's cached instance.",
     "Weights reach executors because the driver serializes that loaded instance's state_dict; get_plugin_class_map() lets executors rebuild the class by name.", ""],
-  "models/pipelines/ner_translate/pipeline.py": ["Pipeline contract adapter: load() -> mt_ner_all_formats.load_models(); run(loaded, paths, labels) -> process_paths_batched().", "", ""],
+  "models/pipelines/ner_translate/pipeline.py": ["Pipeline contract adapter: load() -> resolve the three model folders (model store or models/weights), install GLiNER's backbone hub cache (hf_cache), mt_ner_all_formats.load_models(); run(loaded, paths, labels) -> process_paths_batched().",
+    "hf_cache holds microsoft/mdeberta-v3-base's config + tokenizer in Hugging Face cache layout; GLiNER resolves its encoder by that hub name, so offline it must be in the process's hub cache - _install_hf_cache copies it there because the cache location is fixed at transformers import time.", ""],
   "models/pipelines/ner_translate/serve.py": ["FastAPI kitchen: loads the pipeline once at startup; GET /health; POST /predict {paths, labels} -> {basename: result}.",
     "No authentication and no request size limits - keep it on a private network (see 10.3).", ""],
   "models/pipelines/ner_translate/mt_ner_all_formats.py": ["The document pipeline: extract text from 20+ formats (OCR for images/scanned PDFs), detect language (py3langid), translate non-English chunks with NLLB-200, extract entities with GLiNER, add regex phone numbers, dedupe, batch across documents.",
@@ -422,7 +426,13 @@ N(["Add the model to EXPORT in benchmark/triton_export.py (sample shape, max_bat
   "`python benchmark/triton_export.py --out <model_repository>` then start tritonserver with that repository.",
   "`python benchmark/triton_export.py --verify <host>:8001` compares Triton outputs with eager PyTorch.",
   "Call it from Spark with pyspark.ml.functions.predict_batch_udf and a tritonclient gRPC client (see spark_modes_stats.triton_pbu)."]);
-H2("6.6 Add a benchmark phase, a metric or a deployment");
+H2("6.6 Store models in HDFS or on the master's file system (air-gapped)");
+N(["Upload once: `hdfs dfs -put gliner-multi nllb-200-distilled-600M hf_cache /models/weights/` (or copy the folders to a directory every node mounts read-only).",
+  "Set `MODEL_STORE_URI=hdfs://<namenode>:8020/models/weights` (or `file:///<shared dir>`) on the model server and on every Spark worker; optionally `MODEL_CACHE_DIR` on a local disk with >= 5 GB free.",
+  "Nodes need WebHDFS access to the namenode (9870) and every datanode (9864).",
+  "For a plugin, set its manifest `weights_path` to an hdfs:// or file:// URI - plugin_loader resolves it through the model store.",
+  "Simulate and test on one machine: deploy/docker-compose.airgap_sim.yml + deploy/airgap_sim_tests.ps1 (docs/CLUSTER_RUNBOOK_MODES_AND_TESTS.pdf)."]);
+H2("6.7 Add a benchmark phase, a metric or a deployment");
 B(["**Benchmark phase:** add a `run <name> <script> <args>` line to benchmark/run_campaign.sh; summarize_campaign.py parses status and throughput from its log automatically when it prints 'Total Throughput' or a JSON with total_throughput.",
   "**Metric:** use CloudWatchPublisher(namespace, node_role).put_metric(name, value, unit) (monitoring/cloudwatch_publisher.py); follow gpu_metrics_publisher.py for a polling loop.",
   "**Deployment:** new compose file -> reuse the x-app anchor pattern of deploy/docker-compose.laptop.yml; new AWS stack -> copy spark_cluster/modes_cluster_stack.py (DL AMI, SSM, self-referencing security group) and register it in deploy/aws-cdk/app.py."]);
@@ -432,7 +442,7 @@ H1("7. Configuration reference");
 H2("7.1 Environment variables");
 const envs = {};
 API.files.forEach((f) => (f.env || []).forEach((e) => { envs[e.name] = envs[e.name] || []; envs[e.name].push(`${f.path}:${e.line}`); }));
-const ENVDOC = { SPARK_MASTER_URL: "Spark master URL for sessions (else local[N])", SPARK_MASTER: "fallback name for the master URL", ARTIFACTS_BUCKET: "S3 bucket for results upload / pulls (AWS nodes)", FORCE_DEVICE: "quick_compare: force cpu/cuda", RUN_NAME: "prefix for run_benchmark output files", TRANSFORMERS_OFFLINE: "offline Hugging Face loading (ner_translate)", HF_HUB_OFFLINE: "offline Hugging Face hub", AWS_REGION: "region for CloudWatch/S3 clients", CDK_DEFAULT_ACCOUNT: "CDK account fallback", HOSTNAME: "node name in metrics" };
+const ENVDOC = { MODEL_STORE_URI: "where models are loaded from: hdfs://<namenode>:8020/<dir>, file:///<shared dir> or unset (repository)", MODEL_CACHE_DIR: "node-local cache for models fetched from HDFS", MODEL_STORE_WEBHDFS: "WebHDFS base URL override", MODEL_STORE_USER: "HDFS user for WebHDFS", SPARK_MASTER_URL: "Spark master URL for sessions (else local[N])", SPARK_MASTER: "fallback name for the master URL", ARTIFACTS_BUCKET: "S3 bucket for results upload / pulls (AWS nodes)", FORCE_DEVICE: "quick_compare: force cpu/cuda", RUN_NAME: "prefix for run_benchmark output files", TRANSFORMERS_OFFLINE: "offline Hugging Face loading (ner_translate)", HF_HUB_OFFLINE: "offline Hugging Face hub", AWS_REGION: "region for CloudWatch/S3 clients", CDK_DEFAULT_ACCOUNT: "CDK account fallback", HOSTNAME: "node name in metrics" };
 const extra = [["PYSPARK_PYTHON / PYSPARK_DRIVER_PYTHON", "Python executable for workers / driver (set in the images)", "deploy/Dockerfile"],
   ["PYSPARK_SUBMIT_ARGS", "extra spark-submit --conf options (e.g. event logs) before the JVM starts", "benchmark/run_campaign.sh, spark_modes_stats.py"],
   ["CUDA_VISIBLE_DEVICES / NVIDIA_VISIBLE_DEVICES", "GPU visibility; empty = CPU-only worker (compose CPU workers)", "compose files, create_cluster_session executorEnv"],
@@ -491,7 +501,10 @@ table([["symptom", "cause", "fix"],
   ["createDataFrame hangs on nested lists", "schema inference over nested Python lists", "flatten + explicit schema (as cluster_engine_udf does)"],
   ["image built without torch", "docker build without --target final", "`docker build --target final -f deploy/Dockerfile .`"],
   ["scripts fail with $'\\r' errors", "CRLF line endings from Windows", "`sed -i 's/\\r$//' script.sh` (modes_node.sh does this)"],
-  ["two documents 'disappear' from pipeline results", "same basename in different folders overwrite each other", "unique file names or key results by full path"]], [26, 36, 38]);
+  ["two documents 'disappear' from pipeline results", "same basename in different folders overwrite each other", "unique file names or key results by full path"],
+  ["GLiNER: couldn't connect to huggingface.co ... mdeberta-v3-base", "GLiNER's backbone not in the offline HF cache", "keep hf_cache next to the model folders (pipeline.load() installs it)"],
+  ["cannot reach WebHDFS / not found in HDFS", "HDFS down, wrong MODEL_STORE_URI, or folder not uploaded", "check hdfs dfs -ls, the URI and ports 9870/9864; a warm node cache still works"],
+  ["cannot stop container: PID is zombie", "child processes not reaped when Python is PID 1", "init: true in compose"]], [26, 36, 38]);
 
 // ------------------------------------------------------------------ 9 testing
 H1("9. Testing strategy");

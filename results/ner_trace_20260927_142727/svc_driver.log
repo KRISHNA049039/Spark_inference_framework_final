@@ -1,0 +1,74 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/27 09:01:26 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting Spark log level to "INFO".
+26/09/27 09:01:27 INFO ResourceUtils: ==============================================================
+26/09/27 09:01:27 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/09/27 09:01:27 INFO ResourceUtils: ==============================================================
+26/09/27 09:01:27 INFO SparkContext: Submitted application: pipeline-ner_translate
+26/09/27 09:01:27 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 4, script: , vendor: , memory -> name: memory, amount: 512, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 2.0)
+26/09/27 09:01:27 INFO ResourceProfile: Limiting resource is cpus at 2 tasks per executor
+26/09/27 09:01:27 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/09/27 09:01:27 INFO SecurityManager: Changing view acls to: root
+26/09/27 09:01:27 INFO SecurityManager: Changing modify acls to: root
+26/09/27 09:01:27 INFO SecurityManager: Changing view acls groups to: 
+26/09/27 09:01:27 INFO SecurityManager: Changing modify acls groups to: 
+26/09/27 09:01:27 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/27 09:01:28 INFO Utils: Successfully started service 'sparkDriver' on port 42033.
+26/09/27 09:01:28 INFO SparkEnv: Registering MapOutputTracker
+26/09/27 09:01:28 INFO SparkEnv: Registering BlockManagerMaster
+26/09/27 09:01:28 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/09/27 09:01:28 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/09/27 09:01:28 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/09/27 09:01:28 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-84e2d168-3f79-43fc-b94d-760db9d2a6cd
+26/09/27 09:01:28 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/09/27 09:01:28 INFO SparkEnv: Registering OutputCommitCoordinator
+26/09/27 09:01:29 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/09/27 09:01:29 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/09/27 09:01:29 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://ner-translate-master:7077...
+26/09/27 09:01:29 INFO TransportClientFactory: Successfully created connection to ner-translate-master/172.21.0.2:7077 after 110 ms (0 ms spent in bootstraps)
+26/09/27 09:01:30 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20260927090130-0000
+26/09/27 09:01:30 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 33015.
+26/09/27 09:01:30 INFO NettyBlockTransferService: Server created on ner-translate-master:33015
+26/09/27 09:01:30 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/27 09:01:30 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, ner-translate-master, 33015, None)
+26/09/27 09:01:30 INFO BlockManagerMasterEndpoint: Registering block manager ner-translate-master:33015 with 434.4 MiB RAM, BlockManagerId(driver, ner-translate-master, 33015, None)
+26/09/27 09:01:30 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ner-translate-master, 33015, None)
+26/09/27 09:01:30 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, ner-translate-master, 33015, None)
+26/09/27 09:01:30 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20260927090130-0000/0 on worker-20260927085758-172.21.0.4-34219 (172.21.0.4:34219) with 4 core(s)
+26/09/27 09:01:30 INFO StandaloneSchedulerBackend: Granted executor ID app-20260927090130-0000/0 on hostPort 172.21.0.4:34219 with 4 core(s), 512.0 MiB RAM
+26/09/27 09:01:31 INFO SingleEventLogFileWriter: Logging events to file:/app/results/ner_trace_20260927_142727/eventlog/app-20260927090130-0000.inprogress
+26/09/27 09:01:31 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+26/09/27 09:01:34 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20260927090130-0000/0 is now RUNNING
+[submit_pipeline_job] execution-mode=service -> HTTP model server at http://ner-translate-server:8000
+[Stage 0:>                                                          (0 + 0) / 2][Stage 0:>                                                          (0 + 2) / 2][Stage 0:>                                                          (0 + 2) / 2][Stage 0:=============================>                             (1 + 1) / 2]                                                                                {
+  "elapsed_time": 142.0959,
+  "num_files": 6,
+  "num_partitions": 2,
+  "partition_details": [
+    {
+      "hostname": "ner-translate-worker",
+      "pid": 187,
+      "num_paths": 3,
+      "load_time_sec": 0.0,
+      "run_time_sec": 99.448
+    },
+    {
+      "hostname": "ner-translate-worker",
+      "pid": 185,
+      "num_paths": 3,
+      "load_time_sec": 0.0,
+      "run_time_sec": 126.717
+    }
+  ]
+}
+
+Processed 6 document(s):
+  sample_scan6.png: lang=en translated=False entities=8
+  sample_text1.txt: lang=en translated=False entities=27
+  sample_text2.txt: lang=en translated=False entities=33
+  sample_text3.txt: lang=en translated=False entities=6
+  sample_text4.txt: lang=hi translated=True entities=14
+  sample_text5.txt: lang=mr translated=True entities=24
+
+Full results (including extracted entities) written to results/ner_translate_20260927_090401.json

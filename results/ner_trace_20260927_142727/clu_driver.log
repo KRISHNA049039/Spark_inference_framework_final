@@ -1,0 +1,67 @@
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/27 09:12:51 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting Spark log level to "INFO".
+26/09/27 09:12:51 INFO ResourceUtils: ==============================================================
+26/09/27 09:12:51 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/09/27 09:12:51 INFO ResourceUtils: ==============================================================
+26/09/27 09:12:51 INFO SparkContext: Submitted application: pipeline-ner_translate
+26/09/27 09:12:51 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 4, script: , vendor: , memory -> name: memory, amount: 4096, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 2.0)
+26/09/27 09:12:51 INFO ResourceProfile: Limiting resource is cpus at 2 tasks per executor
+26/09/27 09:12:51 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/09/27 09:12:51 INFO SecurityManager: Changing view acls to: root
+26/09/27 09:12:51 INFO SecurityManager: Changing modify acls to: root
+26/09/27 09:12:51 INFO SecurityManager: Changing view acls groups to: 
+26/09/27 09:12:51 INFO SecurityManager: Changing modify acls groups to: 
+26/09/27 09:12:51 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/27 09:12:52 INFO Utils: Successfully started service 'sparkDriver' on port 40449.
+26/09/27 09:12:52 INFO SparkEnv: Registering MapOutputTracker
+26/09/27 09:12:52 INFO SparkEnv: Registering BlockManagerMaster
+26/09/27 09:12:52 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/09/27 09:12:52 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/09/27 09:12:52 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/09/27 09:12:52 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-64cb40cb-2e98-4672-98df-435df8c97586
+26/09/27 09:12:52 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/09/27 09:12:52 INFO SparkEnv: Registering OutputCommitCoordinator
+26/09/27 09:12:52 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/09/27 09:12:52 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/09/27 09:12:53 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://ner-cluster-master:7077...
+26/09/27 09:12:53 INFO TransportClientFactory: Successfully created connection to ner-cluster-master/172.21.0.2:7077 after 79 ms (0 ms spent in bootstraps)
+26/09/27 09:12:54 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20260927091254-0000
+26/09/27 09:12:54 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 39367.
+26/09/27 09:12:54 INFO NettyBlockTransferService: Server created on ner-cluster-master:39367
+26/09/27 09:12:54 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/27 09:12:54 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, ner-cluster-master, 39367, None)
+26/09/27 09:12:54 INFO BlockManagerMasterEndpoint: Registering block manager ner-cluster-master:39367 with 434.4 MiB RAM, BlockManagerId(driver, ner-cluster-master, 39367, None)
+26/09/27 09:12:54 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ner-cluster-master, 39367, None)
+26/09/27 09:12:54 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, ner-cluster-master, 39367, None)
+26/09/27 09:12:54 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20260927091254-0000/0 on worker-20260927091237-172.21.0.3-35355 (172.21.0.3:35355) with 4 core(s)
+26/09/27 09:12:54 INFO StandaloneSchedulerBackend: Granted executor ID app-20260927091254-0000/0 on hostPort 172.21.0.3:35355 with 4 core(s), 4.0 GiB RAM
+26/09/27 09:12:54 INFO SingleEventLogFileWriter: Logging events to file:/app/results/ner_trace_20260927_142727/eventlog/app-20260927091254-0000.inprogress
+26/09/27 09:12:55 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+26/09/27 09:12:55 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20260927091254-0000/0 is now RUNNING
+[submit_pipeline_job] execution-mode=cluster -> in-process (mod.load/mod.run) on spark://ner-cluster-master:7077
+[Stage 0:>                                                          (0 + 1) / 1][Stage 0:>                                                          (0 + 1) / 1][Stage 0:>                                                          (0 + 1) / 1][Stage 0:>                                                          (0 + 1) / 1][Stage 0:>                                                          (0 + 1) / 1][Stage 0:>                                                          (0 + 1) / 1][Stage 0:>                                                          (0 + 1) / 1][Stage 0:>                                                          (0 + 1) / 1][Stage 0:>                                                          (0 + 1) / 1][Stage 0:>                                                          (0 + 1) / 1]                                                                                {
+  "elapsed_time": 548.4056,
+  "num_files": 6,
+  "num_partitions": 1,
+  "partition_details": [
+    {
+      "hostname": "ner-cluster-worker",
+      "pid": 208,
+      "num_paths": 6,
+      "load_time_sec": 401.927,
+      "run_time_sec": 88.641
+    }
+  ]
+}
+
+Processed 6 document(s):
+  sample_scan6.png: lang=en translated=False entities=8
+  sample_text1.txt: lang=en translated=False entities=28
+  sample_text2.txt: lang=en translated=False entities=33
+  sample_text3.txt: lang=en translated=False entities=6
+  sample_text4.txt: lang=hi translated=True entities=14
+  sample_text5.txt: lang=mr translated=True entities=24
+
+Full results (including extracted entities) written to results/ner_translate_20260927_092255.json

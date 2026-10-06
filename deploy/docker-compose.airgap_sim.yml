@@ -1,0 +1,188 @@
+# =============================================================================
+# Air-gapped cluster simulation on one machine
+#
+# Models live in a cluster HDFS (or on the master's file system), NOT in the
+# images and NOT copied onto each node. Nodes fetch them through
+# models/model_store.py (WebHDFS, stdlib only) into a node-local cache.
+#
+# Profiles (pick what to start):
+#   hdfs     : hdfs-namenode + hdfs-datanode (single-node HDFS, WebHDFS :9870)
+#   service  : ner-translate-server (GPU "kitchen") + lean Spark master/worker
+#              (waiter/kitchen, submit_pipeline_job --execution-mode service)
+#   cluster  : Spark master/worker on the ner-translate-worker image
+#              (models loaded in-process by the executor, --execution-mode cluster)
+#
+# Model location (environment, read by compose):
+#   MODEL_STORE_URI  hdfs://hdfs-namenode:8020/models/weights   (HDFS mode)
+#                    file:///mnt/models/weights                  (master file-system mode)
+#                    unset / empty                               (repo models/weights, legacy)
+#   MODEL_FS_DIR     host directory mounted read-only at /mnt/models on every
+#                    node (simulates the master's shared file system)
+#   WEIGHTS_SRC      host directory with gliner-multi/, nllb-200-distilled-600M/ and hf_cache/
+#                    to upload into HDFS (mounted read-only at /staging on the namenode)
+#
+# Runbook: docs/CLUSTER_RUNBOOK_MODES_AND_TESTS.pdf  (deploy/airgap_sim_tests.ps1)
+#   $env:MODEL_STORE_URI="hdfs://hdfs-namenode:8020/models/weights"
+#   docker compose -f deploy/docker-compose.airgap_sim.yml --profile hdfs --profile service up -d
+#   docker compose -f deploy/docker-compose.airgap_sim.yml --profile hdfs --profile service --profile cluster down [-v]
+# =============================================================================
+name: airgap-sim
+
+x-hadoop-env: &hadoop-env
+  CORE-SITE.XML_fs.defaultFS: hdfs://hdfs-namenode:8020
+  HDFS-SITE.XML_dfs.namenode.rpc-address: hdfs-namenode:8020
+  HDFS-SITE.XML_dfs.replication: "1"
+  HDFS-SITE.XML_dfs.permissions.enabled: "false"
+  HDFS-SITE.XML_dfs.webhdfs.enabled: "true"
+  HDFS-SITE.XML_dfs.datanode.hostname: hdfs-datanode
+  HDFS-SITE.XML_dfs.namenode.name.dir: /data/hdfs/name     # on the named volumes below
+  HDFS-SITE.XML_dfs.datanode.data.dir: /data/hdfs/data
+  HADOOP_HEAPSIZE_MAX: 256m
+
+x-code-mounts: &code-mounts
+  - ../results:/app/results
+  - ../data:/app/data
+  - ../models:/app/models
+  - ../inference:/app/inference
+  - ../submit_pipeline_job.py:/app/submit_pipeline_job.py
+  - ${MODEL_FS_DIR:-../models}:/mnt/models:ro
+
+x-model-env: &model-env
+  MODEL_STORE_URI: ${MODEL_STORE_URI:-}
+  MODEL_CACHE_DIR: /model_cache
+  SPARK_DAEMON_MEMORY: 256m
+  PYTHONUNBUFFERED: "1"          # print() lines ([model_store], [ner_translate]) reach docker logs immediately
+
+services:
+  # ---------------------------------------------------------------- HDFS
+  hdfs-namenode:
+    profiles: [hdfs]
+    image: apache/hadoop:3.4.1
+    container_name: sim-hdfs-namenode
+    hostname: hdfs-namenode
+    user: root                   # named volumes are root-owned; formats /data/hdfs/name on first start
+    command: ["hdfs", "namenode"]
+    environment:
+      <<: *hadoop-env
+      ENSURE_NAMENODE_DIR: /data/hdfs/name
+    volumes:
+      - hdfs-name:/data/hdfs
+      - ${WEIGHTS_SRC:-../models/weights}:/staging:ro
+    ports: ["9870:9870"]
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:9870/webhdfs/v1/?op=GETFILESTATUS&user.name=hadoop"]
+      interval: 10s
+      retries: 30
+
+  hdfs-datanode:
+    profiles: [hdfs]
+    image: apache/hadoop:3.4.1
+    container_name: sim-hdfs-datanode
+    hostname: hdfs-datanode
+    user: root
+    command: ["hdfs", "datanode"]
+    environment: *hadoop-env
+    volumes:
+      - hdfs-data:/data/hdfs
+    depends_on:
+      hdfs-namenode: {condition: service_healthy}
+
+  # ---------------------------------------------------------------- service mode
+  ner-translate-server:          # the "kitchen" (name matches models/pipelines/manifest.json service_url)
+    profiles: [service]
+    image: ner-translate-server:latest
+    container_name: sim-ner-translate-server
+    init: true                   # tini as PID 1: reaps OCR/tokenizer child processes so the container stops cleanly
+    hostname: ner-translate-server
+    environment: *model-env
+    volumes:                     # node-local model cache = this node's disk
+      - ../results:/app/results
+      - ../data:/app/data
+      - ../models:/app/models
+      - ${MODEL_FS_DIR:-../models}:/mnt/models:ro
+      - kitchen-cache:/model_cache
+    working_dir: /app
+    ports: ["8001:8000"]
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, count: all, capabilities: [gpu]}]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request,json,sys; sys.exit(0 if json.load(urllib.request.urlopen('http://localhost:8000/health'))['status']=='ok' else 1)"]
+      interval: 10s
+      retries: 60
+      start_period: 60s
+
+  ner-translate-master:          # lean Spark master + driver (no torch)
+    profiles: [service]
+    image: spark-lean:latest
+    container_name: sim-spark-master
+    init: true                   # tini as PID 1: reaps OCR/tokenizer child processes so the container stops cleanly
+    hostname: ner-translate-master
+    environment: *model-env
+    volumes: *code-mounts
+    command: bash -c "$$SPARK_HOME/sbin/start-master.sh -h ner-translate-master && tail -f $$SPARK_HOME/logs/*master*"
+    ports: ["8083:8080", "4043:4040"]
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8080"]
+      interval: 5s
+      retries: 30
+
+  ner-translate-worker:          # lean Spark worker (executors only POST file paths)
+    profiles: [service]
+    image: spark-lean:latest
+    container_name: sim-spark-worker
+    init: true                   # tini as PID 1: reaps OCR/tokenizer child processes so the container stops cleanly
+    hostname: ner-translate-worker
+    environment: *model-env
+    volumes: *code-mounts
+    command: bash -c "$$SPARK_HOME/sbin/start-worker.sh spark://ner-translate-master:7077 -c 4 -m 2g && tail -f $$SPARK_HOME/logs/*worker*"
+    depends_on:
+      ner-translate-master: {condition: service_healthy}
+
+  # ---------------------------------------------------------------- cluster (in-process) mode
+  ner-cluster-master:
+    profiles: [cluster]
+    image: ner-translate-worker:latest
+    container_name: sim-ner-cluster-master
+    init: true                   # tini as PID 1: reaps OCR/tokenizer child processes so the container stops cleanly
+    hostname: ner-cluster-master
+    environment: *model-env
+    volumes: *code-mounts
+    working_dir: /app
+    command: bash -c "$$SPARK_HOME/sbin/start-master.sh -h ner-cluster-master && tail -f $$SPARK_HOME/logs/*master*"
+    ports: ["8084:8080", "4044:4040"]
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8080"]
+      interval: 5s
+      retries: 30
+
+  ner-cluster-worker:            # executor loads GLiNER + NLLB itself (per task) on the GPU
+    profiles: [cluster]
+    image: ner-translate-worker:latest
+    container_name: sim-ner-cluster-worker
+    init: true                   # tini as PID 1: reaps OCR/tokenizer child processes so the container stops cleanly
+    hostname: ner-cluster-worker
+    environment: *model-env
+    volumes:
+      - ../results:/app/results
+      - ../data:/app/data
+      - ../models:/app/models
+      - ../inference:/app/inference
+      - ../submit_pipeline_job.py:/app/submit_pipeline_job.py
+      - ${MODEL_FS_DIR:-../models}:/mnt/models:ro
+      - worker-cache:/model_cache
+    working_dir: /app
+    command: bash -c "$$SPARK_HOME/sbin/start-worker.sh spark://ner-cluster-master:7077 -c 4 -m 6g && tail -f $$SPARK_HOME/logs/*worker*"
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, count: all, capabilities: [gpu]}]
+    depends_on:
+      ner-cluster-master: {condition: service_healthy}
+
+volumes:
+  hdfs-name:
+  hdfs-data:
+  kitchen-cache:
+  worker-cache:

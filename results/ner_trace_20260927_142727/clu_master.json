@@ -1,0 +1,32 @@
+{
+  "url" : "spark://ner-cluster-master:7077",
+  "workers" : [ {
+    "id" : "worker-20260927091237-172.21.0.3-35355",
+    "host" : "172.21.0.3",
+    "port" : 35355,
+    "webuiaddress" : "http://172.21.0.3:8081",
+    "cores" : 4,
+    "coresused" : 0,
+    "coresfree" : 4,
+    "memory" : 6144,
+    "memoryused" : 0,
+    "memoryfree" : 6144,
+    "resources" : { },
+    "resourcesused" : { },
+    "resourcesfree" : { },
+    "state" : "ALIVE",
+    "lastheartbeat" : 1790500360105
+  } ],
+  "aliveworkers" : 1,
+  "cores" : 4,
+  "coresused" : 0,
+  "memory" : 6144,
+  "memoryused" : 0,
+  "resources" : [ { } ],
+  "resourcesused" : [ { } ],
+  "activeapps" : [ ],
+  "completedapps" : [ ],
+  "activedrivers" : [ ],
+  "completeddrivers" : [ ],
+  "status" : "ALIVE"
+}

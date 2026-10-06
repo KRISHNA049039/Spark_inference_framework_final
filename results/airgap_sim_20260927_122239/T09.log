@@ -1,0 +1,11 @@
+ Container sim-ner-translate-server Recreate 
+ Container sim-ner-translate-server Recreated 
+ Container sim-ner-translate-server Starting 
+ Container sim-ner-translate-server Started 
+
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/gliner-multi
+INFO:ner_translate.serve:Models loaded in 163.4s
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/hf_cache
+HDFS stopped; /predict -> language=en
+HDFS restarted

@@ -211,7 +211,14 @@ def stage_kind(s):
 
 # ------------------------------------------------------------------ gantt
 def gantt(app, out_png, title):
-    from PIL import Image, ImageDraw, ImageFont
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError:  # timelines are optional; statistics are still written
+        if not getattr(gantt, "_warned", False):
+            print("[analyze_modes_stats] Pillow not installed - skipping gantt/*.png "
+                  "(pip install pillow to get the task timelines)")
+            gantt._warned = True
+        return
     tasks = [t for t in app["tasks"]]
     if not tasks:
         return

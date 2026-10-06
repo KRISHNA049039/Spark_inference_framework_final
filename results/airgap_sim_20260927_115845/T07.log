@@ -1,0 +1,63 @@
+ Container sim-spark-master Creating 
+ Container sim-spark-master Created 
+ Container sim-spark-worker Creating 
+ Container sim-spark-worker Created 
+ Container sim-spark-master Starting 
+ Container sim-spark-master Started 
+ Container sim-spark-master Waiting 
+ Container sim-spark-master Healthy 
+ Container sim-spark-worker Starting 
+ Container sim-spark-worker Started 
+
+Spark master UI http://localhost:8083 - 1 worker alive
+docker : Setting default log level to "WARN".
+At D:\pytorch-spark-inference-platform 1\deploy\airgap_sim_tests.ps1:63 char:10
++     $o = docker exec $master python submit_pipeline_job.py --pipeline ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Setting default log level to "WARN".:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/27 06:29:32 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java 
+classes where applicable
+[submit_pipeline_job] execution-mode=service -> HTTP model server at http://ner-translate-server:8000
+
+[Stage 0:>                                                          (0 + 0) / 2]
+
+[Stage 0:>                                                          (0 + 2) / 2]
+
+[Stage 0:=============================>                             (1 + 1) / 2]
+
+{
+  "elapsed_time": 32.781,
+  "num_files": 6,
+  "num_partitions": 2,
+  "partition_details": [
+    {
+      "hostname": "ner-translate-worker",
+      "pid": 164,
+      "num_paths": 3,
+      "load_time_sec": 0.0,
+      "run_time_sec": 11.881
+    },
+    {
+      "hostname": "ner-translate-worker",
+      "pid": 165,
+      "num_paths": 3,
+      "load_time_sec": 0.0,
+      "run_time_sec": 26.19
+    }
+  ]
+}
+
+Processed 6 document(s):
+  sample_scan6.png: lang=en translated=False entities=8
+  sample_text1.txt: lang=en translated=False entities=27
+  sample_text2.txt: lang=en translated=False entities=33
+  sample_text3.txt: lang=en translated=False entities=6
+  sample_text4.txt: lang=hi translated=True entities=14
+  sample_text5.txt: lang=mr translated=True entities=24
+
+Full results (including extracted entities) written to results/ner_translate_20260927_063010.json
+                                                                                
+

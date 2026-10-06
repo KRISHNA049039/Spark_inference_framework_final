@@ -1,0 +1,348 @@
+{
+ "max_tokens": 400,
+ "docs": {
+  "sample_text4.txt": {
+   "lang": "hi",
+   "chars": 1421,
+   "before": {
+    "chunk_chars": [
+     1421
+    ],
+    "tokens_to_nllb": [
+     431
+    ],
+    "entities_unique": 14,
+    "entities": [
+     "coordinates: 34.1526°N",
+     "coordinates: 77.5771°E",
+     "date: 16 June 2026",
+     "facility: Forward Operating Base Hymgiri",
+     "facility: Ladakh",
+     "facility: Pinnavan",
+     "military unit: 17th Mechanized Infantry Battalion",
+     "nationality: Indian nationality",
+     "operation name: Operation Security Armor",
+     "organization: Joint Defense Intelligence Directorate",
+     "person: Colonel Arjun Singh",
+     "weapon system: BMP-2 Infantry Fighting Wheels",
+     "weapon system: Shera Tataka Vickeld Armored Platform",
+     "weapon system: multi-battery Joint Rocket"
+    ],
+    "translation": "On 16 June 2026 at 22:45 UTC time, the person Colonel Arjun Singh, who is an Indian nationality officer and affiliated with the organization Joint Defense Intelligence Directorate (JDI) issued instructions to the military unit 17th Mechanized Infantry Battalion under the operation name \"Operation Security Armor\". According to intelligence reports, the location in the eastern sector of Ladakh facility \"Forward Operating Base Hymgiri\" near the coordinates 34.1526°N, 77.5771°E. During the operation, the military unit saw suspicious activity during the use of the Shera Tataka Vickeld Armored Platform and BMP-2 Infantry Fighting Wheels with weapons system after the multi-battery Joint Rocket was deployed to the Pinnavan."
+   },
+   "after": {
+    "chunk_chars": [
+     1240,
+     180
+    ],
+    "tokens_to_nllb": [
+     378,
+     55
+    ],
+    "entities_unique": 19,
+    "entities": [
+     "communication identifier: SIERRA-NET-09",
+     "coordinates: 34.1526°N",
+     "coordinates: 77.5771°E",
+     "date: 16 June 2026",
+     "date: 17 June 2026",
+     "facility: Forward Operating Base Hymgiri",
+     "facility: Ladakh",
+     "location: eastern sector",
+     "military unit: 17th Mechanized Infantry Battalion",
+     "nationality: Indian nationality",
+     "operation name: BMP-2 Infantry Fighting Wheels",
+     "operation name: Operation Security Armor",
+     "operation name: Operation Security Shield",
+     "operation name: Shera Tataka Vickeld Armored Platform",
+     "operation name: multi-battery Joint Rocket",
+     "organization: Joint Defense Intelligence Directorate",
+     "person: Colonel Arjun Singh",
+     "time: 03:20 UTC time",
+     "time: 22:45 UTC time"
+    ],
+    "translation": "On 16 June 2026 at 22:45 UTC time, the person Colonel Arjun Singh, who is an Indian nationality officer and affiliated with the organization Joint Defense Intelligence Directorate, issued instructions to the military unit 17th Mechanized Infantry Battalion under the operation name \"Operation Security Armor\". According to intelligence reports, the location is located in the eastern sector of Ladakh facility \"Forward Operating Base Hymgiri\" near the coordinates 34.1526°N, 77.5771°E. During the operation, the military unit saw suspicious activity using the Shera Tataka Vickeld Armored Platform and BMP-2 Infantry Fighting Wheels with weapons system after the multi-battery Joint Rocket was deployed. On 17 June 2026 the success of the mission was confirmed via the communication identifier \"SIERRA-NET-09\" at 03:20 UTC time and the operation name \"Operation Security Shield\" was successfully declared successful."
+   }
+  },
+  "sample_text5.txt": {
+   "lang": "mr",
+   "chars": 1790,
+   "before": {
+    "chunk_chars": [
+     1388,
+     401
+    ],
+    "tokens_to_nllb": [
+     444,
+     112
+    ],
+    "entities_unique": 24,
+    "entities": [
+     "communication identifier: +91 90000 12345",
+     "communication identifier: 28.7041°N",
+     "communication identifier: 77.1025°E",
+     "communication identifier: SIERRA-NET-11",
+     "date: 05:10 UTC",
+     "date: 17 June 2026",
+     "facility: BMP-2 trench",
+     "facility: Kestrel trench",
+     "facility: forward operating base Sahyadri",
+     "location: Arunachal Pradesh",
+     "military unit: Joint Defence Intelligence Directorate",
+     "military unit: Military Unit 21st Mechanized Infantry Battalion",
+     "military unit: Royal Air Force",
+     "nationality: Indian nationality",
+     "operation name: Joint Battle of the Somme-Sharpa",
+     "operation name: Operation Vishra Praha",
+     "operation name: Operation Wazirapahit",
+     "operation name: communication identifier",
+     "person: Colonel Rohit Deshmukh",
+     "phone number: 90000 12345",
+     "vehicle: SK-15K",
+     "weapon system: airborne missile defense system",
+     "weapon system: unknown missile defense system",
+     "weapon system: weapon system"
+    ],
+    "translation": "On 17 June 2026 at 01:35 UTC time, person Colonel Rohit Deshmukh, officer of Indian nationality and senior coordinator of the Joint Defence Intelligence Directorate, Institute, issued a special order to the Military Unit 21st Mechanized Infantry Battalion under the name of Operation Vishra Praha. According to intelligence information received, the facility located in the border area of Arunachal Pradesh, located near the forward operating base Sahyadri, was located near the direction 28.7041°N, 77.1025°E. During the operation, the vehicle was disarmed from the Kestrel trench and deployed to the BMP-2 trench, while the weapon system of the Joint Battle of the Somme-Sharpa was used by the Royal Air Force and the unknown missile defense system, which was later detected by the airborne missile defense system, and the airborne missile defense system, the \"SK-15K\" and the \"SK-15K\" were sent to the airborne missile defense and airborne missile defense equipment, the \"Sharpa\" and the \"SK-15K\" in the same time. On 17 June 2026 at 05:10 UTC, the mission was successfully completed and declared successful by the communication identifier \"SIERRA-NET-11\", and the name of the operation \"Operation Wazirapahit\" was declared. If you want to add only a fictitious/random mobile number to this text, for example: Mobile number: +91 90000 12345 use as a purely fictitious example; do not use as a real person number."
+   },
+   "after": {
+    "chunk_chars": [
+     1182,
+     607
+    ],
+    "tokens_to_nllb": [
+     392,
+     164
+    ],
+    "entities_unique": 22,
+    "entities": [
+     "communication identifier: 28.7041°N",
+     "communication identifier: 77.1025°E",
+     "communication identifier: SIERRA-NET-11",
+     "date: 05:10 UTC",
+     "date: 17 June 2026",
+     "facility: BMP-2 trench",
+     "facility: Joint Command Centre",
+     "facility: Kestrel trench",
+     "facility: Pinnacar-Sharya Rajputra station",
+     "facility: forward operating base Sahyadri",
+     "military unit: 9th Mountain Brigade",
+     "military unit: Military Unit 21st Mechanized Infantry Battalion",
+     "nationality: Indian nationality",
+     "operation name: Operation Vajra Praha",
+     "operation name: Operation Vajrapraya",
+     "organization: East Command",
+     "person: Colonel Rohit Deshmukh",
+     "phone number: 90000 12345",
+     "time: 01:35 UTC",
+     "vehicle: vehicle",
+     "weapon system: unknown missile protection system",
+     "weapon system: weapon system"
+    ],
+    "translation": "On 17 June 2026 at 01:35 UTC, person Colonel Rohit Deshmukh, officer of Indian nationality and senior coordinator of the Joint Defence Intelligence Directorate, Agency, issued a special order to the Military Unit 21st Mechanized Infantry Battalion under the name of Operation Vajra Praha. According to intelligence information received, the facility located in the border area of Arunachal Pradesh, located near the forward operating base Sahyadri, was located near the direction 28.7041°N, 77.1025°E. During the operation, the vehicle was disarmed from the Kestrel trench and deployed to the BMP-2 trench, while the weapon system of the Pinnacar-Sharya Rajputra station was used by the RAF and the unknown missile protection system. After the incident, an emergency meeting was held at the Joint Command Centre and additional troops were deployed in coordination between the Joint Defense Intelligence Directorate, the East Command and the 9th Mountain Brigade. On 17 June 2026 at 05:10 UTC time, the mission was successfully completed via communication identifier \"SIERRA-NET-11\" and the name Operation Vajrapraya was declared successful."
+   }
+  },
+  "sample_scan6.png": {
+   "lang": "en",
+   "before": {
+    "entities_unique": 8,
+    "entities": [
+     "date: 18 June 2026",
+     "facility: Leh facility",
+     "military unit: 5th Mountain Brigade",
+     "nationality: Indian Army",
+     "person: Major Rakesh Verma",
+     "phone number: 9876543210",
+     "phone number: Contact number",
+     "time: 09:15 UTC"
+    ]
+   },
+   "after": {
+    "entities_unique": 8,
+    "entities": [
+     "date: 18 June 2026",
+     "facility: Leh facility",
+     "military unit: 5th Mountain Brigade",
+     "nationality: Indian Army",
+     "person: Major Rakesh Verma",
+     "phone number: 9876543210",
+     "phone number: Contact number",
+     "time: 09:15 UTC"
+    ]
+   }
+  },
+  "sample_text1.txt": {
+   "lang": "en",
+   "before": {
+    "entities_unique": 28,
+    "entities": [
+     "communication identifier: ALPHA-NET-07",
+     "communication identifier: EAGLE-21",
+     "communication identifier: F-35 Lightning II",
+     "coordinates: 118.2437°W",
+     "coordinates: 34.0522°N",
+     "date: 15 June 2026",
+     "date: 18 June 2026",
+     "event: follow-up event",
+     "event: unauthorized drone activity",
+     "facility: Fort Eagle Base",
+     "facility: Forward Operating Base Falcon",
+     "facility: Sector Delta",
+     "military unit: 3rd Armored Brigade",
+     "military unit: Joint Task Force Sentinel",
+     "operation name: Operation Iron Shield",
+     "organization: Joint Task Force Sentinel",
+     "person: Colonel James Carter",
+     "phone number: 118.2437",
+     "rank: American",
+     "rank: Colonel",
+     "time: 09:00 UTC",
+     "time: 14:30 UTC",
+     "vehicle: M2 Bradley Infantry Fighting Vehicle",
+     "vessel: USS Arlington",
+     "weapon system: AN/PRC-158 tactical radios",
+     "weapon system: HIMARS launcher",
+     "weapon system: advanced night-vision systems",
+     "weapon system: precision-guided munitions"
+    ]
+   },
+   "after": {
+    "entities_unique": 28,
+    "entities": [
+     "communication identifier: ALPHA-NET-07",
+     "communication identifier: EAGLE-21",
+     "communication identifier: F-35 Lightning II",
+     "coordinates: 118.2437°W",
+     "coordinates: 34.0522°N",
+     "date: 15 June 2026",
+     "date: 18 June 2026",
+     "event: follow-up event",
+     "event: unauthorized drone activity",
+     "facility: Fort Eagle Base",
+     "facility: Forward Operating Base Falcon",
+     "facility: Sector Delta",
+     "military unit: 3rd Armored Brigade",
+     "military unit: Joint Task Force Sentinel",
+     "operation name: Operation Iron Shield",
+     "organization: Joint Task Force Sentinel",
+     "person: Colonel James Carter",
+     "phone number: 118.2437",
+     "rank: American",
+     "rank: Colonel",
+     "time: 09:00 UTC",
+     "time: 14:30 UTC",
+     "vehicle: M2 Bradley Infantry Fighting Vehicle",
+     "vessel: USS Arlington",
+     "weapon system: AN/PRC-158 tactical radios",
+     "weapon system: HIMARS launcher",
+     "weapon system: advanced night-vision systems",
+     "weapon system: precision-guided munitions"
+    ]
+   }
+  },
+  "sample_text2.txt": {
+   "lang": "en",
+   "before": {
+    "entities_unique": 33,
+    "entities": [
+     "communication identifier: Checkpoint Delta-7",
+     "communication identifier: FALCON-11",
+     "communication identifier: FALCON-12",
+     "communication identifier: SIERRA-NET-09",
+     "coordinates: 31.7683°N",
+     "coordinates: 35.2137°E",
+     "coordinates: Al-Qamar region",
+     "date: 15 June 2026",
+     "date: 16 June 2026",
+     "facility: Camp Al-Hadeed",
+     "facility: Depot Echo",
+     "facility: Forward Operating Base Sentinel",
+     "facility: logistics facility",
+     "military unit: 2nd Mechanized Battalion",
+     "military unit: 5th Armored Brigade",
+     "military unit: Joint Intelligence Directorate",
+     "nationality: British",
+     "operation name: Operation Silent Horizon",
+     "organization: Joint Intelligence Directorate",
+     "organization: NATO Rapid Response Command",
+     "organization: Royal Jordanian Armed Forces",
+     "person: Colonel Sarah Mitchell",
+     "person: Major Ahmed Al-Rashid",
+     "time: 21:15 local time",
+     "time: 23:47 UTC",
+     "vehicle: Oshkosh FMTV vehicles",
+     "vessel: San Antonio-class vessel",
+     "vessel: USS Arlington",
+     "weapon system: AH-64 Apache aircraft",
+     "weapon system: AN/PRC-158 tactical radios",
+     "weapon system: M142 HIMARS",
+     "weapon system: MQ-9 Reaper reconnaissance assets",
+     "weapon system: counter-drone equipment"
+    ]
+   },
+   "after": {
+    "entities_unique": 33,
+    "entities": [
+     "aircraft: AH-64 Apache aircraft",
+     "communication identifier: Checkpoint Delta-7",
+     "communication identifier: FALCON-11",
+     "communication identifier: FALCON-12",
+     "communication identifier: SIERRA-NET-09",
+     "coordinates: 31.7683°N",
+     "coordinates: 35.2137°E",
+     "coordinates: Al-Qamar region",
+     "date: 15 June 2026",
+     "date: 16 June 2026",
+     "facility: Camp Al-Hadeed",
+     "facility: Depot Echo",
+     "facility: Forward Operating Base Sentinel",
+     "facility: logistics facility",
+     "military unit: 2nd Mechanized Battalion",
+     "military unit: 5th Armored Brigade",
+     "military unit: Joint Intelligence Directorate",
+     "nationality: British",
+     "operation name: Operation Silent Horizon",
+     "organization: Joint Intelligence Directorate",
+     "organization: NATO Rapid Response Command",
+     "organization: Royal Jordanian Armed Forces",
+     "person: Colonel Sarah Mitchell",
+     "person: Major Ahmed Al-Rashid",
+     "time: 21:15 local time",
+     "time: 23:47 UTC",
+     "vehicle: Oshkosh FMTV vehicles",
+     "vessel: San Antonio-class vessel",
+     "vessel: USS Arlington",
+     "weapon system: AN/PRC-158 tactical radios",
+     "weapon system: M142 HIMARS",
+     "weapon system: MQ-9 Reaper reconnaissance assets",
+     "weapon system: counter-drone equipment"
+    ]
+   }
+  },
+  "sample_text3.txt": {
+   "lang": "en",
+   "before": {
+    "entities_unique": 6,
+    "entities": [
+     "location: Maharashtra",
+     "location: Nagpur",
+     "organization: RAPL",
+     "person: Software Engineer",
+     "person: Vinit",
+     "phone number: 1234567890"
+    ]
+   },
+   "after": {
+    "entities_unique": 6,
+    "entities": [
+     "location: Maharashtra",
+     "location: Nagpur",
+     "organization: RAPL",
+     "person: Software Engineer",
+     "person: Vinit",
+     "phone number: 1234567890"
+    ]
+   }
+  }
+ }
+}

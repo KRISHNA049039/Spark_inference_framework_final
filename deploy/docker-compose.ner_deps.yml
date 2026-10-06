@@ -1,0 +1,41 @@
+# =============================================================================
+# Add-on for docker-compose.airgap_sim.yml (profile: cluster): run the NER
+# cluster on the plain multi-model-inference image, with the NER packages
+# taken from a dependency image mounted read-only at /deps and installed when
+# each container starts (deploy/scripts/install_ner_deps.sh). No image build.
+#
+#   docker compose -f deploy/docker-compose.airgap_sim.yml -f deploy/docker-compose.ner_deps.yml \
+#     --env-file deploy/dev.wsl.env --profile cluster up -d
+#
+# Variables (env file or shell):
+#   NER_DEPS_IMAGE   dependency image                 default ner-translate-deps:latest
+#   NER_WHEELS_DIR   wheel folder inside the container default: found automatically
+#                    (.whl files anywhere in the image; if there are none, wheels
+#                    are rebuilt from the packages installed in it)
+#   BASE_IMAGE       runtime image                    default multi-model-inference:latest
+#
+# Needs Docker Engine 28+ and Compose 2.35+ (image volumes).
+# =============================================================================
+x-ner-deps-mounts: &ner-deps-mounts
+  - type: image
+    source: ${NER_DEPS_IMAGE:-ner-translate-deps:latest}
+    target: /deps
+  - ../debs/ner_translate:/deps-debs:ro
+  - ./scripts/install_ner_deps.sh:/usr/local/bin/install_ner_deps.sh:ro
+
+services:
+  ner-cluster-master:
+    image: ${BASE_IMAGE:-multi-model-inference:latest}
+    environment:
+      NER_WHEELS_DIR: ${NER_WHEELS_DIR:-}
+    volumes: *ner-deps-mounts
+    command: bash -c "bash /usr/local/bin/install_ner_deps.sh && $$SPARK_HOME/sbin/start-master.sh -h ner-cluster-master && tail -f $$SPARK_HOME/logs/*master*"
+    healthcheck:                 # allow time for the install before Spark answers
+      start_period: 180s
+
+  ner-cluster-worker:
+    image: ${BASE_IMAGE:-multi-model-inference:latest}
+    environment:
+      NER_WHEELS_DIR: ${NER_WHEELS_DIR:-}
+    volumes: *ner-deps-mounts
+    command: bash -c "bash /usr/local/bin/install_ner_deps.sh && $$SPARK_HOME/sbin/start-worker.sh spark://ner-cluster-master:7077 -c 4 -m 6g && tail -f $$SPARK_HOME/logs/*worker*"

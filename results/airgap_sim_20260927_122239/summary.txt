@@ -1,0 +1,9 @@
+﻿
+Test Title                                                                            Result Seconds
+---- -----                                                                            ------ -------
+T08  Node cache: restarting the kitchen reuses the downloaded models                  PASS     181.5
+T09  HDFS outage with a warm cache: kitchen still starts and serves                   PASS     242.7
+T10  Master file-system mode: models read from a shared/local path (file://), no HDFS FAIL     919.2
+
+
+

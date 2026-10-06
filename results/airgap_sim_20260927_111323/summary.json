@@ -1,0 +1,20 @@
+[
+    {
+        "Test":  "T01",
+        "Title":  "Prerequisites: Docker, images, GPU, model weights on the staging disk",
+        "Result":  "PASS",
+        "Seconds":  16.4
+    },
+    {
+        "Test":  "T02",
+        "Title":  "Start HDFS (namenode + datanode) and wait for a live datanode",
+        "Result":  "FAIL",
+        "Seconds":  251.1
+    },
+    {
+        "Test":  "T03",
+        "Title":  "Upload the model weights into HDFS (/models/weights) and verify byte counts",
+        "Result":  "FAIL",
+        "Seconds":  0.8
+    }
+]

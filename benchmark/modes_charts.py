@@ -9,7 +9,10 @@ import json
 import os
 import sys
 
-from PIL import Image, ImageDraw, ImageFont
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except ImportError:
+    raise SystemExit("modes_charts.py needs Pillow to draw PNGs: pip install pillow")
 
 ROOT = sys.argv[1] if len(sys.argv) > 1 else "results/modes_20260926/aws_2node"
 FAMILY = {"rdd": "#d79b00", "udf": "#82b366", "native": "#6c8ebf", "triton": "#9673a6", "platform10": "#b85450"}

@@ -1,0 +1,8 @@
+﻿
+Test Title                                                                                      Result Seconds
+---- -----                                                                                      ------ -------
+T10  Master file-system mode: models read from a shared/local path (file://), no HDFS           PASS       241
+T11  Cluster (in-process) mode: the Spark executor fetches models from HDFS and runs NER itself FAIL     580.9
+
+
+

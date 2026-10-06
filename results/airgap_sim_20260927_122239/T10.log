@@ -1,0 +1,9 @@
+ Container sim-ner-translate-server Recreate 
+ Container sim-ner-translate-server Error response from daemon: cannot stop container: efd65ca0b6a7f4c29bd728d06c4822b4beac676ec2a79018c7242443f56d5cc4: container efd65ca0b6a7 PID 18894 is zombie and can not be killed. Use the --init option when creating containers to run an init inside the container that forwards signals and reaps processes 
+Error response from daemon: cannot stop container: efd65ca0b6a7f4c29bd728d06c4822b4beac676ec2a79018c7242443f56d5cc4: container efd65ca0b6a7 PID 18894 is zombie and can not be killed. Use the --init option when creating containers to run an init inside the container that forwards signals and reaps processes
+
+[ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/gliner-multi
+INFO:ner_translate.serve:Models loaded in 163.4s
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/hf_cache

@@ -1,0 +1,6 @@
+{
+    "Test":  "T07",
+    "Title":  "Spark cluster, service mode: lean master + worker POST to the kitchen",
+    "Result":  "PASS",
+    "Seconds":  85.6
+}

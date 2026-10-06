@@ -1,0 +1,7 @@
+﻿
+Test Title                                                 Result Seconds
+---- -----                                                 ------ -------
+T12  Teardown (keeps HDFS data + node caches unless -Wipe) PASS         6
+
+
+

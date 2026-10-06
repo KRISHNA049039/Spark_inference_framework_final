@@ -10,7 +10,10 @@ import html
 import math
 from xml.sax.saxutils import escape
 
-from PIL import Image, ImageDraw, ImageFont
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except ImportError:
+    raise SystemExit("diagram_engine.py needs Pillow to draw PNGs: pip install pillow")
 
 STYLES = {
     #          fill        stroke     font

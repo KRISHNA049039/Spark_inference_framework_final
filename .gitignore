@@ -1,0 +1,30 @@
+# Python caches
+__pycache__/
+*.pyc
+
+# Offline package bundles: large and regenerable
+# (deploy/scripts/build_ner_translate_wheelhouse.sh; shipped as the ner-translate-deps image)
+wheels/
+wheels.zip
+wheels-hotfix/
+
+# Exported images and archives
+*.tar
+*.tar.gz
+*.7z
+*.7z.0*
+
+# Model weights: never in the repo (models/weights/README.md)
+models/weights/*
+!models/weights/.gitignore
+!models/weights/README.md
+
+# AWS CDK build output and local environments
+deploy/aws-cdk/cdk.out/
+deploy/aws-cdk/.venv/
+deploy/aws-cdk/node_modules/
+.venv/
+node_modules/
+
+# Office lock files (a document open in Word)
+~$*

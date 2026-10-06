@@ -1,0 +1,31 @@
+Spark Command: /usr/lib/jvm/java-17-openjdk-amd64/bin/java -cp /opt/spark/conf/:/opt/spark/jars/* -Xmx256m org.apache.spark.deploy.master.Master --host ner-translate-master --port 7077 --webui-port 8080 -h ner-translate-master
+========================================
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/09/27 08:57:40 INFO Master: Started daemon with process name: 18@ner-translate-master
+26/09/27 08:57:40 INFO SignalUtils: Registering signal handler for TERM
+26/09/27 08:57:40 INFO SignalUtils: Registering signal handler for HUP
+26/09/27 08:57:40 INFO SignalUtils: Registering signal handler for INT
+26/09/27 08:57:42 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/27 08:57:42 INFO SecurityManager: Changing view acls to: root
+26/09/27 08:57:43 INFO SecurityManager: Changing modify acls to: root
+26/09/27 08:57:43 INFO SecurityManager: Changing view acls groups to: 
+26/09/27 08:57:43 INFO SecurityManager: Changing modify acls groups to: 
+26/09/27 08:57:43 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: root; groups with view permissions: EMPTY; users with modify permissions: root; groups with modify permissions: EMPTY
+26/09/27 08:57:44 INFO Utils: Successfully started service 'sparkMaster' on port 7077.
+26/09/27 08:57:44 INFO Master: Starting Spark master at spark://ner-translate-master:7077
+26/09/27 08:57:44 INFO Master: Running Spark version 3.5.1
+26/09/27 08:57:44 INFO JettyUtils: Start Jetty 0.0.0.0:8080 for MasterUI
+26/09/27 08:57:45 INFO Utils: Successfully started service 'MasterUI' on port 8080.
+26/09/27 08:57:45 INFO MasterWebUI: Bound MasterWebUI to 0.0.0.0, and started at http://ner-translate-master:8080
+26/09/27 08:57:45 INFO Master: I have been elected leader! New state: ALIVE
+26/09/27 08:58:00 INFO Master: Registering worker 172.21.0.4:34219 with 4 cores, 2.0 GiB RAM
+26/09/27 09:01:30 INFO Master: Registering app pipeline-ner_translate
+26/09/27 09:01:30 INFO Master: Registered app pipeline-ner_translate with ID app-20260927090130-0000
+26/09/27 09:01:30 INFO Master: Start scheduling for app app-20260927090130-0000 with rpId: 0
+26/09/27 09:01:30 INFO Master: Launching executor app-20260927090130-0000/0 on worker worker-20260927085758-172.21.0.4-34219
+26/09/27 09:01:34 INFO Master: Start scheduling for app app-20260927090130-0000 with rpId: 0
+26/09/27 09:04:00 INFO Master: Received unregister request from application app-20260927090130-0000
+26/09/27 09:04:00 INFO Master: Removing app app-20260927090130-0000
+26/09/27 09:04:00 INFO Master: 172.21.0.2:60616 got disassociated, removing it.
+26/09/27 09:04:00 INFO Master: ner-translate-master:42033 got disassociated, removing it.
+26/09/27 09:04:01 WARN Master: Got status update for unknown executor app-20260927090130-0000/0

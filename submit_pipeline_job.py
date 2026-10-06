@@ -131,7 +131,10 @@ def main():
         available = ", ".join(sorted(manifest.keys()))
         raise SystemExit(f"Unknown pipeline '{args.pipeline}'. Available: {available}")
 
-    paths = _collect_files(args.input)
+    # Absolute paths: executors (cluster mode) and the model server (service
+    # mode) resolve them from their own working directory, which is not the
+    # driver's - every node mounts the input data at the same absolute path.
+    paths = [os.path.abspath(p) for p in _collect_files(args.input)]
     if not paths:
         raise SystemExit(f"No input files found at {args.input}")
 

@@ -1,0 +1,7 @@
+﻿
+Test Title                                                                                      Result Seconds
+---- -----                                                                                      ------ -------
+T11  Cluster (in-process) mode: the Spark executor fetches models from HDFS and runs NER itself PASS       378
+
+
+

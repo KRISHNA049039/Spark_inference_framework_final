@@ -1,0 +1,135 @@
+ Container sim-ner-translate-server Starting 
+ Container sim-ner-translate-server Started 
+
+docker : INFO:     Started server process [1]
+At D:\pytorch-spark-inference-platform 1\deploy\airgap_sim_tests.ps1:149 char:13
++     $logs = docker logs sim-ner-translate-server 2>&1 | Out-String
++             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:     Started server process [1]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:     Waiting for application startup.
+INFO:ner_translate.serve:Loading GLiNER + NLLB + language-id...
+config.json not found in /model_cache/hdfs-namenode/models/weights/gliner-multi
+WARNING:huggingface_hub.hub_mixin:config.json not found in /model_cache/hdfs-namenode/models/weights/gliner-multi
+ERROR:    Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/transformers/utils/hub.py", line 403, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1121, in 
+_hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1653, in 
+_raise_on_head_call_error
+    raise LocalEntryNotFoundError(
+huggingface_hub.errors.LocalEntryNotFoundError: Cannot find the requested files in the disk cache and outgoing traffic 
+has been disabled. To enable hf.co look-ups and downloads online, set 'local_files_only' to False.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 694, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 571, in __aenter__
+    await self._router.startup()
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 673, in startup
+    handler()
+  File "/app/models/pipelines/ner_translate/serve.py", line 41, in _load_once
+    _state["loaded"] = pipeline.load()
+                       ^^^^^^^^^^^^^^^
+  File "/app/models/pipelines/ner_translate/pipeline.py", line 36, in load
+    return _impl.load_models()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/app/models/pipelines/ner_translate/mt_ner_all_formats.py", line 447, in load_models
+    gliner_model = GLiNER.from_pretrained(GLINER_DIR, local_files_only=True)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/huggingface_hub/hub_mixin.py", line 568, in from_pretrained
+    instance = cls._from_pretrained(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/gliner/model.py", line 799, in _from_pretrained
+    gliner = cls(config, tokenizer=tokenizer, encoder_from_pretrained=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+[model_store] fetched http://hdfs-namenode:9870/models/weights/gliner-multi -> /model_cache/hdfs-namenode/models/weights/gliner-multi  2311.7 MB in 124.9 s (19 MB/s)
+[model_store] fetched http://hdfs-namenode:9870/models/weights/nllb-200-distilled-600M -> /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M  2482.7 MB in 176.2 s (14 MB/s)
+GPU detected: NVIDIA GeForce GTX 1650
+[ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/gliner-multi
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M
+[model_store] fetched http://hdfs-namenode:9870/models/weights/hf_cache -> /model_cache/hdfs-namenode/models/weights/hf_cache  8.6 MB in 1.3 s (7 MB/s)
+[ner_translate] offline HF cache: models--microsoft--mdeberta-v3-base -> /root/.cache/huggingface/hub
+GPU detected: NVIDIA GeForce GTX 1650
+GLiNER using fp16.
+INFO:     127.0.0.1:50734 - "GET /health HTTP/1.1" 200 OK
+  File "/usr/local/lib/python3.11/site-packages/gliner/model.py", line 53, in __init__
+    tokenizer = AutoTokenizer.from_pretrained(config.model_name)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/models/auto/tokenization_auto.py", line 864, in 
+from_pretrained
+    config = AutoConfig.from_pretrained(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/models/auto/configuration_auto.py", line 1006, in 
+from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/configuration_utils.py", line 570, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/configuration_utils.py", line 629, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/utils/hub.py", line 446, in cached_file
+    raise EnvironmentError(
+OSError: We couldn't connect to 'https://huggingface.co' to load this file, couldn't find it in the cached files and 
+it looks like microsoft/mdeberta-v3-base is not the path to a directory containing a file named config.json.
+Checkout your internet connection or see how to run the library in offline mode at 
+'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+ERROR:    Application startup failed. Exiting.
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:ner_translate.serve:Loading GLiNER + NLLB + language-id...
+config.json not found in /model_cache/hdfs-namenode/models/weights/gliner-multi
+WARNING:huggingface_hub.hub_mixin:config.json not found in /model_cache/hdfs-namenode/models/weights/gliner-multi
+/usr/local/lib/python3.11/site-packages/transformers/convert_slow_tokenizer.py:558: UserWarning: The sentencepiece 
+tokenizer that you are converting to a fast tokenizer uses the byte fallback option which is not implemented in the 
+fast tokenizers. In practice this means that the fast version of the tokenizer can produce unknown tokens whereas the 
+sentencepiece version would have converted these unknown tokens into a sequence of byte tokens matching the original 
+piece of text.
+  warnings.warn(
+INFO:ner_translate.serve:Models loaded in 226.0s
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+
++ FullyQualifiedErrorId : NativeCommandError
+ERROR:    Traceback (most recent call last):
+_raise_on_head_call_error(head_call_error, force_download, local_files_only)
+_raise_on_head_call_error
+raise LocalEntryNotFoundError(
+huggingface_hub.errors.LocalEntryNotFoundError: Cannot find the requested files in the disk cache and outgoing traffic
+[ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+[model_store] fetched http://hdfs-namenode:9870/models/weights/gliner-multi -> /model_cache/hdfs-namenode/models/weights/gliner-multi  2311.7 MB in 124.9 s (19 MB/s)
+[model_store] fetched http://hdfs-namenode:9870/models/weights/nllb-200-distilled-600M -> /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M  2482.7 MB in 176.2 s (14 MB/s)
+GPU detected: NVIDIA GeForce GTX 1650
+[ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/gliner-multi
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M
+[model_store] fetched http://hdfs-namenode:9870/models/weights/hf_cache -> /model_cache/hdfs-namenode/models/weights/hf_cache  8.6 MB in 1.3 s (7 MB/s)
+GPU detected: NVIDIA GeForce GTX 1650
+GLiNER using fp16.
+raise EnvironmentError(
+OSError: We couldn't connect to 'https://huggingface.co' to load this file, couldn't find it in the cached files and
+ERROR:    Application startup failed. Exiting.
+INFO:ner_translate.serve:Models loaded in 226.0s
+sim-ner-translate-server 1.509GiB / 5.787GiB
+sim-hdfs-datanode 346.1MiB / 5.787GiB
+sim-hdfs-namenode 278MiB / 5.787GiB

@@ -1,0 +1,78 @@
+ Container sim-ner-translate-server Stopping 
+ Container sim-spark-worker Stopping 
+ Container sim-spark-worker Stopped 
+ Container sim-spark-master Stopping 
+ Container sim-ner-translate-server Stopped 
+ Container sim-spark-master Stopped 
+
+ Volume airgap-sim_worker-cache Creating 
+ Volume airgap-sim_worker-cache Created 
+ Container sim-ner-cluster-master Creating 
+ Container sim-hdfs-namenode Running 
+ Container sim-hdfs-datanode Running 
+ Container sim-ner-cluster-master Created 
+ Container sim-ner-cluster-worker Creating 
+ Container sim-ner-cluster-worker Created 
+ Container sim-hdfs-namenode Waiting 
+ Container sim-ner-cluster-master Starting 
+ Container sim-hdfs-namenode Healthy 
+ Container sim-ner-cluster-master Started 
+ Container sim-ner-cluster-master Waiting 
+ Container sim-ner-cluster-master Healthy 
+ Container sim-ner-cluster-worker Starting 
+ Container sim-ner-cluster-worker Started 
+
+Spark master UI http://localhost:8084 - 1 worker alive
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/27 08:16:01 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[submit_pipeline_job] execution-mode=cluster -> in-process (mod.load/mod.run) on spark://ner-cluster-master:7077
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+{
+  "elapsed_time": 522.2633,
+  "num_files": 6,
+  "num_partitions": 1,
+  "partition_details": [
+    {
+      "hostname": "ner-cluster-worker",
+      "pid": 196,
+      "num_paths": 6,
+      "load_time_sec": 428.326,
+      "run_time_sec": 51.333
+    }
+  ]
+}
+
+Processed 6 document(s):
+  sample_scan6.png: lang=en translated=False entities=8
+  sample_text1.txt: lang=en translated=False entities=28
+  sample_text2.txt: lang=en translated=False entities=33
+  sample_text3.txt: lang=en translated=False entities=6
+  sample_text4.txt: lang=hi translated=True entities=14
+  sample_text5.txt: lang=mr translated=True entities=24
+
+Full results (including extracted entities) written to results/ner_translate_20260927_082528.json
+                                                                                
+
+executor: [ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+executor: [model_store] fetched http://hdfs-namenode:9870/models/weights/gliner-multi -> /model_cache/hdfs-namenode/models/weights/gliner-multi  2311.7 MB in 72.7 s (32 MB/s)
+executor: [model_store] fetched http://hdfs-namenode:9870/models/weights/nllb-200-distilled-600M -> /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M  2482.7 MB in 109.3 s (23 MB/s)
+executor: [model_store] fetched http://hdfs-namenode:9870/models/weights/hf_cache -> /model_cache/hdfs-namenode/models/weights/hf_cache  8.6 MB in 0.9 s (10 MB/s)

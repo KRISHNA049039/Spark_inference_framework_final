@@ -1,0 +1,51 @@
+ Container sim-ner-translate-server Recreate 
+ Container sim-ner-translate-server Recreated 
+ Container sim-ner-translate-server Starting 
+ Container sim-ner-translate-server Started 
+
+[ner_translate] model source: model store file:///mnt/models
+INFO:ner_translate.serve:Models loaded in 156.7s
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/27 07:18:56 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[submit_pipeline_job] execution-mode=service -> HTTP model server at http://ner-translate-server:8000
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 0) / 2]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 2) / 2]
+System.Management.Automation.RemoteException
+[Stage 0:=============================>                             (1 + 1) / 2]
+System.Management.Automation.RemoteException
+{
+  "elapsed_time": 44.4949,
+  "num_files": 6,
+  "num_partitions": 2,
+  "partition_details": [
+    {
+      "hostname": "ner-translate-worker",
+      "pid": 274,
+      "num_paths": 3,
+      "load_time_sec": 0.0,
+      "run_time_sec": 19.665
+    },
+    {
+      "hostname": "ner-translate-worker",
+      "pid": 273,
+      "num_paths": 3,
+      "load_time_sec": 0.0,
+      "run_time_sec": 35.378
+    }
+  ]
+}
+
+Processed 6 document(s):
+  sample_scan6.png: lang=en translated=False entities=8
+  sample_text1.txt: lang=en translated=False entities=27
+  sample_text2.txt: lang=en translated=False entities=33
+  sample_text3.txt: lang=en translated=False entities=6
+  sample_text4.txt: lang=hi translated=True entities=14
+  sample_text5.txt: lang=mr translated=True entities=24
+
+Full results (including extracted entities) written to results/ner_translate_20260927_071946.json
+                                                                                
+

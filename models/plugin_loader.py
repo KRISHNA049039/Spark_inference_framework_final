@@ -48,6 +48,9 @@ def register_plugins(registry, manifest_path: str = DEFAULT_MANIFEST_PATH) -> li
             estimated_memory_mb=spec.get("estimated_memory_mb", 100),
         )
         weights_path = spec.get("weights_path")
+        if weights_path and "://" in weights_path:       # hdfs:// or file:// (models/model_store.py)
+            from models import model_store
+            weights_path = model_store.resolve(weights_path)
         if weights_path and os.path.exists(weights_path):
             import torch
             model = registry.load_model(name, device="cpu")

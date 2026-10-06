@@ -1,0 +1,7 @@
+﻿
+Test Title                                                                 Result Seconds
+---- -----                                                                 ------ -------
+T07  Spark cluster, service mode: lean master + worker POST to the kitchen PASS      85.6
+
+
+

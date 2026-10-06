@@ -1,0 +1,40 @@
+{
+  "elapsed_time": 504.288,
+  "num_files": 6,
+  "num_partitions": 1,
+  "partition_details": [
+    {
+      "hostname": "ner-cluster-worker",
+      "pid": 196,
+      "num_paths": 6,
+      "load_time_sec": 464.555,
+      "run_time_sec": 2.965
+    }
+  ],
+  "results": {
+    "sample_scan6.png": {
+      "path": "data/ner_samples/sample_scan6.png",
+      "error": "[Errno 2] No such file or directory: '/opt/spark/work/app-20260927072029-0000/0/data/ner_samples/sample_scan6.png'"
+    },
+    "sample_text1.txt": {
+      "path": "data/ner_samples/sample_text1.txt",
+      "error": "[Errno 2] No such file or directory: 'data/ner_samples/sample_text1.txt'"
+    },
+    "sample_text2.txt": {
+      "path": "data/ner_samples/sample_text2.txt",
+      "error": "[Errno 2] No such file or directory: 'data/ner_samples/sample_text2.txt'"
+    },
+    "sample_text3.txt": {
+      "path": "data/ner_samples/sample_text3.txt",
+      "error": "[Errno 2] No such file or directory: 'data/ner_samples/sample_text3.txt'"
+    },
+    "sample_text4.txt": {
+      "path": "data/ner_samples/sample_text4.txt",
+      "error": "[Errno 2] No such file or directory: 'data/ner_samples/sample_text4.txt'"
+    },
+    "sample_text5.txt": {
+      "path": "data/ner_samples/sample_text5.txt",
+      "error": "[Errno 2] No such file or directory: 'data/ner_samples/sample_text5.txt'"
+    }
+  }
+}

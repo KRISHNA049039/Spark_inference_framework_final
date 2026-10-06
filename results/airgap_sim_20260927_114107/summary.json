@@ -1,0 +1,6 @@
+{
+    "Test":  "T04",
+    "Title":  "model_store over WebHDFS: fetch + checksum, missing path, unreachable host",
+    "Result":  "PASS",
+    "Seconds":  59.9
+}

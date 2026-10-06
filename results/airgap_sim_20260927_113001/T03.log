@@ -1,0 +1,41 @@
+gliner-multi: local 2,31,17,37,808 bytes, HDFS 2,31,17,37,808 bytes
+nllb-200-distilled-600M: local 2,48,26,56,260 bytes, HDFS 2,48,26,56,260 bytes
+drwxr-xr-x   - root supergroup          0 2026-09-27 06:04 /models/weights/gliner-multi
+drwxr-xr-x   - root supergroup          0 2026-09-27 06:00 /models/weights/gliner-multi/.cache
+drwxr-xr-x   - root supergroup          0 2026-09-27 06:00 /models/weights/gliner-multi/.cache/huggingface
+-rw-r--r--   1 root supergroup          1 2026-09-27 06:00 /models/weights/gliner-multi/.cache/huggingface/.gitignore
+drwxr-xr-x   - root supergroup          0 2026-09-27 06:00 /models/weights/gliner-multi/.cache/huggingface/download
+-rw-r--r--   1 root supergroup        104 2026-09-27 06:00 /models/weights/gliner-multi/.cache/huggingface/download/.gitattributes.metadata
+-rw-r--r--   1 root supergroup        104 2026-09-27 06:00 /models/weights/gliner-multi/.cache/huggingface/download/README.md.metadata
+-rw-r--r--   1 root supergroup        104 2026-09-27 06:00 /models/weights/gliner-multi/.cache/huggingface/download/gliner_config.json.metadata
+-rw-r--r--   1 root supergroup        128 2026-09-27 06:00 /models/weights/gliner-multi/.cache/huggingface/download/model.safetensors.metadata
+-rw-r--r--   1 root supergroup        127 2026-09-27 06:00 /models/weights/gliner-multi/.cache/huggingface/download/pytorch_model.bin.metadata
+-rw-r--r--   1 root supergroup       1519 2026-09-27 06:00 /models/weights/gliner-multi/.gitattributes
+-rw-r--r--   1 root supergroup       4770 2026-09-27 06:04 /models/weights/gliner-multi/README.md
+-rw-r--r--   1 root supergroup        477 2026-09-27 06:00 /models/weights/gliner-multi/gliner_config.json
+-rw-r--r--   1 root supergroup 1155830112 2026-09-27 06:02 /models/weights/gliner-multi/model.safetensors
+-rw-r--r--   1 root supergroup 1155900362 2026-09-27 06:04 /models/weights/gliner-multi/pytorch_model.bin
+drwxr-xr-x   - root supergroup          0 2026-09-27 06:10 /models/weights/nllb-200-distilled-600M
+drwxr-xr-x   - root supergroup          0 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache
+drwxr-xr-x   - root supergroup          0 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface
+-rw-r--r--   1 root supergroup          1 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/.gitignore
+drwxr-xr-x   - root supergroup          0 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download
+-rw-r--r--   1 root supergroup        104 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download/.gitattributes.metadata
+-rw-r--r--   1 root supergroup        103 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download/README.md.metadata
+-rw-r--r--   1 root supergroup        104 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download/config.json.metadata
+-rw-r--r--   1 root supergroup        104 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download/generation_config.json.metadata
+-rw-r--r--   1 root supergroup        128 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download/pytorch_model.bin.metadata
+-rw-r--r--   1 root supergroup        128 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download/sentencepiece.bpe.model.metadata
+-rw-r--r--   1 root supergroup        104 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download/special_tokens_map.json.metadata
+-rw-r--r--   1 root supergroup        126 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download/tokenizer.json.metadata
+-rw-r--r--   1 root supergroup        103 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.cache/huggingface/download/tokenizer_config.json.metadata
+-rw-r--r--   1 root supergroup       1284 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/.gitattributes
+-rw-r--r--   1 root supergroup       7667 2026-09-27 06:10 /models/weights/nllb-200-distilled-600M/README.md
+-rw-r--r--   1 root supergroup        846 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/config.json
+-rw-r--r--   1 root supergroup        189 2026-09-27 06:04 /models/weights/nllb-200-distilled-600M/generation_config.json
+-rw-r--r--   1 root supergroup 2460457927 2026-09-27 06:10 /models/weights/nllb-200-distilled-600M/pytorch_model.bin
+-rw-r--r--   1 root supergroup    4852054 2026-09-27 06:10 /models/weights/nllb-200-distilled-600M/sentencepiece.bpe.model
+-rw-r--r--   1 root supergroup       3548 2026-09-27 06:10 /models/weights/nllb-200-distilled-600M/special_tokens_map.json
+-rw-r--r--   1 root supergroup   17331176 2026-09-27 06:10 /models/weights/nllb-200-distilled-600M/tokenizer.json
+-rw-r--r--   1 root supergroup        564 2026-09-27 06:10 /models/weights/nllb-200-distilled-600M/tokenizer_config.json
+

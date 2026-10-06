@@ -1,0 +1,6 @@
+{
+    "Test":  "T12",
+    "Title":  "Teardown (keeps HDFS data + node caches unless -Wipe)",
+    "Result":  "PASS",
+    "Seconds":  6
+}

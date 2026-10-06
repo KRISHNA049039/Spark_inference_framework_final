@@ -1,0 +1,417 @@
+category,component,version,shipped in,needed by
+container image,multi-model-inference:latest,986e9e56cddf,docker save tar,multi-model-inference:latest
+runtime,os,Ubuntu 22.04.5 LTS,multi-model-inference:latest,multi-model-inference:latest
+runtime,python,Python 3.11.15,multi-model-inference:latest,multi-model-inference:latest
+runtime,java,"openjdk version ""17.0.20"" 2026-07-21",multi-model-inference:latest,multi-model-inference:latest
+runtime,spark,Spark 3.5.1 (git revision fd86f85e181) built for Hadoop 3.3.4,multi-model-inference:latest,multi-model-inference:latest
+runtime,tesseract,sh: 7: tesseract: not found,multi-model-inference:latest,multi-model-inference:latest
+python package,blinker,1.4,multi-model-inference:latest,multi-model-inference:latest
+python package,boto3,1.35.99,multi-model-inference:latest,multi-model-inference:latest
+python package,botocore,1.35.99,multi-model-inference:latest,multi-model-inference:latest
+python package,certifi,2026.7.22,multi-model-inference:latest,multi-model-inference:latest
+python package,charset-normalizer,3.5.1,multi-model-inference:latest,multi-model-inference:latest
+python package,contourpy,1.3.3,multi-model-inference:latest,multi-model-inference:latest
+python package,cryptography,3.4.8,multi-model-inference:latest,multi-model-inference:latest
+python package,cycler,0.12.1,multi-model-inference:latest,multi-model-inference:latest
+python package,dbus-python,1.2.18,multi-model-inference:latest,multi-model-inference:latest
+python package,distro,1.7.0,multi-model-inference:latest,multi-model-inference:latest
+python package,filelock,3.32.3,multi-model-inference:latest,multi-model-inference:latest
+python package,fonttools,4.65.0,multi-model-inference:latest,multi-model-inference:latest
+python package,fsspec,2026.7.0,multi-model-inference:latest,multi-model-inference:latest
+python package,httplib2,0.20.2,multi-model-inference:latest,multi-model-inference:latest
+python package,idna,3.19,multi-model-inference:latest,multi-model-inference:latest
+python package,importlib-metadata,4.6.4,multi-model-inference:latest,multi-model-inference:latest
+python package,jeepney,0.7.1,multi-model-inference:latest,multi-model-inference:latest
+python package,jinja2,3.1.6,multi-model-inference:latest,multi-model-inference:latest
+python package,jmespath,1.1.0,multi-model-inference:latest,multi-model-inference:latest
+python package,keyring,23.5.0,multi-model-inference:latest,multi-model-inference:latest
+python package,kiwisolver,1.5.1,multi-model-inference:latest,multi-model-inference:latest
+python package,launchpadlib,1.10.16,multi-model-inference:latest,multi-model-inference:latest
+python package,lazr.restfulclient,0.14.4,multi-model-inference:latest,multi-model-inference:latest
+python package,lazr.uri,1.0.6,multi-model-inference:latest,multi-model-inference:latest
+python package,markupsafe,3.0.3,multi-model-inference:latest,multi-model-inference:latest
+python package,matplotlib,3.9.2,multi-model-inference:latest,multi-model-inference:latest
+python package,more-itertools,8.10.0,multi-model-inference:latest,multi-model-inference:latest
+python package,mpmath,1.3.0,multi-model-inference:latest,multi-model-inference:latest
+python package,networkx,3.6.1,multi-model-inference:latest,multi-model-inference:latest
+python package,numpy,2.1.3,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-cublas-cu12,12.6.4.1,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-cuda-cupti-cu12,12.6.80,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-cuda-nvrtc-cu12,12.6.77,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-cuda-runtime-cu12,12.6.77,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-cudnn-cu12,9.5.1.17,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-cufft-cu12,11.3.0.4,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-curand-cu12,10.3.7.77,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-cusolver-cu12,11.7.1.2,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-cusparse-cu12,12.5.4.2,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-cusparselt-cu12,0.6.3,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-nccl-cu12,2.21.5,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-nvjitlink-cu12,12.6.85,multi-model-inference:latest,multi-model-inference:latest
+python package,nvidia-nvtx-cu12,12.6.77,multi-model-inference:latest,multi-model-inference:latest
+python package,oauthlib,3.2.0,multi-model-inference:latest,multi-model-inference:latest
+python package,opencv-python,5.0.0.93,multi-model-inference:latest,multi-model-inference:latest
+python package,packaging,26.3,multi-model-inference:latest,multi-model-inference:latest
+python package,pandas,2.2.3,multi-model-inference:latest,multi-model-inference:latest
+python package,pillow,12.3.0,multi-model-inference:latest,multi-model-inference:latest
+python package,pip,22.0.2,multi-model-inference:latest,multi-model-inference:latest
+python package,psutil,7.2.2,multi-model-inference:latest,multi-model-inference:latest
+python package,py-cpuinfo,9.0.0,multi-model-inference:latest,multi-model-inference:latest
+python package,py4j,0.10.9.7,multi-model-inference:latest,multi-model-inference:latest
+python package,pyarrow,18.1.0,multi-model-inference:latest,multi-model-inference:latest
+python package,pygobject,3.42.1,multi-model-inference:latest,multi-model-inference:latest
+python package,pyjwt,2.3.0,multi-model-inference:latest,multi-model-inference:latest
+python package,pyparsing,2.4.7,multi-model-inference:latest,multi-model-inference:latest
+python package,pyspark,3.5.1,multi-model-inference:latest,multi-model-inference:latest
+python package,python-apt,2.4.0+ubuntu4.1,multi-model-inference:latest,multi-model-inference:latest
+python package,python-dateutil,2.9.0.post0,multi-model-inference:latest,multi-model-inference:latest
+python package,pytz,2026.3.post1,multi-model-inference:latest,multi-model-inference:latest
+python package,pyyaml,6.0.3,multi-model-inference:latest,multi-model-inference:latest
+python package,requests,2.34.2,multi-model-inference:latest,multi-model-inference:latest
+python package,s3transfer,0.10.4,multi-model-inference:latest,multi-model-inference:latest
+python package,scipy,1.17.1,multi-model-inference:latest,multi-model-inference:latest
+python package,seaborn,0.13.2,multi-model-inference:latest,multi-model-inference:latest
+python package,secretstorage,3.3.1,multi-model-inference:latest,multi-model-inference:latest
+python package,setuptools,59.6.0,multi-model-inference:latest,multi-model-inference:latest
+python package,six,1.16.0,multi-model-inference:latest,multi-model-inference:latest
+python package,sympy,1.13.1,multi-model-inference:latest,multi-model-inference:latest
+python package,tabulate,0.9.0,multi-model-inference:latest,multi-model-inference:latest
+python package,torch,2.6.0+cu126,multi-model-inference:latest,multi-model-inference:latest
+python package,torchvision,0.21.0+cu126,multi-model-inference:latest,multi-model-inference:latest
+python package,tqdm,4.70.1,multi-model-inference:latest,multi-model-inference:latest
+python package,triton,3.2.0,multi-model-inference:latest,multi-model-inference:latest
+python package,typing_extensions,4.16.0,multi-model-inference:latest,multi-model-inference:latest
+python package,tzdata,2026.4,multi-model-inference:latest,multi-model-inference:latest
+python package,ultralytics,8.3.40,multi-model-inference:latest,multi-model-inference:latest
+python package,ultralytics-thop,2.1.6,multi-model-inference:latest,multi-model-inference:latest
+python package,urllib3,2.8.0,multi-model-inference:latest,multi-model-inference:latest
+python package,wadllib,1.3.6,multi-model-inference:latest,multi-model-inference:latest
+python package,wheel,0.37.1,multi-model-inference:latest,multi-model-inference:latest
+python package,zipp,1.0.0,multi-model-inference:latest,multi-model-inference:latest
+container image,spark-lean:latest,29a195a86a9f,docker save tar,spark-lean:latest
+runtime,os,Ubuntu 22.04.5 LTS,spark-lean:latest,spark-lean:latest
+runtime,python,Python 3.11.15,spark-lean:latest,spark-lean:latest
+runtime,java,"openjdk version ""17.0.20"" 2026-07-21",spark-lean:latest,spark-lean:latest
+runtime,spark,Spark 3.5.1 (git revision fd86f85e181) built for Hadoop 3.3.4,spark-lean:latest,spark-lean:latest
+runtime,tesseract,sh: 7: tesseract: not found,spark-lean:latest,spark-lean:latest
+python package,certifi,2026.7.22,spark-lean:latest,spark-lean:latest
+python package,charset-normalizer,3.5.1,spark-lean:latest,spark-lean:latest
+python package,idna,3.19,spark-lean:latest,spark-lean:latest
+python package,pip,22.0.2,spark-lean:latest,spark-lean:latest
+python package,py4j,0.10.9.7,spark-lean:latest,spark-lean:latest
+python package,pyspark,3.5.1,spark-lean:latest,spark-lean:latest
+python package,requests,2.34.2,spark-lean:latest,spark-lean:latest
+python package,setuptools,59.6.0,spark-lean:latest,spark-lean:latest
+python package,urllib3,2.8.0,spark-lean:latest,spark-lean:latest
+python package,wheel,0.37.1,spark-lean:latest,spark-lean:latest
+container image,ner-translate-worker:latest,46a0d21a8364,docker save tar,ner-translate-worker:latest
+runtime,os,Ubuntu 22.04.5 LTS,ner-translate-worker:latest,ner-translate-worker:latest
+runtime,python,Python 3.11.15,ner-translate-worker:latest,ner-translate-worker:latest
+runtime,java,"openjdk version ""17.0.20"" 2026-07-21",ner-translate-worker:latest,ner-translate-worker:latest
+runtime,spark,Spark 3.5.1 (git revision fd86f85e181) built for Hadoop 3.3.4,ner-translate-worker:latest,ner-translate-worker:latest
+runtime,tesseract,tesseract 4.1.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,annotated-doc,0.0.5,ner-translate-worker:latest,ner-translate-worker:latest
+python package,annotated-types,0.8.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,anyio,4.15.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,beautifulsoup4,4.12.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,blinker,1.4,ner-translate-worker:latest,ner-translate-worker:latest
+python package,boto3,1.35.99,ner-translate-worker:latest,ner-translate-worker:latest
+python package,botocore,1.35.99,ner-translate-worker:latest,ner-translate-worker:latest
+python package,certifi,2026.7.22,ner-translate-worker:latest,ner-translate-worker:latest
+python package,charset-normalizer,3.5.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,click,8.5.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,contourpy,1.3.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,cryptography,3.4.8,ner-translate-worker:latest,ner-translate-worker:latest
+python package,cycler,0.12.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,dbus-python,1.2.18,ner-translate-worker:latest,ner-translate-worker:latest
+python package,defusedxml,0.7.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,distro,1.7.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,ebooklib,0.18,ner-translate-worker:latest,ner-translate-worker:latest
+python package,et_xmlfile,2.0.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,fastapi,0.121.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,filelock,3.32.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,flatbuffers,25.12.19,ner-translate-worker:latest,ner-translate-worker:latest
+python package,fonttools,4.65.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,fsspec,2026.7.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,gliner,0.2.13,ner-translate-worker:latest,ner-translate-worker:latest
+python package,h11,0.16.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,hf-xet,1.6.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,httplib2,0.20.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,huggingface_hub,0.36.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,idna,3.19,ner-translate-worker:latest,ner-translate-worker:latest
+python package,importlib-metadata,4.6.4,ner-translate-worker:latest,ner-translate-worker:latest
+python package,jeepney,0.7.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,jinja2,3.1.6,ner-translate-worker:latest,ner-translate-worker:latest
+python package,jmespath,1.1.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,keyring,23.5.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,kiwisolver,1.5.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,launchpadlib,1.10.16,ner-translate-worker:latest,ner-translate-worker:latest
+python package,lazr.restfulclient,0.14.4,ner-translate-worker:latest,ner-translate-worker:latest
+python package,lazr.uri,1.0.6,ner-translate-worker:latest,ner-translate-worker:latest
+python package,lxml,6.1.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,markupsafe,3.0.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,matplotlib,3.9.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,more-itertools,8.10.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,mpmath,1.3.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,networkx,3.6.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,numpy,2.1.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-cublas-cu12,12.6.4.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-cuda-cupti-cu12,12.6.80,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-cuda-nvrtc-cu12,12.6.77,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-cuda-runtime-cu12,12.6.77,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-cudnn-cu12,9.5.1.17,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-cufft-cu12,11.3.0.4,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-curand-cu12,10.3.7.77,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-cusolver-cu12,11.7.1.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-cusparse-cu12,12.5.4.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-cusparselt-cu12,0.6.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-nccl-cu12,2.21.5,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-nvjitlink-cu12,12.6.85,ner-translate-worker:latest,ner-translate-worker:latest
+python package,nvidia-nvtx-cu12,12.6.77,ner-translate-worker:latest,ner-translate-worker:latest
+python package,oauthlib,3.2.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,odfpy,1.4.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,onnxruntime,1.30.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,opencv-python,5.0.0.93,ner-translate-worker:latest,ner-translate-worker:latest
+python package,openpyxl,3.1.5,ner-translate-worker:latest,ner-translate-worker:latest
+python package,packaging,26.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pandas,2.2.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pdf2image,1.17.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pillow,11.0.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pip,22.0.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,protobuf,5.29.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,psutil,7.2.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,py-cpuinfo,9.0.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,py3langid,0.4.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,py4j,0.10.9.7,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pyarrow,18.1.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pydantic,2.13.5,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pydantic_core,2.46.5,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pygobject,3.42.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pyjwt,2.3.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pyparsing,2.4.7,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pypdf,5.1.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pyspark,3.5.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pytesseract,0.3.13,ner-translate-worker:latest,ner-translate-worker:latest
+python package,python-apt,2.4.0+ubuntu4.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,python-dateutil,2.9.0.post0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,python-docx,1.1.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,python-pptx,1.0.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pytz,2026.3.post1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,pyyaml,6.0.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,regex,2026.9.10,ner-translate-worker:latest,ner-translate-worker:latest
+python package,requests,2.34.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,s3transfer,0.10.4,ner-translate-worker:latest,ner-translate-worker:latest
+python package,safetensors,0.8.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,scipy,1.17.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,seaborn,0.13.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,secretstorage,3.3.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,sentencepiece,0.2.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,setuptools,59.6.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,six,1.16.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,soupsieve,2.9.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,starlette,0.49.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,striprtf,0.0.28,ner-translate-worker:latest,ner-translate-worker:latest
+python package,sympy,1.13.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,tabulate,0.9.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,tiktoken,0.12.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,tokenizers,0.20.3,ner-translate-worker:latest,ner-translate-worker:latest
+python package,torch,2.6.0+cu126,ner-translate-worker:latest,ner-translate-worker:latest
+python package,torchvision,0.21.0+cu126,ner-translate-worker:latest,ner-translate-worker:latest
+python package,tqdm,4.70.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,transformers,4.45.2,ner-translate-worker:latest,ner-translate-worker:latest
+python package,triton,3.2.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,typing-inspection,0.4.4,ner-translate-worker:latest,ner-translate-worker:latest
+python package,typing_extensions,4.16.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,tzdata,2026.4,ner-translate-worker:latest,ner-translate-worker:latest
+python package,ultralytics,8.3.40,ner-translate-worker:latest,ner-translate-worker:latest
+python package,ultralytics-thop,2.1.6,ner-translate-worker:latest,ner-translate-worker:latest
+python package,urllib3,2.8.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,uvicorn,0.38.0,ner-translate-worker:latest,ner-translate-worker:latest
+python package,wadllib,1.3.6,ner-translate-worker:latest,ner-translate-worker:latest
+python package,wheel,0.37.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,xlrd,2.0.1,ner-translate-worker:latest,ner-translate-worker:latest
+python package,xlsxwriter,3.2.9,ner-translate-worker:latest,ner-translate-worker:latest
+python package,zipp,1.0.0,ner-translate-worker:latest,ner-translate-worker:latest
+container image,ner-translate-server:latest,820922c1fb83,docker save tar,ner-translate-server:latest
+runtime,os,Debian GNU/Linux 12 (bookworm),ner-translate-server:latest,ner-translate-server:latest
+runtime,python,Python 3.11.16,ner-translate-server:latest,ner-translate-server:latest
+runtime,java,sh: 4: java: not found,ner-translate-server:latest,ner-translate-server:latest
+runtime,tesseract,tesseract 5.3.0,ner-translate-server:latest,ner-translate-server:latest
+python package,annotated-doc,0.0.5,ner-translate-server:latest,ner-translate-server:latest
+python package,annotated-types,0.8.0,ner-translate-server:latest,ner-translate-server:latest
+python package,anyio,4.15.1,ner-translate-server:latest,ner-translate-server:latest
+python package,beautifulsoup4,4.12.3,ner-translate-server:latest,ner-translate-server:latest
+python package,certifi,2026.7.22,ner-translate-server:latest,ner-translate-server:latest
+python package,charset-normalizer,3.5.1,ner-translate-server:latest,ner-translate-server:latest
+python package,click,8.5.0,ner-translate-server:latest,ner-translate-server:latest
+python package,defusedxml,0.7.1,ner-translate-server:latest,ner-translate-server:latest
+python package,ebooklib,0.18,ner-translate-server:latest,ner-translate-server:latest
+python package,et_xmlfile,2.0.0,ner-translate-server:latest,ner-translate-server:latest
+python package,fastapi,0.121.2,ner-translate-server:latest,ner-translate-server:latest
+python package,filelock,3.32.3,ner-translate-server:latest,ner-translate-server:latest
+python package,flatbuffers,25.12.19,ner-translate-server:latest,ner-translate-server:latest
+python package,fsspec,2026.7.0,ner-translate-server:latest,ner-translate-server:latest
+python package,gliner,0.2.13,ner-translate-server:latest,ner-translate-server:latest
+python package,h11,0.16.0,ner-translate-server:latest,ner-translate-server:latest
+python package,hf-xet,1.6.0,ner-translate-server:latest,ner-translate-server:latest
+python package,huggingface_hub,0.36.2,ner-translate-server:latest,ner-translate-server:latest
+python package,idna,3.19,ner-translate-server:latest,ner-translate-server:latest
+python package,jinja2,3.1.6,ner-translate-server:latest,ner-translate-server:latest
+python package,lxml,6.1.3,ner-translate-server:latest,ner-translate-server:latest
+python package,markupsafe,3.0.3,ner-translate-server:latest,ner-translate-server:latest
+python package,mpmath,1.3.0,ner-translate-server:latest,ner-translate-server:latest
+python package,networkx,3.6.1,ner-translate-server:latest,ner-translate-server:latest
+python package,numpy,2.4.6,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-cublas-cu12,12.6.4.1,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-cuda-cupti-cu12,12.6.80,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-cuda-nvrtc-cu12,12.6.77,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-cuda-runtime-cu12,12.6.77,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-cudnn-cu12,9.5.1.17,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-cufft-cu12,11.3.0.4,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-curand-cu12,10.3.7.77,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-cusolver-cu12,11.7.1.2,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-cusparse-cu12,12.5.4.2,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-cusparselt-cu12,0.6.3,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-nccl-cu12,2.21.5,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-nvjitlink-cu12,12.6.85,ner-translate-server:latest,ner-translate-server:latest
+python package,nvidia-nvtx-cu12,12.6.77,ner-translate-server:latest,ner-translate-server:latest
+python package,odfpy,1.4.1,ner-translate-server:latest,ner-translate-server:latest
+python package,onnxruntime,1.30.0,ner-translate-server:latest,ner-translate-server:latest
+python package,openpyxl,3.1.5,ner-translate-server:latest,ner-translate-server:latest
+python package,packaging,26.3,ner-translate-server:latest,ner-translate-server:latest
+python package,pdf2image,1.17.0,ner-translate-server:latest,ner-translate-server:latest
+python package,pillow,11.0.0,ner-translate-server:latest,ner-translate-server:latest
+python package,pip,24.0,ner-translate-server:latest,ner-translate-server:latest
+python package,protobuf,5.29.3,ner-translate-server:latest,ner-translate-server:latest
+python package,py3langid,0.4.0,ner-translate-server:latest,ner-translate-server:latest
+python package,pyarrow,18.1.0,ner-translate-server:latest,ner-translate-server:latest
+python package,pydantic,2.13.5,ner-translate-server:latest,ner-translate-server:latest
+python package,pydantic_core,2.46.5,ner-translate-server:latest,ner-translate-server:latest
+python package,pypdf,5.1.0,ner-translate-server:latest,ner-translate-server:latest
+python package,pytesseract,0.3.13,ner-translate-server:latest,ner-translate-server:latest
+python package,python-docx,1.1.2,ner-translate-server:latest,ner-translate-server:latest
+python package,python-pptx,1.0.2,ner-translate-server:latest,ner-translate-server:latest
+python package,pyyaml,6.0.3,ner-translate-server:latest,ner-translate-server:latest
+python package,regex,2026.9.10,ner-translate-server:latest,ner-translate-server:latest
+python package,requests,2.34.2,ner-translate-server:latest,ner-translate-server:latest
+python package,safetensors,0.8.0,ner-translate-server:latest,ner-translate-server:latest
+python package,sentencepiece,0.2.2,ner-translate-server:latest,ner-translate-server:latest
+python package,setuptools,79.0.1,ner-translate-server:latest,ner-translate-server:latest
+python package,six,1.17.0,ner-translate-server:latest,ner-translate-server:latest
+python package,soupsieve,2.9.2,ner-translate-server:latest,ner-translate-server:latest
+python package,starlette,0.49.3,ner-translate-server:latest,ner-translate-server:latest
+python package,striprtf,0.0.28,ner-translate-server:latest,ner-translate-server:latest
+python package,sympy,1.13.1,ner-translate-server:latest,ner-translate-server:latest
+python package,tiktoken,0.12.0,ner-translate-server:latest,ner-translate-server:latest
+python package,tokenizers,0.20.3,ner-translate-server:latest,ner-translate-server:latest
+python package,torch,2.6.0+cu126,ner-translate-server:latest,ner-translate-server:latest
+python package,torchvision,0.21.0+cu126,ner-translate-server:latest,ner-translate-server:latest
+python package,tqdm,4.70.1,ner-translate-server:latest,ner-translate-server:latest
+python package,transformers,4.45.2,ner-translate-server:latest,ner-translate-server:latest
+python package,triton,3.2.0,ner-translate-server:latest,ner-translate-server:latest
+python package,typing-inspection,0.4.4,ner-translate-server:latest,ner-translate-server:latest
+python package,typing_extensions,4.16.0,ner-translate-server:latest,ner-translate-server:latest
+python package,urllib3,2.8.0,ner-translate-server:latest,ner-translate-server:latest
+python package,uvicorn,0.38.0,ner-translate-server:latest,ner-translate-server:latest
+python package,wheel,0.46.3,ner-translate-server:latest,ner-translate-server:latest
+python package,xlrd,2.0.1,ner-translate-server:latest,ner-translate-server:latest
+python package,xlsxwriter,3.2.9,ner-translate-server:latest,ner-translate-server:latest
+container image,apache/hadoop:3.4.1,69ffa97339af,docker save tar,apache/hadoop:3.4.1
+runtime,os,CentOS Linux 7 (Core),apache/hadoop:3.4.1,apache/hadoop:3.4.1
+runtime,python,sh: line 2: python3: command not found Python 2.7.5,apache/hadoop:3.4.1,apache/hadoop:3.4.1
+runtime,java,"openjdk version ""1.8.0_212""",apache/hadoop:3.4.1,apache/hadoop:3.4.1
+runtime,hadoop,Hadoop 3.4.1,apache/hadoop:3.4.1,apache/hadoop:3.4.1
+runtime,tesseract,sh: line 6: tesseract: command not found,apache/hadoop:3.4.1,apache/hadoop:3.4.1
+model weights,gliner-multi/.gitattributes,11ad7efa24975ee4,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/README.md,820125f2ea897716,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/gliner_config.json,e25f61d91620df84,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/model.safetensors,2100142f31627531,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/pytorch_model.bin,580d8b061bcb6596,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/.cache/huggingface/.gitignore,684888c0ebb17f37,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/.cache/huggingface/download/.gitattributes.metadata,ab6cb87d27f6f888,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/.cache/huggingface/download/README.md.metadata,35566fba036c194e,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/.cache/huggingface/download/gliner_config.json.metadata,6bc1b478c3eaf354,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/.cache/huggingface/download/model.safetensors.metadata,34b21411ec40f975,HDFS /models/weights or master FS,ner_translate
+model weights,gliner-multi/.cache/huggingface/download/pytorch_model.bin.metadata,83fb79860cd8f4ee,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.gitattributes,2ba66c0e2f069c4a,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/README.md,0964c46d35be0082,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/config.json,f9b4081d3d108e9d,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/generation_config.json,0bb604cdb8392649,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/pytorch_model.bin,c266c2cfd19758b6,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/sentencepiece.bpe.model,14bb8dfb35c0ffde,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/special_tokens_map.json,992bd4ed610d644d,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/tokenizer.json,e316b82de11d0f95,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/tokenizer_config.json,d1aa8c3697d3e356,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/.gitignore,684888c0ebb17f37,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/download/.gitattributes.metadata,8f1045dbf0dd6461,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/download/README.md.metadata,615ced55e9830b24,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/download/config.json.metadata,adf2c6374196bae8,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/download/generation_config.json.metadata,df44e6e192766003,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/download/pytorch_model.bin.metadata,d45cc9182bbb2da7,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/download/sentencepiece.bpe.model.metadata,2cf67938134ec9c4,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/download/special_tokens_map.json.metadata,04b2ad04d4d54851,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/download/tokenizer.json.metadata,3332e5e4a43808bc,HDFS /models/weights or master FS,ner_translate
+model weights,nllb-200-distilled-600M/.cache/huggingface/download/tokenizer_config.json.metadata,40966b0614d5a7a6,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/version.txt,6b86b273ff34fce1,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/.locks/models--microsoft--mdeberta-v3-base/13c8d666d62a7bc4ac8f040aab68e942c861f93303156cc28f5c7e885d86d6e3.lock,e3b0c44298fc1c14,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/.locks/models--microsoft--mdeberta-v3-base/27b905d788d20826414d27ce9fa9765623e38ea7.lock,e3b0c44298fc1c14,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/.locks/models--microsoft--mdeberta-v3-base/acfd94e399c5659e4bed75f91b4ee24b111fc7a6.lock,e3b0c44298fc1c14,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/.no_exist/a0484667b22365f84929a935b5e50a51f71f159d/added_tokens.json,e3b0c44298fc1c14,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/.no_exist/a0484667b22365f84929a935b5e50a51f71f159d/special_tokens_map.json,e3b0c44298fc1c14,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/.no_exist/a0484667b22365f84929a935b5e50a51f71f159d/tokenizer.json,e3b0c44298fc1c14,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/blobs/13c8d666d62a7bc4ac8f040aab68e942c861f93303156cc28f5c7e885d86d6e3,13c8d666d62a7bc4,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/blobs/27b905d788d20826414d27ce9fa9765623e38ea7,bcffcd343dc5efa5,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/blobs/acfd94e399c5659e4bed75f91b4ee24b111fc7a6,3f3978e0c036f2c2,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/refs/main,4893177b0d5b48a1,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/snapshots/a0484667b22365f84929a935b5e50a51f71f159d/config.json,0 bytes,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/snapshots/a0484667b22365f84929a935b5e50a51f71f159d/spm.model,0 bytes,HDFS /models/weights or master FS,ner_translate
+model weights,hf_cache/models--microsoft--mdeberta-v3-base/snapshots/a0484667b22365f84929a935b5e50a51f71f159d/tokenizer_config.json,0 bytes,HDFS /models/weights or master FS,ner_translate
+system package (.deb),fontconfig,2.13.1-4.2ubuntu5,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),gcc-12-base,12.3.0-1ubuntu1~22.04.3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libarchive13,3.6.0-1ubuntu1.8,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libbsd0,0.11.5-1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libcairo2,1.16.0-5ubuntu2.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libdatrie1,0.2.13-2,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libdeflate0,1.10-2,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libfribidi0,1.0.8-2ubuntu3.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libgcc-s1,12.3.0-1ubuntu1~22.04.3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libgif7,5.1.9-2ubuntu0.3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libgomp1,12.3.0-1ubuntu1~22.04.3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libjbig0,2.1-3.1ubuntu0.22.04.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),liblept5,1.82.0-3build1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libmd0,1.0.4-1build1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libopenjp2-7,2.4.0-6ubuntu0.5,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libpango-1.0-0,1.50.6+ds-2ubuntu1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libpangocairo-1.0-0,1.50.6+ds-2ubuntu1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libpangoft2-1.0-0,1.50.6+ds-2ubuntu1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libpixman-1-0,0.40.0-1ubuntu0.22.04.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libpoppler118,22.02.0-2ubuntu0.13,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libstdc++6,12.3.0-1ubuntu1~22.04.3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libtesseract4,4.1.1-2.1build1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libthai-data,0.1.29-1build1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libthai0,0.1.29-1build1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libtiff5,4.3.0-6ubuntu0.13,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libwebp7,1.2.2-2ubuntu0.22.04.2,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libwebpmux3,1.2.2-2ubuntu0.22.04.2,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libx11-6,2:1.7.5-1ubuntu0.3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libx11-data,2:1.7.5-1ubuntu0.3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libxau6,1:1.0.9-1build5,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libxcb-render0,1.14-3ubuntu3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libxcb-shm0,1.14-3ubuntu3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libxcb1,1.14-3ubuntu3,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libxdmcp6,1:1.1.3-0ubuntu5,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libxext6,2:1.3.4-1build1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),libxrender1,1:0.9.10-1build4,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),poppler-utils,22.02.0-2ubuntu0.13,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-ben,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-eng,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-guj,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-hin,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-kan,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-mal,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-mar,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-osd,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-pan,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-tam,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-tel,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr-urd,1:4.00~git30-7274cfa-1.1,debs/ner_translate,offline build of ner-translate-worker
+system package (.deb),tesseract-ocr,4.1.1-2.1build1,debs/ner_translate,offline build of ner-translate-worker

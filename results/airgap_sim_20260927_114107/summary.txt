@@ -1,0 +1,7 @@
+﻿
+Test Title                                                                      Result Seconds
+---- -----                                                                      ------ -------
+T04  model_store over WebHDFS: fetch + checksum, missing path, unreachable host PASS      59.9
+
+
+

@@ -1,0 +1,78 @@
+ Container sim-spark-worker Stopping 
+ Container sim-ner-translate-server Stopping 
+ Container sim-spark-worker Stopped 
+ Container sim-spark-master Stopping 
+ Container sim-ner-translate-server Stopped 
+ Container sim-spark-master Stopped 
+
+ Volume airgap-sim_worker-cache Creating 
+ Volume airgap-sim_worker-cache Created 
+ Container sim-ner-cluster-master Creating 
+ Container sim-hdfs-namenode Running 
+ Container sim-hdfs-datanode Running 
+ Container sim-ner-cluster-master Created 
+ Container sim-ner-cluster-worker Creating 
+ Container sim-ner-cluster-worker Created 
+ Container sim-ner-cluster-master Starting 
+ Container sim-hdfs-namenode Waiting 
+ Container sim-hdfs-namenode Healthy 
+ Container sim-ner-cluster-master Started 
+ Container sim-ner-cluster-master Waiting 
+ Container sim-ner-cluster-master Healthy 
+ Container sim-ner-cluster-worker Starting 
+ Container sim-ner-cluster-worker Started 
+
+Spark master UI http://localhost:8084 - 1 worker alive
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/09/27 07:20:27 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[submit_pipeline_job] execution-mode=cluster -> in-process (mod.load/mod.run) on spark://ner-cluster-master:7077
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+[Stage 0:>                                                          (0 + 1) / 1]
+System.Management.Automation.RemoteException
+{
+  "elapsed_time": 504.288,
+  "num_files": 6,
+  "num_partitions": 1,
+  "partition_details": [
+    {
+      "hostname": "ner-cluster-worker",
+      "pid": 196,
+      "num_paths": 6,
+      "load_time_sec": 464.555,
+      "run_time_sec": 2.965
+    }
+  ]
+}
+
+Processed 6 document(s):
+  sample_scan6.png: ERROR [Errno 2] No such file or directory: '/opt/spark/work/app-20260927072029-0000/0/data/ner_samples/sample_scan6.png'
+  sample_text1.txt: ERROR [Errno 2] No such file or directory: 'data/ner_samples/sample_text1.txt'
+  sample_text2.txt: ERROR [Errno 2] No such file or directory: 'data/ner_samples/sample_text2.txt'
+  sample_text3.txt: ERROR [Errno 2] No such file or directory: 'data/ner_samples/sample_text3.txt'
+  sample_text4.txt: ERROR [Errno 2] No such file or directory: 'data/ner_samples/sample_text4.txt'
+  sample_text5.txt: ERROR [Errno 2] No such file or directory: 'data/ner_samples/sample_text5.txt'
+
+Full results (including extracted entities) written to results/ner_translate_20260927_072918.json
+                                                                                
+
+executor: [ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+executor: [model_store] fetched http://hdfs-namenode:9870/models/weights/gliner-multi -> /model_cache/hdfs-namenode/models/weights/gliner-multi  2311.7 MB in 71.1 s (33 MB/s)
+executor: [model_store] fetched http://hdfs-namenode:9870/models/weights/nllb-200-distilled-600M -> /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M  2482.7 MB in 130.2 s (19 MB/s)
+executor: [model_store] fetched http://hdfs-namenode:9870/models/weights/hf_cache -> /model_cache/hdfs-namenode/models/weights/hf_cache  8.6 MB in 0.9 s (10 MB/s)

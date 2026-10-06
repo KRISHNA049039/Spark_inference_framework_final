@@ -1,0 +1,4 @@
+sim-spark-worker 172.21.0.4/16
+sim-ner-translate-server 172.21.0.3/16
+sim-spark-master 172.21.0.2/16
+

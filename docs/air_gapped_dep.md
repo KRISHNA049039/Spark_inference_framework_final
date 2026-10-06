@@ -1,5 +1,9 @@
 # Airgapped Deployment Guide — Multi-Model Inference Platform
 
+> **Out of date.** This guide describes an older image (CUDA 12.1, PyTorch 2.2, ~4 GB, no Spark standalone inside).
+> For what to carry today and the exact versions in every image, see `docs/AIRGAP_DEPENDENCIES_AND_VERSIONS.pdf`
+> (regenerate with `python docs/airgap/collect_inventory.py` then `python docs/airgap/build_airgap_deps_pdf.py`).
+
 Complete guide for deploying the pytorch-spark-inference-platform on systems with **no internet access** (DRDO, classified networks, isolated infrastructure).
 
 ---

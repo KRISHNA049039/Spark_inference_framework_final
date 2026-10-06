@@ -1,0 +1,14 @@
+[
+    {
+        "Test":  "T02",
+        "Title":  "Start HDFS (namenode + datanode) and wait for a live datanode",
+        "Result":  "PASS",
+        "Seconds":  5.3
+    },
+    {
+        "Test":  "T03",
+        "Title":  "Upload the model weights into HDFS (/models/weights) and verify byte counts",
+        "Result":  "PASS",
+        "Seconds":  639.7
+    }
+]

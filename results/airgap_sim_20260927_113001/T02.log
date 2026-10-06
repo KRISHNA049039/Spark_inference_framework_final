@@ -1,0 +1,12 @@
+docker.exe :  Container sim-hdfs-namenode Running 
+At D:\pytorch-spark-inference-platform 1\deploy\airgap_sim_tests.ps1:31 char:15
++ function Dc { & docker compose -f $Compose @args 2>&1 }
++               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Container sim-hdfs-namenode Running :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Container sim-hdfs-datanode Running 
+ Container sim-hdfs-namenode Waiting 
+ Container sim-hdfs-namenode Healthy 
+
+Live datanodes: 1; WebHDFS: http://localhost:9870

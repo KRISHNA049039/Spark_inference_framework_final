@@ -1,0 +1,14 @@
+[
+    {
+        "Test":  "T10",
+        "Title":  "Master file-system mode: models read from a shared/local path (file://), no HDFS",
+        "Result":  "PASS",
+        "Seconds":  241
+    },
+    {
+        "Test":  "T11",
+        "Title":  "Cluster (in-process) mode: the Spark executor fetches models from HDFS and runs NER itself",
+        "Result":  "FAIL",
+        "Seconds":  580.9
+    }
+]

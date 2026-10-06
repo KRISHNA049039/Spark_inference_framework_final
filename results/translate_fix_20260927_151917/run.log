@@ -1,0 +1,123 @@
+ Network airgap-sim_default Creating 
+ Network airgap-sim_default Created 
+ Container airgap-sim-ner-translate-server-run-9b7658bc124a Creating 
+ Container airgap-sim-ner-translate-server-run-9b7658bc124a Created 
+[ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/gliner-multi
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/hf_cache
+[ner_translate] offline HF cache: models--microsoft--mdeberta-v3-base -> /root/.cache/huggingface/hub
+GPU detected: NVIDIA GeForce GTX 1650
+config.json not found in /model_cache/hdfs-namenode/models/weights/gliner-multi
+/usr/local/lib/python3.11/site-packages/transformers/convert_slow_tokenizer.py:558: UserWarning: The sentencepiece tokenizer that you are converting to a fast tokenizer uses the byte fallback option which is not implemented in the fast tokenizers. In practice this means that the fast version of the tokenizer can produce unknown tokens whereas the sentencepiece version would have converted these unknown tokens into a sequence of byte tokens matching the original piece of text.
+  warnings.warn(
+GLiNER using fp16.
+Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+[done] /app/data/ner_samples/sample_scan6.png  lang=en  route=direct  -> 8 unique entities
+[done] /app/data/ner_samples/sample_text1.txt  lang=en  route=direct  -> 27 unique entities
+[done] /app/data/ner_samples/sample_text2.txt  lang=en  route=direct  -> 33 unique entities
+[done] /app/data/ner_samples/sample_text3.txt  lang=en  route=direct  -> 6 unique entities
+[done] /app/data/ner_samples/sample_text4.txt  lang=hi  route=translated  -> 29 unique entities
+[done] /app/data/ner_samples/sample_text5.txt  lang=mr  route=translated  -> 39 unique entities
+[done] /app/data/ner_samples/sample_scan6.png  lang=en  route=direct  -> 8 unique entities
+[done] /app/data/ner_samples/sample_text1.txt  lang=en  route=direct  -> 28 unique entities
+[done] /app/data/ner_samples/sample_text2.txt  lang=en  route=direct  -> 33 unique entities
+[done] /app/data/ner_samples/sample_text3.txt  lang=en  route=direct  -> 6 unique entities
+[done] /app/data/ner_samples/sample_text4.txt  lang=hi  route=translated  -> 14 unique entities
+[done] /app/data/ner_samples/sample_text5.txt  lang=mr  route=translated  -> 24 unique entities
+[done] /app/data/ner_samples/sample_scan6.png  lang=en  route=direct  -> 8 unique entities
+[done] /app/data/ner_samples/sample_text1.txt  lang=en  route=direct  -> 27 unique entities
+[done] /app/data/ner_samples/sample_text2.txt  lang=en  route=direct  -> 33 unique entities
+[done] /app/data/ner_samples/sample_text3.txt  lang=en  route=direct  -> 6 unique entities
+[done] /app/data/ner_samples/sample_text4.txt  lang=hi  route=translated  -> 29 unique entities
+[done] /app/data/ner_samples/sample_text5.txt  lang=mr  route=translated  -> 39 unique entities
+{
+ "sample_text4.txt": {
+  "lang": "hi",
+  "chars": 1421,
+  "before": {
+   "tokens_to_nllb": [
+    431
+   ],
+   "entities_unique": 14
+  },
+  "after": {
+   "tokens_to_nllb": [
+    81,
+    62,
+    53,
+    45,
+    23,
+    47,
+    48,
+    33,
+    55
+   ],
+   "entities_unique": 29
+  }
+ },
+ "sample_text5.txt": {
+  "lang": "mr",
+  "chars": 1790,
+  "before": {
+   "tokens_to_nllb": [
+    444,
+    112
+   ],
+   "entities_unique": 24
+  },
+  "after": {
+   "tokens_to_nllb": [
+    84,
+    61,
+    64,
+    52,
+    38,
+    53,
+    52,
+    54,
+    55,
+    27,
+    13,
+    23
+   ],
+   "entities_unique": 39
+  }
+ },
+ "sample_scan6.png": {
+  "lang": "en",
+  "before": {
+   "entities_unique": 8
+  },
+  "after": {
+   "entities_unique": 8
+  }
+ },
+ "sample_text1.txt": {
+  "lang": "en",
+  "before": {
+   "entities_unique": 28
+  },
+  "after": {
+   "entities_unique": 27
+  }
+ },
+ "sample_text2.txt": {
+  "lang": "en",
+  "before": {
+   "entities_unique": 33
+  },
+  "after": {
+   "entities_unique": 33
+  }
+ },
+ "sample_text3.txt": {
+  "lang": "en",
+  "before": {
+   "entities_unique": 6
+  },
+  "after": {
+   "entities_unique": 6
+  }
+ }
+}

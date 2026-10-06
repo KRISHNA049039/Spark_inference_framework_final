@@ -1,0 +1,32 @@
+# ===========================================================================
+# ner-translate-worker built OFFLINE from two images already on the machine:
+#   multi-model-inference:latest   the base (Spark, Java, Python 3.11, torch)
+#   ner-translate-deps:latest      the NER package bundle (deploy/Dockerfile.ner_deps)
+# Same result as deploy/Dockerfile.ner_translate, but the packages are read
+# straight out of the dependency image instead of the repo's wheels/ and
+# debs/ folders - nothing to extract, nothing downloaded.
+#
+#   docker build -t ner-translate-worker:latest -f deploy/Dockerfile.ner_translate_from_deps .
+#   docker build --build-arg DEPS_IMAGE=<other-deps-image>:<tag> ...   # a differently named bundle
+#
+# No "# syntax=docker/dockerfile:1" line on purpose: it makes BuildKit fetch
+# a frontend image from Docker Hub, which fails on an air-gapped system.
+# ===========================================================================
+ARG DEPS_IMAGE=ner-translate-deps:latest
+FROM ${DEPS_IMAGE} AS deps
+
+FROM multi-model-inference:latest
+
+# OCR system packages. dpkg twice: the first pass unpacks everything, the
+# second configures what the first left waiting on a dependency.
+RUN --mount=type=bind,from=deps,source=/debs,target=/tmp/debs \
+    sh -c 'dpkg -i /tmp/debs/*.deb; dpkg -i /tmp/debs/*.deb'
+
+# NER Python packages, pinned by the requirements.txt shipped inside the
+# bundle. --no-index: only the bundle's wheels, so a missing or mismatched
+# package fails the build instead of resolving something untested.
+RUN --mount=type=bind,from=deps,source=/,target=/tmp/deps \
+    pip install --no-cache-dir --no-index --find-links=/tmp/deps/wheels -r /tmp/deps/requirements.txt
+
+COPY deploy/apply_wheels_hotfix.sh /usr/local/bin/apply_wheels_hotfix.sh
+RUN chmod +x /usr/local/bin/apply_wheels_hotfix.sh

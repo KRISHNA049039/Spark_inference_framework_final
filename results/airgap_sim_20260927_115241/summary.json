@@ -1,0 +1,14 @@
+[
+    {
+        "Test":  "T05",
+        "Title":  "Model server (kitchen) with models from HDFS: fetch into node cache, load on GPU",
+        "Result":  "PASS",
+        "Seconds":  253.8
+    },
+    {
+        "Test":  "T06",
+        "Title":  "Call the model server directly (POST /predict, no Spark)",
+        "Result":  "PASS",
+        "Seconds":  58.5
+    }
+]

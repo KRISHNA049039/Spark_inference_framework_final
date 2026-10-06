@@ -1,0 +1,8 @@
+﻿
+Test Title                                                                       Result Seconds
+---- -----                                                                       ------ -------
+T02  Start HDFS (namenode + datanode) and wait for a live datanode               PASS       5.3
+T03  Upload the model weights into HDFS (/models/weights) and verify byte counts PASS     639.7
+
+
+

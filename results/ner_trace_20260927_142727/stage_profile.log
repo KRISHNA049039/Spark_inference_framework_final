@@ -1,0 +1,160 @@
+ Network airgap-sim_default Creating 
+ Network airgap-sim_default Created 
+ Container airgap-sim-ner-translate-server-run-c4682c85e7f2 Creating 
+ Container airgap-sim-ner-translate-server-run-c4682c85e7f2 Created 
+[ner_translate] model source: model store hdfs://hdfs-namenode:8020/models/weights
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/gliner-multi
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M
+[model_store] cache hit /model_cache/hdfs-namenode/models/weights/hf_cache
+[ner_translate] offline HF cache: models--microsoft--mdeberta-v3-base -> /root/.cache/huggingface/hub
+config.json not found in /model_cache/hdfs-namenode/models/weights/gliner-multi
+/usr/local/lib/python3.11/site-packages/transformers/convert_slow_tokenizer.py:558: UserWarning: The sentencepiece tokenizer that you are converting to a fast tokenizer uses the byte fallback option which is not implemented in the fast tokenizers. In practice this means that the fast version of the tokenizer can produce unknown tokens whereas the sentencepiece version would have converted these unknown tokens into a sequence of byte tokens matching the original piece of text.
+  warnings.warn(
+Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+[done] /app/data/ner_samples/sample_scan6.png  lang=en  route=direct  -> 8 unique entities
+[done] /app/data/ner_samples/sample_text1.txt  lang=en  route=direct  -> 28 unique entities
+[done] /app/data/ner_samples/sample_text2.txt  lang=en  route=direct  -> 33 unique entities
+[done] /app/data/ner_samples/sample_text3.txt  lang=en  route=direct  -> 6 unique entities
+[done] /app/data/ner_samples/sample_text4.txt  lang=hi  route=translated  -> 14 unique entities
+[done] /app/data/ner_samples/sample_text5.txt  lang=mr  route=translated  -> 24 unique entities
+[done] /app/data/ner_samples/sample_scan6.png  lang=en  route=direct  -> 8 unique entities
+[done] /app/data/ner_samples/sample_text1.txt  lang=en  route=direct  -> 28 unique entities
+[done] /app/data/ner_samples/sample_text2.txt  lang=en  route=direct  -> 33 unique entities
+[done] /app/data/ner_samples/sample_text3.txt  lang=en  route=direct  -> 6 unique entities
+[done] /app/data/ner_samples/sample_text4.txt  lang=hi  route=translated  -> 14 unique entities
+[done] /app/data/ner_samples/sample_text5.txt  lang=mr  route=translated  -> 24 unique entities
+{
+ "env": {
+  "torch": "2.6.0+cu126",
+  "cuda": "12.6",
+  "cudnn": 90501,
+  "device": "cuda",
+  "MODEL_STORE_URI": "hdfs://hdfs-namenode:8020/models/weights",
+  "cpu_count": 8,
+  "gpu": {
+   "name": "NVIDIA GeForce GTX 1650",
+   "sm_count": 16,
+   "cc": "7.5",
+   "total_mb": 4096
+  }
+ },
+ "load": {
+  "resolve_and_hf_cache_s": 0.36,
+  "gliner_dir": {
+   "path": "/model_cache/hdfs-namenode/models/weights/gliner-multi",
+   "bytes": 2311737808,
+   "big_files": [
+    [
+     "pytorch_model.bin",
+     1155900362
+    ],
+    [
+     "model.safetensors",
+     1155830112
+    ]
+   ]
+  },
+  "nllb_dir": {
+   "path": "/model_cache/hdfs-namenode/models/weights/nllb-200-distilled-600M",
+   "bytes": 2482656260,
+   "big_files": [
+    [
+     "pytorch_model.bin",
+     2460457927
+    ],
+    [
+     "tokenizer.json",
+     17331176
+    ],
+    [
+     "sentencepiece.bpe.model",
+     4852054
+    ]
+   ]
+  },
+  "vm_start": {
+   "MemAvailable_mb": 4200,
+   "Cached_mb": 3962,
+   "SwapFree_mb": 1973,
+   "pgpgin": 90938038,
+   "pswpin": 31126,
+   "pswpout": 189136,
+   "pgmajfault": 63261
+  },
+  "gliner_disk_to_ram_s": 195.27,
+  "vm_gliner_disk_to_ram": {
+   "pgpgin": 1590390,
+   "pswpin": 42,
+   "pswpout": 3135,
+   "pgmajfault": 266,
+   "MemAvailable_mb": 3006,
+   "Cached_mb": 3315,
+   "SwapFree_mb": 1961
+  },
+  "gliner_fp32": {
+   "params": 288949504,
+   "bytes": 1155802112,
+   "dtypes": [
+    "torch.float32"
+   ]
+  },
+  "gliner_to_gpu_s": 54.68,
+  "vm_gliner_to_gpu": {
+   "pgpgin": 55203,
+   "pswpin": 2,
+   "pswpout": 0,
+   "pgmajfault": 59,
+   "MemAvailable_mb": 3679,
+   "Cached_mb": 3370,
+   "SwapFree_mb": 1961
+  },
+  "gliner_half_s": 0.51,
+  "gliner_fp16": {
+   "params": 288949504,
+   "bytes": 577903104,
+   "dtypes": [
+    "torch.float16"
+   ]
+  },
+  "gpu_after_gliner": {
+   "allocated_mb": 567.1,
+   "reserved_mb": 1528.0
+  },
+  "nllb_tokenizer_s": 36.84,
+  "nllb_disk_to_ram_s": 12.05,
+  "vm_nllb_disk_to_ram": {
+   "pgpgin": 40248,
+   "pswpin": 6,
+   "pswpout": 0,
+   "pgmajfault": 21,
+   "MemAvailable_mb": 3673,
+   "Cached_mb": 3447,
+   "SwapFree_mb": 1961
+  },
+  "nllb": {
+   "params": 615073792,
+   "bytes": 2468700160,
+   "dtypes": [
+    "torch.float32"
+   ]
+  },
+  "nllb_to_gpu_s": 43.67,
+  "vm_nllb_to_gpu": {
+   "pgpgin": 2761430,
+   "pswpin": 6,
+   "pswpout": 2637,
+   "pgmajfault": 131,
+   "MemAvailable_mb": 3746,
+   "Cached_mb": 4071,
+   "SwapFree_mb": 1951
+  },
+  "gpu_after_nllb": {
+   "allocated_mb": 2921.5,
+   "reserved_mb": 2950.0
+  },
+  "gliner_class": "gliner.model.GLiNER / inner SpanModel",
+  "nllb_class": "M2M100ForConditionalGeneration"
+ }
+}
+cold (first call) 59.01 {'extract_text': 1.662, 'detect_language': 0.004, 'translate_chunks': 27.018, 'predict_chunks': 30.309} 438 284.6
+warm (second call) 21.24 {'extract_text': 2.491, 'detect_language': 0.123, 'translate_chunks': 15.801, 'predict_chunks': 2.821} 438 276.5

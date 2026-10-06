@@ -1,0 +1,24 @@
+# ===========================================================================
+# ner_translate dependency image - an offline package bundle shipped as an
+# image, for air-gapped systems that already have multi-model-inference:latest
+# but cannot receive the full ner-translate-worker image. Nothing in here is
+# runnable (FROM scratch): it only carries files that
+# deploy/Dockerfile.ner_translate_from_deps installs on top of the base image.
+#
+# Contents (the contract the from_deps build relies on):
+#   /wheels/            Python wheels for Linux x86_64 / Python 3.11
+#                       (deploy/scripts/build_ner_translate_wheelhouse.sh)
+#   /debs/              tesseract-ocr + language packs + poppler-utils, built
+#                       against multi-model-inference:latest itself
+#                       (deploy/scripts/build_ner_translate_debs.sh)
+#   /requirements.txt   models/pipelines/ner_translate/requirements.txt, so the
+#                       pinned versions always travel with their wheels
+#
+# Build on the internet-connected machine, after both bundle scripts:
+#   docker build -t ner-translate-deps:latest -f deploy/Dockerfile.ner_deps .
+#   docker save ner-translate-deps:latest -o ner-translate-deps.tar
+# ===========================================================================
+FROM scratch
+COPY wheels/ner_translate /wheels
+COPY debs/ner_translate /debs
+COPY models/pipelines/ner_translate/requirements.txt /requirements.txt
