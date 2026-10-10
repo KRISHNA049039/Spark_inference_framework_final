@@ -1,0 +1,33 @@
+# ===========================================================================
+# LAB ONLY - never ship this image to the air-gapped Ada system.
+#
+# ner-translate-worker with torch swapped from 2.6.0+cu126 to 2.9.1+cu128, so
+# the executors can run on the lab's Blackwell GPUs (RTX 5060, sm_120). The
+# air-gapped image (ner-translate-worker:latest, cu126) has no sm_120 kernels:
+# torch.cuda.is_available() still returns True there, then the first CUDA op
+# fails with "no kernel image is available for execution on the device".
+# The Ada target (sm_89) keeps using ner-translate-worker:latest unchanged.
+#
+# Needs internet (download.pytorch.org). Build on each lab node, or build once
+# and docker save / docker load it onto the other node:
+#   docker build -t ner-translate-worker:lab-cu128 -f deploy/Dockerfile.lab_cu128 .
+#
+# Same torch pin as deploy/scripts/lan_cluster_benchmarks.sh (proven on this
+# LAN 2026-09-21). Used by deploy/docker-compose.lab_lan.gpu.yml.
+# ===========================================================================
+ARG BASE_IMAGE=ner-translate-worker:latest
+FROM ${BASE_IMAGE}
+
+LABEL lab.only="true" \
+      lab.purpose="sm_120 (Blackwell) GPU testing; not for the air-gapped Ada system"
+
+RUN pip install --no-cache-dir --default-timeout=300 --retries 5 \
+      torch==2.9.1 torchvision==0.24.1 \
+      --index-url https://download.pytorch.org/whl/cu128
+
+# No GPU at build time, so check the compiled arch list directly
+# (torch.cuda.get_arch_list() returns [] without a device).
+RUN python -c "import torch, transformers, gliner; \
+archs = torch._C._cuda_getArchFlags(); \
+assert 'sm_120' in archs, archs; \
+print('OK lab-cu128 torch', torch.__version__, '| transformers', transformers.__version__, '| gliner', gliner.__version__, '| archs', archs)"

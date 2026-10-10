@@ -1,0 +1,22 @@
+# =============================================================================
+# LAB ONLY - GPU add-on for docker-compose.lab_lan.yml.
+# Switches master AND worker to the lab cu128 image (driver and executors must
+# run the same package versions) and gives the worker the GPU.
+#
+#   docker build -t ner-translate-worker:lab-cu128 -f deploy/Dockerfile.lab_cu128 .   # each node
+#   docker compose -f deploy/docker-compose.lab_lan.yml -f deploy/docker-compose.lab_lan.gpu.yml \
+#     --env-file deploy/lab_lan.env --profile master --profile worker up -d
+# =============================================================================
+services:
+  lab-master:
+    image: ${LAB_GPU_IMAGE:-ner-translate-worker:lab-cu128}
+
+  lab-worker:
+    image: ${LAB_GPU_IMAGE:-ner-translate-worker:lab-cu128}
+    environment:
+      CUDA_VISIBLE_DEVICES: "0"
+    shm_size: 4g
+    deploy:
+      resources:
+        reservations:
+          devices: [{driver: nvidia, count: all, capabilities: [gpu]}]
