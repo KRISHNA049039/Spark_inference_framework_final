@@ -1,21 +1,23 @@
 # ===========================================================================
-# LAB ONLY - never ship this image to the air-gapped Ada system.
+# LAB ONLY - never ship these images to the air-gapped Ada system.
 #
-# ner-translate-worker with torch swapped from 2.6.0+cu126 to 2.9.1+cu128, so
-# the executors can run on the lab's Blackwell GPUs (RTX 5060, sm_120). The
-# air-gapped image (ner-translate-worker:latest, cu126) has no sm_120 kernels:
-# torch.cuda.is_available() still returns True there, then the first CUDA op
-# fails with "no kernel image is available for execution on the device".
-# The Ada target (sm_89) keeps using ner-translate-worker:latest unchanged.
+# One of Ada's images with torch swapped from 2.6.0+cu126 to 2.9.1+cu128, so
+# the lab's Blackwell GPUs (RTX 5060, sm_120) can run the models. The Ada
+# images have no sm_120 kernels: torch.cuda.is_available() still returns True,
+# then the first CUDA op fails with "no kernel image is available". Ada (sm_89)
+# keeps using the unchanged :latest images.
 #
-# Needs internet (download.pytorch.org). Build on each lab node, or build once
-# and docker save / docker load it onto the other node:
-#   docker build -t ner-translate-worker:lab-cu128 -f deploy/Dockerfile.lab_cu128 .
+# Needs internet (download.pytorch.org). Build both tags on each lab node:
+#   docker build -t multi-model-inference:lab-cu128 -f deploy/Dockerfile.lab_cu128 .
+#   docker build -t ner-translate-server:lab-cu128 --build-arg BASE_IMAGE=ner-translate-server:latest \
+#     -f deploy/Dockerfile.lab_cu128 .
+# Cluster mode needs only the first: install_ner_deps.sh never takes torch from
+# the dependency image, so the executors keep the base image's cu128 torch.
 #
-# Same torch pin as deploy/scripts/lan_cluster_benchmarks.sh (proven on this
-# LAN 2026-09-21). Used by deploy/docker-compose.lab_lan.gpu.yml.
+# Same torch pin as deploy/scripts/lan_cluster_benchmarks.sh (run on this LAN
+# 2026-09-21). Used by deploy/docker-compose.lab_lan.gpu.yml.
 # ===========================================================================
-ARG BASE_IMAGE=ner-translate-worker:latest
+ARG BASE_IMAGE=multi-model-inference:latest
 FROM ${BASE_IMAGE}
 
 LABEL lab.only="true" \
@@ -27,7 +29,7 @@ RUN pip install --no-cache-dir --default-timeout=300 --retries 5 \
 
 # No GPU at build time, so check the compiled arch list directly
 # (torch.cuda.get_arch_list() returns [] without a device).
-RUN python -c "import torch, transformers, gliner; \
+RUN python3 -c "import torch; \
 archs = torch._C._cuda_getArchFlags(); \
 assert 'sm_120' in archs, archs; \
-print('OK lab-cu128 torch', torch.__version__, '| transformers', transformers.__version__, '| gliner', gliner.__version__, '| archs', archs)"
+print('OK lab-cu128 torch', torch.__version__, '| archs', archs)"

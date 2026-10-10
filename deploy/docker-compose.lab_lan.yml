@@ -1,43 +1,42 @@
 # =============================================================================
-# LAB ONLY - 2-machine NER cluster (cluster / in-process mode) on the lab LAN.
-# Separate from the air-gapped Ada setup: own project name (lab-lan), own
-# container names (lab-*), no shared volumes, airgap files untouched.
+# LAB ONLY - 2-machine NER cluster on the lab LAN, using ONLY the three images
+# the air-gapped Ada system has:
+#   multi-model-inference:latest   Spark + torch (cluster mode: executors run the models)
+#   spark-lean:latest              Spark, no torch (server mode: executors POST to the kitchen)
+#   ner-translate-server:latest    the model server ("kitchen"); in cluster mode it is
+#                                  also the dependency image: its installed NER packages
+#                                  are turned into wheels and installed at container
+#                                  start by deploy/scripts/install_ner_deps.sh (torch skipped)
+# Nothing is built. Same images, same offline install, same code as Ada, so a
+# pass here exercises exactly what Ada runs - except the GPU: the cu126 images
+# have no sm_120 kernels for the lab RTX 5060s, so the lab runs on CPU
+# (CUDA hidden). Ada's sm_89 is covered by cu126. Optional lab-only GPU run:
+# deploy/docker-compose.lab_lan.gpu.yml.
 #
-#   lab master machine 192.168.4.104 : lab-master (Spark master + driver) + lab-worker
-#   lab remote machine 192.168.4.101 : lab-worker
+# Separate from the airgap simulation: project lab-lan, containers lab-*, no
+# volumes, airgap files untouched.
 #
-# Host networking, so this needs Docker CE inside WSL2 Ubuntu with mirrored
-# networking on BOTH machines - NOT Docker Desktop (its containers cannot bind
-# the real LAN IP; see docs/WINDOWS_LAN_NETWORKING_FIX_20260921.md). Firewall,
-# Private network and WSL keep-alive: docs/NER_CLUSTER_FROM_DEPS_IMAGE_WSL_20261005.md
-# section 10.2, plus TCP 35200 is covered by the existing 30000-40000 rule.
+#   master machine 192.168.4.104 : master + worker (+ kitchen in server mode)
+#   remote machine 192.168.4.101 : worker (+ kitchen in server mode)
 #
-# Every node needs the same repo copy (data/, models/, inference/, this file)
-# and the model weights folder at MODEL_FS_DIR.
+# Host networking: Docker CE inside WSL2 Ubuntu with mirrored networking on
+# BOTH machines - NOT Docker Desktop (docs/WINDOWS_LAN_NETWORKING_FIX_20260921.md).
+# Firewall / Private network / WSL keep-alive:
+# docs/NER_CLUSTER_FROM_DEPS_IMAGE_WSL_20261005.md section 10.2.
+# Every node needs: the three images (same docker save tars as Ada), the same
+# repo copy (data/, models/, inference/, debs/ner_translate/) and MODEL_FS_DIR.
 #
-# Run everything from the repo root, in the Ubuntu shell.
+# Profiles - one mode at a time (both use ports 7077/8080):
+#   cluster-master, cluster-worker     cluster (in-process) mode
+#   server-master,  server-worker      server mode (server-worker includes this node's kitchen)
 #
-# --- Test 1: CPU only, the real air-gapped image (ner-translate-worker:latest)
-#   master machine:
-#     docker compose -f deploy/docker-compose.lab_lan.yml --env-file deploy/lab_lan.env \
-#       --profile master --profile worker up -d
-#   remote machine (192.168.4.101):
-#     LAB_NODE_IP=192.168.4.101 docker compose -f deploy/docker-compose.lab_lan.yml \
-#       --env-file deploy/lab_lan.env --profile worker up -d
-#
-# --- Test 2: GPU, lab-only cu128 image (build deploy/Dockerfile.lab_cu128 on both nodes first)
-#   same two commands with  -f deploy/docker-compose.lab_lan.gpu.yml  added after the first -f
-#
-# --- Check (from the REMOTE machine, so the firewall is exercised):
-#     curl -s http://192.168.4.104:8080/json/        # aliveworkers: 2
-#
-# --- Submit (master machine):
-#     docker exec lab-master python submit_pipeline_job.py --pipeline ner_translate \
-#       --input /app/data/ner_samples --execution-mode cluster \
-#       --master spark://192.168.4.104:7077 --partitions 2 \
-#       --driver-memory 2g --executor-memory 4g
-#
-# --- Stop: same command as start, with  down  instead of  up -d  (remote first).
+# Start, from the repo root in the Ubuntu shell (master machine first):
+#   master: docker compose -f deploy/docker-compose.lab_lan.yml --env-file deploy/lab_lan.env \
+#             --profile cluster-master --profile cluster-worker up -d
+#   remote: LAB_NODE_IP=192.168.4.101 docker compose -f deploy/docker-compose.lab_lan.yml \
+#             --env-file deploy/lab_lan.env --profile cluster-worker up -d
+#   (server mode: same with server-master / server-worker)
+# Then run deploy/lab_lan_tests.sh on the master machine, or stop with  down.
 # =============================================================================
 name: lab-lan
 
@@ -50,6 +49,21 @@ x-lab-volumes: &lab-volumes
   - ./spark-defaults.lan.conf:/opt/spark/conf/spark-defaults.conf:ro   # driver 35000, block managers 35100+
   - ${MODEL_FS_DIR:?set MODEL_FS_DIR in deploy/lab_lan.env}:/mnt/models:ro
 
+# cluster mode: NER packages from the kitchen image, installed at start (as on Ada)
+x-lab-cluster-volumes: &lab-cluster-volumes
+  - ../results:/app/results
+  - ../data:/app/data
+  - ../models:/app/models
+  - ../inference:/app/inference
+  - ../submit_pipeline_job.py:/app/submit_pipeline_job.py
+  - ./spark-defaults.lan.conf:/opt/spark/conf/spark-defaults.conf:ro
+  - ${MODEL_FS_DIR:?set MODEL_FS_DIR in deploy/lab_lan.env}:/mnt/models:ro
+  - type: image
+    source: ${NER_DEPS_IMAGE:-ner-translate-server:latest}
+    target: /deps
+  - ../debs/ner_translate:/deps-debs:ro
+  - ./scripts/install_ner_deps.sh:/usr/local/bin/install_ner_deps.sh:ro
+
 x-lab-env: &lab-env
   MODEL_STORE_URI: ${MODEL_STORE_URI:-file:///mnt/models}
   MODEL_CACHE_DIR: /model_cache
@@ -58,34 +72,92 @@ x-lab-env: &lab-env
   SPARK_LOCAL_IP: ${LAB_NODE_IP:?set LAB_NODE_IP to this machine's LAN IP}
   SPARK_LOCAL_HOSTNAME: ${LAB_NODE_IP}
   SPARK_WORKER_PORT: "35200"     # fixed, inside the opened 30000-40000 range (default is random)
-  # Empty = no CUDA device visible: a CPU run cannot pick up the GPU by
-  # accident. docker-compose.lab_lan.gpu.yml sets it to 0.
+  NER_WHEELS_DIR: ${NER_WHEELS_DIR:-}
+  # Empty = no CUDA device visible (cu126 cannot run on sm_120).
+  # docker-compose.lab_lan.gpu.yml sets it to 0.
   CUDA_VISIBLE_DEVICES: ""
 
-services:
-  lab-master:                    # Spark master; the driver runs here too (docker exec)
-    profiles: [master]
-    image: ${LAB_IMAGE:-ner-translate-worker:latest}
-    container_name: lab-master
-    network_mode: host
-    init: true
-    working_dir: /app
-    environment: *lab-env
-    volumes: *lab-volumes
-    command: bash -c "$$SPARK_HOME/sbin/start-master.sh -h $$SPARK_LOCAL_IP && tail -f $$SPARK_HOME/logs/*master*"
-    healthcheck:
-      test: ["CMD-SHELL", "curl -sf http://$${SPARK_LOCAL_IP}:8080 >/dev/null"]
-      interval: 5s
-      retries: 30
+x-master-cmd: &master-cmd >-
+  bash -c "$$SPARK_HOME/sbin/start-master.sh -h $$SPARK_LOCAL_IP && tail -f $$SPARK_HOME/logs/*master*"
+x-worker-cmd: &worker-cmd >-
+  bash -c "$$SPARK_HOME/sbin/start-worker.sh spark://${LAB_MASTER_IP:?set LAB_MASTER_IP}:7077
+  -c ${LAB_WORKER_CORES:-4} -m ${LAB_WORKER_MEMORY:-6g} && tail -f $$SPARK_HOME/logs/*worker*"
+x-master-health: &master-health
+  test: ["CMD-SHELL", "curl -sf http://$${SPARK_LOCAL_IP}:8080 >/dev/null"]
+  interval: 5s
+  retries: 60
+  start_period: 180s             # cluster mode installs the NER packages first
 
-  lab-worker:                    # one per machine; executors load GLiNER + NLLB in-process
-    profiles: [worker]
-    image: ${LAB_IMAGE:-ner-translate-worker:latest}
-    container_name: lab-worker
+services:
+  # ---------------------------------------------------------------- cluster mode
+  lab-cluster-master:            # Spark master; the driver runs here too (docker exec)
+    profiles: [cluster-master]
+    image: ${LAB_MMI_IMAGE:-multi-model-inference:latest}
+    container_name: lab-cluster-master
+    network_mode: host
+    init: true
+    working_dir: /app
+    environment: *lab-env
+    volumes: *lab-cluster-volumes
+    command: bash -c "bash /usr/local/bin/install_ner_deps.sh && $$SPARK_HOME/sbin/start-master.sh -h $$SPARK_LOCAL_IP && tail -f $$SPARK_HOME/logs/*master*"
+    healthcheck: *master-health
+
+  lab-cluster-worker:            # executors load GLiNER + NLLB in-process; -c must stay >= 4
+    profiles: [cluster-worker]
+    image: ${LAB_MMI_IMAGE:-multi-model-inference:latest}
+    container_name: lab-cluster-worker
+    network_mode: host
+    init: true
+    working_dir: /app
+    shm_size: 4g
+    environment: *lab-env
+    volumes: *lab-cluster-volumes
+    command: bash -c "bash /usr/local/bin/install_ner_deps.sh && $$SPARK_HOME/sbin/start-worker.sh spark://${LAB_MASTER_IP:?set LAB_MASTER_IP}:7077 -c ${LAB_WORKER_CORES:-4} -m ${LAB_WORKER_MEMORY:-6g} && tail -f $$SPARK_HOME/logs/*worker*"
+
+  # ---------------------------------------------------------------- server mode
+  lab-kitchen:                   # one per node; this node's executors POST to it
+    profiles: [server-worker]
+    image: ${LAB_SERVER_IMAGE:-ner-translate-server:latest}
+    container_name: lab-kitchen
+    network_mode: host
+    init: true
+    working_dir: /app
+    environment: *lab-env
+    volumes:
+      - ../results:/app/results
+      - ../data:/app/data
+      - ../models:/app/models
+      - ${MODEL_FS_DIR:?set MODEL_FS_DIR in deploy/lab_lan.env}:/mnt/models:ro
+    command: ["uvicorn", "models.pipelines.ner_translate.serve:app", "--host", "127.0.0.1", "--port", "8000"]   # port fixed by manifest service_url
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request,json,sys; sys.exit(0 if json.load(urllib.request.urlopen('http://127.0.0.1:8000/health'))['status']=='ok' else 1)"]
+      interval: 10s
+      retries: 60
+      start_period: 60s
+
+  lab-server-master:             # lean Spark master + driver (no torch)
+    profiles: [server-master]
+    image: ${LAB_LEAN_IMAGE:-spark-lean:latest}
+    container_name: lab-server-master
     network_mode: host
     init: true
     working_dir: /app
     environment: *lab-env
     volumes: *lab-volumes
-    # -c must stay >= 4 (each executor asks for 4 cores)
-    command: bash -c "$$SPARK_HOME/sbin/start-worker.sh spark://${LAB_MASTER_IP:?set LAB_MASTER_IP}:7077 -c ${LAB_WORKER_CORES:-4} -m ${LAB_WORKER_MEMORY:-6g} && tail -f $$SPARK_HOME/logs/*worker*"
+    extra_hosts:
+      - "ner-translate-server:127.0.0.1"
+    command: *master-cmd
+    healthcheck: *master-health
+
+  lab-server-worker:             # lean worker; manifest service_url host -> this node's kitchen
+    profiles: [server-worker]
+    image: ${LAB_LEAN_IMAGE:-spark-lean:latest}
+    container_name: lab-server-worker
+    network_mode: host
+    init: true
+    working_dir: /app
+    environment: *lab-env
+    volumes: *lab-volumes
+    extra_hosts:
+      - "ner-translate-server:127.0.0.1"
+    command: *worker-cmd

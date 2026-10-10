@@ -1,22 +1,29 @@
 # =============================================================================
-# LAB ONLY - GPU add-on for docker-compose.lab_lan.yml.
-# Switches master AND worker to the lab cu128 image (driver and executors must
-# run the same package versions) and gives the worker the GPU.
+# LAB ONLY - GPU add-on for docker-compose.lab_lan.yml (NOT an Ada check: it
+# swaps in the lab cu128 images from deploy/Dockerfile.lab_cu128, so it only
+# validates the GPU code path on the lab's sm_120 cards).
 #
-#   docker build -t ner-translate-worker:lab-cu128 -f deploy/Dockerfile.lab_cu128 .   # each node
 #   docker compose -f deploy/docker-compose.lab_lan.yml -f deploy/docker-compose.lab_lan.gpu.yml \
-#     --env-file deploy/lab_lan.env --profile master --profile worker up -d
+#     --env-file deploy/lab_lan.env --profile cluster-master --profile cluster-worker up -d
+#   LAB_GPU=1 bash deploy/lab_lan_tests.sh ...      # the test runner adds this file itself
 # =============================================================================
-services:
-  lab-master:
-    image: ${LAB_GPU_IMAGE:-ner-translate-worker:lab-cu128}
+x-gpu: &gpu
+  resources:
+    reservations:
+      devices: [{driver: nvidia, count: all, capabilities: [gpu]}]
 
-  lab-worker:
-    image: ${LAB_GPU_IMAGE:-ner-translate-worker:lab-cu128}
+services:
+  lab-cluster-master:            # driver must match the executors' package versions
+    image: ${LAB_MMI_GPU_IMAGE:-multi-model-inference:lab-cu128}
+
+  lab-cluster-worker:
+    image: ${LAB_MMI_GPU_IMAGE:-multi-model-inference:lab-cu128}
     environment:
       CUDA_VISIBLE_DEVICES: "0"
-    shm_size: 4g
-    deploy:
-      resources:
-        reservations:
-          devices: [{driver: nvidia, count: all, capabilities: [gpu]}]
+    deploy: *gpu
+
+  lab-kitchen:
+    image: ${LAB_SERVER_GPU_IMAGE:-ner-translate-server:lab-cu128}
+    environment:
+      CUDA_VISIBLE_DEVICES: "0"
+    deploy: *gpu
